@@ -26,6 +26,31 @@
 {%- render 'drawer-menu', section: section, main_menu: main_menu, logo_alignment: logo_alignment -%}
 {%- render 'cart-drawer' -%}
 
+  <style>
+    {% if template.suffix == 'quiz-hero-template-main' %}
+    .shopify-section.shopify-section-group-header-group {
+      display: none !important;
+    }
+  .shopify-section.shopify-section-group-footer-group{  display: none !important;}
+{% endif %}
+
+    {% if template.suffix == 'custom-product-detail-template' %}
+    .shopify-section.shopify-section-group-header-group {
+      display: none !important;
+    }
+  .shopify-section.shopify-section-group-footer-group{  display: none !important;}
+{% endif %}
+    
+    {% if template.suffix == 'complete-quiz-template' %}
+    .shopify-section.shopify-section-group-header-group {
+      display: none !important;
+    }
+  .shopify-section.shopify-section-group-footer-group{  display: none !important;}
+{% endif %}
+
+    
+  </style>
+
 {%- style -%}
   .site-nav__link,
   .site-nav__dropdown-link {

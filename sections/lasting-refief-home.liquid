@@ -95,7 +95,7 @@
       <p>{{ block.settings.para-00543 }}</p>
     </div>
     {% endfor %}
-    <button class="start-button">{{ section.settings.button-title-006 }}</button>
+   <a hre="{{ section.settings.button-url-006 }}"><button class="start-button">{{ section.settings.button-title-006 }}</button></a>
   </div>
 
   {% if section.settings.imahe-006 != blank %}
@@ -120,6 +120,12 @@
       "id": "button-title-006",
       "label": "Button Title",
       "default": "START THE QUIZ"
+    },
+      {
+      "type": "text",
+      "id": "button-url-006",
+      "label": "Button URL",
+      "default": "#"
     },
     {
       "type": "image_picker",

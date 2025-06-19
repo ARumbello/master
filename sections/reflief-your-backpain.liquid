@@ -176,7 +176,9 @@
         </div>
       {% endfor %}
       <div class="cta-button">
+        <a href="{{ section.settings.button-url-0054 }}">
         <button>{{ section.settings.button-title-0054 }}</button>
+        </a>
       </div>
       <div class="fsa-eligible">
         {% if section.settings.image-icon-889 != blank %}
@@ -237,6 +239,12 @@
       "id": "button-title-0054",
       "label": "Button Title",
       "default": "See if I Qualify"
+    },
+    {
+      "type": "text",
+      "id": "button-url-0054",
+      "label": "Button url",
+      "default": "#"
     },
     {
       "type": "image_picker",

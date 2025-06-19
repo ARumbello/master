@@ -1,0 +1,28 @@
+{%- liquid
+  assign output_tab = true
+  if title == blank and content == blank
+    assign output_tab = false
+  endif
+-%}
+{%- if output_tab -%}
+  <div class="collapsibles-wrapper test55 collapsibles-wrapper--border-bottom">
+    <button type="button"
+      class="label collapsible-trigger collapsible-trigger-btn collapsible-trigger-btn--borders collapsible--auto-height{% if force_open %} is-open{% endif %}" aria-controls="Product-content-{{ id }}"
+      {% if force_open %}aria-expanded="true"{% endif %}>
+      {{ title }}
+      {%- render 'collapsible-icons' -%}
+    </button>
+    <div id="Product-content-{{ id }}"
+      class="collapsible-content  collapsible-content--all{% if force_open %} is-open{% endif %}"
+      {% if force_open %}style="height: auto;"{% endif %}>
+      <div class="collapsible-content__inner rte">
+        
+        {% if title =='Reviews' %}
+          <div id="judgeme_product_reviews" class="jdgm-widget jdgm-review-widget" data-product-title="{{ product.title }}" data-id="{{ product.id }}"> {{ product.metafields.judgeme.widget }} </div>
+        {% else %}
+          {{ content }}
+          {% endif %}
+       </div>
+    </div>
+  </div>
+{%- endif -%}

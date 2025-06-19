@@ -1,0 +1,163 @@
+ 
+<div class="relief-slider-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+        {% if section.settings.heading != blank %}
+        <h2 class="relief-heading">
+            {% render 'multilang' with section.settings.heading  %}
+        </h2>
+        <h3 class="relief-subheading">
+            {% render 'multilang' with section.settings.subheading  %}
+        </h3>
+        {% endif %}
+        </div>
+        <div class="col-12">
+          <div class="reliefslider new-dots with-arrow">
+            {% for block in section.blocks %}
+              <div class="relief-slider">
+                <div class="img-wrapper">
+                  {% if block.settings.image != blank %}
+                  {%- assign img_url = block.settings.image | img_url: '150x150', crop: 'center' -%}
+                  <img data-srcset="https:{{ img_url }}" alt="{{ block.settings.image.alt | default: shop.name }}" {% include 'lazy_load' %}>
+                  {% endif %}  
+                </div>
+                <div class="content"> 
+                  <h4>{{ block.settings.content }}</h4>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<style>
+.relief-slider-section{
+    padding: 50px 0 20px 0;
+    text-align: center;
+}
+.relief-heading{
+	color: #0BA3FA;
+	text-align: center;
+	font-family: Poppins;
+	font-size: 36px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 120%;
+}
+.relief-subheading {
+    color: #242426;
+    text-align: center;
+    font-family: Poppins;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+    padding: 20px 20%;
+}
+.relief-slider{ 
+    text-align: center;
+    padding:50px 0;
+}  
+.relief-slider img {
+    width: 150px;
+    height: 150px;
+}
+.relief-slider .img-wrapper {
+    text-align: center;
+    display: inline-block;
+}
+.relief-slider .content {
+    text-align: center;
+}
+@media screen and (min-width: 100px) and (max-width: 640px){ 
+.relief-slider-section {
+    padding: 30px 0px 0 0; 
+}
+  .relief-slider {
+    text-align: center;
+    padding: 10px 0;
+}
+.relief-heading { 
+    font-size: 28px; 
+}
+.relief-subheading { 
+    padding: 20px 0;
+}
+.reliefslider .slick-arrow {
+    display: none!important;
+}
+}  
+</style>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.reliefslider').slick({
+      infinite: true,
+      slidesToShow: 7,
+      slidesToScroll: 2,
+      dots: true,
+      arrows: true,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 5,
+            slidesToScroll: 5
+          }
+        },
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2
+          }
+        }
+      ]
+    });
+     
+  });
+</script>
+{% schema %}
+  {
+    "name": "circle slider",
+	"class": "prod-video-reviews",
+	"max_blocks" : 20,
+    "settings": [ 
+        {
+    		"type": "header",
+            "content": "Heading"
+		},
+        {
+            "type" : "text",
+            "id" : "heading",
+            "label" : "Heading",
+            "default" : "Title"
+        },
+        {
+            "type" : "richtext",
+            "id" : "subheading",
+            "label" : "Sub Heading" 
+        } 
+    ],
+    "blocks": [
+      {
+        "type" : "text",
+    	"name" : "Block",
+        "settings":[ 
+          {
+            "type" : "image_picker",
+            "id" : "image",
+            "label" : "Relief Image"
+          },
+          {
+            "type" : "text",
+            "id" : "content",
+            "label" : "Relief Title"
+          } 
+        ]
+      }
+    ]
+  }
+{% endschema %}

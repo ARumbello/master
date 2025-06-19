@@ -1,0 +1,458 @@
+{{ 'page_style.min.css' | asset_url | stylesheet_tag }}
+ <style>
+   .prodMain__upperSlide, .prodMain__upperSlide__alt, .prodMain__lowerSlide, .prodMain__lowerSlide__alt {
+   
+    height: auto !important;
+ 
+}
+
+   input[name="purchaseType"]+.purchaseContent .toggleArea {
+            display: none;
+            margin-top: 10px;
+        }
+        input[name="purchaseType"]:checked+.purchaseContent .toggleArea {
+            display: block;
+        }
+        label.puOption {
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .product-custom-ro-widget{
+            /*display: none;*/
+            display: none;
+        }
+        .purchaseOptionArea input[type="radio"] {
+            display: none;
+        }
+        .purchaseContent {
+            border-radius: 4px;
+            position: relative;
+            background: #F6F6F6;
+            padding-left: 60px;
+            padding-right: 15px;
+            padding-top: 16px;
+            padding-bottom: 16px;
+        }
+        .amount_wp {
+            display: flex;
+        }
+
+        .amount_wp label {
+            flex: 1;
+        }
+
+        .amount_wp label > div {
+            border: 1px solid var(--neutrals-gr-300, #CBCBCB);
+            cursor: pointer;
+            padding: 13px 0;
+        }
+
+        .amount_wp label > div p {
+            color: #505050;
+            font-family: Poppins;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 1;
+            text-align: center;
+        }
+        .selection_area{
+            display: flex;
+        }
+        .selection_area h3{
+            color: var(--neutrals-black, #242426);
+            font-family: Poppins;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 700;
+            margin-bottom: 12px;
+            line-height: 140%;
+        }
+        .selection_area .amount {
+            flex: 1;
+        }
+        .selection_area .frequency {
+            margin-left: 32px;
+            width: 144px;
+        }
+        .frequency_wp {
+            border-radius: 4px;
+            border: 1px solid var(--neutrals-gr-400, #838383);
+            background: var(--neutrals-white, #FFF);
+            display: flex;
+            align-items: center;
+            color: var(--neutrals-black, #242426);
+            font-family: Poppins;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 140%;
+        }
+        .frequency_wp select {
+            font-weight: 700;
+            border: 0;
+            flex: 1;
+            padding: 12px 8px;
+            height: 40px;
+            width: 100%;
+            display: block;
+        }
+        .frequency_wp:not(.ios) select{
+            background: transparent;
+            color: #242426 !important;
+        }
+        .amount_wp label:first-child > div {
+            border-radius: 4px 0px 0px 4px;
+        }
+        .amount_wp label:last-child > div {
+            border-radius: 0px 4px 4px 0px;
+        }
+        .amount_wp label > input:checked+div {
+            border-color: #838383;
+            background-color: #fff;
+        }
+        .amount_wp label > input:checked+div p{
+            font-weight: 700;
+        }
+        .purchaseContent > svg {
+            display: none;
+        }
+        .purchaseContent > svg {
+            display: none;
+            position: absolute;
+            left: 20px;
+            top: 20px;
+        }
+
+        input[name="purchaseType"]:not(:checked) + .purchaseContent .normalRadio{
+            display: block;
+        }
+
+        input[name="purchaseType"]:checked+.purchaseContent .checkedRadio{
+            display: block;
+        }
+
+        input[name="purchaseType"]:checked+.purchaseContent {
+            background: #E5F4FF;
+        }
+
+        .purchaseContent .top_area {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .purchaseContent .top_area h2 {
+            color: #000;
+            font-family: Poppins;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 140%;
+        }
+
+        .purchaseContent .top_area p {
+            color: #000;
+            font-family: Poppins;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 140%;
+        }
+        .purchaseContent .toggleArea .txt {
+            display: flex;
+            align-items: flex-start;
+        }
+        .purchaseContent .toggleArea .txt p {
+            color: var(--neutrals-gr-500, #3A3A3C);
+            font-family: Poppins;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 140%;
+            margin-bottom: 16px;
+            flex: 1;
+            max-width: 380px;
+        }
+
+        .purchaseContent .toggleArea .txt > span {
+            color: var(--neutrals-white, #FFF);
+            font-family: Poppins;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 600;
+            border-radius: 4px;
+            background: var(--primary-colors-bl-200, #0BA3FA);
+            line-height: 140%;
+            display: block;
+            width: 80px;
+            text-align: center;
+            margin-left: 50px;
+        }
+        button.addToCart{
+            color: var(--neutrals-white, #FFF);
+            font-family: Poppins;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 600;
+            display: block;
+            line-height: 100%;
+            border-radius: 4px;
+            background: var(--primary-colors-bl-200, #0BA3FA);
+            width: 100%;
+            padding: 16px 0;
+            border: 0;
+            cursor: pointer;
+            border: solid 1px #0FA3FA;
+            transition: all .2s;
+        }
+        button.addToCart:hover{
+            background: #fff;
+            color: var(--primary-colors-bl-200, #0BA3FA);
+        }
+        .prodMain__description, .prodMain__right .prodMain__affirm{display: none}
+        .single_vp{
+            display: flex;
+            align-items: center;
+            background: #F0F9FF;
+            padding: 6px 12px;
+        }
+
+        .single_vp span{
+            color: #000;
+            font-family: Poppins;
+            font-size: 11px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 140%;
+            margin-left: 3px;
+        }
+        .valuePropArea {
+            margin-top: 40px;
+            display: flex;
+            gap: 12px;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+        .access__stars{
+            margin-left: 0;
+        }
+
+        .fList span{
+            color: var(--neutrals-gr-500, #3A3A3C);
+
+            /* Text/XSmall/Regular */
+            font-family: Poppins;
+            font-size: 14px;
+            font-style: normal;
+            margin-left: 12px;
+            font-weight: 400;
+            line-height: 140%; /* 19.6px */
+        }
+        .fList > div{
+            display: flex;
+            margin-bottom: 12px;
+            align-items: center;
+        }
+        .fList{
+            margin-bottom: 40px;
+        }
+        .prodMain__right .jdgm-preview-badge .jdgm-star.jdgm-star {
+            color: #FFCB06!important;
+        }
+        @media (max-width:767px){
+            .valuePropArea{
+                flex-wrap: wrap;
+                justify-content: flex-start;
+            }
+            .single_vp:nth-child(2){
+                order: 3;
+             }
+            .selection_area{
+                gap: 12px;
+                flex-direction: column;
+            }
+            .selection_area .frequency{
+                margin-left: 0;
+            }
+            .purchaseContent{
+                padding-left: 38px;
+            }
+
+            .purchaseContent > svg{
+                left: 10px;
+            }
+            .selection_area .frequency{
+                width: 100%;
+            }
+            .purchaseContent .toggleArea .txt p br{
+                display: none;
+            }
+            .valuePropArea {
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+            .frequency_wp.ios{
+                background: transparent;
+                border: 0;
+            }
+            .frequency_wp.ios select{
+                height: 48px;
+                font-size: 12px;
+            }
+        }
+ </style>
+{% comment %}
+{% render 'shogun-products', content: product %}
+{{product.metafields.shogun.above}}
+{% include 'product-content.zipifypages', contentprt: 'header' %}
+{% endcomment %}
+<script>
+  var variants = [
+    {% for variant in product.variants %}
+      {
+        title: '{{ variant.title }}',
+        price: '{{ variant.price | money }}',
+        compare_price: '{{ variant.compare_at_price | money }}',
+        available: '{{ variant.available }}',
+        id: '{{ variant.id }}'
+      }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ];
+</script>
+ 
+{% section 'sm-product-pad-subscription' %}
+
+{% section 'product-pad-image-text' %}
+
+{% section 'prod-reviews' %}
+<script>
+  jQuery('#shopNav').hide();
+</script>
+
+<script>
+  var SB015DM={init:function(){this.mainCSS(),this.mainJS(),this.goals()},mainCSS:function(){var e=document.createElement("style");e.setAttribute("type","text/css"),document.head.appendChild(e).textContent=`
+        
+        `},mainJS:function(){function e(e,_){e.insertAdjacentHTML("afterend",_)}let _=document.querySelector("#subscription_price .tab-price-price").innerText,t=document.querySelector("span#onetime_price .tab-price-price").innerText;parseFloat(document.querySelector("span#subscription_price").innerText.replace("$","")),parseFloat(document.querySelector("span#onetime_price").innerText.replace("$",""));let n=document.querySelector("#subscription_price .tab-discount-price").innerText,i=[1,2,3,6];function a(e){let _="";return i.forEach((t,n)=>{_+=`<label>
+                    <input ${0==n?"checked":""} type="radio" name="${e}" value="${n+1}" >
+                    <div>
+                        <p>${t} Pack${t>1?"s":""}</p>
+                    </div> 
+                </label>`}),_}let o=`<div class="purchaseOptionArea">
+            <label class="puOption">
+                <input type="radio" name="purchaseType" value="sub" checked>
+                <div class="purchaseContent">
+                    <svg class="normalRadio" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                        <circle cx="9" cy="9" r="8.5" stroke="#3A3A3C"/>
+                    </svg>
+                    <svg  class="checkedRadio" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                        <circle cx="9" cy="9" r="8.5" stroke="#3A3A3C"/>
+                        <circle cx="9" cy="9" r="6" fill="#3A3A3C"/>
+                    </svg>
+                    <div class="top_area">
+                        <h2>Subscribe & Save 10%</h2>
+                        <p class="sub_t_price">${_}</p>
+                    </div>
+                    <div class="toggleArea">
+                        <div class="txt">
+                            <p>Electrode pads are automatically delivered on your schedule. No obligation, modify or cancel your subscription anytime.</p>
+                            <span class="sub_save">Save ${n}</span>
+                        </div>
+                        <div class="selection_area">
+                            <div class="amount">
+                                <h3>Amount</h3>
+                                <div class="amount_wp">
+                                    ${a("subPack")}
+                                </div>
+                            </div>
+                            <div class="frequency">
+                                <h3>Frequency</h3>
+                            
+                                <div class="frequency_wp">
+                                    <select class="subFrequency">
+                                        <option value="2">Every 2 Months</option>
+                                        <option value="3">Every 3 Months</option>
+                                        <option value="4">Every 4 Months</option>
+                                        <option value="6">Every 6 Months</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </label>
+
+            <label class="puOption">
+                <input type="radio" name="purchaseType"  value="onetime">
+                <div class="purchaseContent">
+                    <svg class="normalRadio" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                        <circle cx="9" cy="9" r="8.5" stroke="#3A3A3C"/>
+                    </svg>
+                    <svg  class="checkedRadio" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                        <circle cx="9" cy="9" r="8.5" stroke="#3A3A3C"/>
+                        <circle cx="9" cy="9" r="6" fill="#3A3A3C"/>
+                    </svg>
+                    <div class="top_area">
+                        <h2>One-Time Purchase</h2>
+                        <p class="onetime_t_price">${t}</p>
+                    </div>
+                    <div class="toggleArea">
+                        <div class="txt">
+                            <p>Switch to a subscription and save <span class="save_txt_onetime">$4.90</span>.<br />
+                            You've chosen One-time purchase. You can have the same for only <span class="subprice_onetime">$44.10</span> if you subscribe and you can change or cancel your subscription any time!</p>
+                            <span class="onetime_save"></span>
+                        </div>
+                        <div class="selection_area">
+                            <div class="amount">
+                                <h3>Amount</h3>
+                                <div class="amount_wp">
+                                    ${a("onePack")}
+                                </div>
+                            </div>
+                            <div class="frequency"></div>
+                        </div>
+                    </div>
+                </div>
+            </label>
+
+            <button class="addToCart">Add to cart</button>
+          
+        </div>`;!function e(_,t){_.insertAdjacentHTML("beforebegin",t)}(document.querySelector(".product-custom-ro-widget"),o),document.querySelectorAll('input[name="purchaseType"]').forEach(e=>{e.addEventListener("change",()=>{console.log(document.querySelector('input[name="purchaseType"]:checked').value);"sub"==document.querySelector('input[name="purchaseType"]:checked').value?document.querySelector("label#subscription_tab").click():document.querySelector("label#onetime_tab").click()})}),document.querySelectorAll('input[name="subPack"]').forEach(e=>{e.addEventListener("change",()=>{console.log(document.querySelector('input[name="subPack"]:checked').value);let e=document.querySelector('input[name="subPack"]:checked').value;document.querySelector(`div#subscription .custom-variants > div:nth-child(${e})`).click();let _=document.querySelector("#subscription_price span.tab-price-price").innerText;document.querySelector(".sub_t_price").innerText=`${_}`;let t=document.querySelector("#subscription_price span.tab-discount-price").innerText;document.querySelector(".purchaseContent .toggleArea .txt > span.sub_save").innerText=`Save ${t}`})}),document.querySelectorAll('input[name="onePack"]').forEach(e=>{e.addEventListener("change",()=>{var e;let _=document.querySelector('input[name="onePack"]:checked').value;document.querySelector(`div#onetime .custom-variants > div:nth-child(${_})`).click();let t=document.querySelector("#onetime_price .tab-price-price").innerText;document.querySelector(".onetime_t_price").innerText=`${t}`;let n=parseFloat(document.querySelector("#onetime_price .tab-price-price").innerText.replace("$","")).toFixed(2),i=(e=n,parseFloat(.1*e).toFixed(2));console.log("save",i);let a=parseFloat(n-i).toFixed(2);document.querySelector(".save_txt_onetime").innerText=`$${i}`,document.querySelector(".subprice_onetime").innerText=`$${a}`,document.querySelector(".onetime_save").innerText=["","Save $8","Save $18","Save $55",][parseInt(_)-1]})}),document.querySelector(".subFrequency").addEventListener("change",()=>{let e=document.querySelector(".subFrequency").value;console.log(e),document.querySelector("select#sub-frequency").value=e;var _=document.createEvent("HTMLEvents");_.initEvent("change",!0,!0),document.querySelector("select#sub-frequency").dispatchEvent(_)}),document.querySelector(".addToCart").addEventListener("click",()=>{"sub"==document.querySelector('input[name="purchaseType"]:checked').value?document.querySelector("button#rc-sub-add").click():document.querySelector("button#rc-single-add").click()});let r=`<div class="valuePropArea">
+            <div class="single_vp">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M7.146 6.966C6.3808 7.72013 5.79597 8.63748 5.43523 9.64946C5.07449 10.6614 4.94717 11.7419 5.0628 12.81C5.09622 13.1267 5.00247 13.4436 4.80218 13.6912C4.60189 13.9387 4.31147 14.0966 3.9948 14.13C3.67813 14.1634 3.36116 14.0697 3.11361 13.8694C2.86606 13.6691 2.70822 13.3787 2.6748 13.062C2.52154 11.6352 2.69253 10.1922 3.17501 8.84079C3.65749 7.48934 4.439 6.26433 5.4612 5.2572C9.2244 1.5468 15.2892 1.6092 19.008 5.3796C22.728 9.1512 22.7052 15.2172 18.9432 18.9276C17.2015 20.6483 14.8632 21.6309 12.4152 21.6708C11.49 21.6871 10.5673 21.5699 9.6756 21.3228C9.52021 21.284 9.37415 21.2146 9.24603 21.1185C9.1179 21.0224 9.01031 20.9016 8.92959 20.7633C8.84887 20.625 8.79665 20.4719 8.77602 20.3131C8.75539 20.1543 8.76675 19.9929 8.80944 19.8386C8.85214 19.6842 8.9253 19.54 9.02461 19.4143C9.12393 19.2887 9.24739 19.1842 9.38771 19.107C9.52804 19.0298 9.6824 18.9815 9.84169 18.9649C10.001 18.9483 10.162 18.9638 10.3152 19.0104C10.9846 19.196 11.6774 19.2837 12.372 19.2708C14.204 19.2419 15.9541 18.5068 17.2572 17.2188C20.0688 14.4468 20.0952 9.9 17.2992 7.0656C14.5032 4.23 9.9564 4.194 7.146 6.966Z" fill="#0BA3FA"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M4.7604 14.034C4.65561 14.1517 4.52866 14.2477 4.38679 14.3163C4.24493 14.385 4.09092 14.425 3.93358 14.4342C3.77623 14.4433 3.61863 14.4214 3.46977 14.3696C3.32091 14.3178 3.1837 14.2372 3.066 14.1324L1.002 12.2964C0.764256 12.0848 0.620328 11.7873 0.601874 11.4696C0.58342 11.1518 0.691953 10.8397 0.903596 10.602C1.11524 10.3643 1.41265 10.2203 1.73042 10.2019C2.04818 10.1834 2.36026 10.292 2.598 10.5036L4.662 12.3396C4.77973 12.4444 4.87567 12.5713 4.94433 12.7132C5.01299 12.8551 5.05304 13.0091 5.06218 13.1664C5.07131 13.3238 5.04937 13.4814 4.99759 13.6302C4.94581 13.7791 4.86521 13.9163 4.7604 14.034Z" fill="#0BA3FA"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2.904 13.92C2.99855 14.0461 3.11701 14.1523 3.25261 14.2326C3.38821 14.3129 3.53829 14.3656 3.6943 14.3879C3.8503 14.4102 4.00916 14.4016 4.16182 14.3625C4.31447 14.3233 4.45793 14.2545 4.584 14.16L6.984 12.36C7.23861 12.169 7.40693 11.8848 7.45194 11.5697C7.49695 11.2546 7.41496 10.9346 7.224 10.68C7.03305 10.4254 6.74877 10.2571 6.43371 10.2121C6.11865 10.167 5.79861 10.249 5.544 10.44L3.144 12.24C3.01793 12.3345 2.91172 12.453 2.83143 12.5886C2.75114 12.7242 2.69835 12.8743 2.67606 13.0303C2.65378 13.1863 2.66244 13.3452 2.70154 13.4978C2.74065 13.6505 2.80945 13.7939 2.904 13.92ZM12 7.2C12.3183 7.2 12.6235 7.32643 12.8485 7.55147C13.0736 7.77651 13.2 8.08174 13.2 8.4V12.6C13.2 12.9183 13.0736 13.2235 12.8485 13.4485C12.6235 13.6736 12.3183 13.8 12 13.8C11.6817 13.8 11.3765 13.6736 11.1515 13.4485C10.9264 13.2235 10.8 12.9183 10.8 12.6V8.4C10.8 8.08174 10.9264 7.77651 11.1515 7.55147C11.3765 7.32643 11.6817 7.2 12 7.2Z" fill="#0BA3FA"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M16.8 12.6C16.8 12.9183 16.6736 13.2235 16.4485 13.4485C16.2235 13.6736 15.9182 13.8 15.6 13.8H12C11.6817 13.8 11.3765 13.6736 11.1515 13.4485C10.9264 13.2235 10.8 12.9183 10.8 12.6C10.8 12.2817 10.9264 11.9765 11.1515 11.7515C11.3765 11.5264 11.6817 11.4 12 11.4H15.6C15.9182 11.4 16.2235 11.5264 16.4485 11.7515C16.6736 11.9765 16.8 12.2817 16.8 12.6Z" fill="#0BA3FA"/>
+                </svg>
+                <span>Long-lasting hydrogel</span>
+            </div>
+            <div class="single_vp">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M9.46188 18.469C6.51888 16.214 2.49988 12.489 2.49988 8.967C2.49988 3.083 7.99988 0.886002 12.4999 5.43C16.9999 0.886002 22.4999 3.083 22.4999 8.966C22.4999 12.489 18.4799 16.214 15.5379 18.469C14.2059 19.489 13.5399 20 12.4999 20C11.4599 20 10.7939 19.49 9.46188 18.469ZM16.9999 6.25C17.1988 6.25 17.3896 6.32902 17.5302 6.46967C17.6709 6.61032 17.7499 6.80109 17.7499 7V8.25H18.9999C19.1988 8.25 19.3896 8.32902 19.5302 8.46967C19.6709 8.61033 19.7499 8.80109 19.7499 9C19.7499 9.19892 19.6709 9.38968 19.5302 9.53033C19.3896 9.67098 19.1988 9.75 18.9999 9.75H17.7499V11C17.7499 11.1989 17.6709 11.3897 17.5302 11.5303C17.3896 11.671 17.1988 11.75 16.9999 11.75C16.801 11.75 16.6102 11.671 16.4695 11.5303C16.3289 11.3897 16.2499 11.1989 16.2499 11V9.75H14.9999C14.801 9.75 14.6102 9.67098 14.4695 9.53033C14.3289 9.38968 14.2499 9.19892 14.2499 9C14.2499 8.80109 14.3289 8.61033 14.4695 8.46967C14.6102 8.32902 14.801 8.25 14.9999 8.25H16.2499V7C16.2499 6.80109 16.3289 6.61032 16.4695 6.46967C16.6102 6.32902 16.801 6.25 16.9999 6.25Z" fill="#0BA3FA"/>
+                </svg>
+                <span>Tabs at each end for easy removal</span>
+            </div>
+            <div class="single_vp">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M10.2431 16.314L6.00012 12.07L7.41412 10.656L10.2431 13.484L15.8991 7.827L17.3141 9.242L10.2431 16.312V16.314Z" fill="#0BA3FA"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M1.00012 12C1.00012 5.925 5.92512 1 12.0001 1C18.0751 1 23.0001 5.925 23.0001 12C23.0001 18.075 18.0751 23 12.0001 23C5.92512 23 1.00012 18.075 1.00012 12ZM12.0001 21C10.8182 21 9.6479 20.7672 8.55597 20.3149C7.46404 19.8626 6.47189 19.1997 5.63616 18.364C4.80043 17.5282 4.1375 16.5361 3.68521 15.4442C3.23291 14.3522 3.00012 13.1819 3.00012 12C3.00012 10.8181 3.23291 9.64778 3.68521 8.55585C4.1375 7.46392 4.80043 6.47177 5.63616 5.63604C6.47189 4.80031 7.46404 4.13738 8.55597 3.68508C9.6479 3.23279 10.8182 3 12.0001 3C14.3871 3 16.6763 3.94821 18.3641 5.63604C20.0519 7.32387 21.0001 9.61305 21.0001 12C21.0001 14.3869 20.0519 16.6761 18.3641 18.364C16.6763 20.0518 14.3871 21 12.0001 21Z" fill="#0BA3FA"/>
+                </svg>
+                <span>FSA/HSA eligible</span>
+            </div>
+        </div>`;e(document.querySelector(".prodMain__description"),r);let $=`<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path opacity="0.2" d="M14.34 0H5.67C2.28 0 0 2.38 0 5.92V14.09C0 17.62 2.28 20 5.67 20H14.34C17.73 20 20 17.62 20 14.09V5.92C20 2.38 17.73 0 14.34 0Z" fill="#D2E0F9"/>
+            <path d="M8.81308 13.2481C8.58908 13.2481 8.36508 13.1631 8.19408 12.9921L5.82108 10.6191C5.47908 10.2771 5.47908 9.7231 5.82108 9.3821C6.16308 9.0401 6.71608 9.0391 7.05808 9.3811L8.81308 11.1361L12.9411 7.0081C13.2831 6.6661 13.8361 6.6661 14.1781 7.0081C14.5201 7.3501 14.5201 7.9041 14.1781 8.2461L9.43208 12.9921C9.26108 13.1631 9.03708 13.2481 8.81308 13.2481Z" fill="#0BA3FA"/>
+        </svg>`,l=`<div class="fList">
+            <div>${$} <span>Each electrode package contains three electrode pads.</span></div>
+            <div>${$} <span>Each electrode pad lasts for approximately 30 applications.</span></div>    
+            <div>${$} <span>The long-lasting design allows a low cost of only $0.54 cents per treatment.</span></div>    
+            <div>${$} <span>Specifically designed for the back, however, can be used in other areas.</span></div>    
+        </div>`;e(document.querySelector(".valuePropArea"),l),(["iPad Simulator","iPhone Simulator","iPod Simulator","iPad","iPhone","iPod"].includes(navigator.platform)||navigator.userAgent.includes("Mac")&&"ontouchend"in document)&&(console.log("IOS"),console.log(document.querySelector(".frequency_wp ")),document.querySelector(".frequency_wp ").classList.add("ios"))},goals:function(){}};!function e(){window&&window.location.pathname.includes("replacement-electrodes-3-pack")?window.location.href="/products/neuromd-electrode-pads":document.querySelector(".product-custom-ro-widget")?(console.log("SB-015DM - Cleaner Buy box for electrodes page Variation- A: 02"),SB015DM.init()):"complete"!==document.readyState&&setTimeout(e,25)}();
+</script>
+
+{% comment %}
+{% include 'product-content.zipifypages', contentprt: 'footer' %}
+{{product.metafields.shogun.below}}
+{% endcomment %}
+{% render 'product-recharge-price-check' %}

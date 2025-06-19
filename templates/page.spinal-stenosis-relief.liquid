@@ -1,0 +1,22 @@
+{% layout 'theme.landing' %}
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5ca80e409b272f00119abe57&product=inline-share-buttons" async="async"></script>
+{{ 'page_style.scss.css' | asset_url | stylesheet_tag }}
+<div class="page-content">
+  {% section 'page-sn-header' %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9">
+        {% section 'page-article-title-3' %}
+        {% section 'page-article-a-3' %}
+        {% section 'page-article-benefits' %}
+        {% section 'page-article-b-3' %}
+        {% section 'prod-proof' %}
+        {% section 'page-article-reviews' %}
+      </div>
+      <div class="col-md-3">
+        {% section 'page-article-sidebar' %}
+      </div>
+    </div>
+  </div>
+  {% section 'page-sn-footer' %}
+</div>

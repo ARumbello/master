@@ -1,0 +1,81 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign price = current_variant.price | money -%}
+{%- assign subscription_product = product.metafields.subscriptions -%}
+{%- assign discount_percentage = subscription_product.discount_percentage | round: 0 -%}
+{%- assign price_with_percent_discount = current_variant.price | times: discount_percentage | divided_by: 100.0 -%}
+{%- assign discounted_price = current_variant.price | minus: price_with_percent_discount -%}
+{%- assign saved_with_discount = current_variant.price | minus: discounted_price -%}
+
+<div class="product-custom-ro-widget">
+  <h3 class="title">Purchase options</h3>
+  <div class="tab-widget">
+    <div class="tab-heading-wrapper">
+        <label class="tab-heading subscription" id="subscription_tab" for="subscription_radio" onclick="openTab('subscription')" title="Subscription - {{ discounted_price | money }}">
+            <span class="tab-heading-label">Subscribe & Save {{discount_percentage}}%</span>
+            <span class="tab-price subscription-price" id="subscription_price" data-discounted-price="{{ discounted_price }}" id="subscription_price">{{ discounted_price | money }}</span>
+        </label>
+
+        <label class="tab-heading onetime" id="onetime_tab" for="onetime_radio" onclick="openTab('onetime')" title="One Time Purchase - {{ price }}">
+            <span class="tab-heading-label">One-time purchase</span>
+            <span class="tab-price onetime-price" id="onetime_price">{{ price }}</span>
+        </label>
+    </div>
+    <div class="tab-wrapper">
+        <div id="subscription" class="tabcontent">
+          <p>Electrode pads are automatically delivered on your schedule. No obligation, modify or cancel your subscription anytime.</p>
+          <div class="atc-wrapper">
+            <div class="atc-item">
+              <label class="rc-label rc-label-package" for="sub-quanity">package(s)</label>
+              <input class="atc-quantity" type="number" id="sub-quantity" min="1" value="1">
+            </div>
+            <div class="atc-item">
+              <label class="rc-label rc-label-frequency" for="sub-frequency">Choose your schedule</label>
+              <select  name="sub-frequency-type" id="sub-frequency">
+                <option data-sellingplan="{{product.selling_plan_groups[0].selling_plans[0].id}}" selected value="2">Every 2 Months</option>
+                <option data-sellingplan="{{product.selling_plan_groups[0].selling_plans[1].id}}" value="3">Every 3 Months</option>
+                <option data-sellingplan="{{product.selling_plan_groups[0].selling_plans[2].id}}" value="4">Every 4 Months</option>
+                <option data-sellingplan="{{product.selling_plan_groups[0].selling_plans[3].id}}" value="6">Every 6 Months</option>
+              </select>
+            </div>
+            <div class="atc-item">
+              <button class="atc-bt btn--blue" type="submit" style="visibility: visible;" id="rc-sub-add" disabled>Add To Cart</button>
+            </div>
+          </div>
+        </div>
+        <div id="onetime" class="tabcontent">
+          <p>Switch to a subscription and save <span class="save-price">{{ saved_with_discount | money }}</span></p>
+          <p>You've chosen One-time purchase. You can have the same for only <span class="subscription-price">{{ discounted_price | money }}</span> if you subscribe and you can change or cancel your subscription any time!</p> 
+          <div class="atc-wrapper">
+            <div class="atc-item">
+              <label class="rc-label rc-label-package" for="sub-quanity">package(s)</label>
+              <input  class="atc-quantity" type="number" id="onetime-quantity" min="1" value="1">
+            </div>
+            <div class="atc-item">
+              <button class="atc-bt btn--blue" type="submit" style="visibility: visible;" id="rc-single-add" disabled>Add To Cart</button>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  <div class="rc_popup__hover">
+    <a href="#" class="sub-details rc_popup__icon"><span class="fas fa-info"></span>Subscription Details</a>
+    <div class="rc_popup__block">
+        <div class="rc_popup__block__content">
+            <div class="rc_popup__close" style="display: none;">x</div>
+            <strong>How subscriptions work</strong><br><br>Electrode pads are automatically delivered on your schedule. No obligation, modify or cancel your subscription anytime.
+
+                <br><a href="http://rechargepayments.com/subscribe-with-recharge?utm_source=shopify%20store&amp;utm_medium=customer%20link&amp;utm_campaign=Shopify%20store%20back%20link&amp;shop_name=NeuroMD&amp;shop=neuromd.myshopify.com" target="_blank" aria-label="Learn more about ReCharge Payments">Learn more...</a>
+
+        </div>
+
+            <div class="rc_popup__block__footer">
+                <a href="http://rechargepayments.com/subscribe-with-recharge?utm_source=shopify%20store&amp;utm_medium=customer%20link&amp;utm_campaign=Shopify%20store%20back%20link&amp;shop_name=NeuroMD&amp;shop=neuromd.myshopify.com" target="_blank" aria-label="ReCharge Payments homepage">
+                    <img data-src="//static.rechargecdn.com/static/images/widget/rc_widget__banner@2x.png" height="28" width="153" alt="ReCharge Subscriptions company banner" class="rc_popup__badge lazyloaded" src="//static.rechargecdn.com/static/images/widget/rc_widget__banner@2x.png">
+                </a>
+            </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="{{ 'custom-ro-widget-min.js' | asset_url }}" defer></script>

@@ -1,0 +1,134 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "faq-1": {
+          "type": "question",
+          "settings": {
+            "title": "Will NeuroMD work for my pain?",
+            "text": "<p>Back and leg pain is complex. However, NeuroMD is unique as it works for the majority of people because it improves musculoskeletal function and health. It heals damaged tissues, reduces swelling, and makes the muscles that support the spine stronger. This all helps lessen pain. Keep in mind, you can try NeuroMD with our 60-Day Home Trial Program. To see if you're a candidate for the NeuroMD Corrective Therapy Device, <a href=\"https://getneuromd.com/pages/assessment-survey\">take this 30-second back pain assessment.</a></p>",
+            "content": ""
+          }
+        },
+        "faq-2": {
+          "type": "question",
+          "settings": {
+            "title": "How is NeuroMD different?",
+            "text": "<p>NeuroMD engineered the first ever Corrective Therapy Device® that delivers clinically studied NMES parameters. When using NeuroMD’s patent-pending FDA cleared class II medical device, you're getting a scientifically sound treatment backed by years of research and millions of dollars in R&D.<br/><br/>There is no other company with our device. Be wary of any counterfeits and report them by contacting Legal@GetNeuroMD.com</p>",
+            "content": ""
+          }
+        },
+        "faq-4": {
+          "type": "question",
+          "settings": {
+            "title": "Who should not use NeuroMD?",
+            "text": "<p>It is always recommended to consult with your physician before starting any new exercise program or treatment modality. We do not recommend using the NeuroMD Corrective Therapy Device directly over any metallic implants. Patients with any <strong>electronic implants such as a pacemaker </strong>are not advised to use the Corrective Therapy Device. For a full list please click <a href=\"https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Precautions_Contraindications__Disclaimer_1.pdf?v=1604347308\">here.</a></p>",
+            "content": ""
+          }
+        },
+        "question_diEwDw": {
+          "type": "question",
+          "settings": {
+            "title": "Does NeuroMD accept FSA or HSA?",
+            "text": "<p>Yes, you can use your HSA (Health Savings Account) or an FSA (Flexible Spending Account) debit card like you would any other credit card. The NeuroMD Corrective Therapy Device is eligable for use with either accounts. Electrotherapy Pain Relief Device reimbursement is not eligible with a limited-purpose flexible spending account (LPFSA) or a dependent care flexible spending account (DCFSA).</p>",
+            "content": ""
+          }
+        },
+        "question_dK9bBr": {
+          "type": "question",
+          "settings": {
+            "title": "Can I use insurance to pay for NeuroMD?",
+            "text": "<p>Depending on your plan, you may be reimbursed directly from your insurance company after purchasing your device. We don’t accept direct payment from insurance companies, but we provide a proof of purchase itemized receipt via email and will help you in the reimbursement process.<br/><br/>Insurance coverage varies depending on the insurance company, the plan, and condition being treated. For example Medicare: \"All uses of NMES other than for the treatment of disuse atrophy in neurologically intact patients and for walking in SCI patients remain non-covered.\"</p>",
+            "content": ""
+          }
+        },
+        "question_bVetNz": {
+          "type": "question",
+          "settings": {
+            "title": "What's included and how do I use NeuroMD?",
+            "text": "",
+            "content": ""
+          }
+        },
+        "question_G46tCb": {
+          "type": "question",
+          "settings": {
+            "title": "What are the electrode pads made out of and how long will they last?",
+            "text": "<p>The electrode pads adhere to the body via the hydrogel area (similar to hospital EKG electrodes). Our electrodes have a long usage life of about 20-30+ applications. To maximize electrode pad life, make sure your skin is clean and does not contain any lotion before applying the pad. <strong>Tip if gel pad adhesive if it’s no longer sticky</strong>- Using a wet towel or cloth; Gently clean the hydrogel area of the electrode pad and allowing it to air dry for a minute will help restore pad adhesiveness and maximize usage life.<br/><br/>Other factors that affect electrode pad life expectancy are your skin type, oils, and pH levels. When a replacement is needed, please purchase electrode pads by <a href=\"https://getneuromd.com/products/replacement-electrodes-3-pack\">clicking here.</a></p>",
+            "content": ""
+          }
+        },
+        "question_VhNGwN": {
+          "type": "question",
+          "settings": {
+            "title": "Can I use the device on other areas of my body?",
+            "text": "<p>The NeuroMD Corrective Therapy Device can be used on other areas however, we do not recommend use on the front of the neck, across the chest, or on the head.<br/>The device will improve musculoskeletal health and function on the area it is applied. For example if you're having muscle spasms in your mid back you would apply the device in that area.<br/><br/>In order to obtain the best degree of pain relief with NeuroMD, we recommend the following pad placement guidelines:<br/><br/>1. Take note of exactly where your pain is located. Outline the most concise and tender area of the pain.<br/>2. The pad can be placed in one of three directions 1. vertical 2. horizontal 3. angulated.<br/>3. It is advisable not to place the pad directly over a joint such as the knee, elbow or ankle as its movement can alter the adherence of the pad.<br/>4. Increase intensity gradually as each body part will tolerate a different level of intensity<br/>Note: Pad placement as well as Intensity level tolerance varies from person to person. We recommend following our guidelines and do what feels best for you.</p>",
+            "content": ""
+          }
+        },
+        "question_Lng7cx": {
+          "type": "question",
+          "settings": {
+            "title": "Do you offer an affordable payment plan and what is Affirm?",
+            "text": "<p>With Affirm you pay once monthly for 3 months with 0% interest. You never pay more than what you agree to up front.</p><p>To sign up for Affirm, you must:</p><ul><li>Be 18 years or older.</li><li>Not be a resident of Iowa (IA) or West Virginia (WV).</li><li>Provide a valid U.S. or APO/FPO/DPO home address.</li><li>Provide a valid U.S. mobile or VoIP number and agree to receive SMS text messages.</li><li>The phone account must be registered in your name.</li><li>Provide your full name, email address, date of birth, and the last 4 digits of your social security number to help us verify your identity.</li></ul>",
+            "content": ""
+          }
+        },
+        "question_mYyAVH": {
+          "type": "question",
+          "settings": {
+            "title": "How does your 60 day at-home trial work?",
+            "text": "<p>At NeuroMD, our pride is not only in our products, but In the results and progress our customers achieve. We know the NeuroMD device works and we are so confident in its effectiveness that we provide a 60 day at home trial. If for any reason your NeuroMD device does not provide you with the level of relief from chronic pain that you were expecting, you may return it for a refund within 60 days of delivery. Please see our return policy <a href=\"https://getneuromd.com/pages/shipping-returns\">here.</a></p>",
+            "content": ""
+          }
+        },
+        "question_nJyXwh": {
+          "type": "question",
+          "settings": {
+            "title": "How do I return?",
+            "text": "<p>To initiate a return please call customer care at 877-300-9062 or email us at Help@GetNeuroMD.com. An RMA number and return instructions will be provided to you via email. For more information please <a href=\"https://getneuromd.com/pages/shipping-returns\">click here to view our return policy.</a></p>",
+            "content": ""
+          }
+        }
+      },
+      "block_order": [
+        "faq-1",
+        "faq-2",
+        "faq-4",
+        "question_diEwDw",
+        "question_dK9bBr",
+        "question_bVetNz",
+        "question_G46tCb",
+        "question_VhNGwN",
+        "question_Lng7cx",
+        "question_mYyAVH",
+        "question_nJyXwh"
+      ],
+      "settings": {
+        "title": "Frequently Asked Questions",
+        "text": "<p>Still have questions?</p>",
+        "btn_label": "Contact Us",
+        "btn_link": "shopify://pages/contact-us"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "faq"
+  ]
+}

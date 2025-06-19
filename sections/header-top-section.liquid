@@ -1,0 +1,76 @@
+<style>
+#{{ section.id }} .productSectionOne {
+    background-color: #E3F0FF;
+    padding: 20px 1.28% 5px 1.28%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+#{{ section.id }} .productSectionOne h1 {
+    line-height: 1.38;
+    font-size: 24px;
+    font-weight: 700;
+    color: #1B537F;
+    font-style: normal;
+}
+#{{ section.id }} .productSectionOne .pOne {
+    font-weight: 400;
+    color: #1B537F;
+    font-size: 18px;
+    line-height: 1.43;
+}
+#{{ section.id }} .productSectionOne .pTwo, .productSectionOne .pThree {
+    font-size: 18px;
+    line-height: 1.43;
+    font-weight: 700;
+    font-style: normal;
+    color: rgb(27, 83, 127);
+}
+</style>
+<div id="{{ section.id }}">
+<section class="productSectionOne producttop">
+  <h1>{{ section.settings.heading }}</h1>
+  <p class="pOne">{{ section.settings.paragraph_one }}</p>
+  <div>
+    <p class="pTwo">{{ section.settings.paragraph_two }}</p>
+    <p class="pThree">{{ section.settings.paragraph_three }}</p>
+  </div>
+</section>
+</div>
+{% schema %}
+{
+  "name": "Header Top Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "You qualify for a 62% off discount."
+    },
+    {
+      "type": "text",
+      "id": "paragraph_one",
+      "label": "Paragraph One",
+      "default": "Start relieving your back pain with our 60-Day risk-free trial."
+    },
+    {
+      "type": "text",
+      "id": "paragraph_two",
+      "label": "Paragraph Two",
+      "default": "LIMITED TIME OFFER"
+    },
+    {
+      "type": "text",
+      "id": "paragraph_three",
+      "label": "Paragraph Three",
+      "default": "Medical Discount Reserved For:"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Header Top Section"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,207 @@
+{% comment %}
+  Critical CSS Implementation
+  - Inlines critical above-the-fold styles
+  - Defers non-critical CSS loading
+  - Prevents render-blocking CSS
+  - Optimizes for mobile PageSpeed
+{% endcomment %}
+
+<style>
+/* Critical Above-the-Fold Styles - Inline for fastest rendering */
+
+/* Reset and base styles */
+*,*::before,*::after{box-sizing:border-box}
+body,html{margin:0;padding:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+img{max-width:100%;height:auto}
+
+/* Header critical styles */
+.site-header{position:relative;z-index:100;background:#fff}
+.site-nav{display:flex;align-items:center;justify-content:space-between;padding:1rem}
+.logo{display:block;max-width:150px}
+
+/* Hero section critical styles */
+.hero{position:relative;min-height:50vh;display:flex;align-items:center;justify-content:center}
+.hero-content{text-align:center;padding:2rem 1rem}
+.hero h1{font-size:clamp(1.5rem,4vw,3rem);margin:0 0 1rem;font-weight:600}
+
+/* Button critical styles */
+.btn{display:inline-block;padding:12px 24px;border:none;border-radius:4px;text-decoration:none;cursor:pointer;transition:all 0.3s ease}
+.btn--primary{background:#007bff;color:#fff}
+.btn--primary:hover{background:#0056b3}
+
+/* Grid critical styles */
+.container{max-width:1200px;margin:0 auto;padding:0 1rem}
+.row{display:flex;flex-wrap:wrap;margin:0 -15px}
+.col{flex:1;padding:0 15px}
+
+/* Product grid critical styles for above fold */
+.product-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin:2rem 0}
+.product-card{background:#fff;border-radius:8px;overflow:hidden;transition:transform 0.3s ease}
+.product-image{aspect-ratio:1;background:#f8f9fa;display:flex;align-items:center;justify-content:center}
+
+/* Mobile-first responsive */
+@media (max-width: 768px) {
+  .site-nav{padding:0.5rem 1rem}
+  .hero{min-height:40vh}
+  .hero-content{padding:1rem}
+  .product-grid{grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}
+}
+
+/* Layout shift prevention */
+.aspect-ratio{position:relative;overflow:hidden}
+.aspect-ratio::before{content:'';display:block;padding-top:var(--aspect-ratio,100%)}
+.aspect-ratio > *{position:absolute;top:0;left:0;width:100%;height:100%}
+
+/* Loading states to prevent CLS */
+.loading-skeleton{background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:200% 100%;animation:loading 1.5s infinite}
+@keyframes loading{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* Critical font loading */
+@font-face{
+  font-family:'Poppins';
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+  src:url('{{ 'Poppins-Regular-400.woff2' | asset_url }}') format('woff2'),
+       url('{{ 'Poppins-Regular-400.woff' | asset_url }}') format('woff');
+}
+
+@font-face{
+  font-family:'Poppins';
+  font-style:normal;
+  font-weight:600;
+  font-display:swap;
+  src:url('{{ 'Poppins-SemiBold-600.woff2' | asset_url }}') format('woff2'),
+       url('{{ 'Poppins-SemiBold-600.woff' | asset_url }}') format('woff');
+}
+
+/* Apply Poppins to key elements */
+h1,h2,h3,.btn,.product-title{font-family:'Poppins',system-ui,sans-serif}
+
+/* Accessibility improvements */
+.visually-hidden{position:absolute!important;clip:rect(1px,1px,1px,1px)!important;padding:0!important;border:0!important;height:1px!important;width:1px!important;overflow:hidden!important}
+
+/* Focus management */
+:focus{outline:2px solid #007bff;outline-offset:2px}
+:focus:not(:focus-visible){outline:none}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important}
+}
+</style>
+
+<script>
+  // Critical JavaScript for CSS loading
+  (function() {
+    'use strict';
+    
+    // Function to load non-critical CSS
+    function loadCSS(href, media) {
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = href;
+      link.media = media || 'all';
+      
+      // Add to head
+      document.head.appendChild(link);
+      
+      // Track loading for performance
+      if (window.csLoadingMetrics) {
+        window.csLoadingMetrics.push({
+          href: href,
+          loadTime: performance.now()
+        });
+      }
+      
+      return link;
+    }
+    
+    // Initialize CSS loading metrics
+    window.csLoadingMetrics = window.csLoadingMetrics || [];
+    
+    // Load non-critical CSS after critical rendering
+    function loadNonCriticalCSS() {
+      var nonCriticalCSS = [
+        {
+          href: '{{ 'theme.min.css' | asset_url }}',
+          media: 'all'
+        },
+        {
+          href: '{{ 'custom.min.css' | asset_url }}',
+          media: 'all'
+        },
+        {% if shop.enabled_currencies.size > 1 %}
+        {
+          href: '{{ 'country-flags.css' | asset_url }}',
+          media: 'all'
+        },
+        {% endif %}
+        {
+          href: '{{ 'global.css' | asset_url }}',
+          media: 'all'
+        }
+      ];
+      
+      // Stagger CSS loading to avoid blocking
+      nonCriticalCSS.forEach(function(css, index) {
+        setTimeout(function() {
+          loadCSS(css.href, css.media);
+        }, index * 50);
+      });
+    }
+    
+    // Load CSS based on loading state
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() {
+        // Small delay to ensure critical path is rendered
+        setTimeout(loadNonCriticalCSS, 100);
+      });
+    } else {
+      setTimeout(loadNonCriticalCSS, 50);
+    }
+    
+    // Preload key fonts
+    function preloadFonts() {
+      var fonts = [
+        '{{ 'Poppins-Regular-400.woff2' | asset_url }}',
+        '{{ 'Poppins-SemiBold-600.woff2' | asset_url }}'
+      ];
+      
+      fonts.forEach(function(fontUrl) {
+        var link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'font';
+        link.type = 'font/woff2';
+        link.crossOrigin = 'anonymous';
+        link.href = fontUrl;
+        document.head.appendChild(link);
+      });
+    }
+    
+    // Preload fonts immediately
+    preloadFonts();
+    
+    // Performance monitoring for CSS
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        if (window.csLoadingMetrics && window.csLoadingMetrics.length > 0) {
+          console.log('CSS Loading Metrics:', window.csLoadingMetrics);
+        }
+      }, 1000);
+    });
+    
+  })();
+</script>
+
+{% comment %}
+  Usage: Include this in the <head> section of theme.liquid
+  This provides critical styles inline and loads non-critical CSS asynchronously
+  
+  Benefits:
+  - Eliminates render-blocking CSS
+  - Provides immediate styling for above-the-fold content
+  - Improves First Contentful Paint (FCP)
+  - Reduces Largest Contentful Paint (LCP)
+  - Prevents layout shifts
+{% endcomment %} 

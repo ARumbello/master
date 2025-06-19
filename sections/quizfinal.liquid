@@ -1,0 +1,882 @@
+<style>
+  
+#eligibilityModal .modalHead {
+    text-align: center;
+    
+}
+#eligibilityModal .modalHead img {
+    width: 170px;
+    margin-top: 10px;
+}
+ 
+
+#eligibilityModal .modalFoot {
+    text-align: center;
+    border-top: 2px solid #003344;
+    padding-top: 20px;
+  }
+#eligibilityModal .modalFoot img {
+    width: 340px;
+  }
+  .question-section {
+    overflow-y: auto;
+    width:100%;
+    max-width:700px;
+    margin-inline: auto;
+    height: 500px;
+    text-align: center;
+    margin-top: 10px;
+    overflow-y: auto;
+    margin-top: 110px;
+  }
+
+  .container {
+    padding: 10px 30px;
+  }
+  
+  .progress-bar-container {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    background: white;
+    padding: 10px;
+    width:100%;
+  }
+  
+  .progress-bar-container span {
+    color: #007bff;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+  
+  .innerProgress {
+
+      flex: 1;
+  }
+  .progress-bar {
+    background-color: white;
+    height: 8px;
+    border-radius: 3px;
+    overflow: hidden;
+    border: 1px solid #d8d6d6;
+  }
+  
+  .progress {
+    width: 1%;
+    background-color: #007bff;
+    height: 100%;
+    transition: all .4s;
+  }
+  
+  .nav-buttons {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .nav-btn {
+    background-color: #009bff;
+    border: none;
+    color: white;
+    font-size: 10px;
+    width: 35px;
+    height: 35px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  
+  .question-section h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: rgb(10, 154, 239);
+    margin-bottom: 6px;
+  }
+  
+  .options {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+  }
+
+  
+  .option {
+    background-color: #d2e0e6;
+    padding: 15px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.3s;
+  }
+
+label:hover {
+  background-color: rgba(0, 57, 88, 0.25);
+}
+
+label:hover input {
+  border: 6px solid #003344;
+}
+
+label:has(input[type="radio"]:checked) {
+  background-color: rgba(0, 57, 88, 0.25);
+}
+
+label:has(input[type="checkbox"]:checked) {
+  background-color: rgba(0, 57, 88, 0.25);
+}
+
+  
+  input[type="radio"] {
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    background-color: #fff;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  input[type="radio"]:checked {
+    border-color: #003344;
+    background-color: #003344;
+  }
+
+
+  input[type="checkbox"] {
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border: 2px solid #ccc;
+    border-radius: 10%;
+    background-color: #fff;
+    position: relative;
+    cursor: pointer;
+  }
+  input[type="checkbox"]:checked {
+    border-color: #003344;
+    background-color: #003344;
+  }
+  
+  .option.selected {
+    background-color: #a9bec9;
+  }
+  
+  input + span {
+    font-weight: 600;
+    color: #003958;
+    font-size: 13px;
+  }
+
+
+  .questions {
+    display: none;
+  }
+
+  .painContainer {
+    display: flex;
+    width: 100%;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .painBox {
+    background: #ccd8dd;
+    padding: 5px;
+    border-radius: 5px;
+    flex-basis: calc(25% - 20px);
+  }
+  .painBox img {
+    width: 100%;
+  } 
+
+  .emailContainer h4 {
+    margin-block: 14px;
+  }
+
+  .emailBox input {
+    width: 100%;
+    border: 1px solid rgb(10, 154, 239);
+    height: 30px;
+    border-radius: 7px;
+    padding: 10px;
+    box-shadow: none;
+    outline: none;
+    color: rgb(10, 154, 239);
+    margin-block: 10px;
+  }
+
+  .emailContainer .redeemBtn, .ImplantsContainer .reTakeBtn, .causeContainer .nextBtn, .weekSection .takeQuizBtn, .comparisonSection .takeQuizBtn {
+    padding: 6px 10px;
+    border: none;
+    background: rgb(10, 154, 239);
+    border-radius: 5px;
+    color: white;
+  }
+
+  .emailBox input {
+    caret-color: rgb(10, 154, 239);
+  }
+  .emailBox ::placeholder {
+    color: rgb(10, 154, 239);
+  }
+
+
+  .electronicContainer p, .causeContainer p, .emailContainer h4,  .emailContainer p, .ImplantsContainer h2, .ImplantsContainer p {
+    color: rgb(10, 154, 239);
+  }
+  .ImplantsContainer p {
+    margin-block: 20px;
+  }
+
+
+  .questionThree .electronicContainer, .questionFour .causeContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    margin-top: 20px;
+  }
+  .questionThree, .questionFour {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .radioBox, .electronicBox, .causeBox {
+    align-items: center;
+    display: flex;
+    gap: 10px;
+  }
+  .electronicBox, .causeBox {
+    background: #ccd8dd;
+    width: 100%;
+    text-align: left;
+    padding: 8px;
+    border-radius: 4px;
+   
+  }
+#eligibilityModal .newsletter__input-group{justify-content: center;
+  flex-direction: column;}
+  #newsletter-submit-{height: 36px;}
+@media only screen and (max-width: 767px){
+#eligibilityModal {
+  padding: 0px 16px;
+}
+
+
+  
+}
+
+  
+</style>
+ 
+<div id="eligibilityModal" class="">
+    <div class="modal-content">
+        <div class="modalHead">
+            {% if section.settings.quiz_header_image %}
+                <img src="{{ section.settings.quiz_header_image | img_url: 'master' }}" alt="">
+            {% else %}
+                <img src="{{ 'modalHead.webp' | asset_url }}" alt="">
+            {% endif %}
+        </div>
+        <div class="modalBody">
+            <div class="container">
+                <div class="progress-bar-container">
+                    <div class="innerProgress">
+                        <span>0% complete</span>
+                        <div class="progress-bar">
+                            <div class="progress"style="display: block;"></div>
+                        </div>
+                    </div>
+                    <div class="nav-buttons">
+                        <button class="nav-btn">&#x25C0;</button>
+                        <button class="nav-btn">&#x25B6;</button>
+                    </div>
+                </div>
+
+                
+            </div>
+          <div class="question-section">
+                    <div class="questionOne questions">
+                        <h2>{{ section.settings.question_1_title }}</h2>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="duration" />
+                                <span>{{ section.settings.question_1_option_1 }}</span>
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="duration" />
+                                <span>{{ section.settings.question_1_option_2 }}</span>
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="duration" />
+                                <span>{{ section.settings.question_1_option_3 }}</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="questionTwo questions">
+                        <h2>{{ section.settings.question_2_title }}</h2>
+                        <div class="painContainer">
+                            <label class="painBox">
+                                {% if section.settings.question_2_image_1 %}
+                                    <img src="{{ section.settings.question_2_image_1 | img_url: 'master' }}" alt="">
+                                {% else %}
+                                    <img src="{{ 'b.png' | asset_url }}" alt="">
+                                {% endif %}
+                                <div class="radioBox">
+                                    <input type="radio" name="pain" />
+                                    <span>{{ section.settings.question_2_option_1 }}</span>
+                                </div>
+                            </label>
+                            <label class="painBox">
+                                {% if section.settings.question_2_image_2 %}
+                                    <img src="{{ section.settings.question_2_image_2 | img_url: 'master' }}" alt="">
+                                {% else %}
+                                    <img src="{{ 'b.png' | asset_url }}" alt="">
+                                {% endif %}
+                                <div class="radioBox">
+                                    <input type="radio" name="pain" />
+                                    <span>{{ section.settings.question_2_option_2 }}</span>
+                                </div>
+                            </label>
+                            <label class="painBox">
+                                {% if section.settings.question_2_image_3 %}
+                                    <img src="{{ section.settings.question_2_image_3 | img_url: 'master' }}" alt="">
+                                {% else %}
+                                    <img src="{{ 'b.png' | asset_url }}" alt="">
+                                {% endif %}
+                                <div class="radioBox">
+                                    <input type="radio" name="pain" />
+                                    <span>{{ section.settings.question_2_option_3 }}</span>
+                                </div>
+                            </label>
+                            <label class="painBox">
+                                {% if section.settings.question_2_image_4 %}
+                                    <img src="{{ section.settings.question_2_image_4 | img_url: 'master' }}" alt="">
+                                {% else %}
+                                    <img src="{{ 'b.png' | asset_url }}" alt="">
+                                {% endif %}
+                                <div class="radioBox">
+                                    <input type="radio" name="pain" />
+                                    <span>{{ section.settings.question_2_option_4 }}</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="questionThree questions">
+                        <div class="electronicContainer">
+                            <h2>{{ section.settings.question_3_title }}</h2>
+                            <p>{{ section.settings.question_3_subtitle }}</p>
+                            <label class="electronicBox">
+                                <input type="radio" value="yes" name="electronic">
+                                <span>{{ section.settings.question_3_option_yes }}</span>
+                            </label>
+                            <label class="electronicBox">
+                                <input type="radio" value="no" name="electronic">
+                                <span>{{ section.settings.question_3_option_no }}</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="questionFour questions">
+                        <div class="causeContainer">
+                            <h2>{{ section.settings.question_4_title }}</h2>
+                            <p>{{ section.settings.question_4_subtitle }}</p>
+                            <label class="causeBox">
+                                <input type="checkbox" name="cause">
+                                <span>{{ section.settings.question_4_option_1 }}</span>
+                            </label>
+                            <label class="causeBox">
+                                <input type="checkbox" name="cause">
+                                <span>{{ section.settings.question_4_option_2 }}</span>
+                            </label>
+                            <label class="causeBox">
+                                <input type="checkbox" name="cause">
+                                <span>{{ section.settings.question_4_option_3 }}</span>
+                            </label>
+                            <label class="causeBox">
+                                <input type="checkbox" name="cause">
+                                <span>{{ section.settings.question_4_option_4 }}</span>
+                            </label>
+                            <label class="causeBox">
+                                <input type="checkbox" name="cause">
+                                <span>{{ section.settings.question_4_option_5 }}</span>
+                            </label>
+                            <button class="nextBtn" disabled>{{ section.settings.question_4_next_button }}</button>
+                        </div>
+                    </div>
+
+                    <div class="questionFive questions">
+                        <div class="emailContainer">
+                            <h2>{{ section.settings.question_5_title }}</h2>
+                            <h4>{{ section.settings.question_5_subtitle }}</h4>
+                            <p>{{ section.settings.question_5_description }}</p>
+                            <div class="emailBox">
+                            {%- assign newsletter_form_id = 'newsletter-' | append: section_id -%}
+{%- form 'customer', id: newsletter_form_id -%}
+  {%- if form.posted_successfully? -%}
+    <div class="note note--success">{{ 'general.newsletter_form.newsletter_confirmation' | t }}</div>
+  {%- endif -%}
+  {%- if form.errors and form.context == snippet_context -%}
+    {{ form.errors | default_errors }}
+  {%- endif -%}
+
+  <label for="Email-{{ section_id }}" class="hidden-label">{{ 'general.newsletter_form.newsletter_email' | t }}</label>
+  <label for="newsletter-submit-{{ section_id }}" class="hidden-label">{{ 'general.newsletter_form.submit' | t }}</label>
+  
+  <input type="hidden" name="contact[tags]" value="prospect,newsletter">
+  <input type="hidden" name="contact[context]" value="{{ snippet_context }}">
+
+  <div class="input-group newsletter__input-group" {{ block.shopify_attributes }}>
+    <input
+      type="email"
+      value="{% if customer %}{{ customer.email }}{% endif %}"
+      placeholder="{{ section.settings.question_5_email_placeholder }}"
+      name="contact[email]"
+      id="Email-{{ section_id }}"
+      class="input-group-field newsletter__input"
+      autocorrect="off"
+      autocapitalize="off"
+      required
+    >
+    
+    <span class="input-group-btn">
+      <button type="submit" id="newsletter-submit-{{ section_id }}" class="redeemBtn" name="commit">
+        <span class="form__submit--large">{{ 'general.newsletter_form.submit' | t }}</span>
+        <span class="form__submit--small">
+{{ section.settings.question_5_button }}
+  </span>
+      </button>
+    </span>
+  </div>
+{%- endform -%}
+
+                            </div>
+                          {% comment %}
+                            <button class="redeemBtn" disabled>{{ section.settings.question_5_button }}</button>
+                            {% endcomment %}
+                        </div>
+                    </div>
+
+                    <div class="questionSix questions">
+                        <div class="ImplantsContainer">
+                            <h2>{{ section.settings.question_6_title }}</h2>
+                            <p>{{ section.settings.question_6_description }}</p>
+                            <button class="reTakeBtn">{{ section.settings.question_6_button }}</button>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div class="modalFoot">
+            {% if section.settings.quiz_footer_image %}
+                <img src="{{ section.settings.quiz_footer_image | img_url: 'master' }}" alt="">
+            {% else %}
+                <img src="{{ 'modal1.webp' | asset_url }}" alt="">
+            {% endif %}
+        </div>
+    </div>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const emailBox = document.querySelector('.emailBox');
+    
+    if (emailBox && emailBox.querySelector('.note--success')) {
+      // Redirect after 1 second
+      setTimeout(function () {
+        window.location.href = "https://getneuromd.com/pages/custom-product-detail";
+      }, 1000);
+    }
+  });
+</script>
+
+<script>
+  const questions = document.querySelectorAll('.question-section > div');
+  const progressText = document.querySelector('.progress-bar-container span');
+  const progressFill = document.querySelector('.progress');
+  const nextBtn = document.querySelector('.nav-buttons button:last-child');
+  const prevBtn = document.querySelector('.nav-buttons button:first-child');
+
+  const stepPercentages = [0, 17, 33, 67, 83, 100, 50];
+
+  let currentStep = 0;
+
+  function showStep(step) {
+    questions.forEach(q => q.style.display = 'none');
+    if (questions[step]) {
+      questions[step].style.display = 'block';
+    }
+
+    const percent = stepPercentages[step];
+    progressText.textContent = `${percent}% complete`;
+    progressFill.style.width = `${percent}%`;
+
+    prevBtn.disabled = step === 0;
+    nextBtn.disabled = step >= stepPercentages.length - 2;
+
+    if (step === 3) {
+      updateQ4NextButtonState();
+    }
+
+    if (percent === 100) {
+      window.location.href = '{{ section.settings.redirect_url }}';
+    }
+  }
+
+  nextBtn.addEventListener('click', () => {
+    if (currentStep < stepPercentages.length - 2) {
+      currentStep++;
+      showStep(currentStep);
+    }
+  });
+
+  prevBtn.addEventListener('click', () => {
+    if (currentStep > 0) {
+      currentStep--;
+      showStep(currentStep);
+    }
+  });
+
+  document.querySelectorAll('.questionOne input[type="radio"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      currentStep = 1;
+      showStep(currentStep);
+    });
+  });
+
+  document.querySelectorAll('.questionTwo input[type="radio"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      currentStep = 2;
+      showStep(currentStep);
+    });
+  });
+
+  document.querySelectorAll('.questionThree input[type="radio"]').forEach(radio => {
+    radio.addEventListener('change', (event) => {
+      const selectedValue = event.target.value;
+      if (selectedValue === 'yes') {
+        currentStep = 6;
+        showStep(currentStep);
+        document.querySelector('.questionSix').style.display = 'block';
+      } else {
+        currentStep = 3;
+        showStep(currentStep);
+      }
+    });
+  });
+
+  const q4Checkboxes = document.querySelectorAll('.questionFour input[type="checkbox"]');
+  const q4NextButton = document.querySelector('.questionFour .nextBtn');
+
+  function updateQ4NextButtonState() {
+    const anyChecked = Array.from(q4Checkboxes).some(cb => cb.checked);
+    q4NextButton.disabled = !anyChecked;
+  }
+
+  
+  q4Checkboxes.forEach(cb => {
+    cb.addEventListener('change', updateQ4NextButtonState);
+  });
+
+
+  q4NextButton.addEventListener('click', () => {
+    currentStep = 4; 
+    showStep(currentStep);
+  });
+
+  document.querySelectorAll('.nextBtn').forEach(btn => {
+    if (btn !== q4NextButton) {
+      btn.addEventListener('click', () => {
+        currentStep = 4;
+        showStep(currentStep);
+      });
+    }
+  });
+
+  const emailInput = document.querySelector('.questionFive .emailContainer input[type="email"]');
+  const redeemBtn = document.querySelector('.questionFive .redeemBtn');
+
+  redeemBtn.disabled = true;
+
+  emailInput.addEventListener('input', () => { 
+    const emailValue = emailInput.value.trim();
+    // Simple email validation regex
+    const isValidEmail = emailValue.length > 0 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue);
+    redeemBtn.disabled = !isValidEmail;
+  });
+
+  redeemBtn.addEventListener('click', () => {
+    currentStep = 5;
+    showStep(currentStep);
+  });
+
+  // Handle "Retake Question" button click in Question Six
+  document.querySelector('.reTakeBtn').addEventListener('click', () => {
+    currentStep = 2; // Index for questionThree
+    showStep(currentStep);
+  });
+
+  // Initialize
+  showStep(currentStep);
+</script>
+
+{% schema %}
+{
+  "name": "Quiz",
+  "class": "quiz-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Quiz Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "quiz_header_image",
+      "label": "Header Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "quiz_footer_image",
+      "label": "Footer Image"
+    },
+    {
+      "type": "header",
+      "content": "Question 1"
+    },
+    {
+      "type": "text",
+      "id": "question_1_title",
+      "label": "Question 1 Title",
+      "default": "How long have you been suffering from back pain?"
+    },
+    {
+      "type": "text",
+      "id": "question_1_option_1",
+      "label": "Option 1",
+      "default": "Less than 6 months"
+    },
+    {
+      "type": "text",
+      "id": "question_1_option_2",
+      "label": "Option 2",
+      "default": "6–12 months"
+    },
+    {
+      "type": "text",
+      "id": "question_1_option_3",
+      "label": "Option 3",
+      "default": "12 months or longer"
+    },
+    {
+      "type": "header",
+      "content": "Question 2"
+    },
+    {
+      "type": "text",
+      "id": "question_2_title",
+      "label": "Question 2 Title",
+      "default": "How long have you been suffering from back pain?"
+    },
+    {
+      "type": "text",
+      "id": "question_2_option_1",
+      "label": "Option 1",
+      "default": "Lower/Back"
+    },
+    {
+      "type": "text",
+      "id": "question_2_option_2",
+      "label": "Option 2",
+      "default": "Lower/Back"
+    },
+    {
+      "type": "text",
+      "id": "question_2_option_3",
+      "label": "Option 3",
+      "default": "Lower/Back"
+    },
+    {
+      "type": "text",
+      "id": "question_2_option_4",
+      "label": "Option 4",
+      "default": "Lower/Back"
+    },
+    {
+      "type": "image_picker",
+      "id": "question_2_image_1",
+      "label": "Option 1 Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "question_2_image_2",
+      "label": "Option 2 Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "question_2_image_3",
+      "label": "Option 3 Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "question_2_image_4",
+      "label": "Option 4 Image"
+    },
+    {
+      "type": "header",
+      "content": "Question 3"
+    },
+    {
+      "type": "text",
+      "id": "question_3_title",
+      "label": "Question 3 Title",
+      "default": "Do you have any electronic implants?"
+    },
+    {
+      "type": "text",
+      "id": "question_3_subtitle",
+      "label": "Question 3 Subtitle",
+      "default": "(i.e. pacemakers, implantable cardioverter defibrillators, pain pump, etc.)"
+    },
+    {
+      "type": "text",
+      "id": "question_3_option_yes",
+      "label": "Yes Option",
+      "default": "Yes"
+    },
+    {
+      "type": "text",
+      "id": "question_3_option_no",
+      "label": "No Option",
+      "default": "No"
+    },
+    {
+      "type": "header",
+      "content": "Question 4"
+    },
+    {
+      "type": "text",
+      "id": "question_4_title",
+      "label": "Question 4 Title",
+      "default": "We want to make sure we are a good match for you. Please select what may be causing your pain:"
+    },
+    {
+      "type": "text",
+      "id": "question_4_subtitle",
+      "label": "Question 4 Subtitle",
+      "default": "NeuroMD does not help with pain caused by tumors."
+    },
+    {
+      "type": "text",
+      "id": "question_4_option_1",
+      "label": "Option 1",
+      "default": "Nerve Pain"
+    },
+    {
+      "type": "text",
+      "id": "question_4_option_2",
+      "label": "Option 2",
+      "default": "Nerve Pain"
+    },
+    {
+      "type": "text",
+      "id": "question_4_option_3",
+      "label": "Option 3",
+      "default": "Nerve Pain"
+    },
+    {
+      "type": "text",
+      "id": "question_4_option_4",
+      "label": "Option 4",
+      "default": "Nerve Pain"
+    },
+    {
+      "type": "text",
+      "id": "question_4_option_5",
+      "label": "Option 5",
+      "default": "Nerve Pain"
+    },
+    {
+      "type": "text",
+      "id": "question_4_next_button",
+      "label": "Next Button Text",
+      "default": "Next"
+    },
+    {
+      "type": "header",
+      "content": "Question 5"
+    },
+    {
+      "type": "text",
+      "id": "question_5_title",
+      "label": "Question 5 Title",
+      "default": "Congratulations! As an ideal candidate, you're eligible for a 62% OFF discount."
+    },
+    {
+      "type": "text",
+      "id": "question_5_subtitle",
+      "label": "Question 5 Subtitle",
+      "default": "Your pain type matches 87% of our 1,139,067 users."
+    },
+    {
+      "type": "text",
+      "id": "question_5_description",
+      "label": "Question 5 Description",
+      "default": "Save 62% on NeuroMD by entering your email"
+    },
+    {
+      "type": "text",
+      "id": "question_5_email_placeholder",
+      "label": "Email Placeholder",
+      "default": "Your Email"
+    },
+    {
+      "type": "text",
+      "id": "question_5_button",
+      "label": "Redeem Button Text",
+      "default": "Redeem Offer"
+    },
+    {
+      "type": "header",
+      "content": "Question 6"
+    },
+    {
+      "type": "text",
+      "id": "question_6_title",
+      "label": "Question 6 Title",
+      "default": "Unfortunately, NeuroMD IS NOT Advisable for Use With Electronic Implants"
+    },
+    {
+      "type": "text",
+      "id": "question_6_description",
+      "label": "Question 6 Description",
+      "default": "If you feel like you have answered this question incorrectly, you can retake it by clicking below. Or leave this quiz by clicking back."
+    },
+    {
+      "type": "text",
+      "id": "question_6_button",
+      "label": "Retake Button Text",
+      "default": "Retake Question"
+    },
+    {
+      "type": "header",
+      "content": "Redirect Settings"
+    },
+    {
+      "type": "url",
+      "id": "redirect_url",
+      "label": "Redirect URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Quiz",
+      "category": "Custom Content"
+    }
+  ]
+}
+{% endschema %}

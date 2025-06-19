@@ -1,0 +1,110 @@
+{% schema %}
+{
+ "name": "Blades w/ CTAs",
+ "settings": [
+ ],
+ "blocks":[
+   {
+     "type": "blade",
+     "name": "Blade",
+     "settings":[
+       {
+         "id": "title",
+         "type": "text",
+         "label": "Title"
+       },
+       {
+         "id": "text",
+         "type": "richtext",
+         "label": "Text"
+       }, {
+         "id": "cta",
+         "type": "html",
+         "label": "CTA Section",
+		 "default": "<br />"
+	   },
+       {
+         "id": "image",
+         "type": "image_picker",
+         "label": "Image"
+       },
+       {
+         "id": "videoIframe",
+         "type": "text",
+         "label": "Video Iframe"
+       },
+		{
+         "id": "videoSchema",
+         "type": "textarea",
+         "label": "Video Schema"
+       }
+     ]
+   }
+ ]
+}
+{% endschema %}
+
+{% assign lastItemIndex = section.blocks.size | minus: 1 %}
+<div class="prodSBS">
+  <div class="prodSBS__inner">
+    {% for block in section.blocks %}
+    {% if block.type == 'blade' %}
+      {% assign side = forloop.index | modulo: 2 %}
+      <div class="prodBlade prodBlade--{{ side }}">
+        <div class="prodBlade__inner">
+          <div class="prodBlade__textWrapper">
+            <div class="prodBlade__title text--28 text--blue text--com">
+              {{ block.settings.title }}
+            </div>
+            <div class="prodBlade__text text--15">
+              {{ block.settings.text }}
+            </div>
+            {{ block.settings.cta }}
+          </div>
+          <div class="prodBlade__imageWrapper">
+            <div class="prodBlade__imageInner">
+              <img class="prodBlade__image lazyload"
+              data-src="{{ block.settings.image | img_url: '1160x' }}"
+              alt="{{ block.settings.image.alt }}">
+              
+              <div class="prodBlade__vid">
+                <button class="prodBlade__vidButton" vidRef='{{ block.settings.videoIframe }}'>
+                  {% if block.settings.videoSchema != blank%}
+                  {{ block.settings.videoSchema }}
+                  {% endif %}
+              {% if block.settings.videoIframe != '' %}
+                  <img class="prodBlade__playImg lazyload"
+                  data-src="https://cdn.shopify.com/s/files/1/0441/3567/8105/files/Fill_1_Copy_7.png?v=1595619340"
+                  alt="play button">
+                  <span class="prodBlade__vidText text--15 text--white">
+                    Watch Video
+                  </span>
+                </button>
+              {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% if side == 1 and forloop.index != section.blocks.size %}
+  </div>
+</div>
+<div class="shopify-section fc-fs-hide" style="background: #cc0000; margin-top: 76px;" data-open-lightbox="#fc-full-story">
+  <div style="padding: 40px 0;color:  #fff;">
+    <div class="prodSBS__inner">
+      <p style="text-align: center;">
+        This device is changing lives around the country:
+        <button class="fc-link fc-fs" data-open-lightbox="#fc-full-story">
+			Click to see what makes NeuroMD special >
+        </button>
+      </p>
+    </div>
+  </div>
+</div>
+<div class="prodSBS">
+  <div class="prodSBS__inner">
+   	  {% endif %}
+    {% endif %}
+    {% endfor %}
+  </div>
+</div>

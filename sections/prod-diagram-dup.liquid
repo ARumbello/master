@@ -1,0 +1,41 @@
+{% schema %}
+{
+ "name": "Product Diagram Dup",
+ "settings": [
+   {
+     "id": "title",
+     "type": "text",
+     "label": "Title"
+   },
+   {
+     "id": "text",
+     "type": "textarea",
+     "label": "Title"
+   },
+   {
+     "id": "image",
+     "type": "image_picker",
+     "label": "Image"
+   }
+ ]
+}
+{% endschema %}
+
+<div class="prodSci diagram-dup">
+  <div class="prodSci__inner">
+    <div class="prodSci__title text--blue text--28 text--com">
+      {{ section.settings.title }}
+    </div>
+    <div class="prodSci__text text--15">
+      {{ section.settings.text }}
+    </div>
+    <div class="prodSci__imgWrapper">
+      {% comment %}
+      <img class="prodSci__img lazyload"
+      data-src="{{ section.settings.image | img_url: '1800x' }}"
+      alt="{{ section.settings.image.alt }}">
+      {% endcomment %}
+      {% include 'animatedImage' %}
+    </div>
+  </div>
+</div>

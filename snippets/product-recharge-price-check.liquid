@@ -1,0 +1,29 @@
+<script>
+  $(document).ready(function(){
+    
+    function check_recharge_price(){
+      var purchase_type = $('input[name="purchase_type"]:checked').val();
+      var new_price_txt = "";
+      if(purchase_type == 'autodeliver') {
+        new_price_txt= $('#rc_price_autodeliver').text();
+      } else {
+        new_price_txt= $('#rc_price_onetime').text();
+      }
+      
+      if(new_price_txt) {
+        $('.prodMain__price').html(new_price_txt);
+        $('.stickyBuy__price').html(new_price_txt);
+      }
+    }
+    
+    if ($("#rc_radio_options").length > 0) {
+      $('#rc_radio_options input[name="purchase_type"]').change(check_recharge_price);
+    }
+    
+    setTimeout(function(){
+      	check_recharge_price();
+    }, 6000);
+    
+    
+  });
+</script>

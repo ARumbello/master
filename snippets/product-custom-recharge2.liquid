@@ -1,0 +1,343 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign price = current_variant.price | money -%}
+{%- assign subscription_product = product.metafields.subscriptions -%}
+{%- assign discount_percentage = subscription_product.discount_percentage | round: 0 -%}
+{%- assign price_with_percent_discount = current_variant.price | times: discount_percentage | divided_by: 100.0 -%}
+{%- assign discounted_price = current_variant.price | minus: price_with_percent_discount -%}
+{%- assign saved_with_discount = current_variant.price | minus: discounted_price -%}
+	{% assign variant_map = subscription_product.original_to_hidden_variant_map | default: false %}
+	{% if variant_map %}
+		{% capture variant_to_duplicate %}{ {% for variant in variant_map %}{% if variant[1]['discount_variant_id'] %}{{ variant[0] }}:'{{ variant[1]['discount_variant_id'] }}',{% endif %}{% endfor %} }{% endcapture %}
+		{% capture variant_to_price %}{ {% for variant in product.variants %}{{ variant.id }}:'{{ variant.price }}',{% endfor %} }{% endcapture %}
+		{% capture duplicate_to_price %}{ {% for variant in variant_map %}{% if variant[1]['discount_variant_id'] %}{{ variant[1]['discount_variant_id'] }}:'{{ variant[1]['discount_variant_price'] | replace: ".", "" }}',{% endif %}{% endfor %} }{% endcapture %}
+	{% endif %}
+
+<div class="product-custom-ro-widget">
+  <h3 class="title">Purchase options</h3> 
+  <div class="tab-widget">
+    <div class="tab-heading-wrapper">
+        <label class="tab-heading subscription" id="subscription_tab" for="subscription_radio" onclick="openTab('subscription')" title="Subscription - {{ discounted_price | money }}">
+          <div class="row11"> 
+          <span class="tab-heading-label" style="line-height: 50px;">Subscribe & Save {{discount_percentage}}%</span>
+{% comment %}          
+            <span class="tab-heading-link">how does it work?</span>
+{% endcomment %}                    
+            <span class="tab-price subscription-price" id="subscription_price" data-discounted-price="{{ discounted_price }}" id="subscription_price">
+              <!--<span class="tab-price-total">total</span><br>-->
+              <span class="tab-price-price">{{ discounted_price | money }}</span>
+              <span class="tab-discount">saved <span class="tab-discount-price"> {{ price_with_percent_discount | money_without_trailing_zeros  }}</span>!</span>
+          	</span>
+        </div>
+        </label>
+       <div class="tab-wrapper">
+        <div id="subscription" class="tabcontent">
+		  <div class="product-text"><p><span> {{ product.title }}</span> are automatically delivered on your schedule. No obligation, modify or cancel your subscription anytime.</p></div>
+		  <div class="variants-roww">
+		  <div class="varient-picker">
+		  <span class="varient-heading custom-recharge2">Amount</span>
+          <div class="custom-variants"> 
+            {% if variant_to_duplicate %}
+				{% for variant in product.variants %}
+                    <div data-variant="{{ variant.id }}" 
+                         class="each-variant  {% if forloop.index == 1 %}active{% endif %}"
+                    >
+                      {% assign pack_img = forloop.index | append : 'pack_new' | append : '.png' %}
+                      <img src="{{ pack_img | asset_img_url : '160x'}}">                      
+                      <p class="variant-title">{{ product.variants[forloop.index0].title }}</p>
+                      {%- assign t_price_with_percent_discount = product.variants[forloop.index0].price | times: discount_percentage | divided_by: 100.0 -%}
+                      {%- assign t_discounted_price = product.variants[forloop.index0].price | minus: t_price_with_percent_discount -%}
+                      {%- assign t_saved_with_discount = product.variants[forloop.index0].price | minus: t_discounted_price -%}
+                      <p class="variant-price" data-price="{{ t_discounted_price | money_without_trailing_zeros }}"
+                         data-discount-price="{{  t_price_with_percent_discount | money_without_trailing_zeros }}">
+                        
+                        {% assign pack_num = forloop.index | plus: 0 %}
+                        
+                        {% if forloop.index == 4 %}
+                        	{% assign pack_num = forloop.index | plus: 2 %}
+                        {% endif %}
+                        
+                        {{ t_discounted_price | divided_by : pack_num | money_without_trailing_zeros}}/pc
+                      </p>                    
+                    </div>
+            
+
+				{% endfor %}
+			{% else %}
+            
+				{% for variant in product.variants %}
+            
+                  <div data-variant="{{ variant.metafields.subscriptions.discount_variant_id }}" 
+                       class="each-variant  {% if forloop.index == 1 %}active{% endif %}"
+                  >
+                  	{% assign pack_img = forloop.index | append : 'pack_new' | append : '.png' %}
+                    <img src="{{ pack_img | asset_img_url : '160x'}}">
+                    <p class="variant-title">{{ variant.title }}</p>
+                    <p class="variant-price" data-price="{{ variant.price | money_without_trailing_zeros }}">
+                      {% assign pack_num = forloop.index | plus: 0 %}
+
+                      {% if forloop.index == 4 %}
+                      {% assign pack_num = forloop.index | plus: 2 %}
+                      {% endif %}
+
+                      {{ variant.price | divided_by : pack_num | money_without_trailing_zeros}}/pc
+                    </p>                    
+                   
+                  </div>
+            
+				{% endfor %}
+            
+			{% endif %}
+          </div>  
+          </div>		  
+           <div class="atc-item">
+              <label class="rc-label rc-label-frequency" for="sub-frequency">Frequency</label>
+              <select  name="sub-frequency-type" id="sub-frequency">
+                <option data-sellingplan="{{product.selling_plan_groups[0].selling_plans[0].id}}" selected value="2">Every 2 Months</option>
+                <option data-sellingplan="{{product.selling_plan_groups[0].selling_plans[1].id}}" value="3">Every 3 Months</option>
+                <option data-sellingplan="{{product.selling_plan_groups[0].selling_plans[2].id}}" value="4">Every 4 Months</option>
+                <option data-sellingplan="{{product.selling_plan_groups[0].selling_plans[3].id}}" value="6">Every 6 Months</option>
+              </select>
+           </div>
+           </div>
+		  
+          <div class="atc-wrapper">
+            <div class="atc-item">
+              <button class="atc-bt btn--blue" type="submit" style="visibility: visible;" id="rc-sub-add" disabled>Add To Cart</button>
+            </div>
+          </div>
+        </div>
+    </div>
+        <label class="tab-heading onetime" id="onetime_tab" for="onetime_radio" onclick="openTab('onetime')" title="One Time Purchase - {{ price }}">
+            <span class="tab-heading-label">One-time purchase</span>
+           
+            <span class="tab-price onetime-price" id="onetime_price">
+             <!-- <span class="tab-price-total">total</span><br>-->
+              <span class="tab-price-price">{{ price }}</span>
+          	</span>
+        </label>
+
+    </div>
+    <div class="tab-wrapper custom-recharge2-container">
+        <div id="onetime" class="tabcontent">
+		  <div class="product-text"><p>Switch to a subscription and save {{ price_with_percent_discount | money_without_trailing_zeros  }}
+		  You've chosen One-time purchase. You can have the same for only {{ discounted_price | money }} if you subscribe and you can change or cancel your subscription any time!</p></div>
+          <div class="variants-roww">
+		   <div class="varient-picker">
+		  <span class="varient-heading">Amount</span>
+		  <div class="custom-variants">
+            {% for variant in product.variants %}
+            <div data-variant="{{ variant.id }}" class="each-variant {% if forloop.index == 1 %}active{% endif %}" >
+              {% assign pack_img = forloop.index | append : 'pack_new' | append : '.png' %}
+              	<img src="{{ pack_img | asset_img_url : '160x'}}">
+              
+              <p class="variant-title">{{ variant.title }}</p>
+              <p class="variant-price" data-price="{{ variant.price | money_without_trailing_zeros }}">
+                {% assign pack_num = forloop.index | plus: 0 %}
+
+                {% if forloop.index == 4 %}
+                {% assign pack_num = forloop.index | plus: 2 %}
+                {% endif %}
+
+                {{ variant.price | divided_by : pack_num | money_without_trailing_zeros}}/pc
+              </p>                    
+            </div>
+            {% endfor %}
+          </div> 
+		  </div>
+		  </div>
+        </div>
+    </div>
+  </div>
+    <div class="atc-wrapper">
+        <div class="atc-item-btn">
+            <button class="atc-bt btn--blue" type="submit" style="visibility: visible;" id="rc-single-add" disabled> {% render 'cart-cion' %}Add To Cart</button>
+        </div>
+     </div>
+  <div class="rc_popup__hover">
+    <a href="#" class="sub-details rc_popup__icon"><span class="fas fa-info"></span>Subscription Details</a>
+    <div class="rc_popup__block">
+        <div class="rc_popup__block__content">
+            <div class="rc_popup__close" style="display: none;">x</div>
+            <strong>How subscriptions work</strong><br><br>Products are automatically delivered on your schedule. No obligation, modify or cancel your subscription anytime.
+
+                <br><a href="http://rechargepayments.com/subscribe-with-recharge?utm_source=shopify%20store&amp;utm_medium=customer%20link&amp;utm_campaign=Shopify%20store%20back%20link&amp;shop_name=NeuroMD&amp;shop=neuromd.myshopify.com" target="_blank" aria-label="Learn more about ReCharge Payments">Learn more...</a>
+
+        </div>
+
+            <div class="rc_popup__block__footer">
+                <a href="http://rechargepayments.com/subscribe-with-recharge?utm_source=shopify%20store&amp;utm_medium=customer%20link&amp;utm_campaign=Shopify%20store%20back%20link&amp;shop_name=NeuroMD&amp;shop=neuromd.myshopify.com" target="_blank" aria-label="ReCharge Payments homepage">
+                    <img data-src="//static.rechargecdn.com/static/images/widget/rc_widget__banner@2x.png" height="28" width="153" alt="ReCharge Subscriptions company banner" class="rc_popup__badge lazyloaded" src="//static.rechargecdn.com/static/images/widget/rc_widget__banner@2x.png">
+                </a>
+            </div>
+
+    </div>
+  </div>
+</div>
+
+<style>
+  .custom-variants{
+    display: flex;
+    justify-content: space-between;
+  }
+  .each-variant{
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    padding: 0 5px;
+  }
+  .each-variant img{
+  	max-width: 100%
+  }
+  .each-variant .variant-title{
+  	font-weight: bold;
+    margin-bottom: 10px;
+  }
+  .each-variant .variant-price{
+    box-shadow: 2px 3px 5px 2px rgb(0 0 0 / 10%);
+    border-radius: 15px;
+    height: 30px;
+    line-height: 30px;
+  }
+  .each-variant.active .variant-price{
+  	background: #0FA3FA;
+    color: #fff;
+  }
+  .each-variant.active:after{
+  	content: '✔';
+    position: absolute;
+    display: block;
+    right: 0;
+    top: 35%;
+    width: 20px;
+    height: 20px;
+    font-size: 14px;
+    background: #0FA3FA;
+    border-radius: 50%;
+    color: #fff;
+  }
+  .product-custom-ro-widget .tabcontent .atc-wrapper .atc-item, .atc-bt{
+  	width: 100%;
+  }
+  .product-custom-ro-widget .tabcontent .atc-wrapper .atc-item select{
+  	width: calc(100% - 15px);
+    height: 56px;
+  }
+  .product-custom-ro-widget .tab-heading{
+  	box-shadow: none;
+    background-color: #f5f5f5;
+    font-weight: 500;
+    letter-spacing: -1px
+  }
+  .product-custom-ro-widget .tab-heading.active{
+  	background-color: #0FA3FA;
+    margin-bottom: 0;
+  }
+  .product-custom-ro-widget .tab-heading.active .tab-heading-label{
+  	color: #fff;
+    border: none;
+  }
+/*   .product-custom-ro-widget .tab-heading .tab-heading-label, .product-custom-ro-widget .tab-heading.active .tab-heading-label{
+  	display: block;
+    padding-top: 12px;
+  } */
+  .product-custom-ro-widget .tab-heading .tab-heading-link{
+  	display: block;
+    font-size: 14px;
+    text-decoration: underline;
+    padding-left: 10px;
+  }
+  .product-custom-ro-widget .tab-heading.active .tab-heading-link{
+  	color: #fff;
+  }
+  .product-custom-ro-widget .tab-heading.onetime{
+  	text-align: center;
+  }
+  .product-custom-ro-widget .tab-heading .tab-price{
+  	display: none;
+	position: absolute;
+    color: #000 !important;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    height: calc(100% - 20px);
+    width: 124px;
+    top: 10px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 3px 10px;
+	font-weight: 500;
+    box-shadow: 2px 2px 3px 2px rgb(0 0 0 / 16%);   
+    text-align: center;
+    line-height: 24px;
+    font-size: 30px;
+  }
+  .tab-price-total{
+    font-size: 17px;
+  }
+  .product-custom-ro-widget .tab-heading.active .tab-price{
+    display: block;
+  }
+  .tab-discount{
+      font-size: 13px;
+    display: block;
+  }
+
+  @media (min-width: 768px){
+    .product-custom-ro-widget .tab-heading-wrapper{
+      padding: 10px;
+    }
+  }
+  @media (max-width: 459px){
+    .product-custom-ro-widget .tabcontent{
+      padding-top: 100px;
+    }
+    .product-custom-ro-widget .tab-heading .tab-price{
+      top: 80px;
+      height: 80px;
+    }
+    .custom-variants{
+    justify-content: center;
+    flex-wrap: wrap;
+    }
+    .each-variant{
+    	width: 50%;
+    }
+    .each-variant.active:after{
+    	right: initial;
+      left: 0;
+      top: 20px;
+    }
+    .each-variant .variant-title{
+    margin-top: -30px;
+    }
+    .product-custom-ro-widget .tabcontent .atc-wrapper{
+    	margin-top: 10px;
+      padding-top: 10px;
+    }
+    .product-custom-ro-widget .tabcontent#subscription .atc-wrapper .atc-item:not(:last-child){
+    	margin-bottom: 7px;
+    }
+    .product-custom-ro-widget .tabcontent .atc-wrapper .atc-item select{
+    	height: 35px;
+    width: 100%;
+    }
+  }
+</style>
+
+<script>
+  $(document).ready(function () {
+    $('.each-variant').on('click', function(){
+    	$(this).parent().find('.each-variant').removeClass("active");
+    	$(this).addClass("active");
+      var total_price = $(this).find('.variant-price').attr('data-price');
+      $('.tab-heading.active .tab-price-price').text(total_price);
+      
+      var total_discount_price = $(this).find('.variant-price').attr('data-discount-price');
+      if(total_discount_price) $('.tab-heading.active .tab-discount-price').text(total_discount_price);
+      
+    });
+  });
+</script>
+
+
+<script src="{{ 'custom-ro-wdj-min.js' | asset_url }}" defer></script>

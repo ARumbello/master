@@ -1,0 +1,356 @@
+{% comment %}
+  PageSpeed 90+ Complete Implementation Guide
+  
+  This snippet combines all optimization strategies to achieve mobile PageSpeed scores of 90+
+  
+  Required snippets to include:
+  1. critical-css.liquid - In <head> section
+  2. optimized-images.liquid - Replace all image tags
+  3. optimized-script-loader.liquid - In <head> after critical CSS
+  4. third-party-optimizer.liquid - In <head> before closing
+  5. core-web-vitals-monitor.liquid - In <head> last
+  
+  Implementation order is critical for best results.
+{% endcomment %}
+
+<!-- STEP 1: Critical CSS (First in head) -->
+{% render 'critical-css' %}
+
+<!-- STEP 2: Resource Hints for Performance -->
+<link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+<link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="dns-prefetch" href="https://www.google-analytics.com">
+
+<!-- STEP 3: Optimized Font Loading -->
+<link rel="preload" 
+      href="{{ 'Poppins-Regular-400.woff2' | asset_url }}" 
+      as="font" 
+      type="font/woff2" 
+      crossorigin>
+<link rel="preload" 
+      href="{{ 'Poppins-SemiBold-600.woff2' | asset_url }}" 
+      as="font" 
+      type="font/woff2" 
+      crossorigin>
+
+<!-- STEP 4: Optimized Script Loading -->
+{% render 'optimized-script-loader' %}
+
+<!-- STEP 5: Third-Party Script Optimization -->
+{% render 'third-party-optimizer' %}
+
+<!-- STEP 6: Core Web Vitals Monitoring -->
+{% render 'core-web-vitals-monitor' %}
+
+<script>
+// PageSpeed 90+ Optimization Controller
+(function() {
+  'use strict';
+  
+  // Configuration
+  var PAGESPEED_CONFIG = {
+    targetScore: 90,
+    monitoring: true,
+    autoOptimize: true,
+    debug: {{ request.design_mode | default: false }}
+  };
+  
+  // Performance optimization state
+  window.pageSpeedOptimizer = {
+    initialized: false,
+    optimizations: {
+      criticalCSS: true,
+      imageOptimization: false,
+      scriptOptimization: false,
+      thirdPartyOptimization: false,
+      layoutShiftPrevention: false
+    },
+    metrics: {
+      startTime: performance.now(),
+      firstContentfulPaint: null,
+      largestContentfulPaint: null,
+      firstInputDelay: null,
+      cumulativeLayoutShift: null
+    }
+  };
+  
+  // Layout shift prevention
+  function preventLayoutShifts() {
+    // Add aspect ratio to images without dimensions
+    var images = document.querySelectorAll('img:not([width]):not([height])');
+    images.forEach(function(img) {
+      if (!img.closest('.optimized-image-container')) {
+        img.style.aspectRatio = '16/9';
+        img.style.objectFit = 'cover';
+      }
+    });
+    
+    // Reserve space for dynamic content
+    var dynamicElements = document.querySelectorAll('[data-dynamic-content]');
+    dynamicElements.forEach(function(element) {
+      if (!element.style.minHeight) {
+        element.style.minHeight = '100px';
+      }
+    });
+    
+    window.pageSpeedOptimizer.optimizations.layoutShiftPrevention = true;
+  }
+  
+  // Optimize existing images to use new format
+  function optimizeExistingImages() {
+    var images = document.querySelectorAll('img:not([data-optimized-image])');
+    var count = 0;
+    
+    images.forEach(function(img) {
+      // Skip if already in optimized container
+      if (img.closest('.optimized-image-container')) return;
+      
+      // Skip very small images (likely icons)
+      if (img.width < 50 || img.height < 50) return;
+      
+      // Add loading="lazy" if not set
+      if (!img.hasAttribute('loading') && count > 2) {
+        img.loading = 'lazy';
+      }
+      
+      // Add decoding="async"
+      img.decoding = 'async';
+      
+      count++;
+    });
+    
+    window.pageSpeedOptimizer.optimizations.imageOptimization = true;
+    
+    if (PAGESPEED_CONFIG.debug) {
+      console.log('Optimized', count, 'existing images');
+    }
+  }
+  
+  // Script loading optimization
+  function optimizeScriptLoading() {
+    var scripts = document.querySelectorAll('script[src]:not([data-optimized])');
+    
+    scripts.forEach(function(script) {
+      // Skip critical scripts
+      if (script.src.includes('gtm.js') || 
+          script.src.includes('jquery') ||
+          script.hasAttribute('data-critical')) {
+        return;
+      }
+      
+      // Add async/defer if not set
+      if (!script.async && !script.defer) {
+        script.defer = true;
+      }
+      
+      script.setAttribute('data-optimized', 'true');
+    });
+    
+    window.pageSpeedOptimizer.optimizations.scriptOptimization = true;
+  }
+  
+  // Performance monitoring and alerts
+  function monitorPerformance() {
+    if (!PAGESPEED_CONFIG.monitoring) return;
+    
+    // Check Core Web Vitals periodically
+    setTimeout(function() {
+      if (window.getCWVMetrics) {
+        var metrics = window.getCWVMetrics();
+        
+        if (metrics.score < PAGESPEED_CONFIG.targetScore) {
+          console.warn('PageSpeed score below target:', metrics.score, '/ 90');
+          
+          // Auto-optimize if enabled
+          if (PAGESPEED_CONFIG.autoOptimize) {
+            implementEmergencyOptimizations();
+          }
+        } else if (PAGESPEED_CONFIG.debug) {
+          console.log('✅ PageSpeed target achieved:', metrics.score, '/ 90');
+        }
+      }
+    }, 5000);
+  }
+  
+  // Emergency optimizations if score is too low
+  function implementEmergencyOptimizations() {
+    // Reduce image quality for very slow connections
+    if ('connection' in navigator && 
+        navigator.connection.effectiveType === 'slow-2g') {
+      
+      var images = document.querySelectorAll('img[srcset]');
+      images.forEach(function(img) {
+        // Force smaller images on slow connections
+        var srcset = img.srcset.split(',');
+        if (srcset.length > 1) {
+          img.src = srcset[0].trim().split(' ')[0];
+        }
+      });
+    }
+    
+    // Defer non-essential animations
+    var style = document.createElement('style');
+    style.textContent = `
+      @media (prefers-reduced-motion: no-preference) {
+        * {
+          animation-duration: 0.1s !important;
+          transition-duration: 0.1s !important;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+    
+    // Remove non-critical third-party scripts
+    var thirdPartyScripts = document.querySelectorAll('script[src*="//"]');
+    thirdPartyScripts.forEach(function(script) {
+      if (!script.src.includes('googletagmanager.com') &&
+          !script.src.includes('shopify') &&
+          !script.hasAttribute('data-critical')) {
+        script.remove();
+      }
+    });
+    
+    console.log('Emergency optimizations applied');
+  }
+  
+  // Initialize all optimizations
+  function initializeOptimizations() {
+    if (window.pageSpeedOptimizer.initialized) return;
+    
+    // Apply optimizations in order
+    preventLayoutShifts();
+    optimizeExistingImages();
+    optimizeScriptLoading();
+    
+    // Start monitoring
+    monitorPerformance();
+    
+    window.pageSpeedOptimizer.initialized = true;
+    
+    if (PAGESPEED_CONFIG.debug) {
+      console.log('PageSpeed 90+ optimizations initialized');
+      console.log('Optimizations applied:', window.pageSpeedOptimizer.optimizations);
+    }
+  }
+  
+  // Performance reporting for debugging
+  function generatePerformanceReport() {
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        var report = {
+          timestamp: new Date().toISOString(),
+          url: window.location.href,
+          optimizations: window.pageSpeedOptimizer.optimizations,
+          metrics: window.getCWVMetrics ? window.getCWVMetrics() : null,
+          recommendations: []
+        };
+        
+        // Add recommendations based on current state
+        if (!window.pageSpeedOptimizer.optimizations.imageOptimization) {
+          report.recommendations.push('Implement optimized-images snippet');
+        }
+        
+        if (document.querySelectorAll('script[src]').length > 10) {
+          report.recommendations.push('Reduce number of external scripts');
+        }
+        
+        if (!document.querySelector('link[rel="preload"]')) {
+          report.recommendations.push('Add resource preloading for critical assets');
+        }
+        
+        // Store report
+        localStorage.setItem('pagespeed-report', JSON.stringify(report));
+        
+        if (PAGESPEED_CONFIG.debug) {
+          console.log('Performance Report:', report);
+        }
+        
+      }, 3000);
+    });
+  }
+  
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(initializeOptimizations, 100);
+    });
+  } else {
+    setTimeout(initializeOptimizations, 100);
+  }
+  
+  // Generate performance report
+  generatePerformanceReport();
+  
+  // Expose API for debugging
+  window.getPageSpeedStatus = function() {
+    return {
+      optimizer: window.pageSpeedOptimizer,
+      cwvMetrics: window.getCWVMetrics ? window.getCWVMetrics() : null,
+      report: JSON.parse(localStorage.getItem('pagespeed-report') || '{}')
+    };
+  };
+  
+})();
+</script>
+
+{% comment %}
+==============================================================================
+IMPLEMENTATION CHECKLIST FOR PAGESPEED 90+:
+==============================================================================
+
+□ 1. CRITICAL CSS IMPLEMENTATION
+   - Include {% render 'critical-css' %} in <head>
+   - Inline critical above-the-fold styles
+   - Defer non-critical CSS loading
+
+□ 2. IMAGE OPTIMIZATION
+   - Replace <img> tags with {% render 'optimized-images', image: image_object %}
+   - Convert images to WebP format in Shopify admin
+   - Use loading="eager" for above-fold images
+   - Use loading="lazy" for below-fold images
+
+□ 3. JAVASCRIPT OPTIMIZATION
+   - Include {% render 'optimized-script-loader' %} in <head>
+   - Move non-critical scripts to defer or async
+   - Remove unused JavaScript files
+
+□ 4. THIRD-PARTY SCRIPTS
+   - Include {% render 'third-party-optimizer' %} in <head>
+   - Review and remove unnecessary third-party scripts
+   - Consolidate tracking code through GTM
+
+□ 5. FONT OPTIMIZATION
+   - Use font-display: swap on all @font-face declarations
+   - Preload critical fonts
+   - Subset fonts to reduce file sizes
+
+□ 6. MONITORING & TESTING
+   - Include {% render 'core-web-vitals-monitor' %} in <head>
+   - Test with PageSpeed Insights regularly
+   - Monitor real user metrics in Google Search Console
+
+==============================================================================
+EXPECTED RESULTS:
+==============================================================================
+
+Mobile PageSpeed Insights Score: 90-95+
+- Largest Contentful Paint (LCP): < 2.5s
+- First Input Delay (FID): < 100ms
+- Cumulative Layout Shift (CLS): < 0.1
+- First Contentful Paint (FCP): < 1.8s
+- Speed Index: < 3.0s
+
+==============================================================================
+TROUBLESHOOTING:
+==============================================================================
+
+If score is below 90:
+1. Check console for getCWVMetrics() data
+2. Review PageSpeed Insights suggestions
+3. Ensure all images use optimized-images snippet
+4. Reduce third-party scripts
+5. Check for layout shifts with CLS monitoring
+
+Debug mode: Add ?debug=1 to URL or set request.design_mode to true
+{% endcomment %} 

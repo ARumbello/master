@@ -1,0 +1,395 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign price = current_variant.price | money -%}
+{%- assign discount_percentage = product.selling_plan_groups[0].selling_plans[0].price_adjustments[0].value -%}
+{%- assign price_with_percent_discount = current_variant.price | times: discount_percentage | divided_by: 100.0 -%}
+{%- assign discounted_price = current_variant.price | minus: price_with_percent_discount -%}
+{%- assign saved_with_discount = current_variant.price | minus: discounted_price -%}
+	
+<div class="product-custom-ro-widget__2"> 
+  <div class="tab-widget"> 
+        <div class="padMain__label">PAD PACK TYPE</div>
+    <div class="tab-wrapper">
+      
+        <div id="onetime" class="tabcontent">
+          <div class="custom-variants">
+            {% for variant in product.variants %}
+            <div data-variant="{{ variant.id }}" class="each-variant {% if forloop.index == 1 %}active{% endif %}" >
+              {% assign pack_img = forloop.index | append : 'pack' | append : '.png' %}
+              <p class="variant-title">{{ variant.title }}</p> 
+                    <p class="variant-price">{{ variant.price | money }}</p>
+                    <!-- <p class="variant-price" data-price="{{ variant.price | money_without_trailing_zeros }}">
+                {% assign pack_num = forloop.index | plus: 0 %}
+
+                {% if forloop.index == 4 %}
+                {% assign pack_num = forloop.index | plus: 2 %}
+                {% endif %}
+
+                {{ variant.price | divided_by : pack_num | money_without_trailing_zeros}}/pc
+              </p> -->                   
+            </div>
+            {% endfor %}
+          </div> 
+          <div class="atc-wrapper"> 
+            <div class="qty-wrapper">
+                <label class="custom__label text--15">QUANTITY</label>
+                <div class="qtybox">
+                  <span class="btnqty qtyminus icon icon-minus">-</span>
+                  <input class="prodMain__qty text--15" min="1" value="1">
+                  <span class="btnqty qtyplus icon icon-plus">+</span>
+                </div>            
+            </div>            
+            <div class="atc-item">
+              <button class="atc-bt btn--blue" type="submit" style="visibility: visible;" id="rc-single-add" disabled>Add To Cart</button>
+            </div>   
+          </div>
+        </div>
+
+      
+        <div id="subscription" class="tabcontent">
+          <div class="custom-variants"> 
+
+            
+            {% if variant_to_duplicate %}
+				{% for variant in product.variants %}
+                    <div data-variant="{{ variant.id }}" 
+                         class="each-variant  {% if forloop.index == 1 %}active{% endif %}"
+                    >
+                      {% assign pack_img = forloop.index | append : 'pack' | append : '.png' %}
+                      <img src="{{ pack_img | asset_img_url : '160x'}}">                      
+                      <p class="variant-title">{{ product.variants[forloop.index0].title }}</p>
+                      {%- assign t_price_with_percent_discount = product.variants[forloop.index0].price | times: discount_percentage | divided_by: 100.0 -%}
+                      {%- assign t_discounted_price = product.variants[forloop.index0].price | minus: t_price_with_percent_discount -%}
+                      {%- assign t_saved_with_discount = product.variants[forloop.index0].price | minus: t_discounted_price -%}
+                      <p class="variant-price" data-price="{{ t_discounted_price | money_without_trailing_zeros }}"
+                         data-discount-price="{{  t_price_with_percent_discount | money_without_trailing_zeros }}">
+                        
+                        {% assign pack_num = forloop.index | plus: 0 %}
+                        
+                        {% if forloop.index == 4 %}
+                        	{% assign pack_num = forloop.index | plus: 2 %}
+                        {% endif %}
+                        
+                        {{ t_discounted_price | divided_by : pack_num | money_without_trailing_zeros}}/pc
+                      </p>                    
+                    </div>
+            
+
+				{% endfor %}
+			{% else %}
+            
+				{% for variant in product.variants %}
+            
+                  <div  data-variant="{{ variant.id }}" 
+                       class="each-variant  {% if forloop.index == 1 %}active{% endif %}"
+                  >
+                  	{% assign pack_img = forloop.index | append : 'pack' | append : '.png' %}
+
+                    {% assign discounted = variant.price | times: discount_percentage | divided_by: 100 %}
+                    {% assign subscriptionPrice = variant.price | minus: discounted %}
+                    <p class="variant-title">{{ variant.title }}</p> 
+                    <p class="variant-price"><span class="discount-price">{{ subscriptionPrice | money }}</span> <span class="variant--price">{{ variant.price | money }}</span></p>                
+                   
+                  </div>
+            
+				{% endfor %}
+            
+			{% endif %}
+          </div>   
+ 
+          <div class="atc-wrapper">     
+            <div class="qty-wrapper">
+                <label class="custom__label text--15">QUANTITY</label>
+                <div class="qtybox">
+                  <span class="btnqty qtyminus icon icon-minus">-</span>
+                  <input class="prodMain__qty text--15" min="1" value="1">
+                  <span class="btnqty qtyplus icon icon-plus">+</span>
+                </div>            
+            </div>            
+             <div class="atc-item">  
+              <button class="atc-bt btn--blue" type="submit" style="visibility: visible;" id="rc-sub-add" disabled>Add To Cart</button>
+            </div>   
+
+             
+          </div>
+        </div>
+    </div>
+    <div class="padMain__label">FREQUENCY </div>
+    <div class="tab-heading-wrapper"> 
+        <label class="tab-heading onetime" id="onetime_tab" for="onetime_radio" onclick="openTab('onetime')" title="One Time Purchase - {{ price }}">
+            <span class="tab-heading-label">One-time purchase</span>
+           
+            <!--<span class="tab-price onetime-price" id="onetime_price">
+              <span class="tab-price-total">total</span><br>
+              <span class="tab-price-price">{{ price }}</span>
+          	</span>  -->         
+        </label> 
+        <label class="tab-heading subscription" id="subscription_tab" for="subscription_radio" onclick="openTab('subscription')" title="Subscription - {{ discounted_price | money }}">
+            <span class="tab-heading-label">Subscribe & Save {{discount_percentage}}%</span> 
+                 
+            <!--<span class="tab-price subscription-price" id="subscription_price" data-discounted-price="{{ discounted_price }}" id="subscription_price">
+              <span class="tab-price-total">total</span><br>
+              <span class="tab-price-price">{{ discounted_price | money }}</span>
+              <span class="tab-discount">just saved <span class="tab-discount-price">{{ price_with_percent_discount | money_without_trailing_zeros  }}</span>!</span>
+          	</span>-->
+           <div class="atc-item"> 
+              <select  name="sub-frequency-type" id="sub-frequency">
+                <option data-sellingplan="{{product.selling_plan_groups[0].selling_plans[0].id}}" selected value="1 Month">1 Month</option>
+                <option data-sellingplan="{{product.selling_plan_groups[0].selling_plans[1].id}}" value="2 Month">2 Month</option>
+                <option data-sellingplan="{{product.selling_plan_groups[0].selling_plans[2].id}}" value="3 Month">3 Month</option>
+                <option data-sellingplan="{{product.selling_plan_groups[0].selling_plans[3].id}}" value="4 Month">4 Month</option>
+              </select>
+            </div>
+        </label>
+    </div>
+    
+
+    
+  </div>
+  
+</div>
+<style>
+ .product-custom-ro-widget__2 {
+    border: 1px solid #9D9D9D;
+    border-radius: 8px;
+    padding: 16px 16px 75px 16px;
+    background: rgba(219, 240, 255, 0.16);
+    margin-top: 20px;
+   position: relative;
+}
+.padMain__label {
+    color: #3A3A3C;
+    font-family: Poppins;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
+    letter-spacing: 0.48px;
+    margin-bottom: 10px;
+}
+.custom-variants {
+    display: flex;
+    margin: 0 -6px 20px -6px;
+    justify-content: space-between;
+}
+.each-variant {
+    border-radius: 8px;
+    border: 1px solid #9D9D9D;
+    padding: 10px;
+    color: #575757;
+    font-family: Poppins;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
+    min-height: 120px;
+    position: relative;
+    width: 33%;
+    margin: 0 5px;
+	cursor: pointer;
+}
+.each-variant.active {
+    border-radius: 8px;
+    border: 2px solid #0BA3FA;
+    background: #DBF0FF;
+    color: #000;
+}
+.tab-wrapper {
+    margin-bottom: 20px;
+}
+.tab-heading-wrapper {
+    display: inline-block;
+    width: 100%;
+}
+.tab-heading {
+    border-radius: 8px;
+    border: 1px solid #9D9D9D;
+    background: rgba(219, 240, 255, 0.16);
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    display: inline-block;
+    position:relative;
+}
+.tab-heading.active{
+    border: 2px solid #0BA3FA!important;
+    background: #DBF0FF!important;
+    color:#000;
+}
+.tab-heading.active .tab-heading-label{ 
+    color:#000;
+}  
+.tab-heading-label {
+    width: 100%;
+    display: inline-block;
+    color: #575757;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 140%;
+	cursor: pointer;
+    padding-left:30px;
+}
+  .tab-heading:before {
+    content: "";
+    position: absolute;
+    background: transparent;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    border: solid 2px #0BA3FA;
+    top: 12px;
+}
+.tab-heading.active:before {
+    content: "";
+    position: absolute;
+    background: #0BA3FA;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    border: double 5px #fff;
+    top: 12px;
+}
+select#sub-frequency {
+    border: 1px solid #9D9D9D;
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    background-color: transparent;
+    color: #505050;
+    font-family: Poppins;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+}
+p.variant-price { 
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 140%;
+    position: absolute;
+    bottom: 10px;
+}
+ p.variant-price span {
+    color: #0BA3FA;
+    margin-right: 10px;
+} 
+p.variant-price span.variant--price{
+  color: #918888;
+  text-decoration: line-through;
+}
+p.variant-title { 
+    font-family: Poppins;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
+}
+button#rc-sub-add, button#rc-single-add {
+    width: 100%!important;
+}
+
+.atc-wrapper {
+    position: absolute;
+    bottom: 20px;
+    width: 95%;
+    display: flex;
+    align-items: end;
+    gap: 20px;
+  flex-wrap: wrap;
+}
+.atc-wrapper .atc-item{
+  width: calc(100% - 132px);
+}
+.qty-wrapper .qtybox{
+  border: 1px solid;
+  border-radius: 8px;
+}
+.qty-wrapper .qtyminus{
+  display: inline-block;
+  padding-left: 10px;
+  cursor: pointer;
+}
+.qty-wrapper .qtyplus{
+  display: inline-block;
+  padding-right: 10px;
+  cursor: pointer;
+}
+.qty-wrapper .prodMain__qty{
+  border: none;
+  padding: 0 15px;
+  width: 57px;
+}
+
+@media screen and (min-width: 100px) and (max-width: 640px){ 
+.each-variant {
+    width: 100%;
+    margin-bottom: 10px;
+    min-height: 78px;
+}
+.custom-variants {
+    display: inline-block;
+    width: 100%;
+}
+.tab-wrapper {
+    margin-bottom: 0;
+}
+.atc-wrapper { 
+    width: 92%;
+}
+}  
+
+@media screen and (max-width: 640px){
+  .product-custom-ro-widget__2{
+    padding-bottom: 150px;
+  }
+  .atc-wrapper{
+    gap: 10px;
+  }
+  .qty-wrapper .prodMain__qty{
+    margin-bottom: 0;
+    float: none;
+  }
+  .atc-wrapper .atc-item{
+    width: 100%;
+  }
+} 
+</style>
+
+
+<script>
+  $(document).ready(function () {
+    $('.each-variant').on('click', function(){
+    	$(this).parent().find('.each-variant').removeClass("active");
+    	$(this).addClass("active");
+      var total_price = $(this).find('.variant-price').attr('data-price');
+      $('.tab-heading.active .tab-price-price').text(total_price);
+      
+      var total_discount_price = $(this).find('.variant-price').attr('data-discount-price');
+      if(total_discount_price) $('.tab-heading.active .tab-discount-price').text(total_discount_price);
+      
+    });
+
+    $('#onetime .qty-wrapper .qtyplus').on('click', function(){
+      let product_count = $('#onetime .qty-wrapper .prodMain__qty').val();
+      $('#quantity').val(product_count);
+    });
+    $('#onetime .qty-wrapper .qtyminus').on('click', function(){
+      let product_count = $('#onetime .qty-wrapper .prodMain__qty').val();
+      $('#quantity').val(product_count);
+    });
+    $('#subscription .qty-wrapper .qtyplus').on('click', function(){
+      let product_count = $('#subscription .qty-wrapper .prodMain__qty').val();
+      $('#quantity').val(product_count);
+    });
+    $('#subscription .qty-wrapper .qtyminus').on('click', function(){
+      let product_count = $('#subscription .qty-wrapper .prodMain__qty').val();
+      $('#quantity').val(product_count);
+    });
+  });
+</script>
+
+
+<script src="{{ 'custom-ro-wdj-min.js' | asset_url }}" defer></script>

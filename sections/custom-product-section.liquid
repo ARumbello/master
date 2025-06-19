@@ -1,0 +1,518 @@
+<style>
+.main-swiper-{{ section.id }} .swiper-slide img {
+  width: 100%;
+  height: auto; 
+  max-height: 600px; 
+  display: block;
+  object-fit: contain;
+  cursor: crosshair; 
+}
+.swiper-button-prev-{{ section.id }},
+.swiper-button-next-{{ section.id }} {
+  width: 50px!important;
+  height: 50px!important;
+}
+
+
+.thumbs-swiper-{{ section.id }} .swiper-slide {
+  width: 80px !important; 
+  height: 80px !important; 
+  opacity: 0.6;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  border: 1px solid transparent;
+}
+a.cta-button{
+  width: 100%;
+    height: 50px;
+    display: flex
+;
+    justify-content: center;
+    align-items: center;
+}
+.thumbs-swiper-{{ section.id }} .swiper-slide img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  border-radius: 4px;
+}
+.thumbs-swiper-{{ section.id }} .swiper-slide-thumb-active {
+  opacity: 1;
+  border: 1px solid #007bff;
+}
+.thumbs-swiper-{{ section.id }} {
+    margin-top: 15px;
+}
+
+.zoomWindowContainer div {
+    border: 1px solid #e0e0e0 !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+    z-index: 9999 !important; 
+}
+#{{ section.id }} .productSliderSection {
+  display: flex;
+  max-width: 1200px;
+  margin: 10px auto;
+  padding-block: 10px;
+}
+#{{ section.id }} .slider-left {
+  width: 50%;
+  margin-right: 40px;
+  position: relative; 
+}
+#{{ section.id }} .details-right {
+  width: 50%;
+}
+#{{ section.id }} .details-right .sliderDetail { display: flex; flex-direction: column; gap: 15px; }
+#{{ section.id }} .details-right h2 { margin-top: 0; font-size: 32px; line-height:40px; margin: 0px; }
+#{{ section.id }} .details-right .review { display: flex; align-items: center; gap:10px; }
+#{{ section.id }} .review p { color: #0FA3FA; font-size:20px; margin: 0px; line-height: 10px; }
+#{{ section.id }} .details-right .review span { color: #007185; font-weight: 700; text-decoration: none; font-style: italic; font-size: 16px; }
+#{{ section.id }} .details-right .docReview { display: flex; gap: 20px; align-items: center; line-height: normal; margin-top: 10px; }
+#{{ section.id }} .tab-button { cursor: pointer; font-weight: 700; padding: 5px 0px; border-radius: 5px; transition: all 0.3s; color: #808080; text-decoration: none; }
+#{{ section.id }} .tab-button.active { text-decoration: underline !important; color: black !important; text-underline-offset: 6px; text-decoration-thickness: 2px; }
+#{{ section.id }} .tab-content { display: none; margin-top: 10px; }
+#{{ section.id }} .tab-content.active { display: block; }
+#{{ section.id }} .docName { color: #1B537F; font-size: 18px; }
+#{{ section.id }} .docName p { margin: 0px; line-height: 1.5; margin-top: 5px; }
+#{{ section.id }} .docName span:first-child { font-weight: 700; }
+#{{ section.id }} .docName span:last-child { font-weight: 600; display: block; margin-top: 5px; }
+#{{ section.id }} .details-right .prices { display: flex; flex-direction: column; gap: 5px; margin-top: 15px; }
+#{{ section.id }} .details-right .prices p { margin: 0; }
+#{{ section.id }} .details-right .prices .first { font-weight: 700; color: #262626; }
+#{{ section.id }} .details-right .prices .second { font-weight: 700; color: red; }
+#{{ section.id }} .details-right .prices .second span:first-child { font-size: 14px; color: black; font-weight: normal; }
+#{{ section.id }} .details-right .prices .third { background-color: #1B537F; width: fit-content; color: white; font-size: 14px; padding: 2px 6px; border-radius: 3px; margin-top: 5px; }
+#{{ section.id }} .details-right .claim { margin-top: 20px; }
+#{{ section.id }} .details-right .claim button { font-weight: 700; background-color: #0FA3FA; font-size: 18px; border: none; color: white; width: 100%; padding-block: 15px; cursor: pointer; border-radius: 6px; transition: background-color 0.3s; }
+#{{ section.id }} .details-right .claim button:hover { background-color: #0c84d0; }
+#{{ section.id }} .details-right .claim p { font-size: 0.9em; color: #555; text-align: center; font-weight: 600; margin-block: 10px; }
+#{{ section.id }} .details-right .paymentIcons { text-align: center; margin-top: 15px; }
+#{{ section.id }} .details-right .paymentIcons img { width: 60%; max-width: 250px; }
+
+#{{ section.id }} .faq-section { margin-top: 20px; }
+#{{ section.id }} .accordion { background-color: #ffffff; cursor: pointer; padding: 15px 10px; width: 100%; text-align: left; border: none; outline: none; transition: background-color 0.3s ease; display: flex; justify-content: space-between; align-items: center; color: #262626; font-weight: 700; font-size: 18px; border-bottom: 1px solid #e6e6e6; }
+#{{ section.id }} .accordion:hover { background-color: #f9f9f9; }
+#{{ section.id }} .accordion::after { content: '+'; font-size: 20px; font-weight: bold; transition: transform 0.3s ease; }
+#{{ section.id }} .accordion.active::after { content: '−'; transform: rotate(180deg); }
+#{{ section.id }} .panel { padding: 0px 10px; max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; font-size: 16px; line-height: 1.5; color: #333; background-color: #fdfdfd; border-bottom: 1px solid #e6e6e6; }
+#{{ section.id }} .accordion.active + .panel { padding: 15px 10px; }
+#{{ section.id }} .faq-container { border-radius: 8px; overflow: hidden; max-width: 800px; margin: 0 auto; border: 1px solid #e6e6e6; }
+#{{ section.id }} .faq-item:last-child .accordion { border-bottom: none; }
+#{{ section.id }} .faq-item:last-child .panel { border-bottom: none; }
+#{{ section.id }} .faq-item ul { margin-left: 16px; margin-top: 10px; }
+.swiper-button-prev-{{ section.id }}::after,
+.swiper-button-next-{{ section.id }}::after {
+  content: none!important; 
+}
+@media (min-width: 768px) {
+    .swiper-pagination.swiper-pagination-template--18088238612631__custom_product_section_xVYPdL.swiper-pagination-clickable.swiper-pagination-bullets.swiper-pagination-horizontal {
+	display: none;
+}
+}
+@media (max-width: 768px) {
+.swiper-pagination-{{ section.id }}{display: flex;
+    justify-content: center;
+    bottom: -60px !important;
+    padding-bottom: 30px;}
+    .thumbs-swiper-{{ section.id }}{display:none!important;}
+  /* .swiper-button-prev-{{ section.id }},
+.swiper-button-next-{{ section.id }} {
+display:none!important;
+} */
+  #{{ section.id }} .productSliderSection { flex-direction: column; padding-inline: 15px; }
+  #{{ section.id }} .slider-left { width: 100%; margin-right: 0; margin-bottom: 20px; }
+  #{{ section.id }} .details-right { width: 100%;margin-top: 24px; }
+  #{{ section.id }} .details-right h2 { font-size: 28px; line-height: 1.3; }
+  #{{ section.id }} .thumbs-swiper-{{ section.id }} .swiper-slide { width: 60px !important; height: 60px !important; }
+}
+</style>
+{%- comment -%} jQuery and ElevateZoom {%- endcomment -%}
+{{ 'https://code.jquery.com/jquery-3.6.0.min.js' | script_tag }}
+{{ 'https://cdnjs.cloudflare.com/ajax/libs/elevatezoom/3.0.8/jquery.elevatezoom.min.js' | script_tag }}
+
+{%- comment -%} Swiper CSS and JS {%- endcomment -%}
+{{ 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css' | stylesheet_tag }}
+{{ 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js' | script_tag }}
+
+
+ <div id="{{ section.id }}">
+   {% assign product = all_products[section.settings.product-s] %}
+   <section class="productSliderSection">
+      <div class="slider-left proBoxOne">
+         <div class="swiper main-swiper-{{ section.id }}">
+            <div class="swiper-wrapper">
+               {% for media in product.media %}
+               <div class="swiper-slide" data-swiper-slide-index="{{ forloop.index0 }}">
+                  {% if media.media_type == 'image' %}
+                  <img 
+                     src="{{ media | img_url: '1000x' }}" 
+                     class="zoom-image-{{ section.id }}" 
+                     data-zoom-image="{{ media | img_url: 'master' }}"
+                     alt="{{ media.alt | escape }}"
+                     >
+                  {% elsif media.media_type == 'video' %}
+                  {{ media | video_tag: controls: true, class: 'product-video', preload: 'metadata' }}
+                  {% else %}
+                  <!-- Optional: fallback or ignore other media types like 3D -->
+                  {% endif %}
+               </div>
+               {% endfor %}
+            </div>
+            <div class="swiper-button-prev swiper-button-prev-{{ section.id }}">
+               <!-- Black left arrow SVG -->
+               <svg 
+                  width="24" height="24" viewBox="0 0 24 24" fill="none" 
+                  xmlns="http://www.w3.org/2000/svg"
+                  >
+                  <path 
+                     d="M15 18l-6-6 6-6" 
+                     stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     />
+               </svg>
+            </div>
+            <div class="swiper-button-next swiper-button-next-{{ section.id }}">
+               <!-- Black right arrow SVG -->
+               <svg 
+                  width="24" height="24" viewBox="0 0 24 24" fill="none" 
+                  xmlns="http://www.w3.org/2000/svg"
+                  >
+                  <path 
+                     d="M9 6l6 6-6 6" 
+                     stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     />
+               </svg>
+            </div>
+         </div>
+         <div class="swiper-pagination swiper-pagination-{{ section.id }}"style=""></div>
+         <!-- Thumbnail Swiper -->
+         <div class="swiper thumbs-swiper-{{ section.id }}">
+            <div class="swiper-wrapper">
+               {% for media in product.media %}
+               <div class="swiper-slide" data-thumb-index="{{ forloop.index0 }}">
+                  {% if media.media_type == 'image' %}
+                  <img src="{{ media | img_url: 'compact' }}" alt="{{ media.alt | escape }}">
+                  {% elsif media.media_type == 'video' %}
+                  <img src="{{ media.preview_image | img_url: 'compact' }}" alt="Video thumbnail">
+                  {% endif %}
+               </div>
+               {% endfor %}
+            </div>
+         </div>
+      </div>
+      <div class="details-right proBoxOne">
+         <div class="sliderDetail">
+            <h2>{{ product.title }}</h2>
+            <div class="review scroll-to" data-target=".page-reviews-wrapper">
+               <p>{{ section.settings.review-star-0086 }}</p>
+               <span>{{ section.settings.review-number-0086 }}</span>
+            </div>
+            <div class="docReview">
+               <span class="tab-button active" data-tab="review">{{ section.settings.tap-title-556 }}</span>
+               <span class="tab-button" data-tab="shipping">{{ section.settings.tap-title-00997 }}</span>
+            </div>
+            <div class="tab-content-wrapper">
+               <div class="tab-content active" id="review">
+                  <div class="shippingContent">
+                     <div class="docName">
+                        <span>
+                        {{ section.settings.tap-para-1122 }}
+                        </span>
+                     </div>
+                  </div>
+               </div>
+               <div class="tab-content" id="shipping">
+                  <div class="docName">
+                     {{ section.settings.tap-para-009 }}
+                  </div>
+               </div>
+            </div>
+            <div class="prices">
+               <p class="first">
+                  <span>{{ section.settings.price-title-8897 }}</span>
+                  <s>{{ product.compare_at_price | money }}</s>
+               </p>
+               <p class="second">
+                  <span>{{ section.settings.price0999553 }}</span>
+                  <span>{{ product.price | money_with_currency }}</span>
+                  <small>(Medical Discount Applied)</small>
+               </p>
+               <p class="third">{{ section.settings.title-00865 }}</p>
+            </div>
+         </div>
+         <div class="claim">
+            <form action="/cart/add" method="post">
+               <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+               <input type="hidden" name="quantity" value="1" />
+              <a href="{{ section.settings.main-cta-link-0086 }}"  class=" btn cta-button"> {{section.settings.main-cta-lable-0086 }}</a>
+                
+            </form>
+            <p class="guarantee">{{ section.settings.money-back-08  }}</p>
+            <div class="paymentIcons">
+               <img src="{{ section.settings.image-paymentIcons-908 | img_url: 'master' }}" alt="ApplePay" />
+            </div>
+         </div>
+         <div class="faq-section">
+            <div class="faq-container">
+               {% for block in section.blocks %}
+               <div class="faq-item">
+                  <button class="accordion">
+                  {{ block.settings.title-9908 }}
+                  </button>
+                  <div class="panel">
+                     <p class="font-lato">
+                        {{ block.settings.para-0096 }}
+                     </p>
+                  </div>
+               </div>
+               {% endfor %}         
+            </div>
+         </div>
+      </div>
+   </section>
+</div>
+
+        
+        
+<script>
+   jQuery(document).ready(function($) { 
+       const thumbsSwiper = new Swiper('.thumbs-swiper-{{ section.id }}', {
+         spaceBetween: 10,
+         slidesPerView: 5, 
+         freeMode: true,
+         watchSlidesProgress: true,
+         breakpoints: {
+           768: {
+             slidesPerView: 5
+           },
+           0: {
+             slidesPerView: 4 
+           }
+         }
+       });
+   const mainSwiper = new Swiper('.main-swiper-{{ section.id }}', {
+     spaceBetween: 10,
+     loop: true, 
+     navigation: {
+       nextEl: '.swiper-button-next-{{ section.id }}',
+       prevEl: '.swiper-button-prev-{{ section.id }}',
+     },
+     pagination: {
+       el: '.swiper-pagination-{{ section.id }}',
+       clickable: true,
+     },
+     thumbs: {
+       swiper: thumbsSwiper,
+     },
+     on: {
+      
+       init: function () {
+         applyZoom(this); 
+       },
+       slideChangeTransitionEnd: function () {
+         applyZoom(this);
+       }
+     }
+   });
+
+
+     
+             
+            $('.scroll-to').click(function(e) {
+                e.preventDefault();
+              
+                var target = $(this).data('target');
+     
+                if ($(target).length) {
+                    $('html, body').animate({
+                        scrollTop: $(target).offset().top - 70  
+                    }, 800, 'swing');  
+                }
+            });
+     
+  
+       $('.thumbs-swiper-{{ section.id }} .swiper-wrapper').on('mouseenter', '.swiper-slide', function() {
+           const index = parseInt($(this).attr('data-thumb-index'), 10); 
+           if (!isNaN(index) && mainSwiper) {
+               mainSwiper.slideToLoop(index); 
+           }
+       });
+       function applyZoom(swiperInstance) {
+           if (!swiperInstance || !swiperInstance.slides || typeof swiperInstance.activeIndex === 'undefined') {
+               console.error("Swiper instance is not valid for applying zoom.");
+               return;
+           }
+           $('.zoomContainer').remove(); 
+           $('.zoom-image-{{ section.id }}').removeData('elevateZoom'); 
+           let activeSlide = swiperInstance.slides[swiperInstance.activeIndex];
+           let activeSlideImage = $(activeSlide).find('.zoom-image-{{ section.id }}');   
+           if ($(activeSlide).hasClass('swiper-slide-duplicate')) {
+               const originalIndex = $(activeSlide).attr('data-swiper-slide-index');
+               activeSlideImage = $(`.main-swiper-{{ section.id }} .swiper-slide[data-swiper-slide-index='${originalIndex}']`).not('.swiper-slide-duplicate').find('.zoom-image-{{ section.id }}');
+           }    
+           if (activeSlideImage.length > 0 && typeof activeSlideImage.elevateZoom === 'function') {
+               activeSlideImage.elevateZoom({
+                   zoomType: "window",
+                   lensShape: "square",
+                   lensSize: 150, 
+                   zoomWindowWidth: 550, 
+                   zoomWindowHeight: 600,
+                   borderSize: 1,
+                   borderColour: '#e0e0e0',
+                   zoomWindowOffetx: 25,
+                   zoomWindowFadeIn: 300,
+                   zoomWindowFadeOut: 300,
+                   lensFadeIn: 300,
+                   lensFadeOut: 300,
+                   cursor: 'crosshair',
+                   scrollZoom: false, 
+                   responsive: true 
+               });
+           } else {
+               if (activeSlideImage.length === 0) {
+                    console.log("Zoom target image not found in active slide.");
+               } else {
+                    console.error("elevateZoom function not found. Check library loading.");
+               }
+           }
+       }
+       $('#{{ section.id }} .faq-container').on('click', '.accordion', function() {
+           $(this).toggleClass('active');
+           const panel = $(this).next('.panel');
+           if (panel.css('maxHeight') !== '0px') {
+               panel.css('maxHeight', '0px');
+               panel.css('padding', '0px 10px'); 
+           } else {
+               panel.css('maxHeight', panel.prop('scrollHeight') + 'px');
+               panel.css('padding', '15px 10px');
+           }
+       });
+       $('#{{ section.id }} .docReview').on('click', '.tab-button', function() {
+           $('#{{ section.id }} .tab-button').removeClass('active');
+           $('#{{ section.id }} .tab-content').removeClass('active');
+           $(this).addClass('active');
+           const tabId = $(this).data('tab');
+           $('#' + tabId).addClass('active');
+       });
+   
+   }); 
+</script>
+
+
+{% schema %}
+  {
+    "name": "Custom Product Section",
+    "settings": [
+      {
+      "type": "product",
+      "id": "product-s",
+      "label": "Select Product"
+    },
+      {
+        "type": "html",
+        "id": "review-star-0086",
+        "label": "Review Star",
+        "default": "★★★★★"
+      },
+      {
+        "type": "text",
+        "id": "review-number-0086",
+        "label": "Review Number",
+        "default": "(5393)"
+      },
+   
+      {
+        "type": "text",
+        "id": "main-cta-lable-0086",
+        "label": "Product Main CTA lable",
+        "default": "Claim Tiral"
+      },
+      {
+        "type": "text",
+        "id": "main-cta-link-0086",
+        "label": "Product Main CTA Link",
+        "default": "/cart/"
+      },
+      {
+        "type": "text",
+        "id": "tap-title-556",
+        "label": "Tab 1 Title",
+        "default": "Doctor Reviewed"
+      },
+      {
+        "type": "richtext",
+        "id": "tap-para-1122",
+        "label": "Tab 1 Content",
+         "default": "<p>“I’ve used NeuroMD and was so impressed that I recommend it to my patients”</p>"
+      },
+      {
+      "type": "text",
+        "id": "tap-title-00997",
+        "label": "Tab 2 Title",
+        "default": "Fast Free Shipping"
+      },
+      {
+        "type": "richtext",
+        "id": "tap-para-009",
+        "label": "Tab 2 Content",
+         "default": "<p>Fast 3-5 day shipping on all orders. Ships from Mississippi, USA.</p>"
+      },
+      {
+        "type": "text",
+        "id": "price-title-8897",
+        "label": "Compare Price Title",
+        "default": "Retail Price:"
+      },
+      {
+        "type": "text",
+        "id": "price0999553",
+        "label": "Price Title",
+        "default": "Your Price:"
+      },
+      {
+        "type": "text",
+        "id": "title-00865",
+        "label": "FSA Eligibility Text",
+        "default": "FSA & HSA Eligible"
+      },
+      {
+        "type": "text",
+        "id": "money-back-08",
+        "label": "Money Back Title",
+        "default": "60 Day Money Back Guarantee"
+      },
+      {
+       "type": "image_picker",
+        "id": "image-paymentIcons-908",
+        "label": "Payment Icons Image Upload"
+      }
+    ],
+    "blocks": [
+     {
+       "name": "FAQ Item",
+       "type": "faq_item",
+       "settings": [
+         {
+           "type": "text",
+           "id": "title-9908",
+           "label": "Question",
+           "default": "How does your 60 day at-home trial work?"
+         },
+         {
+           "type": "richtext",
+           "id": "para-0096",
+           "label": "Answer",
+           "default": "<p>At NeuroMD, our pride is not only in our products, but in the results and progress our customers achieve. We know the NeuroMD device works and we are so confident in its effectiveness that we provide a 100% satisfaction guarantee with our unmatched 60 day at home trial. If for any reason your NeuroMD device does not provide you with the level of relief from chronic pain that you were expecting, you may return it for a refund at any time within 60 days of delivery.</p>"
+         }
+       ]
+     }
+   ],
+    "presets": [
+      {
+        "name": "Custom Product Section"
+      }
+    ]
+  }
+{% endschema %}
+

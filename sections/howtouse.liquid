@@ -1,0 +1,405 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+<style>
+  .fnt-20 { font-size: 20px; }
+  .fnt-base { font-size: 16px; }
+
+  .font-bold { font-weight: 700; }
+  .font-semibold { font-weight: 600; }
+  .font-normal { font-weight: 400; }
+
+  .white-text { color: #fff; }
+  .primary-text { color: #002f49; }
+
+  .bg-dark-blue { background-color: #002f49; }
+  .bg-white { background-color: #fff; }
+
+  .flex { display: flex; }
+  .slef-end { align-self: center; }
+
+  .mb-2 { margin-bottom: 8px; }
+  .rounded-3xl { border-radius: 24px; }
+  .center-text { text-align: center; }
+
+  .mobile { display: none; }
+
+  .user-feedback {
+    padding: 72px 0;
+  }
+
+  .main-ritual h1 {
+    font-size: 34px;
+    line-height: 48px;
+    text-align: center;
+    font-weight: 400;
+    color: black;
+  }
+
+  .main-ritual {
+    width: 100%;
+    padding: 20px 15px;
+    margin-block: 40px;
+    position: relative;
+  }
+
+  .inner-ritual {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    padding: 0 15px;
+  }
+
+  .feedback {
+    border-radius: 24px 24px 0 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #f5f5f5;
+    min-height: 100%;
+  }
+
+  .feedback video {
+    width: 100%;
+    height: auto;
+    border-radius: 10px 10px 0px 0px;
+  }
+
+  .feedback-content {
+    padding: 32px;
+    flex-grow: 1;
+  }
+
+  .feedback .name-area {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .feedback .name-area p {
+    font-weight: 700;
+  }
+
+  .feedback .rate {
+    margin-bottom: 10px;
+  }
+
+  .feedback .review {
+    line-height: 1.5;
+  }
+
+  .main-ritual .slick-dots {
+    bottom: -80px !important;top:auto!important;
+  }
+
+  .main-ritual .slick-dots li {
+    width: auto !important;
+    height: auto !important;
+  }
+
+  .main-ritual .slick-dots li button {
+    width: auto !important;
+    height: auto !important;
+  }
+
+  .main-ritual .slick-dots li button:before {
+    font-size: 10px;
+    color: #002f49;
+  }
+
+  .main-ritual .slick-dots li.slick-active button:before {
+    color: #002f49;
+  }
+
+  .main-ritual .slick-dots li button::before {
+    font-size: 0px !important;
+  }
+
+  .main-ritual .slick-arrow {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    background: #002f49;
+    color: #fff;
+    padding: 8px 12px;
+    z-index: 2;
+    border-radius: 50%;
+    font-size: 18px;
+    cursor: pointer;
+  }
+.main-ritual .slick-prev,
+.main-ritual .slick-next {
+  width: 64px;
+  height: 37px;
+  border-radius: 25px;
+  background: transparent;
+  border: 1px solid #002f49;
+  color: #000;
+  bottom: -108px !important;
+  top: auto;
+  position: absolute;
+  z-index: 10;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: all 0.3s ease;
+}
+
+.main-ritual .slick-prev {
+  left: 20%;
+}
+
+.main-ritual .slick-next {
+  right: 20%;
+}
+
+.main-ritual .slick-prev::before,
+.main-ritual .slick-next::before {
+  display: none !important;
+}
+
+/* Apply same styles on hover, focus, and active */
+.main-ritual .slick-prev:hover,
+.main-ritual .slick-prev:focus,
+.main-ritual .slick-prev:active,
+.main-ritual .slick-next:hover,
+.main-ritual .slick-next:focus,
+.main-ritual .slick-next:active {
+  background: transparent;
+  border: 1px solid #002f49;
+  color: #000;
+}
+
+
+  @media (max-width: 1024px) {
+    .inner-ritual {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .inner-ritual {
+      display: flex;
+      grid-template-columns: unset;
+      padding: 0 10px;
+    }
+
+    .feedback {
+      margin: 0 5px;
+    }
+.main-ritual {
+    padding-bottom: 60px!important;
+    padding-bottom: 100px!important;
+  }
+    .main-ritual {
+      padding-bottom: 50px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .inner-ritual {
+      padding: 0;
+    }
+  }
+</style>
+
+<!-- HTML Markup -->
+<div class="main-ritual">
+  <h1>{{ section.settings.main-title-8889 }}</h1>
+  <div class="inner-ritual page-width">
+    {% for block in section.blocks %}
+      <div class="feedback" style="background-color:{{ block.settings.bg-color }};border:1px solid #333;border-radius:12px;">
+        {{ block.settings.video | video_tag: autoplay: true, loop: true, muted: true, playsinline: true }}
+        <div class="feedback-content">
+          <div>
+            <div class="name-area" style="font-size:{{ block.settings.step-font }}px; color:{{ block.settings.step-text-color }};">
+              <p>{{ block.settings.step-text }}</p>
+            </div>
+            <p class="review" style="font-size:{{ block.settings.para-font }}px; color:{{ block.settings.para-colors }};">
+              {{ block.settings.para-text }}
+            </p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Slick Carousel Initialization -->
+<script>
+  $(document).ready(function () {
+    function initSlick() {
+      if ($(window).width() < 768) {
+        if (!$('.inner-ritual').hasClass('slick-initialized')) {
+          $('.inner-ritual').slick({
+            dots: true,
+            arrows: true,
+            prevArrow: '<button type="button" class="slick-prev">&#8592;</button>',
+            nextArrow: '<button type="button" class="slick-next">&#8594;</button>',
+            infinite: false,
+            speed: 500,
+            slidesToShow: 1.1, // Show 1 full + partial next slide
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 3000,
+            centerMode: false,
+            responsive: [
+              {
+                breakpoint: 480,
+                settings: {
+                  slidesToShow: 1.5 // Show 1.5 on very small screens
+                }
+              }
+            ]
+          });
+        }
+      } else {
+        if ($('.inner-ritual').hasClass('slick-initialized')) {
+          $('.inner-ritual').slick('unslick');
+        }
+      }
+    }
+
+    initSlick();
+
+    $(window).on('resize', function () {
+      initSlick();
+    });
+  });
+</script>
+
+
+
+
+
+<!-- Center Mode -->
+
+<!-- <script>
+  $(document).ready(function () {
+    function initSlick() {
+      if ($(window).width() < 768) {
+        if (!$('.inner-ritual').hasClass('slick-initialized')) {
+          $('.inner-ritual').slick({
+            dots: true,
+            arrows: false,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 1.1,
+            slidesToScroll: 1,
+            centerMode: true,
+            centerPadding: '20px',
+            autoplay: true,
+            autoplaySpeed: 3000,
+            responsive: [
+              {
+                breakpoint: 480,
+                settings: {
+                  slidesToShow: 1.1,
+                  centerPadding: '10px'
+                }
+              }
+            ]
+          });
+        }
+      } else {
+        if ($('.inner-ritual').hasClass('slick-initialized')) {
+          $('.inner-ritual').slick('unslick');
+        }
+      }
+    }
+
+    initSlick();
+
+    $(window).on('resize', function () {
+      initSlick();
+    });
+  });
+</script> -->
+
+
+{% schema %}
+{
+  "name": "How TO Use",
+  "settings": [
+    {
+      "type": "text",
+      "id": "main-title-8889",
+      "label": "Main Title",
+      "default": "How To Use"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "box",
+      "name": "Feature-Video-Box",
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Featured video"
+        },
+        {
+          "type": "color",
+          "id": "bg-color",
+          "label": "Feed Box Bg Color",
+          "default": "#4B4566"
+        },
+        {
+          "type": "text",
+          "id": "step-text",
+          "label": "Step Text",
+          "default": "Step 1"
+        },
+        {
+          "type": "range",
+          "id": "step-font",
+          "min": 16,
+          "max": 32,
+          "step": 1,
+          "unit": "px",
+          "label": "Step Font",
+          "default": 22
+        },
+        {
+          "type": "color",
+          "id": "step-text-color",
+          "label": "Step Text Color",
+          "default": "#353535"
+        },
+        {
+          "type": "text",
+          "id": "para-text",
+          "label": "Para Text",
+          "default": "I purchased the NeuroMD device for my husband's birthday. He has 3 herniated discs, 3 surgeries, spinal stenosis..."
+        },
+        {
+          "type": "range",
+          "id": "para-font",
+          "min": 14,
+          "max": 28,
+          "step": 1,
+          "unit": "px",
+          "label": "Para Font",
+          "default": 16
+        },
+        {
+          "type": "color",
+          "id": "para-colors",
+          "label": "Para Color",
+          "default": "#333333"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "How TO Use",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

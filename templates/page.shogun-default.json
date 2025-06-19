@@ -1,0 +1,33 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "mission_7QHbM9": {
+      "type": "mission",
+      "settings": {
+        "bannerBackground": "shopify://shop_images/ourMission.jpg",
+        "pageTitle": "Our Mission",
+        "pageSubTitle": "Over 1 million NeuroMD treatments and we're just getting started.",
+        "pageDescriptio": "We are committed to helping people achieve lasting pain relief through developing innovative product and service solutions.",
+        "ebookText": "Back pain has been misunderstood for decades and has caused the internet to be overwhelmed with conflicting and most often, incorrect information. That is why we have incorporated the most up to date exercises and stretches from the most renowned establishments such as Harvard Medical University to create the most comprehensive, straight forward guide to correcting lower back pain.",
+        "ebookImage": "shopify://shop_images/NeuroMD_back_pain_and_sciatica_relief_eBook_8cdb57d1-ec7a-4c56-ad7e-3d18f986f735.png"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "mission_7QHbM9"
+  ]
+}

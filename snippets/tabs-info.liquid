@@ -1,0 +1,102 @@
+<ul class="shopify-tabs">
+  <li class="current" data-tab="tab-description">Product Description</li>
+  <li data-tab="tab-specs">How To Use</li>
+  <li data-tab="tab-delivery">Reviews</li>
+</ul>
+
+<div id="tab-description" class="shopify-tab-content current">
+ {{ block.settings.use_texted }}
+</div>
+<div id="tab-specs" class="shopify-tab-content">
+     {{ block.settings.use_text }}
+</div>
+<div id="tab-delivery" class="shopify-tab-content">
+    {% render 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: false, product: product %}
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('ul.shopify-tabs > li').click(function(){
+      var tab_id = $(this).attr('data-tab');
+
+      $(this).parent().find('li').removeClass('current');
+      $('.shopify-tab-content').removeClass('current');
+
+      $(this).addClass('current');
+      $("#"+tab_id).addClass('current');
+    })
+  })
+</script>
+<style>
+ul.shopify-tabs {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    margin-top: 11px;
+    background: #EAF6F899;
+    border: 1px solid #002F494D;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom: none;
+    display: flex;
+    justify-content: center;
+}
+ul.shopify-tabs > li {
+    display: inline-block;
+    cursor: pointer;
+    background: transparent;
+    border-bottom: 3px solid transparent;
+    color: #000;
+    font-weight: 600;
+    padding: 14px 5px 14px;
+    text-align: center;
+    text-decoration: none;
+    width: 33.3%;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+ul.shopify-tabs > li.current {
+    cursor: default;
+    font-weight: 600;
+    background: #fff;
+    color: #000;
+    border-radius: 4px;
+}
+.shopify-tab-content {
+    display: none;
+    background: #fff;
+    padding: 15px 10px;
+    border-top: 1px solid #ddd;
+}
+  .shopify-tab-content.current {
+    display: block;
+    border: 1px solid #002F494D;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    padding: 20px 30px;
+    height: 350px;
+    overflow-y: scroll;
+}
+.shg-hr-wrapper {
+    display: none;
+}
+  ul.shopify-tabs > li:nth-child(2) {
+    border-left: 1px solid #002F494D;
+    border-right: 1px solid #002F494D;
+}
+.shopify-tab-content.current{
+    display: block;
+}
+ul.shopify-tabs .jdgm-rev-widg {
+    margin-top: 0!important;
+    background: #fff!important;
+    padding: 0!important;
+}
+ul.shopify-tabs .jdgm-rev-widg__header {
+    display: none!important;
+}
+ul.shopify-tabs .jdgm-rev-widg__body {
+    width: 100%!important;
+}
+
+</style>

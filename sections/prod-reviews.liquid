@@ -1,0 +1,49 @@
+{% schema %}
+{
+ "name": "Product Reviews",
+ "settings": [
+    {
+      "id": "title",
+      "type": "text",
+      "label": "Title",
+      "default": "Reviews"
+    }
+ ]
+}
+{% endschema %}
+
+<div class="prodTabs">
+  <button class="prodTab prodTab1 prodTab--active">
+    {{ section.settings.title}}
+  </button>
+</div>
+
+<div class="prodRev">
+  <div class="prodRev__reviews">
+  	{% render 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: false, product: product %}
+  </div>
+</div>
+
+<script>
+  $(window).ready(function () {
+  $('.prodTab1').on('click', function(){
+      if ($('.prodRev__faq').is(':visible')){
+        $('.prodTab').removeClass('prodTab--active');
+      	$(this).addClass('prodTab--active');
+        $('.prodRev__faq').slideUp(400, function(){
+          $('.prodRev__reviews').slideDown(400);
+        });
+      }
+    });
+    
+    $('.prodTab2').on('click', function(){
+      if ($('.prodRev__reviews').is(':visible')){
+        $('.prodTab').removeClass('prodTab--active');
+      	$(this).addClass('prodTab--active');
+        $('.prodRev__reviews').slideUp(400, function(){
+          $('.prodRev__faq').slideDown(400);
+        });
+      }
+    });
+  });
+</script>

@@ -1,0 +1,101 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <section class="productLogoSection page-width">
+           {% for block in section.blocks %}
+            <div class="logoBox">
+                <div class="logoImage">
+                {% if block.settings.logo-img  != blank %}
+              <img src="{{ block.settings.logo-img | img_url: 'large' }}" alt="{{ block.settings.logo-img}}">
+            {% endif %}
+                </div>
+                <p style="font-size:{{block.settings.logo-text-font}}px; color:{{block.settings.logo-text-color}};">{{ block.settings.logo-text }}</p>
+            </div>
+            {% endfor %}
+        </section>
+<style>
+
+.productLogoSection {
+  width: 100%;
+  margin-top:60px;
+  margin-bottom:60px;
+  padding-inline: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 100px;
+}
+
+.productLogoSection .logoBox {
+    flex-basis: calc(25% - 100px);
+    display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
+.productLogoSection  .logoBox p {
+  
+  text-align: center;
+  line-height: 20px;
+}
+
+@media (max-width:768px) {
+  /* Product Logo Section  */
+
+.productLogoSection {
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.productLogoSection .logoBox {
+    flex-basis: calc(50% - 10px);padding-top:40px;
+}
+}
+</style>
+
+{% schema %}
+  {
+    "name": "Icon Image With Data",
+    "settings": [],
+    "blocks": [
+      {
+        "type": "box",
+        "name":"Logo-Box",
+        "settings": [
+          {
+                    "type": "image_picker",
+                    "id": "logo-img",
+                    "label": "Upload Logo Image"
+                },
+          {
+          "type": "text",
+          "id": "logo-text",
+          "label": "Logo Text",
+          "default":"60 Day Satisfaction Guarantee"
+        },
+        {
+          "type": "color",
+          "id": "logo-text-color",
+          "label": "Logo Text Color",
+          "default": "#333"
+        },
+        {
+          "type": "range",
+          "id": "logo-text-font",
+          "min":12,
+          "max":24,
+          "step": 1,
+          "unit": "px",
+          "label": "Logo Text Font",
+          "default":16
+        }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Icon Image With Data",
+        "category": "Custom"
+      }
+    ]
+  }
+{% endschema %}

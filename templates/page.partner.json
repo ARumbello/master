@@ -1,0 +1,34 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "partner_g833NQ": {
+      "type": "partner",
+      "settings": {
+        "bannerImage": "shopify://shop_images/122374823_1081410955650087_1044326593145956168_n.jpg",
+        "pageTitle": "Partner With Us",
+        "pageSubTitle": "Help solve one of the biggest challenges in pain management with clinically proven technology.",
+        "pageDescription": "NeuroMD is taking a new approach in pain management by taking years of data from clinical studies and combining it with the latest in biomedical electronics.",
+        "formTitle": "Interested in becoming a partner?",
+        "formSubTitle": "Please enter the following information to create new account. If you have any questions, please contact <a href=\"mailto:Help@GetNeuroMD.com\">Help@GetNeuroMD.com</a>.",
+        "agreementlink": "shopify://pages/reseller-notice-agreement-and-map-policy"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "partner_g833NQ"
+  ]
+}

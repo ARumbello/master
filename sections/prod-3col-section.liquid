@@ -1,0 +1,232 @@
+<div class="colprod_section">
+  <div class="container">
+    <h2 class="colprod-title">{{ section.settings.main_title1 }}</h2>
+    <div class="row display-flex mt-50">
+      <div class="prod-column">
+        <h2 class="prod-title">{{ section.settings.feature_title1 }}</h2>
+        <p class="prod-des">{{ section.settings.feature_description1 }}</p>
+      </div>
+      <div class="prod-column feature-data">
+        <div class="product-icon"><img class="myclass1" alt="{{ section.settings.productimage1.alt}}" src="{{ section.settings.productimage1 | img_url: '32x' }}" /> </div>
+        <h3 class="prod-title">{{ section.settings.feature_title2 }}</h3>
+        <p>{{ section.settings.feature_description2 }}</p>
+      </div>
+      <div class="prod-column feature-data">
+        <div class="product-icon"><img class="myclass1" alt="{{ section.settings.productimage2.alt}}" src="{{ section.settings.productimage2 | img_url: '32x' }}" /> </div>
+        <h3 class="prod-title">{{ section.settings.feature_title3 }}</h3>
+        <p>{{ section.settings.feature_description3 }}</p>
+      </div>
+    </div>
+    {% if section.settings.cta-content != blank and section.settings.cta-button != blank %}
+    <div class="call-to-action-section">
+    	<div class="cta-row">
+        	<h3>{{ section.settings.cta-content }}</h3>
+            <div class="button">{{ section.settings.cta-button }}</div>
+        </div>
+    </div>
+    {% endif %}
+    
+    
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "3Col Section",
+    "settings": [ 
+	{
+        "type": "text",
+        "id": "main_title1", 
+       "label": "Main Heading"
+	}, 
+    {
+        "type": "text",
+        "id": "feature_title1", 
+       "label": "Feature Heading 1"
+	},
+	{
+        "type": "richtext",
+        "id": "feature_description1", 
+       "label": "Feature description 1"
+	},
+    {
+      "type": "image_picker",
+      "id": "productimage1",
+      "label": "Product Image"
+    },
+    {
+        "type": "text",
+        "id": "feature_title2", 
+       "label": "Feature Heading 2"
+	},
+	{
+        "type": "richtext",
+        "id": "feature_description2", 
+       "label": "Feature description 2"
+	},
+    {
+      "type": "image_picker",
+      "id": "productimage2",
+      "label": "Product Image"
+    },
+    {
+        "type": "text",
+        "id": "feature_title3", 
+       "label": "Feature Heading 3"
+	},
+	{
+        "type": "richtext",
+        "id": "feature_description3", 
+       "label": "Feature description 3"
+	}, 
+    {
+        "type": "richtext",
+        "id": "cta-content", 
+       "label": "CTA Content"
+	},
+	{
+        "type": "richtext",
+        "id": "cta-button", 
+       "label": "Button"
+	}
+] 
+ }
+{% endschema %}
+    <style> 
+.colprod_section{
+	margin:0px;
+	padding:50px 0px;
+	width:100%;
+	background:#fff;
+}
+  
+.colprod-title {
+    color: #242426;
+    text-align: center;
+    font-family: Poppins;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    width: 70%;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.prod-column{
+	padding:20px;
+	border-right:1px solid #0BA3FA;
+    width:33%;
+}
+.prod-column:nth-last-child(1) {
+    border-right: none;
+}
+.prod-title{
+	font-family: Poppins;
+	font-size: 40px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 120%;
+  padding:20px 0;
+}
+  .mt-50{margin-top:50px;}
+  .product-icon img{width:32px;}
+.prod-des{
+	font-family: Poppins;
+	font-size: 18px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 140%;
+} 
+.feature-data h3{
+	color: #000; 
+	font-family: Poppins;
+	font-size: 28px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 120%;
+}
+.feature-data p{
+	color: #000; 
+	font-family: Poppins;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 140%;
+}
+.call-to-action-section {
+    margin: 100px 0 0 0;
+    padding: 0 22%;
+}
+
+.cta-row {
+    background: #E7F5FF;
+    padding: 30px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.cta-row h3 {
+    color: #000;
+    text-align: center; 
+    font-family: Poppins;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+    margin-bottom: 20px;
+}
+
+.cta-row a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.cta-row .button {
+    width: 200px;
+    margin: 0 auto;
+    padding: 8px;
+}
+
+.cta-row .button:hover a {
+    color: #0FA3FA!important;
+}
+@media screen and (min-width: 100px) and (max-width: 640px){ 
+.colprod_section { 
+    padding: 30px 20px; 
+}
+.colprod-title { 
+    width: 100%; 
+}  
+  .mt-50{margin-top:20px!important;}
+.colprod-title { 
+    font-size: 24px; 
+}
+.prod-column {
+    padding: 20px 0px;
+    border-bottom: 1px solid #0BA3FA;
+	border-right:none!important;
+    width: 100%;
+}
+.prod-column:nth-last-child(1) {
+    border-right: none;
+    border-bottom: none;
+}
+.prod-title { 
+    font-size: 32px; 
+}
+.feature-data h3 { 
+    font-size: 21px; 
+    margin-top: -56px;
+    padding-left: 44px;
+}
+.call-to-action-section {
+    margin: 28px 0 0 0;
+    padding: 0;
+    width: 100%;
+}
+.cta-row { 
+    padding: 20px; 
+}
+}      
+</style>

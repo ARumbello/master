@@ -1,0 +1,533 @@
+{% schema %}
+  {
+    "name": "Cart Section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "header",
+        "label": "header",
+        "default": "Your Cart"
+      },
+      {
+        "type": "url",
+        "id": "continue-shopping",
+        "label": "Continue Shopping Destination"
+      },
+      {
+        "type": "text",
+        "id": "taxes",
+        "label": "Taxes Message",
+        "default": "Taxes and shipping calculated at checkout"
+      },
+      {
+        "type": "header",
+        "content": "Package Protection"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_protection_product",
+        "label": "Enable Protection Product",
+        "default" : true
+      },
+      {
+        "type": "product",
+        "id": "protection_product",
+        "label": "Choose Package Protection Product"
+      },
+      {
+        "type": "textarea",
+        "id": "protection_product_info",
+        "label": "Information about Package Protection Product"
+      },
+      {
+        "type": "image_picker",
+        "id": "protection_product_icon",
+        "label": "Icon for Protection Product (optional)"
+      },
+      {
+        "type": "text",
+        "id": "popup_title",
+        "label": "Popup Title",
+        "default" : "About Package Protection"
+      },
+      {
+        "type": "richtext",
+        "id": "popup_info",
+        "label": "Popup Description"
+      },
+      {
+        "type": "header",
+        "content": "Additional Shipping Notice"
+      },
+      {
+        "type": "text",
+        "id": "additional_shipping_notice",
+        "label": "Additional Shipping Notice",
+        "default": "Poissible Shipping Delays With Carriers. Please allow additional time for delivery."
+      },
+      {
+        "type": "color",
+        "id": "notice_color",
+        "label": "Notice Color",
+        "default": "#000000"
+      },
+      {
+        "type": "range",
+        "id": "notice_font_weight",
+        "label": "Font Weight of Notice",
+        "min": 100,
+        "max" : 900,
+        "step": 100,
+        "default": 300
+      },
+      {
+        "type": "range",
+        "id": "notice_font_size",
+        "label": "Font Size of Noice",
+        "min": 12,
+        "max" : 24,
+        "step": 1,
+        "default": 12
+      }
+    ],
+    "presets": [
+      {
+        "name": "Cart Section"
+      }
+    ]
+  }
+{% endschema %}
+<style> 
+  .btn--blue .__affirm-logo .__affirm-logo-blue { color: white !important; }
+  .btn--blue .__affirm-logo-blue { color: white !important; margin-top: -2px; }
+  .btn--blue-inverted:hover .__affirm-logo-blue { color: white !important; }
+  .__affirm-logo.__affirm-logo-blue.__ligature__affirm_full_logo__:after, .__affirm-logo.__affirm-logo-blue.__ligature__affirm_short_logo__:after { color: #0FA0EA; padding-bottom: 7px; }
+  .btn--blue-inverted:hover .__affirm-logo.__affirm-logo-blue.__ligature__affirm_full_logo__:after, .__affirm-logo.__affirm-logo-blue.__ligature__affirm_short_logo__:after { /*color: #0FA0EA !important;*/ color: white !important; }
+  .cart-shipping-notice {
+    font-size: {{ section.settings.notice_font_size}}px;
+    color: {{ section.settings.notice_color }};
+    font-weight: {{ section.settings.notice_font_weight}};
+  }
+</style>
+
+{% assign exist_main_product = false %}
+{% for item in cart.items %}
+	{% if item.product.id == 2327066509376 %}
+		{% assign exist_main_product = true %}
+        {% break %}
+	{% endif %}
+{% endfor %}
+
+{%- if section.settings.enable_protection_product and section.settings.protection_product != blank -%}
+{% assign protection_product = all_products[section.settings.protection_product] %}
+{%- endif -%}
+<section class="sm-cart sm-sleepify" id="section-1581365932">
+  <div class="sm-cart-inner">
+    {% if cart.item_count > 0 %}
+      <form data-bind="visible: item_count() > 0" action="/cart" method="post" novalidate class="table-wrap">
+        {%- if settings.enable_discount_marketing == true and exist_main_product == true -%}
+          {%- if settings.cart_discount_code != blank -%}
+          <input type="hidden" name="discount" id="discount_code" value="{{ settings.cart_discount_code }}">
+          {%- endif -%}
+        {%- endif -%}
+        <table class="cart-table">
+          <caption>
+            <h1 class="lgtblue2 font-size28 ComfortaaRegular  text--display">{{ section.settings.header }}</h1>
+          </caption>
+          <tr class="cart-row desktop-only AvenirHeavy font-size15 key">
+            <th scope="col">Product</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Total</th>
+          </tr>
+          <tbody data-bind="foreach: items" style="display:flex;flex-direction:column-reverse;">
+            <tr class="cart-row" data-bind="attr: {style: $parent.orderStyle(price) }">
+                <td class="product-column">
+                  <a data-bind="attr: {href: url}" class="lineitem-image">
+                    <div class="image-wrapper">
+                      <img class="lazyload" data-bind="attr: {src: featured_image.url, alt: title }">
+                    </div>
+                  </a>
+
+                  <div class="title-n-variant">
+                    <a data-bind="attr: {href: url }" class="body bold" style="text-decoration: none;">
+                      <span class="body bold product-title AvenirHeavy font-size15 text--display" data-bind="text: product_title"></span>
+                      
+                        <small class="body variant-title text--14 AvenirBook" data-bind="text: $parent.hiddenVariant(variant_title)"></small>
+                      
+                    </a>
+                    
+                    <a href="javascript:void(0);" data-bind="click: $parent.removeItem.bind($data, $index())" class="cart-remove text--orange text--14" style="color: #45A1FF !important;">
+                      <small>Remove</small>
+                    </a>
+                  </div>
+                </td>
+                <td class="price-column">
+                  <!-- <span class="mobile-only AvenirHeavy font-size15">Price</span> -->
+                  <span class="AvenirBook text--14" data-bind="text: $parent.toDollars(price)"></span>
+                </td>
+                <td class="quantity-column" data-bind="attr: {style: $parent.hideCoach(product_title) }">
+                  <!-- <span class="mobile-only AvenirHeavy font-size15">Quantity</span> -->
+                  {% include 'sm-qtyctrl' %}
+                </td>
+                <td class="total-column">
+                  <!-- <span class="mobile-only AvenirHeavy font-size15">Total</span> -->
+                  <span class="AvenirBook text--14" data-bind="text: $parent.toDollars(line_price)"></span>
+                  {% comment %}
+                  <span class="CartDiscountText AvenirBook text--14" style="display:none;" data-bind="attr: {style: $parent.chechIfDiscounted(line_price, price) }">
+                    $10 off with OnDemand!
+                  </span>
+                  {% endcomment %}
+                </td>
+            </tr>
+          </tbody>
+        </table>
+        <aside class="grid cart-row totals sticky">
+          <div class="end">
+              <div class="content">
+                <div class="subtotal-row">
+                  <span class=" bold cart-subtotal-title AvenirHeavy font-size15">Subtotal</span>
+                  <span class="AvenirBook text--14 cart-subtotal" data-bind="text: toDollars(total_price())"></span>
+                </div>
+                <div class="taxes-row">
+                  <span class="body">{{ section.settings.taxes }}</span>
+                </div>
+                
+                {%- if section.settings.enable_protection_product and section.settings.protection_product != blank -%}
+                {% assign protection_product = all_products[section.settings.protection_product] %}
+                <div class="package-protection-row" data-bind>
+                  <div class="icon">
+                    {%- if protection_product.featured_image != blank -%}
+                    <img class="lazyload" src="{{ protection_product.featured_image | img_url: '45x' }}">
+                    {%- else -%}
+                    <img class="lazyload" src="{{ section.settings.protection_product_icon | img_url: '45x' }}">
+                    {%- endif -%}
+                  </div>
+                  <div class="description">
+                    <p class="title">{{ protection_product.title }} 
+                      {%- if section.settings.popup_info != blank -%}
+                      <a href="javascript:void(0)" aria-label="View Details" id="pp_info">{% include 'icon-information' %}</a>
+                      {%- endif -%}
+                    </p>
+                    <p class="info">{{ section.settings.protection_product_info | default: protection_product.description }} {{protection_product.price | money }}</p>
+                  </div>
+                  <div class="toggle">
+                    <input type="checkbox" name="package-protection-enable" 
+                           data-product-id="{{ protection_product.id }}" 
+                           data-variant-id="{{ protection_product.selected_or_first_available_variant.id }}"
+                           class="package-protection-checkbox">
+                    <span class="toggler-checkbox"></span>
+                  </div>
+                  
+                </div>
+                {%- endif -%}
+                
+                <div class="buttons">
+                  <button type="submit" name="checkout" class="btn--blue Checkout">Proceed to Checkout</button>
+                  {% if section.settings.additional_shipping_notice != blank %}
+                    <p class="text--12 hide-mb cart-shipping-notice">{{ section.settings.additional_shipping_notice }}</p>
+                  {% endif %}
+                </div>
+              </div>
+          </div>
+        </aside>
+        <div class="grid cart-row totals">
+          <div class="start">
+            {% if settings.cart_show_notes %}
+              <div class="content">
+                <label class="body text--display" for="txtboxMultiline">Special instructions:</label>
+                <textarea name="note" class="body" id="txtboxMultiline">{{ cart.note }}</textarea>
+              </div>
+            {% endif %}
+            <a href="{{section.settings.continue-shopping}}" class="btn--blue-inverted text--18">Continue Shopping</a>
+            {% if section.settings.additional_shipping_notice != blank %}
+            <p class="text--12 show-mb cart-shipping-notice">{{ section.settings.additional_shipping_notice }}</p>
+            {% endif %}
+          </div>
+        </div>
+      </form>
+      {% else %}
+        <div class="no-items">
+          <h1 class="h1">Your cart is currently empty.</h1>
+          <a class="btn--blue" href="{{section.settings.continue-shopping}}">Continue Shopping</a>
+        </div>
+      {% endif %}
+  </div>
+</section>
+<script>
+  var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return typeof sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        }
+    }
+    return false;
+  };
+  var current_discount = getUrlParameter('discount');
+  if(current_discount != ''){
+    var new_affirm_link = '{{shop.url}}/checkout?discount='+current_discount;
+    $('#affirm_checkout_link').attr('href', new_affirm_link);
+  }
+  
+</script>
+<!-- Start Cart Package Protection Script -->
+<script>
+  function addItemToCart(variant_id, qty) {
+    var data = {
+      "id": variant_id,
+      "quantity": qty,
+    }
+    
+    jQuery.ajax({
+      type: 'POST',
+      url: '/cart/add.js',
+      data: data,
+      dataType: 'json',
+      success: function() { 
+      	window.location.reload();
+      }
+    });
+  }
+  
+  function removeItemFromCart(variant_id, qty) {
+    var data = {
+      "id": variant_id,
+      "quantity": qty,
+    }
+    
+    jQuery.ajax({
+      type: 'POST',
+      url: '/cart/change.js',
+      data: data,
+      dataType: 'json',
+      success: function(response) { 
+        window.location.reload();
+      }
+    });
+  }
+  
+  function check_cart_for_package_protection(variant_id) {
+    $.ajax({
+      type: 'GET',
+      url: '/cart.json',
+      dataType: 'json',
+      success: function(data) { 
+        
+        let items = data.items;
+        let found_package_in_cart = false;
+        
+        for(var i=0; i < items.length; i++){
+          var line_item_id = items[i].id;
+          if(line_item_id == variant_id){
+            found_package_in_cart = true;
+          }
+        }
+        
+        if( found_package_in_cart ){
+          $('.package-protection-checkbox').prop("checked", true);
+        }
+      }
+    });
+  }
+  
+  $(document).ready(function(){
+    var pp_variant_id = $('.package-protection-checkbox').attr('data-variant-id');
+    
+    if(pp_variant_id){
+      check_cart_for_package_protection(pp_variant_id);
+    }
+    
+    $('#pp_info').on('click', function (e) {
+      e.preventDefault();
+      $('.info-modal').fadeIn();
+    });
+    
+    $('[data-dismiss="modal"]').on('click', function(e){
+      e.preventDefault();
+      $('.info-modal').fadeOut();
+    });
+    
+    $('.toggler-checkbox').click(function(){
+      if($('.package-protection-checkbox').is(':checked')){
+        $('.package-protection-checkbox').prop("checked", false);
+
+        if(pp_variant_id){
+          // Remove Package Product From Cart
+          removeItemFromCart(pp_variant_id, 0);
+        }
+
+      } else {
+        $('.package-protection-checkbox').prop("checked", true); 
+
+        if(pp_variant_id){
+          // Add Package Product to Cart
+          addItemToCart(pp_variant_id, 1);
+        }
+      }
+    });
+    
+  });
+
+  
+</script>
+<!-- End Cart Package Protection Script -->
+
+<script type="text/javascript">
+  window.onload = (event) => {
+    const productTitles = document.querySelector('.table-wrap').querySelectorAll('.product-title');
+    productTitles.forEach((product) => {
+      if(product.textContent.indexOf('Free') >= 0) {
+        const productTitle = product.textContent;
+        product.textContent = productTitle.split('- Free')[0]
+      }        
+    });
+  }
+</script>
+
+<script>
+  $(document).ready(function(){
+    for (i=0;i<CartJS.cart.items.length;i++){
+      if (CartJS.cart.items[i].variant_id == 41719973806231){
+        CartJS.updateItemById({41719973806231: 1});
+      }
+    }
+  });
+</script>
+
+<div class="modal info-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ section.settings.popup_title }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{ section.settings.popup_info }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<style>
+  @media screen and (max-width: 767px) {
+    .qtyctrl input {
+      height: 35px;
+    }
+
+    .qtyctrl .button-container {
+      top: 35%;
+    }
+    
+    .sm-cart .sm-cart-inner .cart-table .cart-row {
+      padding: 10px 0;
+    }
+    
+    .sm-cart .sm-cart-inner .cart-table .cart-row .product-column,
+    .sm-cart .sm-cart-inner .cart-table .cart-row .product-column .image-wrapper {
+      width: 125px;
+      height: 125px;
+    }
+    
+    .sm-cart-inner .cart-table .cart-row .product-column .title-n-variant a.body {
+      position: absolute;
+      top: 0;
+      width: calc(100% - 125px);
+      left: 135px;
+      text-align: left;
+    }
+    
+    .sm-cart .sm-cart-inner .cart-table .cart-row .title-n-variant .product-title {
+      position: relative;
+      left: unset;
+      width: auto;
+      margin-top: 5px !important;
+    }
+    
+    .sm-cart .sm-cart-inner .cart-table .cart-row .quantity-column {
+      top: unset;
+      bottom: -12px;
+      left: 135px;
+    }
+    
+    .sm-cart .sm-cart-inner .cart-table .cart-row .title-n-variant .cart-remove {
+      top: unset;
+      bottom: 25px;
+      z-index: 9;
+    }
+    
+    .sm-cart .sm-cart-inner .cart-table .cart-row .total-column {
+      top: unset;
+      bottom: 5px;
+    }
+  }
+  
+  @media screen and (max-width: 479px) {    
+    .sm-cart .sm-cart-inner .cart-table .cart-row .product-column, 
+    .sm-cart .sm-cart-inner .cart-table .cart-row .product-column .image-wrapper {
+      width: 100px;
+      height: 100px;
+    }
+    
+    .sm-cart .sm-cart-inner .cart-table .cart-row .quantity-column {
+      position: relative;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: 0;
+      margin: 10px 0 0 0;
+    }
+    
+    .sm-cart-inner .cart-table .cart-row .product-column .image-wrapper img {
+      width: 100px;
+      height: 100px;
+    }
+    
+    .sm-cart-inner .cart-table .cart-row .product-column .title-n-variant a.body {
+      width: calc(100% - 100px);
+      left: 110px;
+    }
+    
+    .sm-cart .sm-cart-inner .cart-table .cart-row .total-column {
+      top: unset;
+      bottom: 5px;
+    }
+    
+    .sm-cart .sm-cart-inner .cart-table .cart-row .title-n-variant .product-title {
+      font-size: 13px !important;
+    }
+    
+    .sm-cart-inner .cart-table .cart-row .product-column .title-n-variant .variant-title {
+      font-size: 13px !important;
+    }
+  }
+  
+  [coach]{
+    display:none;
+  }
+  
+  .CartDiscountText{
+    display: block;
+    font-weight: bold;
+    color: #45A1FF;
+  }
+  .total-column{
+        display: flex!important;
+    flex-direction: column;
+  }
+  .total-column span{
+    margin-left:auto;
+  }
+</style>

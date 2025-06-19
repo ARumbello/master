@@ -1,0 +1,527 @@
+{%- if section.settings.layout == 'default' -%}
+	{%- assign layout_class="container" -%}
+{%- elsif section.settings.layout == "full" %}
+	{%- assign layout_class="container-fluid" -%}
+{%- else -%}
+	{%- assign layout_class="container inner" -%}
+{%- endif -%}
+<div class="page-article-benefits-inner" id="page-section-{{section.id}}">
+    <div class="{{layout_class}}">
+      <div class="row">
+        <div class="col-10 offset-1 col-md-8 offset-md-2">
+        {% if section.settings.heading != blank %}
+        <h2 class="heading text-center">
+            {% render 'multilang' with section.settings.heading  %}
+        </h2>
+        {% endif %}
+        </div>
+        <div class="col-12 col-md-10 offset-md-1">
+          <div class="icons-wrapper">
+            {% for block in section.blocks %}
+              <div class="icon" style="margin-top: {{ block.settings.margin_top }}%;">
+                <div class="icon-img-wrapper">
+                  {%- assign img_url = block.settings.image | img_url: '100px', crop: 'center' -%}
+                  <img data-srcset="https:{{ img_url }}" alt="{{ block.settings.image.alt | default: shop.name }}" {% include 'lazy_load' %}>
+                </div>
+                <div class="icon-heading">
+                  <h4>{{ block.settings.title }}</h4>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<style>
+  #page-section-{{ section.id }} {
+    {%- if section.settings.bg_image != blank -%}
+      {%- assign bg_img_url = section.settings.bg_image | img_url: 'master' -%}
+      background-image: url({{bg_img_url}});
+      background-size:cover;
+    {%- endif-%}
+    {%- if section.settings.bg_color != blank -%}
+      background-color: {{section.settings.bg_color}};
+    {%- endif-%}
+    background-position: {{ section.settings.bg_position }};
+    {% if section.settings.use_border_top == true %}
+    border-top: 1px solid {{ section.settings.color_border }};
+    {% endif %}
+  }
+  
+  #page-section-{{section.id}} .heading { 
+    text-transform:unset;
+    letter-spacing:-1px;
+    {% if section.settings.color_heading != blank %}
+    color:{{ section.settings.color_heading }};
+    {% endif %}
+    font-size: {{ section.settings.font_size_heading}};
+    font-weight: {{ section.settings.font_weight_heading}};
+    line-height: {{ section.settings.line_height_heading }};
+    margin-bottom: 50px;
+    text-align:center;
+  }
+
+  #page-section-{{section.id}} .icons-wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
+  	
+  #page-section-{{section.id}} .icon {
+    flex: 1;
+    max-width: 200px;
+    position:relative;
+  }
+  
+  #page-section-{{section.id}} .icon:nth-child(1):before {
+    content: "";
+    position: absolute;
+    left: 90px;
+    top: 44px;
+    width: 89px;
+    height: 39px;
+    background-image: url({{ section.settings.divider_image_1 | img_url: 'master' }} );
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  #page-section-{{section.id}} .icon:nth-child(2):before {
+    content: "";
+    position: absolute;
+    left: 90px;
+    top: 20px;
+    width: 95px;
+    height: 50px;
+    background-image: url({{ section.settings.divider_image_2 | img_url: 'master' }} );
+    background-repeat: no-repeat;
+    background-position: top right;
+    background-size: cover;
+    z-index: -1;
+  }
+  
+  #page-section-{{section.id}} .icon:nth-child(3):before {
+    content: "";
+    position: absolute;
+    left: 60px;
+    top: -40px;
+    width: 124px;
+    height: 50px;
+    background-image: url({{ section.settings.divider_image_3 | img_url: 'master' }} );
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: -1;
+  }
+  
+  #page-section-{{section.id}} .icon .icon-img-wrapper {
+    box-shadow: 0 16px 20px rgba(37, 138, 255, 0.2);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    background: {{ section.settings.block_bg}};
+    text-align:center;
+    max-width: 88px;
+    z-index: -1;
+  }
+  
+  #page-section-{{section.id}} .icon .icon-img-wrapper img{
+    max-width: 58px;
+    margin-bottom:0;
+    margin-left:auto;
+    margin-right: auto;
+  }
+  
+  #page-section-{{section.id}} .icon-heading h4 {
+    color: {{ section.settings.color_block }};
+    font-size: {{ section.settings.font_size_block }};
+    line-height: {{ section.settings.line_height_block }};
+    font-weight: {{ section.settings.font_weight_block }};
+    text-align:left;
+  }
+  
+   @media (max-width: 767px) {
+        #page-section-{{ section.id }} {
+          padding-top: {{ section.settings.padding_top_mb }}px;
+          padding-bottom: {{ section.settings.padding_bottom_mb }}px;
+          {%- if section.settings.bg_image_mobile != blank -%}
+          {%- assign bg_img_mobile_url = section.settings.bg_image_mobile | img_url: 'master' -%}
+            background-image: url({{bg_img_mobile_url}});
+            background-size:cover;
+          {%- endif-%}
+        }
+
+        #page-section-{{section.id}} .heading { 
+          font-size: {{ section.settings.font_size_heading_mobile }};
+          line-height: {{ section.settings.line_height_heading_mobile }};
+          margin-bottom: 40px;
+        }
+
+        #page-section-{{section.id}} .icon-title h4 {
+          font-size: {{ section.settings.font_size_block_mobile }};
+          line-height: {{ section.settings.line_height_block_mobile }};
+        }
+
+        #page-section-{{section.id}} .icons-wrapper {
+          margin-left: 8%;
+        }
+
+        #page-section-{{section.id}} .icon {
+          padding-left:10px;
+        }
+    }
+
+    @media (min-width: 768px) and (max-width: 1199px) {
+        #page-section-{{ section.id }} {
+          	padding-top: {{ section.settings.padding_top_tab }}px;
+          	padding-bottom: {{ section.settings.padding_bottom_tab }}px;
+        }
+    }
+  
+  	@media (max-width : 1200px){
+        #page-section-{{section.id}} .icon:before {
+          display:none;
+        }
+      
+        #page-section-{{section.id}} .icon {
+            flex: none;
+            max-width: 50%;
+            display: inline-block;
+            float: left;
+            position: relative;
+            width: 50%;
+            margin-top: 0 !important;
+            margin-bottom: 30px;
+          	padding-left:10px;
+        }
+      
+      	#page-section-{{section.id}} .icon .icon-heading{
+          max-width: 200px;
+        }
+      
+        #page-section-{{section.id}} .icons-wrapper {
+            display: flex;
+            justify-content: flex-start;
+            flex-flow: row;
+            flex-wrap: wrap;
+          	margin-left: 15%;
+        }
+      
+    }
+  
+    @media (min-width: 1200px) {
+        #page-section-{{ section.id }} {
+          	padding-top: {{ section.settings.padding_top }}px;
+          	padding-bottom: {{ section.settings.padding_bottom }}px;
+        }
+    }
+</style>
+{% schema %}
+  {
+    "name": "Benefits",
+	"class": "page-article-benefits",
+	"max_blocks" : 4,
+    "settings": [
+        {
+    		"type": "header",
+            "content": "Banner Layout:"
+		},
+        {
+          "id": "layout",
+          "type": "select",
+          "label": "Section Layout:",
+          "options": [
+              {
+                  "value": "default",
+                  "label": "Default"
+              },
+              {
+                  "value": "full",
+                  "label": "Full Width"
+              },
+              {
+                  "value": "inner",
+                  "label": "Inner Width"
+              }
+          ],
+          "default": "default"
+        },
+        {
+            "id": "bg_color",
+            "type": "color",
+            "label" : "Banner Background Color"
+        },
+        {
+            "id": "bg_image",
+            "type": "image_picker",
+            "label" : "Banner Background Image"
+        },
+        {
+            "id": "bg_image_mobile",
+            "type": "image_picker",
+            "label" : "Banner Background Image For Mobile"
+        },
+        {
+            "id": "bg_position",
+            "type": "select",
+            "label": "Background Position:",
+            "default": "center center",
+            "options": [
+              {
+                  "value": "left top",
+                  "label": "Left Top"
+              },              
+              {
+                  "value": "left center",
+                  "label": "Left Center"
+              },
+              {
+                  "value": "left bottom",
+                  "label": "Left Bottom"
+              },
+              {
+                  "value": "center top",
+                  "label": "Center Top"
+              },
+              {
+                  "value": "center center",
+                  "label": "Center Center"
+              },
+              {
+                  "value": "center bottom",
+                  "label": "Center Bottom"
+              },
+              {
+                  "value": "right top",
+                  "label": "Right Top"
+              },
+              {
+                  "value": "right center",
+                  "label": "Right center"
+              },
+              {
+                  "value": "right bottom",
+                  "label": "Right Bottom"
+              }
+            ]
+        },
+        {
+    		"type": "header",
+            "content": "Border Top"
+		},
+        {
+            "id" : "use_border_top",
+            "type" : "checkbox",
+            "label" : "Enable Border Top",
+            "default" : true
+        },
+        {
+            "id" : "color_border",
+            "type" : "color",
+            "label" : "Border Color",
+            "default" : "#E2E4E8"
+        },
+        {
+    		"type": "header",
+            "content": "Heading"
+		},
+        {
+            "id" : "heading",
+            "type" : "text",
+            "label" : "Heading"
+        },
+        {
+            "id" : "font_size_heading",
+            "type" : "text",
+            "label" : "Heading Font Size",
+            "default" : "36px"
+        },
+        {
+            "id" : "line_height_heading",
+            "type" : "text",
+            "label" : "Heading Line Height",
+            "default" : "54px"
+        },
+        {
+            "id" : "font_size_heading_mobile",
+            "type" : "text",
+            "label" : "Heading Font Size Mobile",
+            "default" : "28px"
+        },
+        {
+            "id" : "line_height_heading_mobile",
+            "type" : "text",
+            "label" : "Heading Line Height Mobile",
+            "default" : "42px"
+        },
+        {
+            "id" : "font_weight_heading",
+            "type" : "text",
+            "label" : "Heading Font Weight",
+			"default" : "700"
+        },
+        {
+            "id" : "color_heading",
+            "type" : "color",
+            "label" : "Heading Color",
+            "default" : "#1D293F"
+        },
+		{
+    		"type": "header",
+            "content": "Block Description"
+		},
+        {
+            "id" : "font_size_block",
+            "type" : "text",
+            "label" : "Block Font Size",
+            "default" : "16px"
+        },
+        {
+            "id" : "line_height_block",
+            "type" : "text",
+            "label" : "Block Line Height",
+            "default" : "24px"
+        },
+        {
+            "id" : "font_size_block_mobile",
+            "type" : "text",
+            "label" : "Block Font Size Mobile",
+            "default" : "16px"
+        },
+        {
+            "id" : "line_height_block_mobile",
+            "type" : "text",
+            "label" : "Block Line Height Mobile",
+            "default" : "24px"
+        },
+        {
+            "id" : "font_weight_block",
+            "type" : "text",
+            "label" : "Block Font Weight",
+			"default" : "600"
+        },
+        {
+            "id" : "color_block",
+            "type" : "color",
+            "label" : "Block Color",
+            "default" : "#1D293F"
+        },
+        {
+            "id" : "block_bg",
+            "type" : "color",
+                        "label" : "Block Icon Background",
+            "default" : "#E9F7FE"
+        },
+        {
+            "type": "header",
+            "content": "Divider Images:"
+        },
+        {
+            "id" : "divider_image_1",
+            "type" : "image_picker",
+            "label" : "Divider Image 1"
+        },
+		{
+            "id" : "divider_image_2",
+            "type" : "image_picker",
+            "label" : "Divider Image 2"
+        },
+		{
+            "id" : "divider_image_3",
+            "type" : "image_picker",
+            "label" : "Divider Image 3"
+        },
+        {
+            "type": "header",
+            "content": "Section Padding:"
+        },
+        {
+            "id": "padding_top",
+            "type": "range",
+            "label": "Padding Top",
+            "min": 0,
+            "max": 200,
+            "step": 10,
+            "default": 50
+        },
+        {
+            "id": "padding_bottom",
+            "type": "range",
+            "label": "Padding Bottom",
+            "min": 0,
+            "max": 200,
+            "step": 10,
+            "default": 50
+        },
+        {
+            "type": "header",
+            "content": "Section Padding For Tablet:"
+        },
+        {
+            "id": "padding_top_tab",
+            "type": "range",
+            "label": "Padding Top Tablet",
+            "min": 0,
+            "max": 200,
+            "step": 10,
+            "default": 40
+        },
+        {
+            "id": "padding_bottom_tab",
+            "type": "range",
+            "label": "Padding Bottom Tablet",
+            "min": 0,
+            "max": 200,
+            "step": 10,
+            "default": 40
+        },
+        {
+            "type": "header",
+            "content": "Section Padding For Mobile:"
+        },
+        {
+            "id": "padding_top_mb",
+            "type": "range",
+            "label": "Padding Top Mobile",
+            "min": 0,
+            "max": 200,
+            "step": 10,
+            "default": 30
+        },
+        {
+            "id": "padding_bottom_mb",
+            "type": "range",
+            "label": "Padding Bottom Mobile",
+            "min": 0,
+            "max": 200,
+            "step": 10,
+            "default": 30
+        }
+    ],
+    "blocks": [
+      {
+        "type" : "text",
+    	"name" : "Block",
+        "settings":[
+          {
+            "id" : "title",
+            "type" : "textarea",
+            "label" : "title"
+          },
+          {
+            "id" : "image",
+            "type" : "image_picker",
+            "label" : "Block Image"
+          },
+          {
+            "id": "margin_top",
+            "type": "range",
+            "label": "Margin Top",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 0
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

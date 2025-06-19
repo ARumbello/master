@@ -1,0 +1,100 @@
+{{ 'page_style.min.css' | asset_url | stylesheet_tag }}
+ 
+{% comment %}
+{% render 'shogun-products', content: product %}
+{% endcomment %}
+ 
+{{product.metafields.shogun.above}}
+{% comment %}
+{% include 'product-content.zipifypages', contentprt: 'header' %}
+{% endcomment %}
+<script>
+  var variants = [
+    {% for variant in product.variants %}
+      {
+        title: '{{ variant.title }}',
+        price: '{{ variant.price | money }}',
+        compare_price: '{{ variant.compare_at_price | money }}',
+        available: '{{ variant.available }}',
+        id: '{{ variant.id }}'
+      }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ];
+</script>
+{% comment %}
+  {% section 'sm-product' %}
+  {% section 'prod-iconBar' %}
+  {% section 'featured-news' %}
+  {% section 'prod-SBS' %}
+  {% section 'prod-diagram' %}
+  {% section 'comparison-chart' %}
+  {% section 'prod-included' %}
+  {% section 'prod-video-reviews' %}
+  {% section 'prod-proof' %}
+  {% section 'prod-reviews' %} 
+  {% section 'prod-faq' %}
+{% section 'include-new-section' %}  
+{% endcomment %}
+
+
+{% section 'sm-product-new-duplicate' %}
+{% section 'news-section' %} 
+{% section 'steps' %}  
+{% section 'circle-slider' %} 
+{% section 'product-use' %}
+{% section 'prod-3col-section' %}
+{% section 'prod-proof-section' %}
+{% section 'prod-review-slider' %} 
+{% section 'new-faq-section' %}
+ 
+
+<style>
+  .slick-prev{
+    z-index:1;
+  }
+</style>
+
+<script>
+  jQuery('#shopNav').hide();
+</script>
+
+
+{% comment %}{{product.metafields.shogun.below}}{% endcomment %}
+
+
+{% render 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: true, auto_install: true, product: product %}
+{% comment %}
+<script type="text/javascript">
+  var _learnq = _learnq || [];
+
+  var item = {
+    Name: {{ product.title|json }},
+    ProductID: {{ product.id|json }},
+    Categories: {{ product.collections|map:'title'|json }},
+    ImageURL: "https:{{ product.featured_image.src|img_url:'grande' }}",
+    URL: "{{ shop.secure_url }}{{ product.url }}",
+    Brand: {{ product.vendor|json }},
+    Price: {{ product.price|money|json }},
+    CompareAtPrice: {{ product.compare_at_price_max|money|json }}
+  };
+
+  _learnq.push(['track', 'Viewed Product', item]);
+  _learnq.push(['trackViewedItem', {
+    Title: item.Name,
+    ItemId: item.ProductID,
+    Categories: item.Categories,
+    ImageUrl: item.ImageURL,
+    Url: item.URL,
+    Metadata: {
+      Brand: item.Brand,
+      Price: item.Price,
+      CompareAtPrice: item.CompareAtPrice
+    }
+  }]);
+</script>
+{% endcomment %}
+{% comment %}
+{% include 'product-content.zipifypages', contentprt: 'footer' %} 
+{% endcomment %}
+
+{% render 'product-recharge-price-check' %}

@@ -1,0 +1,327 @@
+{%- if section.settings.layout == 'default' -%}
+    {%- assign layout_class="container" -%}
+  {%- elsif section.settings.layout == "full" %}
+    {%- assign layout_class="container-fluid" -%}
+  {%- else -%}
+    {%- assign layout_class="container inner" -%}
+  {%- endif -%}
+  <div class="page-sn-header" id="page-section-{{section.id}}">
+    <div class="{{layout_class}}">
+      <div class="row">
+        <div class="col-12 header-wrapper">
+            {% if section.settings.logo_url != blank %}        
+              <a class="header-logo svg-logo flex-center" href="/">
+                  <img src="{{ section.settings.logo_url }}" alt="{{ shop.name }}">
+              </a>
+            {% else %}
+              <a class="header-logo hide-mb flex-center" href="/">
+                  {% if section.settings.logo_img != blank %}
+                  {%- assign img_url = section.settings.logo_img | img_url: '180x50' -%}
+                  <img data-srcset="https:{{ img_url }}" alt="{{ section.settings.logo_img.alt | default: shop.name }}" {% include 'lazy_load' %}>
+                  {% endif %}
+              </a>
+              <a class="header-logo show-mb flex-center" href="/">
+                  {% if section.settings.logo_img != blank %}
+                  {%- assign img_url = section.settings.logo_img | img_url: '142x40' -%}
+                  <img data-srcset="https:{{ img_url }}" alt="{{ section.settings.logo_img.alt | default: shop.name }}" {% include 'lazy_load' %}>
+                  {% endif %}
+              </a>
+            {% endif %}
+            {% if section.settings.enable_header_bt == true %}
+            <a class="btn btn-link" href="{{ section.settings.button_link }}">{{ section.settings.button_text}}</a>
+            {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <style>
+    main {
+      padding-top: 0 !important;
+    }
+  
+    #page-section-{{section.id}} .header-wrapper {
+      justify-content: space-between;
+      display:flex;
+      align-items:center;
+    }
+  
+    #page-section-{{section.id}} .header-logo  {
+      display:flex;
+    }
+  
+    #page-section-{{section.id}} .header-logo img {
+      max-height: {{ section.settings.logo_max_height }}px;
+    }
+    
+    #page-section-{{section.id}} .header-logo.svg-logo img{
+      height:{{ section.settings.logo_max_height }}px;
+    }
+  
+    #page-section-{{ section.id }} .btn {
+      background-color: {{ section.settings.button_bg }};
+      color: {{ section.settings.button_color }};
+      font-size: {{ section.settings.font_size_button }};
+      font-weight: {{ section.settings.font_weight_button }};
+      line-height: {{ section.settings.line_height_button }};
+      text-align:center;
+    }
+  
+    .page-sn-header.sticky-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #fff;
+      display: block;
+      z-index: 9999;
+   }
+    
+    @media (max-width: 767px) {
+      #page-section-{{section.id}} {
+          padding-top: {{ section.settings.padding_top_mb }}px;
+          padding-bottom: {{ section.settings.padding_bottom_mb }}px;
+      }
+  
+      #page-section-{{section.id}} .header-logo img {
+        max-height: {{ section.settings.logo_max_height_mobile }}px;
+      }
+      
+      #page-section-{{section.id}} .header-logo.svg-logo img {
+        height: {{ section.settings.logo_max_height_mobile }}px;
+      }
+  
+      #page-section-{{ section.id }} .btn {
+        font-size: {{ section.settings.font_size_button_mobile }};
+        line-height: {{ section.settings.line_height_button_mobile }};
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+    }
+  
+    @media (min-width: 768px) and (max-width: 1199px) {
+      #page-section-{{section.id}} {
+          padding-top: {{ section.settings.padding_top_tab }}px;
+          padding-bottom: {{ section.settings.padding_bottom_tab }}px;
+      }
+    }
+  
+    @media (min-width: 1200px) {
+      #page-section-{{ section.id }} {
+          padding-top: {{ section.settings.padding_top }}px;
+          padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+    }
+  </style>
+  <script>
+    
+    var lastScrollTop = 0;
+    $(window).scroll(function(event){
+       var st = $(this).scrollTop();
+       if (st > lastScrollTop){
+           // downscroll code
+         $('#page-section-page-sn-header').removeClass('sticky-header');
+       } else {
+          // upscroll code
+         $('#page-section-page-sn-header').addClass('sticky-header');
+         if(st == 0){
+           $('#page-section-page-sn-header').removeClass('sticky-header');
+         }
+       }
+       lastScrollTop = st;
+    });
+    
+    
+  </script>
+  {% schema %}
+  {
+   "name": "Header",
+   "settings": [
+      {
+          "type": "header",
+          "content": "Banner Layout:"
+      },
+      {
+        "type": "select",
+        "id": "layout",
+        "label": "Section Layout:",
+        "options": [
+            {
+                "value": "default",
+                "label": "Default"
+            },
+            {
+                "value": "full",
+                "label": "Full Width"
+            },
+            {
+                "value": "inner",
+                "label": "Inner Width"
+            }
+        ],
+        "default": "default"
+      },
+      {
+        "type": "header",
+        "content": "Header Logo"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_img",
+        "label" : "Logo Image"
+      },
+      {
+        "type": "url",
+        "id": "logo_url",
+        "label" : "Custom Logo Image(Prior)",
+        "info" : "If this is set, the custom logo will be used"
+      },
+      {
+          "type": "range",
+          "id": "logo_max_height",
+          "label": "Logo Max Height",
+          "min": 0,
+          "max": 140,
+          "step": 10,
+          "default": 60
+      },
+      {
+          "type": "range",
+          "id": "logo_max_height_mobile",
+          "label": "Logo Max Height Mobile",
+          "min": 0,
+          "max": 140,
+          "step": 10,
+          "default": 40
+      },
+      {
+        "type": "header",
+        "content": "Header Button"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_header_bt",
+        "label" : "Enable Header Button",
+        "default" : true
+      },
+      {
+        "type": "text",
+        "id": "button_text",
+        "label" : "Button Text",
+        "default" : "Shop Now"
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label" : "Button Link"
+      },
+      {
+          "type" : "text",
+          "id" : "font_size_button",
+          "label" : "Button Font Size",
+          "default" : "16px"
+      },
+      {
+          "type" : "text",
+          "id" : "line_height_button",
+          "label" : "Button Line Height",
+          "default" : "24px"
+      },
+      {
+          "type" : "text",
+          "id" : "font_size_button_mobile",
+          "label" : "Button Font Size Mobile",
+          "default" : "14px"
+      },
+      {
+          "type" : "text",
+          "id" : "line_height_button_mobile",
+          "label" : "Button Line Height Mobile",
+          "default" : "21px"
+      },
+      {
+          "type" : "text",
+          "id" : "font_weight_button",
+          "label" : "Button Font Weight",
+          "default" : "400"
+      },
+      {
+          "type" : "color",
+          "id" : "button_color",
+          "label" : "Button Color",
+          "default" : "#FFFFFF"
+      },
+      {
+          "type" : "color",
+          "id" : "button_bg",
+          "label" : "Button Background",
+          "default" : "#0FA3FA"
+      },
+      {
+          "type": "header",
+          "content": "Section Padding:"
+      },
+      {
+          "type": "range",
+          "id": "padding_top",
+          "label": "Padding Top",
+          "min": 0,
+          "max": 200,
+          "step": 10,
+          "default": 10
+      },
+      {
+          "type": "range",
+          "id": "padding_bottom",
+          "label": "Padding Bottom",
+          "min": 0,
+          "max": 200,
+          "step": 10,
+          "default": 10
+      },
+      {
+          "type": "header",
+          "content": "Section Padding For Tablet:"
+      },
+      {
+          "type": "range",
+          "id": "padding_top_tab",
+          "label": "Padding Top Tablet",
+          "min": 0,
+          "max": 200,
+          "step": 10,
+          "default": 10
+      },
+      {
+          "type": "range",
+          "id": "padding_bottom_tab",
+          "label": "Padding Bottom Tablet",
+          "min": 0,
+          "max": 200,
+          "step": 10,
+          "default": 10
+      },
+      {
+          "type": "header",
+          "content": "Section Padding For Mobile:"
+      },
+      {
+          "type": "range",
+          "id": "padding_top_mb",
+          "label": "Padding Top Mobile",
+          "min": 0,
+          "max": 200,
+          "step": 10,
+          "default": 10
+      },
+      {
+          "type": "range",
+          "id": "padding_bottom_mb",
+          "label": "Padding Bottom Mobile",
+          "min": 0,
+          "max": 200,
+          "step": 10,
+          "default": 10
+      }
+   ]
+  }
+  {% endschema %}

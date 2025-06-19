@@ -1,0 +1,434 @@
+ <style>
+   
+
+    #{{ section.id }} .custom-container {
+      max-width: 1370px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+   
+    #{{ section.id }} .fnt-20 {
+      font-size: 20px;
+    }
+    #{{ section.id }} .fnt-base {
+      font-size: 16px;
+    }
+   .content-container ul li img{
+    width: 27px !important;
+}
+
+   
+    #{{ section.id }} .font-bold {
+      font-weight: 700;
+    }
+    #{{ section.id }} .font-semibold {
+      font-weight: 600;
+    }
+    #{{ section.id }} .font-normal {
+      font-weight: 400;
+    }
+  
+    #{{ section.id }} .white-text {
+      color: #fff;
+    }
+    #{{ section.id }} .primary-text {
+      color: #002f49;
+    }
+    #{{ section.id }} .bg-dark-blue {
+      background-color: #002f49;
+    }
+    #{{ section.id }} .bg-white {
+      background-color: #ffffffff;
+    }
+  
+    #{{ section.id }} .flex {
+      display: flex;
+    }
+    #{{ section.id }} .slef-end {
+      align-self: center;
+    }
+   
+    #{{ section.id }} .mb-2 {
+      margin-bottom: 8px;
+    }
+    
+    #{{ section.id }} .rounded-3xl {
+      border-radius: 24px;
+    }
+   
+
+    #{{ section.id }} .heading1 {
+      font-size: 40px;
+      line-height: 48px;
+    }
+
+    #{{ section.id }} .center-text {
+      text-align: center;
+    }
+
+    
+    #{{ section.id }} .features-section {
+      background-color:{{section.settings.main-feature-bg-color}}; /* Light blue background from image */
+      padding: 40px 20px;
+      margin: 20px auto; /* Add some margin for better presentation */
+      max-width: 1200px; /* Max width for the section */
+      border-radius: 12px; /* Rounded corners for the section */
+    }
+
+    #{{ section.id }} .features-container {
+      
+      text-align: center;
+    }
+
+    #{{ section.id }} .features-section .main-heading {
+      font-size:{{section.settings.main-heading-font}}px;
+      font-weight: 600;
+      color:{{section.settings.main-heading-color}};
+      margin-bottom: 16px;
+      line-height: 38px;
+    }
+
+    #{{ section.id }} .features-section .sub-heading {
+      font-size:{{section.settings.sub-heading-font}}px;
+      color:{{section.settings.subheading-color}};
+      margin-bottom: 40px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #{{ section.id }} .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px 40px;
+    }
+
+    #{{ section.id }} .feature-icon-wrapper {
+      width: 55px; /* Increased size */
+      height: 55px; /* Increased size */
+      border-radius: 50%;
+      background-color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto 20px auto;
+      border: 1px solid #cce7f5; /* Light border for the circle */
+    }
+
+    #{{ section.id }} .feature-icon-wrapper img {
+      width: 30px; /* Adjust icon size within the wrapper */
+      height: 30px;
+    }
+
+    #{{ section.id }} .feature-icon svg {
+      display: block; /* Ensure SVG fits well */
+      width: 100%;
+      height: 100%;
+    }
+
+    #{{ section.id }} .feature-title {
+      
+      font-weight: 600;
+      
+      margin-bottom: 12px;
+    }
+
+    #{{ section.id }} .feature-description {
+      
+      line-height: 22px;
+    }
+    /* feature section */
+
+    #{{ section.id }} .mobile {
+      display: none;
+    }
+
+    @media (min-width: 1440px) {
+     .custom-container {
+        max-width: 70% !important;
+        margin: 0 auto;
+      }
+    }
+
+    
+    @media (max-width: 992px) {
+      #{{ section.id }} .features-section {
+        margin: 20px;
+      }
+
+      #{{ section.id }} .desktop {
+        display: none;
+      }
+      #{{ section.id }} .mobile {
+        display: block;
+      }
+
+      #{{ section.id }} .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+      }
+      #{{ section.id }} .main-heading {
+        font-size: 28px;
+      }
+      #{{ section.id }} .sub-heading {
+        font-size: 17px;
+        margin-bottom: 35px;
+      }
+      #{{ section.id }} .feature-title {
+        font-size: 19px;
+      }
+      #{{ section.id }} .feature-description {
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      #{{ section.id }} .features-section {
+        padding: 30px 15px;
+        margin: 15px auto;
+      }
+      #{{ section.id }} .features-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      #{{ section.id }} .main-heading {
+        font-size:{{section.settings.main-heading-mbl}}px;
+      }
+      #{{ section.id }} .sub-heading {
+        font-size:{{section.settings.subheading-font-mbl}}px;
+        margin-bottom: 30px;
+      }
+      #{{ section.id }} .feature-icon-wrapper {
+        width: 70px;
+        height: 70px;
+        margin-bottom: 15px;
+      }
+      #{{ section.id }} .feature-icon {
+        width: 35px;
+        height: 35px;
+      }
+      #{{ section.id }} .feature-title {
+        font-size:{{block.settings.feature-title-font-mbl}}px;
+      }
+      #{{ section.id }} .feature-description {
+        font-size:{{block.settings.feature-discript-font-mbl}};
+      }
+    }
+
+    @media (max-width: 480px) {
+      #{{ section.id }} .features-section {
+        /* padding: 25px 10px; */
+        margin: 10px 15px;
+      }
+      #{{ section.id }} .main-heading {
+        font-size: 22px;
+      }
+      #{{ section.id }} .sub-heading {
+        font-size: 15px;
+        margin-bottom: 25px;
+      }
+      #{{ section.id }} .feature-icon-wrapper {
+        width: 60px;
+        height: 60px;
+      }
+      #{{ section.id }} .feature-icon {
+        width: 30px;
+        height: 30px;
+      }
+      #{{ section.id }} .feature-title {
+        font-size: 17px;
+      }
+      #{{ section.id }} .feature-description {
+        font-size: 13px;
+      }
+    }
+  </style>
+  
+    <!-- feature section -->
+    <div id="{{ section.id }}">
+    <section class="features-section">
+      <div class="features-container page-width">
+        <h2 class="main-heading">{{ section.settings.main-heading }}</h2>
+        <p class="sub-heading">
+          {{ section.settings.subtitle-text}}
+        </p>
+        <div class="features-grid">
+
+          {% for block in section.blocks %}
+          <div class="feature-item">
+            <div class="feature-icon-wrapper">
+              {% if block.settings.Clock-image != blank %}
+                <img src="{{ block.settings.Clock-image | image_url }}" alt="Minutes icon" />
+              {% endif %}
+            </div>
+            <h3 class="feature-title" style="color:{{block.settings.feauture-title-color}};font-size:{{block.settings.feauture-title-font}}px;">{{block.settings.feauture-titl-text }}</h3>
+            <p class="feature-description" style="font-size:{{block.settings.featr-decrip-font}}px;color:{{block.settings.feature-descript-color}};">
+              {{ block.settings.feature-discription-text}}
+            </p>
+          </div>
+             {% endfor %}
+          
+        </div>
+      </div>
+    </section>
+      </div>
+    <!-- feature section -->
+  
+
+
+
+
+{% schema %}
+  {
+    "name": "Featured Section",
+    "settings": [
+     {
+      "type": "color",
+      "id": "main-feature-bg-color",
+      "label": "Main Heading CColor",
+      "default": "#e0f2fe"
+    },
+      
+      
+      
+      {
+        "type": "text",
+        "id": "main-heading",
+        "label": "Main Heading",
+        "default":"Stop Pain at the Source."
+      },
+      {
+      "type": "color",
+      "id": "main-heading-color",
+      "label": "Main Heading CColor",
+      "default": "#333333"
+    },
+      {
+      "type": "range",
+      "id": "main-heading-font",
+      "label": "Main Heading Font Size",
+      "min": 20,
+      "max": 48,
+      "default": 32,
+      "unit": "px"
+    },
+      {
+      "type": "range",
+      "id": "main-heading-mbl",
+      "label": "Main Heading Font Size (mobile)",
+      "min":16,
+      "max": 48,
+      "default":26,
+      "unit": "px"
+    },
+      {
+        "type": "text",
+        "id": "subtitle-text",
+        "label": "Title Heading",
+        "default":"Just place NeuroMD over your area of pain to begin feeling relief."
+      },
+      {
+      "type": "color",
+      "id": "subheading-color",
+      "label": "Sub Heading Color",
+      "default": "#333333"
+    },
+      {
+      "type": "range",
+      "id": "sub-heading-font",
+      "label": "Sub Heading Font",
+      "min":16,
+      "max":32,
+      "default":20,
+      "unit": "px"
+    },
+      {
+      "type": "range",
+      "id": "subheading-font-mbl",
+      "label": "Main Heading Font Size (mobile)",
+      "min":16,
+      "max": 48,
+      "default":16,
+      "unit": "px"
+    }
+    ],
+    "blocks": [
+      {
+        "type": "card",
+        "name":" Feature-box",
+        "settings": [
+          {
+          "type": "image_picker",
+          "id": "Clock-image",
+          "label": "Upload Icon Image"
+        },
+          {
+        "type": "text",
+        "id": "feauture-titl-text",
+        "label": "Feature Title Text",
+        "default":"25 Minute Muscle Stimulation"
+      },
+      {
+      "type": "color",
+      "id": "feauture-title-color",
+      "label": "Feature Title Color",
+      "default": "#333333"
+    },
+      {
+      "type": "range",
+      "id": "feauture-title-font",
+      "label": "Feature Title Font",
+      "min":18,
+      "max":32,
+      "default":20,
+      "unit": "px"
+    },
+          {
+      "type": "range",
+      "id": "feature-title-font-mbl",
+      "label": "Feature Title Font (mobile)",
+      "min":12,
+      "max":32,
+      "default":14,
+      "unit": "px"
+    },
+          {
+        "type": "text",
+        "id": "feature-discription-text",
+        "label": "Feature Discription Text",
+        "default":" By following the included 12 week recovery program, damaged tissue will begin to heal and inflammation reduce as your spinal stabilizing muscles are strengthened "
+      },
+          {
+      "type": "color",
+      "id": "feature-descript-color",
+      "label": "Feature Discription Color",
+      "default": "#475569"
+    },
+      {
+      "type": "range",
+      "id": "featr-decrip-font",
+      "label": "Feature Discription Font",
+      "min":18,
+      "max":32,
+      "default":20,
+      "unit": "px"
+    },
+          {
+      "type": "range",
+      "id": "feature-discript-font-mbl",
+      "label": "Feature Discription Font (mobile)",
+      "min":12,
+      "max":32,
+      "default":18,
+      "unit": "px"
+    }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Featured Section"
+      }
+    ]
+  }
+{% endschema %}

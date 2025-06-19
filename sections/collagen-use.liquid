@@ -1,0 +1,288 @@
+<div class="container">
+  <div class="row">
+    <div class="content">
+      {%- if section.settings.title != blank -%}
+      <div class="title-wrapper">
+        <h2 class="heading"><span>{{ section.settings.title }}</span></h2>
+      </div>
+      {%- endif -%}
+      <div class="use-wrapper">
+        {%- for block in section.blocks -%}
+        	{%- if block.settings.button_label != blank -%}
+              <div class="type-block {% if forloop.index == 1 %}activ{% endif %} block-{{ forloop.index }}">
+				<div class="type-btn">
+                  <span class="btn-span">{{ block.settings.button_label  }}</span>
+                </div>
+				<div class="type-content">
+                  {%- if block.settings.type_content != blank -%}
+                  	{{ block.settings.type_content }}
+                  {% endif %}
+                </div>
+              </div>
+            {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  #shopify-section-{{section.id}} .heading { 
+    text-transform: none;
+    {% if section.settings.color_heading != blank %}
+    color:{{ section.settings.color_heading }};
+    {% endif %}
+    font-size: {{ section.settings.font_size_heading }};
+    font-weight: {{ section.settings.font_weight_heading }};
+    line-height: 1.2;
+  }
+
+  
+  #shopify-section-{{section.id}}{
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    {%- if section.settings.background != blank -%}
+    background-color: {{ section.settings.background }};
+    {%- endif -%}
+  }
+  .collagen-use .content, .type-block{
+  	display: flex;
+    flex-wrap: wrap;
+  }
+  .collagen-use .content{
+  	padding: 0 15px;
+    width: 100%;
+  }
+  
+  .type-btn{
+    width: 170px;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    height: 42px;
+    align-items: center;
+    border-radius: 50px;
+    font-weight: 500;
+    position: relative;
+    margin-bottom: 22px;
+    cursor: pointer;
+    border: 1px solid;
+  }
+  .type-btn:after{
+    position: absolute;
+    content: '→';
+    right: -35px;
+    top: -14px;
+    display: none;
+    font-size: 40px;
+  }
+  .type-content{
+    width: calc(100% - 170px);
+    display: none;
+  }
+  .activ .type-btn{
+  	color: #fff;
+  }
+  .activ .type-btn:after, .activ .type-content{
+  	display: block;
+  }
+  .type-content{
+    padding: 0 50px;
+  }
+  .block-1 .type-btn{
+  	border-color: #F79B72;
+  }
+  .activ.block-1 .type-btn{
+    background: #F79B72;
+  }
+  .block-1 .type-btn:after{
+  	color: #F79B72;
+  }
+  
+  
+  .block-2 .type-btn{
+  	border-color: #00BC9D;
+  }
+  .activ.block-2 .type-btn{
+    background: #00BC9D;
+  }  
+  .block-2 .type-btn:after{
+  	color: #00BC9D;
+  }
+  
+  .block-3 .type-btn{
+  	border-color: #DCD786;
+  }
+  .activ.block-3 .type-btn{
+    background: #DCD786;
+  }  
+  .block-3 .type-btn:after{
+  	color: #DCD786;
+  }
+  
+  
+  .block-4 .type-btn{
+  	border-color: #0FA3FA;
+  }
+  .activ.block-4 .type-btn{
+    background: #0FA3FA;
+  }
+  .block-4 .type-btn:after{
+  	color: #0FA3FA;
+  }
+  
+  @media(min-width: 768px){
+    .collagen-use .title-wrapper{
+    	width: 40%;
+    }
+    .collagen-use .use-wrapper{
+    	width: 60%;
+    }
+    #shopify-section-{{section.id}} .heading {
+      text-align: right;
+      line-height: 1;
+      max-width: 220px;
+      margin-left: auto;
+      margin-right: 40px;
+    }
+  }
+  
+  @media(max-width: 767px){
+    #shopify-section-{{section.id}}{
+      padding-top: {{ section.settings.padding_top_mob }}px;
+      padding-bottom: {{ section.settings.padding_bottom_mob }}px;
+    }
+    #shopify-section-{{section.id}} .heading { 
+      font-size: 35px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    .type-content{
+    	width: 100%;
+      padding: 0;
+      margin-bottom: 20px;
+    }    
+  }
+  
+  @media(max-width: 459px){
+    
+   
+  }
+  </style>
+
+<script>
+  $(document).ready(function(){    
+    $('.type-btn').on('click', function(){
+	  $('.type-block').removeClass('activ');
+      $(this).parent().addClass('activ');
+    });
+  });
+</script>
+
+{% schema %}
+  {
+    "name": "Collagen use",
+    "class" : "collagen-use",
+    "settings": [
+		{
+           "type": "text",
+           "id": "title",
+           "label": "Title",
+           "default" : "Featured In"
+        },
+        {
+            "type" : "text",
+            "id" : "font_size_heading",
+            "label" : "Heading Font Size",
+            "default" : "18px"
+        },
+        {
+            "type" : "text",
+            "id" : "font_weight_heading",
+            "label" : "Heading Font Weight",
+            "default" : "700"
+        },
+        {
+            "type" : "color",
+            "id" : "color_heading",
+            "label" : "Heading Color",
+            "default" : "#1D293F"
+        },
+        {
+          "type": "header",
+          "content" : "Section Style"
+        },
+        {
+          "type": "color",
+          "id": "background",
+          "label": "Background",
+          "default" : "#FFFFFF"
+        },
+        {
+          "type" : "range",
+          "id" : "padding_top",
+          "label" : "Padding Top",
+          "min": 0,
+          "max" : 150,
+          "step": 10,
+          "unit" : "px",
+          "default": 60
+        },
+        {
+          "type" : "range",
+          "id" : "padding_bottom",
+          "label" : "Padding Bottom",
+          "min": 0,
+          "max" : 150,
+          "step": 10,
+          "unit" : "px",
+          "default": 60
+        },
+        {
+          "type" : "range",
+          "id" : "padding_top_mob",
+          "label" : "Padding Top - Mobile",
+          "min": 0,
+          "max" : 150,
+          "step": 10,
+          "unit" : "px",
+          "default": 60
+        },
+        {
+          "type" : "range",
+          "id" : "padding_bottom_mob",
+          "label" : "Padding Bottom - Mobile",
+          "min": 0,
+          "max" : 150,
+          "step": 10,
+          "unit" : "px",
+          "default": 40
+        }
+     ],
+     "blocks":[
+        {
+         "type": "Type",
+         "name": "Type",
+         "settings":[
+            {
+              "type": "text",
+              "id": "button_label",
+              "label": "Type label",
+              "default": "Type"
+            },
+            {
+               "type": "richtext",
+               "id": "type_content",
+               "label": "Type content"
+            }
+		  ]
+        }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,114 @@
+{% comment %}
+  Optimized Style Tags - Non-blocking CSS loading
+  This replaces the original style-tags.liquid with performance optimizations
+{% endcomment %}
+
+<!-- Load critical icon fonts inline for immediate use -->
+<style>
+  /* FontAwesome critical icons - inline for immediate use */
+  .fa-shopping-cart:before { content: "\f07a"; }
+  .fa-user:before { content: "\f007"; }
+  .fa-search:before { content: "\f002"; }
+  .fa-bars:before { content: "\f0c9"; }
+  .fa-times:before { content: "\f00d"; }
+</style>
+
+<!-- Preload critical font files -->
+<link rel="preload" href="{{ 'fontawesome-pro-solid-900.woff2' | asset_url }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ 'fontawesome-pro-brands-900.woff2' | asset_url }}" as="font" type="font/woff2" crossorigin>
+
+<!-- Load non-critical CSS asynchronously -->
+<script>
+(function() {
+  'use strict';
+  
+  function loadCSS(href, media, onload) {
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = href;
+    link.media = media || 'all';
+    
+    if (onload) {
+      link.onload = onload;
+    }
+    
+    document.head.appendChild(link);
+    return link;
+  }
+  
+  // Load non-critical stylesheets
+  function loadNonCriticalStyles() {
+    var stylesheets = [
+      {
+        href: '{{ "_sleepify.authored.bundle.min.css" | asset_url }}',
+        media: 'all',
+        priority: 'low' // Load subscription styles last
+      },
+      {
+        href: '{{ "fontawesome-pro-solid.min.css" | asset_url }}',
+        media: 'all',
+        priority: 'medium'
+      },
+      {
+        href: '{{ "fontawesome-pro-brands.min.css" | asset_url }}',
+        media: 'all',
+        priority: 'medium'
+      },
+      {
+        href: '{{ "slick.min.css" | asset_url }}',
+        media: 'all',
+        priority: 'medium'
+      },
+      {
+        href: '{{ "_overrides.min.css" | asset_url }}',
+        media: 'all',
+        priority: 'high'
+      }
+    ];
+    
+    // Sort by priority and load
+    var priorityOrder = ['high', 'medium', 'low'];
+    
+    priorityOrder.forEach(function(priority, priorityIndex) {
+      var priorityStyles = stylesheets.filter(function(style) {
+        return style.priority === priority;
+      });
+      
+      priorityStyles.forEach(function(style, index) {
+        setTimeout(function() {
+          loadCSS(style.href, style.media);
+        }, (priorityIndex * 100) + (index * 50));
+      });
+    });
+  }
+  
+  // Load styles after critical rendering
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(loadNonCriticalStyles, 100);
+    });
+  } else {
+    setTimeout(loadNonCriticalStyles, 50);
+  }
+  
+})();
+</script>
+
+<!-- Optimized favicon links -->
+{% if settings.favicon != blank %}
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ settings.favicon | img_url: '180x' }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ settings.favicon | img_url: '32x' }}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ settings.favicon | img_url: '16x' }}">
+  <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x' }}" type="image/x-icon">
+  <link rel="manifest" href="/site.webmanifest">
+{% endif %}
+
+{% comment %}
+  Benefits of this optimized approach:
+  - Eliminates render-blocking CSS
+  - Loads critical icons immediately
+  - Prioritizes loading order based on importance
+  - Sleepify subscription CSS loads last (lowest priority)
+  - Reduces favicon HTTP requests
+  - Improves Core Web Vitals scores
+{% endcomment %} 

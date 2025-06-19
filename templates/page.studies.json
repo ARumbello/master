@@ -1,0 +1,124 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "clinical_studies_fUwBdY": {
+      "type": "clinical-studies",
+      "blocks": {
+        "study_izU49G": {
+          "type": "study",
+          "settings": {
+            "title": "Study1",
+            "subTitle": "<strong>Neuromuscular electrical stimulation training results in enhanced activation of spinal stabilizing muscles during spinal loading and improvements in pain ratings.</strong>",
+            "quote": "Analysis of results revealed clinically and statistically significant improvements in indicators of both muscle groups' performance, as evidenced by ultrasound evaluation of activation during voluntary activity. These improvements were associated with significant improvements in self reported pain levels, suggesting that NMES has an important role to play in Chronic Lower Back Pain rehabilitation.",
+            "sourcetext": "Coghlan, S., Crowe, L., McCarthypersson, U., Minogue, C., & Caulfield, B. (2011). Retrieved from",
+            "source": "https://www.ncbi.nlm.nih.gov/pubmed/22256103"
+          }
+        },
+        "study_wUk7qw": {
+          "type": "study",
+          "settings": {
+            "title": "Study 2",
+            "subTitle": "<strong>The effects of neuromuscular electrical stimulation on the activation of deep lumbar stabilizing muscles of patients with lumbar degenerative kyphosis.</strong>",
+            "quote": "In conclusion, lumbar stabilizing muscles of patients with Lumbar Degenerative Kyphosis were significantly activated by NMES. Protocol A+B maximally stimulated all the studied deep spinal stabilizing muscles (LM, TrA and OI) as evidenced by RUSI. The protocol A+B may aid the development of practical NMES systems for LDK patients who suffer from postural deformity and Lower Back Pain",
+            "sourcetext": "Kim, S. Y., Kim, J. H., Jung, G. S., Baek, S. O., Jones, R., & Ahn, S. H. (2016, February. Retrieved from",
+            "source": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4792980/"
+          }
+        },
+        "study_yWhVUn": {
+          "type": "study",
+          "settings": {
+            "title": "Study 3",
+            "subTitle": "<strong>Clinical effects of electrical stimulation therapy on lumbar disc herniation-induced sciatica and its influence on peripheral ROS level.</strong>",
+            "quote": "The difference was statistically significant (p<0.05), indicating that the electrical stimulation therapy can effectively reduce the pain degree of patients with lumbar disc herniation-induced sciatica and improve the peripheral ROS level, thus promoting the recovery of patients.\"<br><br>\n\"In conclusion, in the treatment of lumbar disc herniation-induced sciatica, electrical stimulation therapy can effectively reduce the pain degree, relieve the clinical symptoms and signs, improve the peripheral ROS level and prevent the oxidative damage of myocardial tissues and other complications, so it is worthy of clinical application and promotion.",
+            "sourcetext": "Wang, L., Fan, W., Yu, C., Lang, M., & Sun, G. (2018, September). Retrieved from",
+            "source": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6146184/"
+          }
+        },
+        "study_LTditq": {
+          "type": "study",
+          "settings": {
+            "title": "Study 4",
+            "subTitle": "<strong>Trunk Muscle Training Augmented with Neuromuscular Electrical Stimulation Appears to Improve Function in Older Adults with Chronic Low Back Pain: A Randomized Preliminary Trial.</strong>",
+            "quote": "Clinically important reductions in pain of greater than 2 points on a numeric pain rating scale during the course of the trial. But, only the TMT+NMES group had clinically important improvements in both performance-based and self-reported measures of function. In terms of the participants' global rating of functional improvement at 6-months, the TMT+NMES group improved by 73.9%.\" <br><br>\n\"In conclusion, this preliminary investigation has demonstrated that TMT+NMES is a safe and acceptable intervention that may have the potential to improve physical function in older adults with chronic LBP. It is particularly interesting to note that TMT+NMES appears to have the potential to result in longer term functional improvements than our passive control approach which was grounded in the use of passive treatments.",
+            "sourcetext": "Hicks, G. E., Sions, J. M., Velasco, T. O., & Manal, T. J. (2016, October). Retrieved from",
+            "source": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4935645/"
+          }
+        },
+        "study_y98zBU": {
+          "type": "study",
+          "settings": {
+            "title": "Study 5",
+            "subTitle": "<strong>Electrical muscle stimulation as an adjunct to exercise therapy in the treatment of nonacute low back pain: a randomized trial.</strong>",
+            "quote": "At the 2-month follow-up interval, subjects in the treatment group had statistically significantly improved lumbar spine function compared with the control subjects. This effect continued during the last 4 months of the study after electrical stimulation had been discontinued. This suggests that electrical muscle stimulation can be an effective adjunctive treatment modality for nonacute low back pain. The effects of this combined therapy seem to last beyond the duration of electrical stimulation treatment.",
+            "sourcetext": "Hicks, G. E., Sions, J. M., Velasco, T. O., & Manal, T. J. (2016, October). Retrieved from",
+            "source": "https://pubmed.ncbi.nlm.nih.gov/14622808/"
+          }
+        },
+        "reviews_8wR84t": {
+          "type": "reviews",
+          "settings": {
+            "title": "Love it!",
+            "quote": "Last spring I purchased an updated version of NeuroMD and I am so glad that I did! For maintenance I apply the device to my lower back 3 times a week. This is enough to obliterate all of my back pain. The pads maintain their effectiveness for far longer than I expected. I used my last one for almost 5 months before I changed it out for a new one. This is a cost effective, easy way to manage my pain. Thank you, NeuroMD!",
+            "name": "Kerra S.",
+            "location": "Austin TX",
+            "picture": "shopify://shop_images/NeuroMD_Golf_review_1.png"
+          }
+        },
+        "reviews_QqiPVL": {
+          "type": "reviews",
+          "settings": {
+            "title": "Works great!",
+            "quote": "I have been doing all the McKenzie Method stretches and strengthening my core, which is slowly but surely helping to heal my three herniated discs. Once I added the NeuroMD to my regimen, the constant pain dropped by about 90%! I highly recommend this product to anyone with any kind of back issue!",
+            "name": "Victoria A.",
+            "location": "Mesa AZ",
+            "picture": "shopify://shop_images/Hiking_Review_1.png"
+          }
+        },
+        "reviews_QKMTez": {
+          "type": "reviews",
+          "settings": {
+            "title": "No More Sciatica",
+            "quote": "I've had herniated disc induced sciatica for the last 9 years and NeuroMD has been the only therapy to provide 100% long term relief. I've been pain free now for 5 months... No numbness... No tingling... No more Sciatica.",
+            "name": "Marcus Dunn",
+            "location": "Newark NJ",
+            "picture": "shopify://shop_images/Ceo_review.png"
+          }
+        }
+      },
+      "block_order": [
+        "study_izU49G",
+        "study_wUk7qw",
+        "study_yWhVUn",
+        "study_LTditq",
+        "study_y98zBU",
+        "reviews_8wR84t",
+        "reviews_QqiPVL",
+        "reviews_QKMTez"
+      ],
+      "settings": {
+        "disclaimer": "The studies below are NOT funded by NeuroMD Medical Technologies or using a NeuroMD device specifically. These studies are referencing the technology utilized. There are no conflicts of interest or bias in any of the studies. You can view the full studies on The National Institutes of Health website with the citation links provided below.",
+        "title": "Results backed by clinical proof",
+        "riskFreeLink": "shopify://products/corrective-therapy-device-for-back-pain-knee-pain",
+        "riskFreeLinkText": "Try NeuroMD Today",
+        "reviewsTitle": "See What Our Customers Are Saying"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "clinical_studies_fUwBdY"
+  ]
+}

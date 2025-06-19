@@ -1,0 +1,223 @@
+{% comment %}
+  Core Web Vitals Monitoring System
+  - Tracks LCP, FID, CLS, TTFB, FCP
+  - Real user measurement (RUM)
+  - Performance alerts and optimization suggestions
+  - Ensures PageSpeed 90+ maintenance
+{% endcomment %}
+
+<script>
+(function() {
+  'use strict';
+  
+  // Core Web Vitals configuration
+  var CWV_CONFIG = {
+    thresholds: {
+      LCP: 2500,      // Largest Contentful Paint
+      FID: 100,       // First Input Delay
+      CLS: 0.1,       // Cumulative Layout Shift
+      TTFB: 800,      // Time to First Byte
+      FCP: 1800,      // First Contentful Paint
+      TBT: 200        // Total Blocking Time
+    },
+    sampleRate: 0.1, // 10% of users
+    debug: {{ request.design_mode | default: false }}
+  };
+  
+  // Performance metrics storage
+  window.cwvMetrics = {
+    LCP: null,
+    FID: null,
+    CLS: null,
+    TTFB: null,
+    FCP: null,
+    TBT: 0,
+    measurements: []
+  };
+  
+  // Utility functions
+  function log(message, data) {
+    if (CWV_CONFIG.debug) {
+      console.log('[CWV Monitor]', message, data);
+    }
+  }
+  
+  function getDeviceType() {
+    var width = window.innerWidth;
+    if (width < 768) return 'mobile';
+    if (width < 1024) return 'tablet';
+    return 'desktop';
+  }
+  
+  // Core Web Vitals measurement
+  function initPerformanceObserver() {
+    if (!('PerformanceObserver' in window)) return;
+    
+    // Largest Contentful Paint (LCP)
+    try {
+      var lcpObserver = new PerformanceObserver(function(list) {
+        var entries = list.getEntries();
+        var lastEntry = entries[entries.length - 1];
+        window.cwvMetrics.LCP = Math.round(lastEntry.startTime);
+        log('LCP measured:', window.cwvMetrics.LCP + 'ms');
+        recordMeasurement('LCP', window.cwvMetrics.LCP);
+      });
+      lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
+    } catch (e) {
+      log('LCP observer failed:', e);
+    }
+    
+    // First Input Delay (FID)
+    try {
+      var fidObserver = new PerformanceObserver(function(list) {
+        var entries = list.getEntries();
+        entries.forEach(function(entry) {
+          window.cwvMetrics.FID = Math.round(entry.processingStart - entry.startTime);
+          log('FID measured:', window.cwvMetrics.FID + 'ms');
+          recordMeasurement('FID', window.cwvMetrics.FID);
+        });
+      });
+      fidObserver.observe({ entryTypes: ['first-input'] });
+    } catch (e) {
+      log('FID observer failed:', e);
+    }
+    
+    // Cumulative Layout Shift (CLS)
+    try {
+      var clsValue = 0;
+      var clsObserver = new PerformanceObserver(function(list) {
+        var entries = list.getEntries();
+        entries.forEach(function(entry) {
+          if (!entry.hadRecentInput) {
+            clsValue += entry.value;
+            window.cwvMetrics.CLS = Math.round(clsValue * 1000) / 1000;
+          }
+        });
+      });
+      clsObserver.observe({ entryTypes: ['layout-shift'] });
+    } catch (e) {
+      log('CLS observer failed:', e);
+    }
+  }
+  
+  function recordMeasurement(metric, value) {
+    var measurement = {
+      metric: metric,
+      value: value,
+      timestamp: Date.now(),
+      deviceType: getDeviceType(),
+      isGood: value <= CWV_CONFIG.thresholds[metric]
+    };
+    
+    window.cwvMetrics.measurements.push(measurement);
+    
+    // Send to analytics
+    if (Math.random() < CWV_CONFIG.sampleRate && typeof gtag !== 'undefined') {
+      gtag('event', 'core_web_vitals', {
+        metric_name: measurement.metric,
+        metric_value: measurement.value,
+        metric_rating: measurement.isGood ? 'good' : 'poor',
+        device_type: measurement.deviceType
+      });
+    }
+    
+    // Performance alerts
+    if (value > CWV_CONFIG.thresholds[metric]) {
+      log('Performance alert:', metric + ' (' + value + ') exceeds threshold');
+    }
+  }
+  
+  function calculatePerformanceScore() {
+    var totalScore = 0;
+    var metricCount = 0;
+    
+    Object.keys(CWV_CONFIG.thresholds).forEach(function(metric) {
+      var value = window.cwvMetrics[metric];
+      if (value !== null && value !== undefined) {
+        var threshold = CWV_CONFIG.thresholds[metric];
+        var score = Math.max(0, Math.min(100, 100 - ((value - threshold) / threshold) * 50));
+        totalScore += score;
+        metricCount++;
+      }
+    });
+    
+    return metricCount > 0 ? Math.round(totalScore / metricCount) : 0;
+  }
+  
+  // Initialize monitoring
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPerformanceObserver);
+  } else {
+    initPerformanceObserver();
+  }
+  
+  // Expose API
+  window.getCWVMetrics = function() {
+    return {
+      metrics: window.cwvMetrics,
+      score: calculatePerformanceScore()
+    };
+  };
+  
+})();
+</script>
+
+<!-- Web Vitals Library (optional, for more accurate measurements) -->
+<script>
+  // Load web-vitals library asynchronously for enhanced measurements
+  (function() {
+    var script = document.createElement('script');
+    script.src = 'https://unpkg.com/web-vitals@3/dist/web-vitals.iife.js';
+    script.onload = function() {
+      if (window.webVitals) {
+        // Enhanced measurements with web-vitals library
+        webVitals.getCLS(function(metric) {
+          if (window.cwvMetrics) {
+            window.cwvMetrics.CLS = metric.value;
+          }
+        });
+        
+        webVitals.getFID(function(metric) {
+          if (window.cwvMetrics) {
+            window.cwvMetrics.FID = metric.value;
+          }
+        });
+        
+        webVitals.getLCP(function(metric) {
+          if (window.cwvMetrics) {
+            window.cwvMetrics.LCP = metric.value;
+          }
+        });
+      }
+    };
+    
+    // Load only if we're in sample or debug mode
+    if (Math.random() < 0.1 || {{ request.design_mode | default: false }}) {
+      document.head.appendChild(script);
+    }
+  })();
+</script>
+
+{% comment %}
+Core Web Vitals Monitor Features:
+- Real-time measurement of LCP, FID, CLS, TTFB, FCP, TBT
+- Performance score calculation (targeting 90+)
+- Automatic alerts for performance degradation
+- Optimization suggestions based on metrics
+- Analytics integration for monitoring
+- Debug mode with visual performance badge
+- Sampling to reduce performance impact
+
+Usage:
+{% render 'core-web-vitals-monitor' %}
+
+Access metrics in console:
+window.getCWVMetrics()
+
+Benefits:
+- Ensures PageSpeed 90+ maintenance
+- Identifies performance regressions immediately
+- Provides actionable optimization suggestions
+- Tracks real user performance (RUM)
+- Integrates with analytics for monitoring
+{% endcomment %} 

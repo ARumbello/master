@@ -1,0 +1,44 @@
+{% schema %}
+  {
+    "name": "Section name",
+    "settings": [
+      {
+        "id": "color",
+        "type": "text",
+        "label": "Color",
+        "default": "#cc0000"
+      },
+      {
+        "id": "label",
+        "type": "text",
+        "label": "Label",
+        "default": "If there’s just one thing you read today, it needs to be this:"
+      },
+      {
+        "id": "button_text",
+        "type": "text",
+        "label": "Link Text",
+        "default": "Click to see the full NeuroMD story >"
+      }
+	]
+  }
+{% endschema %} 
+
+<div class="shopify-section fc-fs-hide" style="background: {{section.settings.color}};" data-open-lightbox="#fc-full-story">
+  <div style="padding: 40px 0;color:  #fff;">
+    <div class="prodSBS__inner">
+      <p style="text-align: center;">
+        {{section.settings.label}}
+        <button class="fc-link fc-fs" data-open-lightbox="#fc-full-story">
+            {{section.settings.button_text}}
+        </button>
+      </p>
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

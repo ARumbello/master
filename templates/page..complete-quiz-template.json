@@ -1,0 +1,57 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "quizfinal_JpYX9G": {
+      "type": "quizfinal",
+      "settings": {
+        "quiz_header_image": "shopify://shop_images/modalHead.webp",
+        "quiz_footer_image": "shopify://shop_images/modal1.webp",
+        "question_1_title": "How long have you been suffering from back pain?",
+        "question_1_option_1": "Less than 6 months",
+        "question_1_option_2": "6–12 months",
+        "question_1_option_3": "12 months or longer",
+        "question_2_title": "How long have you been suffering from back pain?",
+        "question_2_option_1": "Lower/Back",
+        "question_2_option_2": "Lower/Back",
+        "question_2_option_3": "Lower/Back",
+        "question_2_option_4": "Lower/Back",
+        "question_2_image_1": "shopify://shop_images/xt77ep4x71334tm4mab4os9qnbtc.png",
+        "question_2_image_2": "shopify://shop_images/4k2j3ask2thus1gnqdn333i4xc0q.png",
+        "question_2_image_3": "shopify://shop_images/1c4pgoz4oi29rqmix04baqun2efb.png",
+        "question_2_image_4": "shopify://shop_images/bmkgxicsyxqn7893tm5z5p4inwju.png",
+        "question_3_title": "Do you have any electronic implants?",
+        "question_3_subtitle": "(i.e. pacemakers, implantable cardioverter defibrillators, pain pump, etc.)",
+        "question_3_option_yes": "Yes",
+        "question_3_option_no": "No",
+        "question_4_title": "We want to make sure we are a good match for you. Please select what may be causing your pain:",
+        "question_4_subtitle": "NeuroMD does not help with pain caused by tumors.",
+        "question_4_option_1": "Nerve Pain",
+        "question_4_option_2": "Nerve Pain",
+        "question_4_option_3": "Nerve Pain",
+        "question_4_option_4": "Nerve Pain",
+        "question_4_option_5": "Nerve Pain",
+        "question_4_next_button": "Next",
+        "question_5_title": "Congratulations! As an ideal candidate, you're eligible for a 62% OFF discount.",
+        "question_5_subtitle": "Your pain type matches 87% of our 1,139,067 users.",
+        "question_5_description": "Save 62% on NeuroMD by entering your email",
+        "question_5_email_placeholder": "Your Email",
+        "question_5_button": "Redeem Offer",
+        "question_6_title": "Unfortunately, NeuroMD IS NOT Advisable for Use With Electronic Implants",
+        "question_6_description": "If you feel like you have answered this question incorrectly, you can retake it by clicking below. Or leave this quiz by clicking back.",
+        "question_6_button": "Retake Question",
+        "redirect_url": ""
+      }
+    }
+  },
+  "order": [
+    "quizfinal_JpYX9G"
+  ]
+}

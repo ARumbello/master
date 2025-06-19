@@ -1,0 +1,167 @@
+<style>
+  .container {
+    display: flex;
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 0 20px;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .left {
+    flex: 1;
+    padding-right: 40px;
+  }
+
+  .left h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #2f2f6c;
+    margin-bottom: 30px;
+  }
+
+  .step {
+    margin-bottom: 30px;
+  }
+
+  .step h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .step p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #444;
+  }
+
+  .start-button {
+    background-color: #e9f1fb;
+    color: #1a1a1a;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    border: 2px solid #1a1a1a;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+
+  .start-button:hover {
+    background-color: #d8e9fb;
+  }
+
+  .right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .right img {
+    max-width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column-reverse;
+      align-items: center;
+      gap:15px;
+    }
+    .start-button {
+   display: block !important;
+  margin: 0 auto !important;
+  }
+    .left, .right {
+      padding: 0;
+    }
+.left h1 {
+  font-size: 20px;
+}
+    .right {
+
+    }
+  }
+</style>
+
+<div class="container">
+  <div class="left">
+    <h1>{{ section.settings.main-title-0065 }}</h1>
+    {% for block in section.blocks %}
+    <div class="step">
+      <h3>{{ block.settings.title }}</h3>
+      <p>{{ block.settings.para-00543 }}</p>
+    </div>
+    {% endfor %}
+    <button class="start-button">{{ section.settings.button-title-006 }}</button>
+  </div>
+
+  {% if section.settings.imahe-006 != blank %}
+  <div class="right">
+    <img src="{{ section.settings.imahe-006 | img_url: 'master' }}" alt="Device Kit" />
+  </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Lasting Relief Home",
+  "settings": [
+    {
+      "type": "text",
+      "id": "main-title-0065",
+      "label": "Main Title",
+      "default": "START EXPERIENCING LASTING RELIEF"
+    },
+    {
+      "type": "text",
+      "id": "button-title-006",
+      "label": "Button Title",
+      "default": "START THE QUIZ"
+    },
+    {
+      "type": "image_picker",
+      "id": "imahe-006",
+      "label": "Image Upload"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Slide",
+      "type": "slide",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "1. TAKE THE QUIZ"
+        },
+        {
+          "type": "richtext",
+          "id": "para-00543",
+          "label": "Description",
+          "default": "<p>Tell us about your condition(s). We’ll use your answers to determine your eligibility for a 60-day risk-free trial and potential discounts.</p>"
+        }
+      ]
+    },  
+  ],
+  "presets": [
+    {
+      "name": "Lasting Relief Home",
+      "blocks": [
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

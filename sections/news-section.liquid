@@ -1,0 +1,238 @@
+ 
+<div class="news-section">
+    <div class="container">
+      <div class="row"> 
+        <div class="col-12">
+          <div class="newsslider new-dots with-arrow">
+            {% for block in section.blocks %}
+              <div class="news_slider_wrapper"> 
+                <div class="news_content"> 
+                  <h4>{{ block.settings.newstitle }}</h4>
+                  <div class="news-image">
+                  {% if block.settings.newsimage != blank %}
+                  {%- assign img_url = block.settings.newsimage | img_url: 'large', crop: 'center' -%}
+                  <img data-srcset="https:{{ img_url }}" alt="{{ block.settings.newsimage.alt | default: shop.name }}" {% include 'lazy_load' %}>
+                  {% endif %}  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+          
+          
+        <div class="col-12">
+        	<div class="feature_news_logos">
+            	<div class="newslogo"><img class="myclass1" alt="{{ section.settings.logo1.alt}}" src="{{ section.settings.logo1 | img_url: 'large' }}" /></div>
+            	<div class="newslogo"><img class="myclass1" alt="{{ section.settings.logo2.alt}}" src="{{ section.settings.logo2 | img_url: 'large' }}" /></div>
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<style>
+.news-section{
+    padding: 50px 200px; 
+}
+.newsslider {
+    background: #E7F5FF;
+    border-radius: 8px;
+    padding: 40px;
+    text-align: center;
+}
+
+.news_content h4 {
+    color: #012940;
+    text-align: center;
+    font-family: Poppins;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 140%;
+    padding-bottom:15px;
+}
+.news-image {
+    margin-top: 20px;
+}
+.news-image img {
+    width: 160px;
+    margin: 0 auto;
+} 
+ 
+.feature_news_logos {
+    margin: 0 auto;
+    width: 300px;
+    display: flex;
+    justify-content: space-evenly;
+}
+.newsslider .slick-dots li:nth-child(2) {
+    background: url(https://getneuromd.com/cdn/shop/files/Logo__Chicago_Tribune_df39a610-b01d-4e5e-8c1f-57841334b516_large_crop_center.svg?v=1691842491);
+    background-repeat: no-repeat;
+    width: 210px;
+    height: 40px;
+    filter: opacity(0.5);
+    background-position: center center;
+    background-size: contain!important;
+}
+
+.newsslider .slick-dots li:nth-child(1) {
+    background: url(https://getneuromd.com/cdn/shop/files/Logo__Business_Insider_large_crop_center.svg?v=1691842491);
+    background-repeat: no-repeat;
+    width: 210px;
+    height: 40px;
+    filter: opacity(0.5);
+    background-position: center center;
+    background-size: contain!important;
+}
+
+.newsslider .slick-dots li:nth-child(3) {
+    background: url(https://getneuromd.com/cdn/shop/files/Logo__Market_Watch_ea9b8592-d1ba-4232-9a5c-39f972ab0f5b_large_crop_center.svg?v=1691842492);
+    background-repeat: no-repeat;
+    width: 210px;
+    height: 40px;
+    filter: opacity(0.5);
+    background-position: center center;
+    background-size: contain!important;
+}
+
+.newsslider .slick-dots li:nth-child(4) {
+    background: url(https://getneuromd.com/cdn/shop/files/Logo__Yahoo_5cddc732-5d83-4d87-a8fa-4fe38ca7af47_large_crop_center.svg?v=1691842492);
+    background-repeat: no-repeat;
+    width: 210px;
+    height: 40px;
+    filter: opacity(0.5);
+    background-position: center center;
+    background-size: contain!important;
+}
+.newsslider.new-dots .slick-dots li.slick-active:nth-child(2) {
+    background-color: transparent!important;
+    background: url(https://getneuromd.com/cdn/shop/files/Logo__Chicago_Tribune_df39a610-b01d-4e5e-8c1f-57841334b516_large_crop_center.svg?v=1691842491) no-repeat !important;
+    filter: opacity(1);
+    background-position: center center!important;
+    height: 40px!important;
+    background-size: contain!important;
+}
+.newsslider.new-dots .slick-dots li.slick-active:nth-child(1) {
+    background-color: transparent!important;
+    background: url(https://getneuromd.com/cdn/shop/files/Logo__Business_Insider_large_crop_center.svg?v=1691842491) no-repeat !important;
+    filter: opacity(1);
+    background-position: center center!important;
+    height: 40px!important;
+    background-size: contain!important;
+}
+.newsslider.new-dots .slick-dots li.slick-active:nth-child(3) {
+    background-color: transparent!important;
+    background: url(https://getneuromd.com/cdn/shop/files/Logo__Market_Watch_ea9b8592-d1ba-4232-9a5c-39f972ab0f5b_large_crop_center.svg?v=1691842492) no-repeat !important;
+    filter: opacity(1);
+    background-position: center center!important;
+    height: 40px!important;
+    background-size: contain!important;
+}
+.newsslider.new-dots .slick-dots li.slick-active:nth-child(4) {
+    background-color: transparent!important;
+    background: url(https://getneuromd.com/cdn/shop/files/Logo__Yahoo_5cddc732-5d83-4d87-a8fa-4fe38ca7af47_large_crop_center.svg?v=1691842492) no-repeat !important;
+    filter: opacity(1);
+    background-position: center center!important;
+    height: 40px!important;
+    background-size: contain!important;
+} 
+.news-image {
+    display: none;
+}
+@media screen and (min-width: 100px) and (max-width: 640px){ 
+.news-image {
+    display: block!important;
+}
+.newsslider .slick-next {
+    right: 5px;
+    top: 55%;
+} 
+.proofs .slick-next {
+    right: 5px;
+    top: 51.2%;
+}  
+.newsslider .slick-dots{
+    display: none!important;
+}
+.news-section {
+    padding: 30px 0 30px 0px;
+}  
+}
+  
+</style>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.newsslider').slick({
+      infinite: true,   
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      dots: true,
+      arrows: true,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        },
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        },
+        {
+          breakpoint: 640,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }
+      ]
+    });
+     
+  });
+</script>
+{% schema %}
+  {
+    "name": "news slider",
+	"class": "prod-video-reviews",
+	"max_blocks" : 20,
+    "settings": [ 
+        {
+    		"type": "header",
+            "content": "Heading"
+		},
+          {
+            "type" : "image_picker",
+            "id" : "logo1",
+            "label" : "News Logo"
+          },
+          {
+            "type" : "image_picker",
+            "id" : "logo2",
+            "label" : "News Logo"
+          }
+    ],
+    "blocks": [
+      {
+        "type" : "text",
+    	"name" : "Block",
+        "settings":[ 
+          {
+            "type" : "text",
+            "id" : "newstitle",
+            "label" : "News quotes"
+          },
+          {
+            "type" : "image_picker",
+            "id" : "newsimage",
+            "label" : "News Logo"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

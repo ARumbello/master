@@ -1,0 +1,84 @@
+{% schema %}
+{
+ "name": "Physician Partner",
+ "settings": [
+   {
+     "id": "bannerImage",
+     "type": "image_picker",
+     "label": "Banner Image"
+   },
+   {
+     "id": "pageTitle",
+     "type": "text",
+     "label": "Page Title"
+   },
+   {
+     "id": "pageSubTitle",
+     "type": "textarea",
+     "label": "Page SubTitle"
+   },
+   {
+     "id": "pageDescription",
+     "type": "textarea",
+     "label": "Page Description"
+   },
+   {
+     "id": "formTitle",
+     "type": "text",
+     "label": "Form Title"
+   },
+   {
+     "id": "formSubTitle",
+     "type": "textarea",
+     "label": "Form SubTitle"
+   },
+   {
+     "id": "agreementlink",
+     "type": "url",
+     "label": "Reseller Notice Agreement and MAP Policy URL"
+   }
+ ],
+  "presets": [
+    {
+      "name": "Physician Partner"
+    }
+  ]
+}
+{% endschema %}
+<style>
+.physician-partner-banner-wrapper {
+  background-image: url("{{ section.settings.bannerImage | img_url: '1400x' }}");
+}
+</style>
+<!-- partner with us banner section -->
+    <div class="physician-partner-banner-wrapper" >
+      <div class="background-cover-image"></div>
+        <div class="physician-partner-banner-inner lazyload">
+            <h1 class="tinyheader">{{ section.settings.pageTitle }}</h1>
+            <div class="header">{{ section.settings.pageSubTitle }}</div>
+        </div>
+    </div>
+    <!-- end review top banner section -->
+
+    <!-- physician small banner section -->
+    <div class="physician-partner-sm-banner-wrapper">
+        <div class="physician-partner-sm-banner-inner">
+            <div class="header">{{ section.settings.pageDescription }}</div>
+        </div>
+    </div>
+    <!-- end physician small banner section -->
+
+     <!-- physician interested section -->
+     <div class="physician-interested-wrapper">
+        <div class="physician-interested-inner">
+            <div class="physician-interested--sidecol">
+                <div class="header">{{ section.settings.formTitle }}</div>
+                <div class="subheader">{{ section.settings.formSubTitle }}</div>
+            </div>
+<div data-tf-widget="wqNpDo" data-tf-iframe-props="title=NeuroMD Wholesale Application" data-tf-medium="snippet" style="width:100%;height:400px;"></div><script src="//embed.typeform.com/next/embed.js"></script>
+              
+            </div>
+
+        </div>
+    </div>
+    <!-- end physician interested section -->

@@ -1,0 +1,40 @@
+<div class="product-testimonial">
+    <div class="test-top">
+	    <ul class="checkmark">
+		    {% if  block.settings.txt_01 != blank %}
+		    <li><img src="https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Vector.png?v=1709202428">{{ block.settings.txt_01 }}</li>
+			{%- endif -%}
+			{% if  block.settings.txt_02 != blank %}
+		    <li><img src="https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Vector.png?v=1709202428">{{ block.settings.txt_02 }}</li>
+			{%- endif -%}
+			{% if  block.settings.txt_03 != blank %}
+			<li><img src="https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Vector.png?v=1709202428">{{ block.settings.txt_03 }}</li>
+			{%- endif -%}
+			{% if  block.settings.txt_04 != blank %}
+			<li><img src="https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Vector.png?v=1709202428">{{ block.settings.txt_04 }}</li>
+			{%- endif -%}
+			{% if  block.settings.txt_05 != blank %}
+		    <li><img src="https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Vector.png?v=1709202428">{{ block.settings.txt_05 }}</li>
+			{%- endif -%}
+			{% if  block.settings.txt_06 != blank %}
+			<li><img src="https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Vector.png?v=1709202428">{{ block.settings.txt_06 }}</li>
+			{%- endif -%}
+		</ul>
+	</div>
+	<div class="testimonial-box">
+	    <h3>{{ block.settings.test_title }}</h3>
+		<div class="txt">{{ block.settings.test_txt }}</div>
+		<div class="author">
+		    <p class="author">{{ block.settings.author }}</p>
+			<p class="buyer"><img src="https://cdn.shopify.com/s/files/1/0201/2450/0032/files/ic_baseline-verified-user.svg?v=1709199384">Verified Buyer</p>
+		</div>
+	</div>
+</div>
+
+<style>
+  p.buyer img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+</style>

@@ -1,0 +1,94 @@
+<img class="prodSci__img animatedImage" src="">
+<script>
+  var images = new Array()
+  function preload() {
+    for (i = 0; i < preload.arguments.length; i++) {
+      images[i] = new Image()
+      images[i].src = preload.arguments[i]
+      //console.log('loaded image '+i);
+    }
+  }
+  preload(
+    "https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Device00_920x.png?v=1599684876",
+    "https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Device01_920x.png?v=1599684876",
+    "https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Device02_920x.png?v=1599684876",
+    "https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Device03_920x.png?v=1599684876",
+    "https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Device04_920x.png?v=1599684876",
+    "https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Device05_920x.png?v=1599684876",
+    "https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Device06_920x.png?v=1599684876",
+    "https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Device07_920x.png?v=1599684876",
+    "https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Device08_920x.png?v=1599684876",
+    "https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Device09_920x.png?v=1599684876",
+    "https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Device10_920x.png?v=1599684875",
+    "https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Device11_920x.png?v=1599684876",
+    "https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Device12_920x.png?v=1599684876",
+    "https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Device13_920x.png?v=1599684876",
+    "https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Device14_920x.png?v=1599684877",
+    "https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Device15_920x.png?v=1599684876",
+    "https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Device16_920x.png?v=1599684876",
+    "https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Device17_920x.png?v=1599684876",
+    "https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Device18_920x.png?v=1599684877",
+    "https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Device19_920x.png?v=1599684877",
+    "https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Device20_920x.png?v=1599684876",
+    "https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Device21_920x.png?v=1599684877",
+    "https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Device22_920x.png?v=1599684877",
+    "https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Device23_920x.png?v=1599684877",
+    "https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Device24_920x.png?v=1599684877",
+    "https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Device25_920x.png?v=1599684877",
+    "https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Device26_920x.png?v=1599684877",
+    "https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Device27_920x.png?v=1599684877",
+    "https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Device28_920x.png?v=1599684877",
+    "https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Device29_920x.png?v=1599684877",
+    "https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Device30_920x.png?v=1599684877"
+  )
+  
+  var target = $('.animatedImage');
+  var i = 0;
+  var counter = '00';
+  var direction = 'forward';
+  
+  target.attr('src', images[0].src);
+  
+  
+  var currentScroll = $(window).scrollTop();
+  var position = 0;
+  var positionBuffer = 0;
+  $(window).on("scroll", function (event) {
+    var scrollTop     = $(window).scrollTop(),
+        elementOffset = $('.animatedImage').offset().top,
+        distance      = (elementOffset - scrollTop);
+    
+    var divHeight = $('.animatedImage').height() / 1.8;
+    
+    var triggerPosition = $(window).height() / 2;
+    
+    var intervals = divHeight / 30;
+    
+    if (distance < triggerPosition && distance > (triggerPosition - divHeight)){
+      for (i=0;i<30;i++){
+        if (distance < (triggerPosition - intervals*(i-1)) && distance > (triggerPosition - intervals*i)){
+          position = i;
+        }
+      }
+    }
+    else if(distance > triggerPosition){
+      position = 0;
+    }
+    else if(distance < (triggerPosition - divHeight)){
+      position = 30;
+    }
+    
+    if (position < 0){
+      position = 0;
+    }
+    
+    if (positionBuffer != position){
+    	target.attr('src', images[position].src);
+    }
+    
+    positionBuffer = position;
+    
+  });
+  
+  
+</script>`

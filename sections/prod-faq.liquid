@@ -1,0 +1,187 @@
+<div class="prod-faq-wrapper">
+  <h2 class="heading text-center">{{ section.settings.title}}</h2>
+  
+  <div class="prod-faqs">
+    {% for block in section.blocks %}
+    {% if block.type == 'question' %}
+    <div class="faqAccordion{% if forloop.index > 5 %} more{% endif %}" sm-accordion="1" tabindex="0" >
+      <div class="faqAccordion-Title">
+        <span>{{ block.settings.title }}</span>
+      </div>
+      <div class="faqAccordion_container" data-accordion-content="1">
+        {{ block.settings.text }}
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% if section.blocks.size > 5 %}
+    <div class="faq-show-more">Show More<span class="show-more-icon"></span></div>
+    <div class="faq-show-less">Show Less<span class="show-less-icon"></span></div>
+    {% endif %}
+  </div>
+</div>
+<style>
+  #shopify-section-{{section.id}} {
+    padding-top: {{ section.settings.section_padding_top}}px;
+    padding-bottom: {{ section.settings.section_padding_bottom}}px;
+  }
+  
+  .prod-faq-wrapper .heading {
+    color: {{ section.settings.faq_title_color }};
+    font-size: 36px;
+    line-height: 54px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  
+  .prod-faq-wrapper {
+    max-width: 1000px;
+    margin-left:auto;
+    margin-right: auto;
+    background-color: {{ section.settings.faq_wrapper_bg}};
+    padding-top: {{ section.settings.wrapper_padding_top}}px;
+    padding-bottom: {{ section.settings.wrapper_padding_bottom}}px;
+    {% if section.settings.wrapper_use_shadow %}
+    box-shadow: {{ section.settings.wrapper_shadow_style }};
+    {% endif %}
+  }
+  
+  .prod-faqs .faqAccordion {
+    margin: auto;
+  }
+  
+  .prod-faqs .faqAccordion.more {
+    display:none;
+  }
+  
+  .text-center {
+    text-align:center;
+  }
+</style>
+<script>
+   document.addEventListener('DOMContentLoaded', function() {
+      const showMoreButton = document.querySelector('.faq-show-more');
+      const showLessButton = document.querySelector('.faq-show-less');
+      const moreFaqs = document.querySelectorAll('.prod-faqs .faqAccordion.more');
+    
+      if (showMoreButton) {
+        showMoreButton.addEventListener('click', function() {
+          moreFaqs.forEach(faq => faq.style.display = 'block');
+          showMoreButton.style.display = 'none';
+          if (showLessButton) {
+            showLessButton.style.display = 'block';
+          }
+        });
+      }
+    
+      if (showLessButton) {
+        showLessButton.addEventListener('click', function() {
+          moreFaqs.forEach(faq => faq.style.display = 'none');
+          showLessButton.style.display = 'none';
+          if (showMoreButton) {
+            showMoreButton.style.display = 'block';
+          }
+        });
+      }
+    });
+
+</script>
+{% schema %}
+{
+ "name": "Product FAQ",
+ "settings": [
+    {
+      "id": "title",
+      "type": "text",
+      "label": "Title",
+      "default": "FAQ"
+    },
+    {
+        "type": "header",
+        "content": "FAQ Wrapper Style:"
+    },
+    {
+        "id" : "faq_title_color",
+        "type" : "color",
+        "label" : "Faq Title Color",
+        "default" : "#0FA3FA"
+    },
+    {
+        "id" : "faq_wrapper_bg",
+        "type" : "color",
+        "label" : "Faq Wrapper Background",
+        "default" : "#F5FAFD"
+    },
+    {
+        "id": "wrapper_padding_top",
+        "type": "range",
+        "label": "Wrapper Top Padding",
+        "min": 0,
+        "max": 50,
+        "step": 10,
+        "default": 40
+    },
+    {
+        "id": "wrapper_padding_bottom",
+        "type": "range",
+        "label": "Wrapper Bottom Padding",
+        "min": 0,
+        "max": 50,
+        "step": 10,
+        "default": 20
+    },
+    {
+       "id": "wrapper_use_shadow",
+       "type": "checkbox",
+       "label": "Use Shadow",
+       "default": true
+    },
+    {
+        "id": "wrapper_shadow_style",
+        "type": "text",
+        "label" : "Wrapper Shadow Style",
+        "default" : "0px 12px 20px rgba(29, 41, 63, 0.2)"
+    },
+    {
+        "type": "header",
+        "content": "Section Style:"
+    },
+    {
+        "id": "section_padding_top",
+        "type": "range",
+        "label": "Section Top Padding",
+        "min": 0,
+        "max": 50,
+        "step": 10,
+        "default": 30
+    },
+    {
+        "id": "section_padding_bottom",
+        "type": "range",
+        "label": "Section Bottom Padding",
+        "min": 0,
+        "max": 50,
+        "step": 10,
+        "default": 30
+    }
+ ],
+ "blocks":[
+   {
+     "type": "question",
+     "name": "Question",
+     "settings":[
+       {
+         "id": "title",
+         "type": "text",
+         "label": "Question"
+       },
+       {
+         "id": "text",
+         "type": "textarea",
+         "label": "Answer"
+       }
+     ]
+   }
+ ]
+}
+{% endschema %}

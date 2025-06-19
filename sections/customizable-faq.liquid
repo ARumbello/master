@@ -1,0 +1,183 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+  #faq-{{ section.id }} .all-faq-main-box-custom-section {
+    width: 100%;
+    background-color:{{ section.settings.background-color-00886 }};
+    padding: 72px 0px;position: relative;
+  }
+
+  #faq-{{ section.id }} .faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    text-align: center;
+  }
+
+  #faq-{{ section.id }} .faq-container h2 {
+    font-size: 38px;
+    line-height: 54px;
+    font-weight: 400;
+    margin-bottom: 30px;
+  }
+
+  #faq-{{ section.id }} .accordion-{{ section.id }} {
+    background-color: white;
+    color: #000;
+    cursor: pointer;
+    padding: 20px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 18px;
+    line-height: 25px;
+    font-weight: 700;
+    margin: 0px;
+    transition: 0.4s;
+    position: relative;
+    border-radius: 10px;
+  }
+
+  #faq-{{ section.id }} .accordion-{{ section.id }}.active {
+    border-radius: 10px 10px 0 0;
+  }
+
+
+  .cusstomclassfaq {
+    width: 400px;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+}
+  #faq-{{ section.id }} .accordion-{{ section.id }}:after {
+    content: '\f067';
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    right: 20px;
+    top: 22px;
+    transition: transform 0.3s;
+  }
+
+  #faq-{{ section.id }} .accordion-{{ section.id }}.active:after {
+    content: '\f068';
+  }
+
+  #faq-{{ section.id }} .panel-{{ section.id }} {
+    padding: 0 20px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    border-radius: 0 0 10px 10px;
+    text-align: left;
+    margin-bottom: 15px;
+  }
+
+  #faq-{{ section.id }} .panel-{{ section.id }} p {
+    margin: 15px 0;
+    color: #444;
+    font-size: 16px;
+    line-height: 23px;
+    font-weight: 400;
+  }
+</style>
+
+<div id="faq-{{ section.id }}">
+  <div class="all-faq-main-box-custom-section">
+    <div class="faq-container">
+
+       
+        <img src="https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Group_2464_72ac16d9-226e-4fda-bcdb-b8a1b960e03b.svg?v=1748762877"class="cusstomclassfaq">     
+      <h2>{{ section.settings.heading | escape }}</h2>
+
+      {% for block in section.blocks %}
+        <button class="accordion-{{ section.id }}">{{ block.settings.question }}</button>
+        <div class="panel-{{ section.id }}">
+          <p>{{ block.settings.answer }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const acc = document.querySelectorAll("#faq-{{ section.id }} .accordion-{{ section.id }}");
+    acc.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        this.classList.toggle("active");
+        const panel = this.nextElementSibling;
+        if (panel.style.maxHeight) {
+          panel.style.maxHeight = null;
+        } else {
+          panel.style.maxHeight = panel.scrollHeight + "px";
+        }
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Customizable FAQ",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "FAQ Heading",
+      "default": "FAQs"
+    },
+    {
+      "type": "color",
+      "id": "background-color-00886",
+      "label": "Background Color",
+      "default": "#EAF6F8"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "What is your return policy?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "default": "We accept returns within 30 days of purchase."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 20,
+  "presets": [
+    {
+      "name": "Customizable FAQ",
+      "category": "Text",
+      "blocks": [
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Are your products vegan?",
+            "answer": "Yes, all our products are 100% vegan and cruelty-free."
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "How do I use your product?",
+            "answer": "Apply a small amount daily to clean skin. Follow instructions on the label."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,405 @@
+{% comment %}
+  jQuery Optimization & Vanilla JS Replacements
+  - Standardizes jQuery usage patterns
+  - Provides vanilla JS alternatives for common jQuery functions
+  - Reduces jQuery dependency where possible
+{% endcomment %}
+
+<script>
+  (function() {
+    'use strict';
+    
+    // Vanilla JS utilities to replace common jQuery functions
+    window.$ = window.$ || {};
+    
+    // Only load full jQuery if absolutely necessary
+    window.jQueryRequired = false;
+    
+    // Vanilla JS DOM utilities
+    var VanillaJS = {
+      // $(selector) replacement
+      select: function(selector) {
+        if (typeof selector === 'string') {
+          return document.querySelectorAll(selector);
+        }
+        return selector;
+      },
+      
+      // $(selector).first() replacement
+      selectOne: function(selector) {
+        if (typeof selector === 'string') {
+          return document.querySelector(selector);
+        }
+        return selector;
+      },
+      
+      // $(element).addClass() replacement
+      addClass: function(element, className) {
+        if (element && element.classList) {
+          element.classList.add(className);
+        }
+      },
+      
+      // $(element).removeClass() replacement
+      removeClass: function(element, className) {
+        if (element && element.classList) {
+          element.classList.remove(className);
+        }
+      },
+      
+      // $(element).toggleClass() replacement
+      toggleClass: function(element, className) {
+        if (element && element.classList) {
+          element.classList.toggle(className);
+        }
+      },
+      
+      // $(element).hasClass() replacement
+      hasClass: function(element, className) {
+        return element && element.classList && element.classList.contains(className);
+      },
+      
+      // $(element).attr() replacement
+      attr: function(element, attribute, value) {
+        if (!element) return null;
+        if (value !== undefined) {
+          element.setAttribute(attribute, value);
+          return element;
+        }
+        return element.getAttribute(attribute);
+      },
+      
+      // $(element).removeAttr() replacement
+      removeAttr: function(element, attribute) {
+        if (element) {
+          element.removeAttribute(attribute);
+        }
+      },
+      
+      // $(element).prop() replacement for boolean properties
+      prop: function(element, property, value) {
+        if (!element) return null;
+        if (value !== undefined) {
+          element[property] = value;
+          return element;
+        }
+        return element[property];
+      },
+      
+      // $(element).val() replacement
+      val: function(element, value) {
+        if (!element) return null;
+        if (value !== undefined) {
+          element.value = value;
+          return element;
+        }
+        return element.value;
+      },
+      
+      // $(element).html() replacement
+      html: function(element, html) {
+        if (!element) return null;
+        if (html !== undefined) {
+          element.innerHTML = html;
+          return element;
+        }
+        return element.innerHTML;
+      },
+      
+      // $(element).text() replacement
+      text: function(element, text) {
+        if (!element) return null;
+        if (text !== undefined) {
+          element.textContent = text;
+          return element;
+        }
+        return element.textContent;
+      },
+      
+      // $(element).hide() replacement
+      hide: function(element) {
+        if (element) {
+          element.style.display = 'none';
+        }
+      },
+      
+      // $(element).show() replacement
+      show: function(element) {
+        if (element) {
+          element.style.display = '';
+        }
+      },
+      
+      // $(element).on() replacement
+      on: function(element, event, handler) {
+        if (element) {
+          element.addEventListener(event, handler);
+        }
+      },
+      
+      // $(element).off() replacement
+      off: function(element, event, handler) {
+        if (element) {
+          element.removeEventListener(event, handler);
+        }
+      },
+      
+      // $(document).ready() replacement
+      ready: function(callback) {
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', callback);
+        } else {
+          callback();
+        }
+      },
+      
+      // AJAX replacement for simple requests
+      ajax: function(options) {
+        return fetch(options.url, {
+          method: options.method || 'GET',
+          headers: options.headers || {
+            'Content-Type': 'application/json',
+          },
+          body: options.data ? JSON.stringify(options.data) : undefined
+        }).then(function(response) {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return options.dataType === 'json' ? response.json() : response.text();
+        }).then(function(data) {
+          if (options.success) {
+            options.success(data);
+          }
+        }).catch(function(error) {
+          if (options.error) {
+            options.error(error);
+          }
+        });
+      }
+    };
+    
+    // Check if we actually need jQuery
+    function checkJQueryRequirements() {
+      var jqueryDependentFeatures = [
+        '.slick-slider', // Slick carousel
+        '.wcp-net', // WCP Net features
+        '.convert-widget' // Convert widgets
+      ];
+      
+      var needsJQuery = jqueryDependentFeatures.some(function(selector) {
+        return document.querySelector(selector) !== null;
+      });
+      
+      if (needsJQuery) {
+        window.jQueryRequired = true;
+        loadJQuery();
+      } else {
+        // Set up lightweight jQuery alternative
+        window.jQuery = window.$ = createJQueryReplacement();
+      }
+    }
+    
+    // Create lightweight jQuery replacement
+    function createJQueryReplacement() {
+      function $(selector) {
+        if (typeof selector === 'function') {
+          // $(document).ready() case
+          VanillaJS.ready(selector);
+          return;
+        }
+        
+        var elements = VanillaJS.select(selector);
+        var jqueryLike = {
+          length: elements.length,
+          elements: elements,
+          
+          // Iterate over elements
+          each: function(callback) {
+            for (var i = 0; i < elements.length; i++) {
+              callback.call(elements[i], i, elements[i]);
+            }
+            return this;
+          },
+          
+          // Get first element
+          first: function() {
+            return elements[0] ? $(elements[0]) : $();
+          },
+          
+          // Get element at index
+          eq: function(index) {
+            return elements[index] ? $(elements[index]) : $();
+          },
+          
+          // Class methods
+          addClass: function(className) {
+            return this.each(function() {
+              VanillaJS.addClass(this, className);
+            });
+          },
+          
+          removeClass: function(className) {
+            return this.each(function() {
+              VanillaJS.removeClass(this, className);
+            });
+          },
+          
+          toggleClass: function(className) {
+            return this.each(function() {
+              VanillaJS.toggleClass(this, className);
+            });
+          },
+          
+          hasClass: function(className) {
+            return elements[0] ? VanillaJS.hasClass(elements[0], className) : false;
+          },
+          
+          // Attribute methods
+          attr: function(attribute, value) {
+            if (arguments.length === 1) {
+              return elements[0] ? VanillaJS.attr(elements[0], attribute) : null;
+            }
+            return this.each(function() {
+              VanillaJS.attr(this, attribute, value);
+            });
+          },
+          
+          removeAttr: function(attribute) {
+            return this.each(function() {
+              VanillaJS.removeAttr(this, attribute);
+            });
+          },
+          
+          prop: function(property, value) {
+            if (arguments.length === 1) {
+              return elements[0] ? VanillaJS.prop(elements[0], property) : null;
+            }
+            return this.each(function() {
+              VanillaJS.prop(this, property, value);
+            });
+          },
+          
+          // Content methods
+          val: function(value) {
+            if (arguments.length === 0) {
+              return elements[0] ? VanillaJS.val(elements[0]) : null;
+            }
+            return this.each(function() {
+              VanillaJS.val(this, value);
+            });
+          },
+          
+          html: function(html) {
+            if (arguments.length === 0) {
+              return elements[0] ? VanillaJS.html(elements[0]) : null;
+            }
+            return this.each(function() {
+              VanillaJS.html(this, html);
+            });
+          },
+          
+          text: function(text) {
+            if (arguments.length === 0) {
+              return elements[0] ? VanillaJS.text(elements[0]) : null;
+            }
+            return this.each(function() {
+              VanillaJS.text(this, text);
+            });
+          },
+          
+          // Visibility methods
+          hide: function() {
+            return this.each(function() {
+              VanillaJS.hide(this);
+            });
+          },
+          
+          show: function() {
+            return this.each(function() {
+              VanillaJS.show(this);
+            });
+          },
+          
+          // Event methods
+          on: function(event, handler) {
+            return this.each(function() {
+              VanillaJS.on(this, event, handler);
+            });
+          },
+          
+          off: function(event, handler) {
+            return this.each(function() {
+              VanillaJS.off(this, event, handler);
+            });
+          },
+          
+          click: function(handler) {
+            if (handler) {
+              return this.on('click', handler);
+            } else {
+              return this.each(function() {
+                this.click();
+              });
+            }
+          },
+          
+          // Data method (simplified)
+          data: function(key, value) {
+            if (arguments.length === 1) {
+              return elements[0] ? elements[0].dataset[key] : null;
+            }
+            return this.each(function() {
+              this.dataset[key] = value;
+            });
+          }
+        };
+        
+        return jqueryLike;
+      }
+      
+      // Static methods
+      $.ajax = VanillaJS.ajax;
+      $.extend = function(target) {
+        for (var i = 1; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      };
+      
+      return $;
+    }
+    
+    // Load full jQuery only when needed
+    function loadJQuery() {
+      if (window.jQuery && window.jQuery.fn) {
+        return; // Already loaded
+      }
+      
+      var script = document.createElement('script');
+      script.src = '{{ 'jquery.min.js' | asset_url }}';
+      script.onload = function() {
+        console.log('Full jQuery loaded for legacy features');
+      };
+      document.head.appendChild(script);
+    }
+    
+    // Initialize on DOM ready
+    VanillaJS.ready(function() {
+      checkJQueryRequirements();
+    });
+    
+  })();
+</script>
+
+{% comment %}
+  This optimization:
+  1. Checks if jQuery is actually needed
+  2. Provides vanilla JS replacements for common jQuery functions
+  3. Only loads full jQuery when legacy features require it
+  4. Maintains API compatibility for existing code
+{% endcomment %} 

@@ -1,0 +1,422 @@
+{% comment %}
+  Third-Party Script Optimization System
+  - Delays non-critical third-party scripts
+  - Uses intersection observer for conditional loading
+  - Manages GTM and analytics efficiently
+  - Minimizes third-party impact on Core Web Vitals
+  - Optimized for PageSpeed 90+
+{% endcomment %}
+
+<script>
+(function() {
+  'use strict';
+  
+  // Third-party script configuration
+  var thirdPartyScripts = {
+    // Critical scripts (load immediately)
+    critical: [
+      {
+        name: 'gtm-main',
+        src: 'https://www.googletagmanager.com/gtm.js?id=GTM-TKLXSZNV',
+        type: 'analytics',
+        priority: 'high'
+      }
+    ],
+    
+    // User interaction scripts (load on first user interaction)
+    interaction: [
+      {
+        name: 'judgeme-reviews',
+        src: 'https://cdn.judge.me/loader.js',
+        trigger: '.reviews, .review-widget, [data-reviews]',
+        type: 'reviews'
+      },
+      {
+        name: 'sharethis',
+        src: '//platform-api.sharethis.com/js/sharethis.js#property=5ca80e409b272f00119abe57&product=inline-share-buttons',
+        trigger: '.share-buttons, .social-share',
+        type: 'social'
+      },
+      {
+        name: 'recharge-widget',
+        src: '//static.rechargecdn.com/static/js/rcWidget.js',
+        trigger: '.recharge-widget, [data-recharge]',
+        type: 'subscription'
+      }
+    ],
+    
+    // Delayed scripts (load after page load)
+    delayed: [
+      {
+        name: 'convert-experiments',
+        src: '//cdn-4.convertexperiments.com/v1/js/10042342-10042992.js',
+        delay: 3000,
+        type: 'optimization'
+      },
+      {
+        name: 'bootstrap-external',
+        src: 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js',
+        trigger: '.modal, [data-toggle]',
+        delay: 2000,
+        type: 'ui'
+      }
+    ],
+    
+    // Page-specific scripts
+    pageSpecific: {
+      'product': [
+        {
+          name: 'product-reviews',
+          src: 'https://productreviews.shopifycdn.com/assets/v4/spr.js',
+          trigger: '.spr-container'
+        }
+      ],
+      'cart': [
+        {
+          name: 'cart-analytics',
+          src: 'https://analytics.example.com/cart-tracking.js',
+          condition: function() {
+            return document.querySelector('[data-cart-items]');
+          }
+        }
+      ]
+    }
+  };
+  
+  // Performance tracking
+  window.thirdPartyMetrics = {
+    scriptsLoaded: 0,
+    scriptsErrored: 0,
+    loadTimes: {},
+    totalBlockingTime: 0,
+    userInteracted: false
+  };
+  
+  // Load script with performance tracking
+  function loadThirdPartyScript(config) {
+    return new Promise(function(resolve, reject) {
+      var startTime = performance.now();
+      
+      // Check if already loaded
+      if (document.querySelector('script[src*="' + config.src.split('?')[0] + '"]')) {
+        resolve();
+        return;
+      }
+      
+      var script = document.createElement('script');
+      script.src = config.src;
+      script.async = true;
+      script.defer = true;
+      
+      // Add data attributes for tracking
+      script.setAttribute('data-third-party', config.name);
+      script.setAttribute('data-third-party-type', config.type || 'unknown');
+      
+      script.onload = function() {
+        var loadTime = performance.now() - startTime;
+        window.thirdPartyMetrics.scriptsLoaded++;
+        window.thirdPartyMetrics.loadTimes[config.name] = loadTime;
+        
+        console.log('Third-party script loaded:', config.name, 'in', Math.round(loadTime) + 'ms');
+        resolve();
+      };
+      
+      script.onerror = function() {
+        window.thirdPartyMetrics.scriptsErrored++;
+        console.error('Third-party script failed to load:', config.name);
+        reject(new Error('Script loading failed: ' + config.name));
+      };
+      
+      document.head.appendChild(script);
+    });
+  }
+  
+  // User interaction detector
+  var userInteractionEvents = ['click', 'touchstart', 'keydown', 'scroll'];
+  var userHasInteracted = false;
+  
+  function onUserInteraction() {
+    if (userHasInteracted) return;
+    
+    userHasInteracted = true;
+    window.thirdPartyMetrics.userInteracted = true;
+    
+    // Remove listeners
+    userInteractionEvents.forEach(function(event) {
+      document.removeEventListener(event, onUserInteraction, { passive: true });
+    });
+    
+    // Load interaction-based scripts
+    loadInteractionScripts();
+  }
+  
+  // Add user interaction listeners
+  function setupInteractionListeners() {
+    userInteractionEvents.forEach(function(event) {
+      document.addEventListener(event, onUserInteraction, { passive: true });
+    });
+  }
+  
+  // Load scripts based on user interaction
+  function loadInteractionScripts() {
+    thirdPartyScripts.interaction.forEach(function(script) {
+      if (script.trigger) {
+        // Check if trigger elements exist
+        if (document.querySelector(script.trigger)) {
+          setTimeout(function() {
+            loadThirdPartyScript(script);
+          }, 100);
+        }
+      } else {
+        // Load immediately on interaction
+        loadThirdPartyScript(script);
+      }
+    });
+  }
+  
+  // Intersection observer for conditional loading
+  function setupIntersectionObserver() {
+    if (!('IntersectionObserver' in window)) return;
+    
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          var trigger = entry.target.getAttribute('data-script-trigger');
+          if (trigger) {
+            // Find and load the associated script
+            var scriptConfig = findScriptByTrigger(trigger);
+            if (scriptConfig) {
+              loadThirdPartyScript(scriptConfig);
+              observer.unobserve(entry.target);
+            }
+          }
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '50px 0px' });
+    
+    // Observe elements that should trigger script loading
+    thirdPartyScripts.interaction.forEach(function(script) {
+      if (script.trigger) {
+        var elements = document.querySelectorAll(script.trigger);
+        elements.forEach(function(element) {
+          element.setAttribute('data-script-trigger', script.name);
+          observer.observe(element);
+        });
+      }
+    });
+  }
+  
+  function findScriptByTrigger(scriptName) {
+    return thirdPartyScripts.interaction.find(function(script) {
+      return script.name === scriptName;
+    });
+  }
+  
+  // Load critical scripts immediately
+  function loadCriticalScripts() {
+    thirdPartyScripts.critical.forEach(function(script) {
+      loadThirdPartyScript(script);
+    });
+  }
+  
+  // Load delayed scripts after page load
+  function loadDelayedScripts() {
+    thirdPartyScripts.delayed.forEach(function(script) {
+      var delay = script.delay || 2000;
+      
+      setTimeout(function() {
+        // Check conditions before loading
+        if (script.trigger) {
+          if (document.querySelector(script.trigger)) {
+            loadThirdPartyScript(script);
+          }
+        } else if (script.condition) {
+          if (script.condition()) {
+            loadThirdPartyScript(script);
+          }
+        } else {
+          loadThirdPartyScript(script);
+        }
+      }, delay);
+    });
+  }
+  
+  // Load page-specific scripts
+  function loadPageSpecificScripts() {
+    var pageType = getPageType();
+    var pageScripts = thirdPartyScripts.pageSpecific[pageType];
+    
+    if (pageScripts) {
+      pageScripts.forEach(function(script) {
+        if (script.condition && !script.condition()) {
+          return;
+        }
+        
+        if (script.trigger && !document.querySelector(script.trigger)) {
+          return;
+        }
+        
+        setTimeout(function() {
+          loadThirdPartyScript(script);
+        }, script.delay || 1000);
+      });
+    }
+  }
+  
+  function getPageType() {
+    var body = document.body;
+    if (body.classList.contains('template-product')) return 'product';
+    if (body.classList.contains('template-cart')) return 'cart';
+    if (body.classList.contains('template-collection')) return 'collection';
+    return 'other';
+  }
+  
+  // GTM optimization
+  function optimizeGTM() {
+    // Consolidate GTM calls
+    window.dataLayer = window.dataLayer || [];
+    
+    // Batch events to reduce impact
+    var eventQueue = [];
+    var originalPush = window.dataLayer.push;
+    
+    window.dataLayer.push = function(event) {
+      if (userHasInteracted || event.event === 'page_view') {
+        originalPush.call(window.dataLayer, event);
+      } else {
+        eventQueue.push(event);
+      }
+    };
+    
+    // Flush queued events on user interaction
+    document.addEventListener('click', function() {
+      if (eventQueue.length > 0) {
+        eventQueue.forEach(function(event) {
+          originalPush.call(window.dataLayer, event);
+        });
+        eventQueue = [];
+      }
+    }, { once: true, passive: true });
+  }
+  
+  // Core Web Vitals monitoring for third-party impact
+  function monitorThirdPartyImpact() {
+    if ('PerformanceObserver' in window) {
+      // Monitor long tasks potentially caused by third-party scripts
+      var observer = new PerformanceObserver(function(list) {
+        list.getEntries().forEach(function(entry) {
+          if (entry.duration > 50) {
+            window.thirdPartyMetrics.totalBlockingTime += entry.duration;
+            console.warn('Long task detected:', entry.duration + 'ms');
+          }
+        });
+      });
+      
+      observer.observe({ entryTypes: ['longtask'] });
+    }
+  }
+  
+  // Initialize optimization system
+  function initThirdPartyOptimization() {
+    // Set up GTM optimization
+    optimizeGTM();
+    
+    // Load critical scripts immediately
+    loadCriticalScripts();
+    
+    // Set up user interaction detection
+    setupInteractionListeners();
+    
+    // Set up intersection observer
+    setupIntersectionObserver();
+    
+    // Monitor performance impact
+    monitorThirdPartyImpact();
+    
+    // Load page-specific scripts
+    loadPageSpecificScripts();
+    
+    // Load delayed scripts after page load
+    window.addEventListener('load', function() {
+      setTimeout(loadDelayedScripts, 1000);
+    });
+  }
+  
+  // Performance reporting
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      console.log('Third-Party Script Metrics:', window.thirdPartyMetrics);
+      
+      // Report to analytics
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'third_party_performance', {
+          scripts_loaded: window.thirdPartyMetrics.scriptsLoaded,
+          scripts_errored: window.thirdPartyMetrics.scriptsErrored,
+          total_blocking_time: Math.round(window.thirdPartyMetrics.totalBlockingTime),
+          user_interacted: window.thirdPartyMetrics.userInteracted
+        });
+      }
+    }, 5000);
+  });
+  
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initThirdPartyOptimization);
+  } else {
+    initThirdPartyOptimization();
+  }
+  
+})();
+</script>
+
+{% comment %}
+  Optimized GTM Implementation
+  Instead of multiple GTM scripts, use one optimized implementation
+{% endcomment %}
+
+<script>
+  // Optimized GTM with delayed loading for non-critical events
+  (function(w,d,s,l,i){
+    w[l]=w[l]||[];
+    
+    // Critical page view tracking
+    w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
+    
+    // Load GTM script with optimizations
+    var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s);
+    
+    j.async=true;
+    j.src='https://www.googletagmanager.com/gtm.js?id='+i;
+    
+    // Add to head after a small delay to prevent blocking
+    setTimeout(function() {
+      f.parentNode.insertBefore(j,f);
+    }, 100);
+    
+  })(window,document,'script','dataLayer','GTM-TKLXSZNV');
+</script>
+
+<!-- Optimized noscript fallback -->
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TKLXSZNV" 
+          height="0" width="0" style="display:none;visibility:hidden" loading="lazy"></iframe>
+  <iframe src="https://gtm.getneuromd.com/ns.html?id=GTM-KBGZDXVN" 
+          height="0" width="0" style="display:none;visibility:hidden" loading="lazy"></iframe>
+</noscript>
+
+{% comment %}
+Benefits of this system:
+- Delays non-critical third-party scripts until user interaction
+- Uses intersection observer for conditional loading
+- Consolidates GTM implementations
+- Monitors performance impact
+- Reduces Total Blocking Time (TBT)
+- Improves First Input Delay (FID)
+- Minimizes impact on Core Web Vitals
+
+Usage:
+{% render 'third-party-optimizer' %}
+
+This should be included in the <head> section after critical CSS
+{% endcomment %} 

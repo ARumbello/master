@@ -1,0 +1,206 @@
+{% comment %}
+  Optimized Script Loading Strategy
+  - Loads critical scripts first
+  - Defers non-critical scripts
+  - Uses intersection observer for conditional loading
+  - Implements performance monitoring
+{% endcomment %}
+
+<script>
+  (function() {
+    'use strict';
+    
+    // Performance monitoring
+    if ('performance' in window) {
+      window.jsLoadingMetrics = {
+        start: performance.now(),
+        scriptsLoaded: 0,
+        totalScripts: 0
+      };
+    }
+    
+    // Critical script loader
+    window.loadScript = function(src, callback, critical) {
+      return new Promise(function(resolve, reject) {
+        if (document.querySelector('script[src="' + src + '"]')) {
+          resolve();
+          return;
+        }
+        
+        var script = document.createElement('script');
+        script.src = src;
+        script.defer = !critical;
+        script.async = false;
+        
+        script.onload = function() {
+          if (window.jsLoadingMetrics) {
+            window.jsLoadingMetrics.scriptsLoaded++;
+          }
+          if (callback) callback();
+          resolve();
+        };
+        
+        script.onerror = function() {
+          console.error('Failed to load script:', src);
+          reject(new Error('Script loading failed'));
+        };
+        
+        document.head.appendChild(script);
+        
+        if (window.jsLoadingMetrics) {
+          window.jsLoadingMetrics.totalScripts++;
+        }
+      });
+    };
+    
+    // Conditional script loader based on page type
+    window.loadPageSpecificScripts = function() {
+      var pageType = document.body.className;
+      var promises = [];
+      
+      {% comment %} Product page scripts {% endcomment %}
+      {% if template contains 'product' %}
+        promises.push(window.loadScript('{{ 'jquery.zoom.min.js' | asset_url }}'));
+        promises.push(window.loadScript('{{ 'product-page-slider.js' | asset_url }}'));
+      {% endif %}
+      
+      {% comment %} Cart page scripts {% endcomment %}
+      {% if template contains 'cart' %}
+        promises.push(window.loadScript('{{ 'cart-functionality.js' | asset_url }}'));
+      {% endif %}
+      
+      {% comment %} Collection page scripts {% endcomment %}
+      {% if template contains 'collection' %}
+        promises.push(window.loadScript('{{ 'collection-filters.js' | asset_url }}'));
+      {% endif %}
+      
+      return Promise.all(promises);
+    };
+    
+    // Intersection Observer for lazy loading scripts
+    window.loadScriptOnIntersection = function(selector, scriptSrc) {
+      if (!('IntersectionObserver' in window)) {
+        // Fallback for older browsers
+        return window.loadScript(scriptSrc);
+      }
+      
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            window.loadScript(scriptSrc);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      var elements = document.querySelectorAll(selector);
+      elements.forEach(function(el) {
+        observer.observe(el);
+      });
+    };
+    
+    // Load critical scripts immediately
+    var criticalScripts = [
+      '{{ 'vendor-scripts-v14.js' | asset_url | split: '?' | first }}',
+      '{{ 'theme-min.js' | asset_url }}'
+    ];
+    
+    // Load non-critical scripts after page load
+    var nonCriticalScripts = [
+      '{{ 'custom_script-min.js' | asset_url }}',
+      '{{ 'lazysizes.min.js' | asset_url }}',
+      {% if request.page_type contains 'customers/' %}'{{ 'shopify_common.js' | shopify_asset_url }}',{% endif %}
+    ];
+    
+    // Third-party scripts to load conditionally
+    var conditionalScripts = {
+      // Load reviews script only if review elements exist
+      reviews: {
+        selector: '.reviews, .review-widget',
+        script: 'https://cdn.judge.me/loader.js'
+      },
+      // Load social sharing script only if share buttons exist
+      sharing: {
+        selector: '.share-buttons, .social-share',
+        script: '//platform-api.sharethis.com/js/sharethis.js#property=5ca80e409b272f00119abe57&product=inline-share-buttons'
+      }
+    };
+    
+    // Initialize loading sequence
+    function initOptimizedLoading() {
+      // Load critical scripts first
+      Promise.all(criticalScripts.map(function(src) {
+        return window.loadScript(src, null, true);
+      })).then(function() {
+        console.log('Critical scripts loaded');
+        
+        // Load page-specific scripts
+        return window.loadPageSpecificScripts();
+      }).then(function() {
+        
+        // Load non-critical scripts after a delay
+        setTimeout(function() {
+          nonCriticalScripts.forEach(function(src, index) {
+            if (src) {
+              setTimeout(function() {
+                window.loadScript(src);
+              }, index * 100);
+            }
+          });
+        }, 500);
+        
+        // Set up conditional script loading
+        Object.keys(conditionalScripts).forEach(function(key) {
+          var config = conditionalScripts[key];
+          window.loadScriptOnIntersection(config.selector, config.script);
+        });
+        
+      }).catch(function(error) {
+        console.error('Script loading error:', error);
+      });
+    }
+    
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initOptimizedLoading);
+    } else {
+      initOptimizedLoading();
+    }
+    
+    // Performance reporting
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        if (window.jsLoadingMetrics) {
+          var metrics = window.jsLoadingMetrics;
+          metrics.end = performance.now();
+          metrics.totalTime = metrics.end - metrics.start;
+          
+          console.log('JavaScript Loading Metrics:', {
+            totalTime: metrics.totalTime + 'ms',
+            scriptsLoaded: metrics.scriptsLoaded,
+            totalScripts: metrics.totalScripts,
+            loadingRate: metrics.scriptsLoaded / metrics.totalScripts * 100 + '%'
+          });
+          
+          // Send to analytics if needed
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'script_loading_performance', {
+              'custom_map': {
+                'total_time': metrics.totalTime,
+                'scripts_loaded': metrics.scriptsLoaded
+              }
+            });
+          }
+        }
+      }, 1000);
+    });
+    
+  })();
+</script>
+
+{% comment %} 
+  Usage in theme.liquid:
+  {% render 'optimized-script-loader' %}
+  
+  Remove individual script tags and let this system handle loading
+{% endcomment %} 

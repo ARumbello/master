@@ -1,0 +1,191 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      {%- if section.settings.subtitle != blank -%}
+      <div class="subtitle-wrapper text-center">
+        <h3 class="sunheading"><span>{{ section.settings.subtitle }}</span></h3>
+      </div>
+      {%- endif -%}
+      {%- if section.settings.title != blank -%}
+      <div class="title-wrapper text-center">
+        <h2 class="heading"><span>{{ section.settings.title }}</span></h2>
+      </div>
+      {%- endif -%}
+      {%- if section.settings.contents != blank -%}
+      <div class="contents-wrapper">
+        {{ section.settings.contents }}
+      </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+</div>
+
+<style>
+  #shopify-section-{{section.id}} .heading { 
+    text-transform: none;
+    {% if section.settings.color_heading != blank %}
+    color:{{ section.settings.color_heading }};
+    {% endif %}
+    font-size: {{ section.settings.font_size_heading }};
+    font-weight: {{ section.settings.font_weight_heading }};
+    margin-bottom: 50px;
+    line-height: 1.2;
+  }
+
+  
+  #shopify-section-{{section.id}}{
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    {%- if section.settings.background != blank -%}
+    background-color: {{ section.settings.background }};
+    {%- endif -%}
+    position: relative;
+  }
+  .collagen-powders:after{
+    position: absolute;
+    content: "";
+    display: block;
+    width: 500px;
+    height: 365px;
+    background: url("{{ 'powder.png' | asset_img_url : 'master' }}");
+    background-repeat: no-repeat;
+    background-size: contain;
+      left: 0;
+      top: 60%;
+      transform: translateY(-50%);
+  }
+  .collagen-powders .container{
+  	position: relative;
+    z-index: 1;
+  }
+  .collagen-powders .sunheading{
+    font-size: 25px;
+    font-weight: bold;
+    color: #0FA3FA;
+  }
+  .collagen-powders .heading > span{
+    max-width: 740px;
+    display: inline-block;
+  }
+  .contents-wrapper{
+    max-width: 390px;
+    margin: auto;
+  }
+  
+  @media(max-width: 767px){
+    #shopify-section-{{section.id}}{
+      padding-top: {{ section.settings.padding_top_mob }}px;
+      padding-bottom: {{ section.settings.padding_bottom_mob }}px;
+    }
+    #shopify-section-{{section.id}} .heading { 
+      font-size: 35px;
+      margin-bottom: 30px;
+    }
+  }
+  
+  @media(max-width: 500px){
+	.collagen-powders:after{
+      width: 100%;
+  	}
+  }
+  </style>
+
+{% schema %}
+  {
+    "name": "Collagen Powders",
+    "class" : "collagen-powders",
+    "settings": [
+		{
+           "type": "text",
+           "id": "title",
+           "label": "Title",
+           "default" : "Collagen powders"
+        },
+		{
+           "type": "text",
+           "id": "subtitle",
+           "label": "Sub Title"
+        },
+		{
+           "type": "richtext",
+           "id": "contents",
+           "label": "Contents"
+        },
+        {
+            "type" : "text",
+            "id" : "font_size_heading",
+            "label" : "Heading Font Size",
+            "default" : "18px"
+        },
+        {
+            "type" : "text",
+            "id" : "font_weight_heading",
+            "label" : "Heading Font Weight",
+            "default" : "700"
+        },
+        {
+            "type" : "color",
+            "id" : "color_heading",
+            "label" : "Heading Color",
+            "default" : "#1D293F"
+        },
+        {
+          "type": "header",
+          "content" : "Section Style"
+        },
+        {
+          "type": "color",
+          "id": "background",
+          "label": "Background",
+          "default" : "#FFFFFF"
+        },
+        {
+          "type" : "range",
+          "id" : "padding_top",
+          "label" : "Padding Top",
+          "min": 0,
+          "max" : 150,
+          "step": 10,
+          "unit" : "px",
+          "default": 60
+        },
+        {
+          "type" : "range",
+          "id" : "padding_bottom",
+          "label" : "Padding Bottom",
+          "min": 0,
+          "max" : 150,
+          "step": 10,
+          "unit" : "px",
+          "default": 60
+        },
+        {
+          "type" : "range",
+          "id" : "padding_top_mob",
+          "label" : "Padding Top - Mobile",
+          "min": 0,
+          "max" : 150,
+          "step": 10,
+          "unit" : "px",
+          "default": 60
+        },
+        {
+          "type" : "range",
+          "id" : "padding_bottom_mob",
+          "label" : "Padding Bottom - Mobile",
+          "min": 0,
+          "max" : 150,
+          "step": 10,
+          "unit" : "px",
+          "default": 40
+        }
+     ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

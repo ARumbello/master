@@ -1,0 +1,411 @@
+{% if section.settings.use_custom_footer == true %}
+    {%- if section.settings.layout == 'default' -%}
+      {%- assign layout_class="container" -%}
+    {%- elsif section.settings.layout == "full" %}
+      {%- assign layout_class="container-fluid" -%}
+    {%- else -%}
+      {%- assign layout_class="container inner" -%}
+    {%- endif -%}
+    <div class="page-sn-9" id="page-section-{{section.id}}">
+        <div class="{{layout_class}}">
+          <div class="row">
+            <div class="col-12 col-md-8 offset-md-2">
+              <div class="content">
+                <div class="footer-menu-wrapper">
+                  {% for menu in section.blocks %}
+                  {% if menu.settings.menu_text != blank %}
+                    <a href="{{menu.settings.menu_link}}" class="footer-menu-item" title="{{menu.settings.menu_text}}">
+                      {% render 'multilang' with menu.settings.menu_text %}
+                    </a>
+                    {% if forloop.last != true %}
+                    <div class="footer-divider"></div>
+                    {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+  
+                {% if section.settings.copyright != blank %}
+                <p class="copyright text-center">
+                    {% render 'multilang' with section.settings.copyright  %}
+                </p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <style>
+      #shopify-section-footer {
+        display:none !important;
+      }
+      #page-section-{{ section.id }} {
+        {%- if section.settings.bg_image != blank -%}
+          {%- assign bg_img_url = section.settings.bg_image | img_url: 'master' -%}
+          background-image: url({{bg_img_url}});
+          background-size:cover;
+        {%- endif-%}
+        position:relative;
+        background-position: {{ section.settings.bg_position }};
+      }
+  
+      #page-section-{{ section.id }}:before {
+        content: "";
+        position:absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        {%- if section.settings.bg_color != blank  -%}
+        background-color: {{ section.settings.bg_color }}; 
+        {%- endif-%}
+        opacity: {{ section.settings.bg_opacity }};
+        z-index: -1;
+      }
+  
+      #page-section-{{ section.id }} .content {
+        text-align:center;
+      }
+  
+      #page-section-{{ section.id }} .footer-menu-wrapper {
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-evenly;
+      }
+  
+      #page-section-{{section.id}} .footer-menu-item { 
+        {% if section.settings.color_footer_menu != blank %}
+        color:{{ section.settings.color_footer_menu }};
+        {% endif %}
+        font-size: {{ section.settings.font_size_footer_menu }};
+        font-weight: {{ section.settings.font_weight_footer_menu }};
+        line-height: {{ section.settings.line_height_footer_menu }};
+      }
+      #page-section-{{ section.id }} .copyright {
+        color: {{ section.settings.color_copyright }};
+        font-weight: {{ section.settings.font_weight_copyright }};
+        font-size: {{ section.settings.font_size_copyright }};
+        line-height: {{ section.settings.line_height_copyright }};
+        text-align:center;
+      }
+  
+      .footer-divider {
+        height: {{ section.settings.line_height_footer_menu }};
+        width: 1px;
+        background: {{ section.settings.color_footer_menu }};
+      }
+  
+      @media (max-width: 767px) {
+            #page-section-{{ section.id }} {
+                padding-top: {{ section.settings.padding_top_mb }}px;
+                padding-bottom: {{ section.settings.padding_bottom_mb }}px;
+                {%- if section.settings.bg_image_mobile != blank -%}
+                {%- assign bg_img_mobile_url = section.settings.bg_image_mobile | img_url: 'master' -%}
+                  background-image: url({{bg_img_mobile_url}});
+                  background-size:cover;
+                {%- endif-%}
+            }
+  
+            #page-section-{{section.id}} .footer-menu-item { 
+              font-size: {{ section.settings.font_size_footer_menu_mobile }};
+              line-height: {{ section.settings.line_height_footer_menu_mobile }};
+            }
+  
+            #page-section-{{ section.id }} .copyright {
+              font-size: {{ section.settings.font_size_copyright_mobile }};
+              line-height: {{ section.settings.line_height_copyright_mobile }};
+            }
+        }
+  
+        @media (min-width: 768px) and (max-width: 1199px) {
+            #page-section-{{ section.id }} {
+                padding-top: {{ section.settings.padding_top_tab }}px;
+                padding-bottom: {{ section.settings.padding_bottom_tab }}px;
+            }
+        }
+  
+        @media (min-width: 1200px) {
+            #page-section-{{ section.id }} {
+                padding-top: {{ section.settings.padding_top }}px;
+                padding-bottom: {{ section.settings.padding_bottom }}px;
+            }
+        }
+    </style>
+  {% endif %}
+  {% schema %}
+    {
+      "name": "Page - Footer",
+      "class": "landing-page-section-footer",
+      "max_blocks" : 10,
+      "settings": [
+          {
+              "type": "checkbox",
+              "id": "use_custom_footer",
+              "label" : "Use Custom Footer",
+              "default" : true
+          },
+          {
+              "type": "header",
+              "content": "Banner Layout:"
+          },
+          {
+            "type": "select",
+            "id": "layout",
+            "label": "Section Layout:",
+            "options": [
+                {
+                    "value": "default",
+                    "label": "Default"
+                },
+                {
+                    "value": "full",
+                    "label": "Full Width"
+                },
+                {
+                    "value": "inner",
+                    "label": "Inner Width"
+                }
+            ],
+            "default": "default"
+          },
+          {
+              "type": "color",
+              "id": "bg_color",
+              "label" : "Background Color"
+          },
+          {
+              "type": "range",
+              "id": "bg_opacity",
+              "label": "Background Opacity",
+              "min": 0,
+              "max": 1,
+              "step": 0.1,
+              "default": 0.1
+          },
+          {
+              "type": "image_picker",
+              "id": "bg_image",
+              "label" : "Banner Background Image"
+          },
+          {
+              "type": "image_picker",
+              "id": "bg_image_mobile",
+              "label" : "Banner Background Image For Mobile"
+          },
+          {
+              "type": "select",
+              "id": "bg_position",
+              "label": "Background Position:",
+              "default": "center center",
+              "options": [
+                {
+                    "value": "left top",
+                    "label": "Left Top"
+                },              
+                {
+                    "value": "left center",
+                    "label": "Left Center"
+                },
+                {
+                    "value": "left bottom",
+                    "label": "Left Bottom"
+                },
+                {
+                    "value": "center top",
+                    "label": "Center Top"
+                },
+                {
+                    "value": "center center",
+                    "label": "Center Center"
+                },
+                {
+                    "value": "center bottom",
+                    "label": "Center Bottom"
+                },
+                {
+                    "value": "right top",
+                    "label": "Right Top"
+                },
+                {
+                    "value": "right center",
+                    "label": "Right center"
+                },
+                {
+                    "value": "right bottom",
+                    "label": "Right Bottom"
+                }
+              ]
+          },
+          {
+              "type": "header",
+              "content": "Footer Menu"
+          },
+          {
+              "type" : "text",
+              "id" : "font_size_footer_menu",
+              "label" : "Footer Menu Font Size",
+              "default" : "18px"
+          },
+          {
+              "type" : "text",
+              "id" : "line_height_footer_menu",
+              "label" : "Footer Menu Line Height",
+              "default" : "40px"
+          },
+          {
+              "type" : "text",
+              "id" : "font_size_footer_menu_mobile",
+              "label" : "Footer Menu Font Size Mobile",
+              "default" : "16px"
+          },
+          {
+              "type" : "text",
+              "id" : "line_height_footer_menu_mobile",
+              "label" : "Footer Menu Line Height Mobile",
+              "default" : "35px"
+          },
+          {
+              "type" : "text",
+              "id" : "font_weight_footer_menu",
+              "label" : "Footer Menu Font Weight",
+              "default" : "400"
+          },
+          {
+              "type" : "color",
+              "id" : "color_footer_menu",
+              "label" : "Footer Menu Color",
+              "default" : "#1D293F"
+          },
+          {
+              "type": "header",
+              "content": "Footer Copyright"
+          },
+          {
+              "type" : "textarea",
+              "id" : "copyright",
+              "label" : "Copyright",
+              "default" : "Copyright Content"
+          },
+          {
+              "type" : "text",
+              "id" : "font_size_copyright",
+              "label" : "Copyright Font Size",
+              "default" : "16px"
+          },
+          {
+              "type" : "text",
+              "id" : "line_height_copyright",
+              "label" : "Copyright Line Height",
+              "default" : "40px"
+          },
+          {
+              "type" : "text",
+              "id" : "font_size_copyright_mobile",
+              "label" : "Copyright Font Size Mobile",
+              "default" : "14px"
+          },
+          {
+              "type" : "text",
+              "id" : "line_height_copyright_mobile",
+              "label" : "Copyright Line Height Mobile",
+              "default" : "35px"
+          },
+          {
+              "type" : "text",
+              "id" : "font_weight_copyright",
+              "label" : "Copyright Font Weight",
+              "default" : "400"
+          },
+          {
+              "type" : "color",
+              "id" : "color_copyright",
+              "label" : "Copyright Color",
+              "default" : "#010203"
+          },
+          {
+              "type": "header",
+              "content": "Section Padding:"
+          },
+          {
+              "type": "range",
+              "id": "padding_top",
+              "label": "Padding Top",
+              "min": 0,
+              "max": 200,
+              "step": 10,
+              "default": 50
+          },
+          {
+              "type": "range",
+              "id": "padding_bottom",
+              "label": "Padding Bottom",
+              "min": 0,
+              "max": 200,
+              "step": 10,
+              "default": 50
+          },
+          {
+              "type": "header",
+              "content": "Section Padding For Tablet:"
+          },
+          {
+              "type": "range",
+              "id": "padding_top_tab",
+              "label": "Padding Top Tablet",
+              "min": 0,
+              "max": 200,
+              "step": 10,
+              "default": 40
+          },
+          {
+              "type": "range",
+              "id": "padding_bottom_tab",
+              "label": "Padding Bottom Tablet",
+              "min": 0,
+              "max": 200,
+              "step": 10,
+              "default": 40
+          },
+          {
+              "type": "header",
+              "content": "Section Padding For Mobile:"
+          },
+          {
+              "type": "range",
+              "id": "padding_top_mb",
+              "label": "Padding Top Mobile",
+              "min": 0,
+              "max": 200,
+              "step": 10,
+              "default": 30
+          },
+          {
+              "type": "range",
+              "id": "padding_bottom_mb",
+              "label": "Padding Bottom Mobile",
+              "min": 0,
+              "max": 200,
+              "step": 10,
+              "default": 30
+          }
+      ],
+      "blocks": [
+        {
+          "type" : "menu",
+          "name" : "Footer Menu Item",
+          "settings":[
+            {
+              "type" : "text",
+              "id" : "menu_text",
+              "label" : "Menu Text"
+            },
+            {
+              "type" : "url",
+              "id" : "menu_link",
+              "label" : "Menu Link"
+            }
+          ]
+        }
+      ]
+      
+    }
+  {% endschema %}

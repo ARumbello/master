@@ -1,0 +1,46 @@
+{% schema %}
+{
+ "name": "Icon Row",
+ "settings": [
+ ],
+ "blocks":[
+   {
+     "type": "icon",
+     "name": "Icon",
+     "settings":[
+       {
+         "id": "icon",
+         "type": "image_picker",
+         "label": "Icon"
+       },
+       {
+         "id": "text",
+         "type": "text",
+         "label": "Text"
+       }
+     ]
+   }
+ ]
+}
+{% endschema %}
+
+<div class="prodIconBar">
+  <div class="prodIconBar__inner">
+    {% for block in section.blocks %}
+    {% if block.type == 'icon' %}
+      <div class="prodIcon">
+        <div class="prodIcon__inner">
+          <div class="prodIcon__wrapper">
+            <img class="prodIcon__icon lazyload"
+            data-src="{{ block.settings.icon | img_url: '80x' }}"
+            alt="{{ block.settings.icon.alt }}">
+          </div>
+          <div class="prodIcon__text text--15">
+            {{ block.settings.text }}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+</div>

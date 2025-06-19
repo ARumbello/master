@@ -1,0 +1,310 @@
+<style>
+  .section-container {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 0 20px;position: relative;
+  }
+
+  .heading {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .heading h2 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #2f2f6c;
+    margin-bottom: 10px;
+  }
+
+  .heading p {
+    font-size: 16px;
+    color: #555;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  .content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-top: 40px;
+  }
+
+  .left-content {
+    flex: 1;
+    padding-right: 40px;
+    min-width: 300px;
+    order: 1;
+  }
+
+  .right-content {
+    flex: 1;
+    text-align: right;
+    min-width: 300px;
+    order: 2;
+  }
+
+  .right-content img {
+    max-width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  }
+
+  .left-content h3 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #2f2f6c;
+    margin-bottom: 10px;
+  }
+
+  .stars {
+    display: flex;
+    align-items: center;
+    margin: 10px 0 20px 0;
+  }
+
+  .stars span {
+    color: #f5b300;
+    font-size: 20px;
+    margin-right: 8px;
+  }
+
+  .stars b {
+    font-size: 16px;
+    color: #000;
+  }
+
+  .feature {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+
+  .feature img {
+    width: 22px;
+    margin-right: 10px;
+    margin-top: 4px;
+  }
+
+  .feature p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+    margin: 0;
+  }
+
+  .cta-button {
+    margin-top: 20px;
+  }
+
+  .cta-button button {
+    background-color: #e9f1fb;
+    color: #000;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 14px 30px;
+    border: 2px solid #000;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+
+  .cta-button button:hover {
+    background-color: #d8e9fb;
+  }
+
+  .fsa-eligible {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    font-size: 15px;
+    color: #000;
+  }
+
+  .fsa-eligible img {
+    width: 18px;
+    margin-right: 8px;
+  }
+
+  @media (max-width: 768px) {
+    .content-wrapper {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .right-content {
+      order: 1;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .left-content {
+      order: 2;
+      padding-right: 0;
+    }
+     .heading h2 {
+    font-size:17px;
+  }
+  }
+</style>
+
+<div class="section-container">
+ 
+  <div class="heading">
+    <h2>{{ section.settings.main-title-8854 }}</h2>
+    <p>{{ section.settings.Description-00775 }}</p>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="left-content">
+      <h3>{{ section.settings.title-007 }}</h3>
+      <div class="stars">
+        <span>{{ section.settings.rev-star-0076 }}</span>
+        <b>{{ section.settings.rev-namber-8895 }}</b>
+      </div>
+      {% for block in section.blocks %}
+        <div class="feature">
+          {% if block.settings.image-0568 != blank %}
+            <img src="{{ block.settings.image-0568 | img_url: '22x' }}" alt="check" />
+          {% else %}
+            <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="default icon" />
+          {% endif %}
+          <p>{{ block.settings.para-0994 }}</p>
+        </div>
+      {% endfor %}
+      <div class="cta-button">
+        <button>{{ section.settings.button-title-0054 }}</button>
+      </div>
+      <div class="fsa-eligible">
+        {% if section.settings.image-icon-889 != blank %}
+          <img src="{{ section.settings.image-icon-889 | img_url: '18x' }}" alt="check" />
+        {% else %}
+          <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="default icon" />
+        {% endif %}
+        <span>{{ section.settings.title-fae-889 }}</span>
+      </div>
+    </div>
+
+    <div class="right-content">
+      {% if section.settings.image-main-9864 != blank %}
+        <img src="{{ section.settings.image-main-9864 | img_url: 'master' }}" alt="NeuroMD usage image" />
+      {% else %}
+        <img src="https://cdn.shopify.com/s/files/1/0000/0000/files/1e33d841-28d5-4766-a8a8-eabf53f3c4d4.png?v=123456" alt="Default NeuroMD Image" />
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Relief Your Back Pain",
+  "settings": [
+    {
+      "type": "text",
+      "id": "main-title-8854",
+      "label": "Main Title",
+      "default": "IF NOTHING HAS RELIEVED YOUR BACK PAIN, THIS RISK-FREE TRIAL IS FOR YOU."
+    },
+    {
+      "type": "richtext",
+      "id": "Description-00775",
+      "label": "Description",
+      "default": "<p>This isn’t “just another device.” Backed by its patent-pending and peer-reviewed technology, it’s the only at-home solution that has allowed 50,000+ Americans to get rid of back pain for good.</p>"
+    },
+    {
+      "type": "text",
+      "id": "title-007",
+      "label": "Title",
+      "default": "NeuroMD Corrective Therapy Device"
+    },
+    {
+      "type": "html",
+      "id": "rev-star-0076",
+      "label": "Reviews Star",
+      "default": "⭐⭐⭐⭐⭐"
+    },
+    {
+      "type": "text",
+      "id": "rev-namber-8895",
+      "label": "Reviews Number",
+      "default": "5154 Reviews"
+    },
+    {
+      "type": "text",
+      "id": "button-title-0054",
+      "label": "Button Title",
+      "default": "See if I Qualify"
+    },
+    {
+      "type": "image_picker",
+      "id": "image-icon-889",
+      "label": "Icon Image Upload"
+    },
+    {
+      "type": "text",
+      "id": "title-fae-889",
+      "label": "FSA/HSA Title",
+      "default": "FSA & HSA Eligible"
+    },
+    {
+      "type": "image_picker",
+      "id": "image-main-9864",
+      "label": "Main Image Upload"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Slide",
+      "type": "slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image-0568",
+          "label": "Icon Upload Image"
+        },
+        {
+          "type": "richtext",
+          "id": "para-0994",
+          "label": "Description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Relief Your Back Pain",
+      "category": "Custom Sections",
+      "settings": {},
+      "blocks": [
+        {
+          "type": "slide",
+          "settings": {
+            "para-0994": "<p><strong>Doctor Recommended.</strong> Uses FDA-cleared technology to target and correct the source of your pain, not just the symptoms.</p>"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "para-0994": "<p>Fully wireless and rechargeable. No tangled cords or disposable batteries.</p>"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "para-0994": "<p>60-day at-home trial. Get relief or your money back.</p>"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "para-0994": "<p>Quickly see if you qualify for our targeted pain relief.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

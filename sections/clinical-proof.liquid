@@ -1,0 +1,165 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<style>
+    .Custom-Slider-Main .swiper-slide {text-align: center;font-size: 18px;display: flex;justify-content: center;align-items: center;}
+    ..Custom-Slider-Main  .swiper-slide img {display: block;width: 100%;height: 100%;object-fit: cover;}
+    .Custom-Slider-Main {width: 100%;padding:50px 0px;}
+    .Custom-Slider-Main .Custom-Slider-Inner{max-width: 1200px;margin: 0 auto;}
+    .Custom-Slider-Main .Custom-Slider-Boxes{width: 100%;display: flex;gap: 20px;background-color: #F5F5F5;padding: 60px;border-radius: 50px;}
+    .Custom-Slider-Main .Custom-Data-Box {width: 50%;}
+    .Custom-Slider-Main .Custom-Data-Box h3{margin:0px;text-align: left;padding-top:20px;font-size: 19px;line-height: 24px;font-weight: 400;}
+    .Custom-Slider-Main .Custom-Data-Box p{margin:0px;text-align: left;}
+  .Custom-Slider-Main .Custom-Data-Box h4{padding-bottom:20px;font-size: 15px;line-height: 20px;font-weight: 400;}
+ .Custom-Slider-Main  .Custom-Data-Box a{color:black;}
+    .Custom-Slider-Main .Custom-Image-Box {width: 50%;}
+    .Custom-Slider-Main .Custom-Image-Box img{width: 100%;border-radius: 35px;}
+    .Custom-Slider-Main .Custom-Image-Title{display: flex;align-items: center;gap: 15px;}
+    .Custom-Slider-Main .Custom-Image-Title img{width: 30px;border-radius: 100%;}
+    .Custom-Slider-Main .Custom-Image-Title h2{margin: 0px;}
+   .Custom-Slider-Main .Custom-Image-Title p{margin:0px;}
+ .Custom-Slider-Main .swiper-button-next {display: block !important;width:auto!important;}
+  .Custom-Slider-Main .swiper-button-prev {display: block !important;}
+.Custom-Slider-Main .customclasssvg{color: #002F49FF;
+  width: 64px;
+  height: 37px;
+  border: 1px solid #002F4999;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: auto;}
+  .Custom-Slider-Main .swiper-button-next svg, .Custom-Slider-Main .swiper-button-prev svg{width:auto!important;height: auto!important;}
+.Custom-Slider-Main .swiper-button-prev::after{display:none!important;}
+  .Custom-Slider-Main .swiper-button-next::after{display:none!important;}
+.Custom-Slider-Inner .swiper.mySwiper {
+	padding: 0px 40px;
+}
+.Custom-Slider-Main .swiper-pagination{bottom: 20px !important;}
+  
+  @media only screen and (max-width:900px){
+    .Custom-Slider-Main .Custom-Slider-Boxes {padding: 50px 20px;border-radius: 0px;}
+  }
+  @media only screen and (max-width:767px){
+    .Custom-Slider-Inner .swiper.mySwiper {
+	padding: 0px;
+}
+    .Custom-Slider-Main .swiper-button-next{display:none!important;}
+     .Custom-Slider-Main .swiper-button-prev{display:none!important;}
+     .Custom-Slider-Main .Custom-Slider-Boxes {flex-direction: column;}
+     .Custom-Slider-Main .Custom-Data-Box {width: 100%;}
+     .Custom-Slider-Main .Custom-Image-Box{width: 100%;}
+  }
+  </style>
+<div class="Custom-Slider-Main">
+    <div class="Custom-Slider-Inner">
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+      {% for block in section.blocks %}
+        <div class="swiper-slide">
+            <div class="Custom-Slider-Boxes">
+                <div class="Custom-Data-Box">
+                    <div class="Custom-Image-Title">
+                        <img src="{{ block.settings.Logo-Title | img_url : 'master' }}">
+                        <h2>{{ block.settings.Main-Title }}</h2>
+                    </div>
+                    <h3>{{ block.settings.Sub-Title }}</h3>
+                  <h4>{{ block.settings.Description-First }}</h4>
+                  <h3>{{ block.settings.Description-Secound }}</h3>
+                </div>
+                <div class="Custom-Image-Box">
+                    <img src="{{ block.settings.Right-Image | img_url : 'master' }}">
+                </div>
+            </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="swiper-pagination"></div>
+        <div class="swiper-button-next">
+<div class="customclasssvg">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right">
+  <line x1="5" y1="12" x2="19" y2="12" />
+  <polyline points="12 5 19 12 12 19" />
+</svg>
+
+      </div>
+    </div>
+    <div class="swiper-button-prev">
+      <div class="customclasssvg">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
+  <line x1="19" y1="12" x2="5" y2="12" />
+  <polyline points="12 19 5 12 12 5" />
+</svg>
+   </div> 
+</div>
+  </div>
+  </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    var swiper = new Swiper(".mySwiper", {
+      cssMode: true,
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      mousewheel: true,
+      keyboard: true,
+    });
+  </script>
+{% schema %}
+  {
+    "name": "Clinical Proof",
+    "settings": [],
+    "blocks": [
+      {
+        "name": "Box",
+        "type": "Box",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "Logo-Title",
+            "label": "Select Logo"
+          },
+          {
+            "type": "text",
+            "id": "Main-Title",
+            "label": "Title",
+            "default" : "Clinical Proof"
+          },
+          {
+            "type": "text",
+            "id": "Sub-Title",
+            "label": "Sub Title",
+            "default": "Neuromuscular electrical stimulation training results in enhanced activation of spinal stabilizing muscles during spinal loading and improvements in pain ratings."
+          },
+          {
+            "type": "richtext",
+            "id": "Description-First",
+            "label": "Description",
+            },
+          {
+            "type": "richtext",
+            "id": "Description-Secound",
+            "label": "Sub Description",
+            "default": "<h3>Analysis of results revealed clinically and statistically significant improvements in indicators of both muscle groups' performance, as evidenced by ultrasound evaluation of activation during voluntary activity. These improvements were associated with significant improvements in self reported pain levels, suggesting that NMES has an important role to play in Chronic Lower Back Pain rehabilitation.</h3>"
+            },
+          {
+            "type": "image_picker",
+            "id": "Right-Image",
+            "label": "Select Image"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Clinical Proof"
+      }
+    ]
+  }
+{% endschema %}

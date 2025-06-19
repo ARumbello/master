@@ -1,0 +1,30 @@
+
+  <div class="price-container">
+  {%- assign hide_sale_price = true -%}
+  {%- if product.compare_at_price_max > product.price -%}
+    {%- if current_variant.compare_at_price -%}
+      {%- assign hide_sale_price = false -%}
+    {%- endif -%}
+    <p class="product__price--compare{% if hide_sale_price %} hide{% endif %}">
+      {%- if current_variant.compare_at_price > current_variant.price -%}
+        {{ current_variant.compare_at_price | money }}
+      {%- endif -%}
+    </p>
+  {%- endif -%}
+
+  <p
+    class="sale-price">
+    {%- unless product.empty? -%}
+      {{ current_variant.price | money }}
+    {%- else -%}
+      {{ 1999 | money }}
+    {%- endunless -%}
+  </p>
+  </div>
+  {% unless item_count == blank or item_count == 1 or item_count == 0 %}
+  <p class="unit-price">
+    {%- unless product.empty? -%}
+      ({{ current_variant.price | divided_by: item_count | money }} Each)
+    {%- endunless -%}
+  </p>
+  {% endunless %}

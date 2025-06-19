@@ -1,0 +1,135 @@
+{
+  "sections": {
+    "zp-product-header-content": {
+      "type": "product-header-content-zipifypages",
+      "settings": {}
+    },
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "judge_me_reviews_preview_badge_EWXLJ7": {
+          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "separator": {
+          "type": "separator",
+          "disabled": true,
+          "settings": {}
+        },
+        "product_testimonial_pMwcCk": {
+          "type": "product-testimonial",
+          "settings": {
+            "txt_01": "Each electrode package contains three electrode pads.",
+            "txt_02": "Each electrode pad lasts for approximately 30 applications.",
+            "txt_03": "The long-lasting design allows a low cost of only $0.54 cents per treatment.",
+            "txt_04": "Specifically designed for the back, however, can be used in other areas.",
+            "txt_05": "",
+            "txt_06": "",
+            "test_title": "",
+            "test_txt": "",
+            "author": ""
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "surface_pickup_enable": true,
+            "show_gift_card_recipient": false
+          }
+        },
+        "product_icon_box_xTTPPw": {
+          "type": "product-icon-box",
+          "settings": {
+            "image_01": "shopify://shop_images/Group_a9e3ae72-2921-4ec1-9d07-a1a0876e984f.png",
+            "text_11": "Long-lasting hydrogel",
+            "image_02": "shopify://shop_images/Vector_fc52c1e6-9ba4-4a33-bfd5-45cdeb86eede.png",
+            "text_12": "Tabs at each end for easy removal",
+            "image_03": "shopify://shop_images/Group_bd3b7e1a-d060-4ec5-8d84-6a6763a0e594.png",
+            "text_13": "FSA/HSA eligible"
+          }
+        },
+        "recharge_subscriptions_subscription_widget_XtpbQC": {
+          "type": "shopify://apps/recharge-subscriptions/blocks/subscription-widget/371eed76-0b44-4869-9813-730372ea378e",
+          "disabled": true,
+          "settings": {
+            "product": "{{product}}"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_preview_badge_EWXLJ7",
+        "price",
+        "separator",
+        "product_testimonial_pMwcCk",
+        "buy_buttons",
+        "product_icon_box_xTTPPw",
+        "recharge_subscriptions_subscription_widget_XtpbQC"
+      ],
+      "settings": {
+        "sku_enable": false,
+        "image_size": "medium",
+        "product_zoom_enable": true,
+        "thumbnail_position": "below",
+        "thumbnail_height": "flexible",
+        "thumbnail_arrows": false,
+        "enable_video_looping": true,
+        "product_video_style": "muted"
+      }
+    },
+    "sub": {
+      "type": "product-full-width",
+      "disabled": true,
+      "settings": {
+        "max_width": true
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "disabled": true,
+      "settings": {
+        "product_recommendations_heading": "You may also like",
+        "related_count": 6,
+        "products_per_row": 3
+      }
+    },
+    "collection-return": {
+      "type": "collection-return",
+      "disabled": true,
+      "settings": {}
+    },
+    "170980657026e0f1c2": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_Ap9mxz": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_Ap9mxz"
+      ],
+      "settings": {
+        "full_width": false,
+        "space_around": true
+      }
+    },
+    "zp-product-footer-content": {
+      "type": "product-footer-content-zipifypages",
+      "settings": {}
+    }
+  },
+  "order": [
+    "zp-product-header-content",
+    "main",
+    "sub",
+    "product-recommendations",
+    "collection-return",
+    "170980657026e0f1c2",
+    "zp-product-footer-content"
+  ]
+}

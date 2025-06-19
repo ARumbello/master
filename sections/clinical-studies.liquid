@@ -1,0 +1,164 @@
+
+
+<!--<div class="clinical-studies-wrapper">-->
+<div class="clinical-disclaimer-content-wrapper">
+  <div class="clinical-disclaimer-inner">
+      <div class="disclaimer">
+          <b>Disclaimer:</b> {{ section.settings.disclaimer }}
+      </div>
+  </div>
+</div>
+
+<div class="clinical-studies-wrapper">
+  <div class="clinical-studies-inner">
+      <div class="container">
+          <h1 class="header">{{ section.settings.title }}</h1>
+
+          {% for block in section.blocks %}
+          {% if block.type == 'study' %}
+            <div class="study">
+                <div class="title">{{ block.settings.title }}</div>
+                <div class="subtitle">{{ block.settings.subTitle }}</div>
+                <div class="quote">"{{ block.settings.quote }}" </div>
+                <div class="source">{{ block.settings.sourcetext }}&nbsp;<a target="_blank" href="{{ block.settings.source }}">{{ block.settings.source }}</a></div>
+            </div>
+          {% endif %}
+          {% endfor %}
+
+          <div class="row">
+            <button class="btn--blue"><a href="{{ section.settings.riskFreeLink }}">{{ section.settings.riskFreeLinkText }}</a></button>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="clinical-reviews-wrapper">
+  <div class="clinical-reviews-inner">
+      <div class="main-header">{{ section.settings.reviewsTitle }}</div>
+      <div class="review-main-row">
+
+        {% for block in section.blocks %}
+        {% if block.type == 'reviews' %}
+          <div class="review-main-item">
+              <img class="lazyload" data-src="https://cdn.shopify.com/s/files/1/0441/3567/8105/files/Group_Copy_6.png?v=1598475996" alt="5 stars">
+              <div class="header">{{ block.settings.title }}</div>
+              <div class="dec">
+                  “{{ block.settings.quote }}”
+              </div>
+              <div class="port-wrapper">
+                  <div class="circle"><img src="{{ block.settings.picture | img_url: '400x' }}" alt="{{ block.settings.picture.alt }}"></div>
+                  <p>
+                      <b>{{ block.settings.name }}</b><br>
+                      {{ block.settings.location }}
+                  </p>
+              </div>
+          </div>
+        {% endif %}
+        {% endfor %}
+
+      </div>
+  </div>
+<!-- </div> -->
+{% schema %}
+{
+  "name": "Clinical Studies",
+  "tag": "section",
+  "settings": [
+    {
+      "id": "disclaimer",
+      "type": "textarea",
+      "label": "Disclaimer"
+    },
+    {
+      "id": "title",
+      "type": "text",
+      "label": "Page Title"
+    },
+    {
+      "id": "riskFreeLink",
+      "type": "url",
+      "label": "Risk Free Link"
+    },
+    {
+      "id": "riskFreeLinkText",
+      "type": "text",
+      "label": "Risk Free Link Text"
+    },
+    {
+      "id": "reviewsTitle",
+      "type": "text",
+      "label": "Reviews Title"
+    }
+  ],
+  "blocks":[
+    {
+      "type": "study",
+      "name": "Study",
+      "settings":[
+        {
+          "id": "title",
+          "type": "text",
+          "label": "Title"
+        },
+        {
+          "id": "subTitle",
+          "type": "textarea",
+          "label": "Sub Title"
+        },
+        {
+          "id": "quote",
+          "type": "textarea",
+          "label": "Quote"
+        },
+        {
+          "id": "sourcetext",
+          "type": "text",
+          "label": "Source Text"
+        },
+        {
+          "id": "source",
+          "type": "text",
+          "label": "Source url"
+        }
+      ]
+    },
+    {
+      "type": "reviews",
+      "name": "Reviews",
+      "limit": 3,
+      "settings":[
+        {
+          "id": "title",
+          "type": "text",
+          "label": "Title"
+        },
+        {
+          "id": "quote",
+          "type": "textarea",
+          "label": "Quote"
+        },
+        {
+          "id": "name",
+          "type": "text",
+          "label": "Name"
+        },
+        {
+          "id": "location",
+          "type": "text",
+          "label": "Location"
+        },
+        {
+          "id": "picture",
+          "type": "image_picker",
+          "label": "Picture"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Clinical Studies"
+    }
+  ]
+}
+{% endschema %}

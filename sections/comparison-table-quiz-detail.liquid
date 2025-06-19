@@ -1,0 +1,712 @@
+
+<div id="{{ section.id }}">
+<div class="table-container" style="padding: {{ section.settings.table_padding_top_bottom }}px 0;">
+  <h2 class="center-text table-head" style="font-size: {{ section.settings.heading_font_size }}px; color: {{ section.settings.heading_color }};">
+    {{ section.settings.table_heading }}
+  </h2>
+  <table>
+    <thead>
+      <tr>
+        <th class="col-feature"></th>
+        <th class="neuromd-header col-18" style="background-color: {{ section.settings.product_cell_bg_color }};">
+          <div class="product-header">
+            {% if section.settings.product_logo %}
+              <img src="{{ section.settings.product_logo | img_url: 'master' }}" alt="Product Logo">
+            {% else %}
+              <img src="{{ 'logo.svg' | asset_url }}" alt="Product Logo">
+            {% endif %}
+            <p class="product-extra" style="font-size: {{ section.settings.column_header_font_size }}px;">{{ section.settings.product_extra_text }}</p>
+          </div>
+        </th>
+        <th class="col-26" style="font-size: {{ section.settings.column_header_font_size }}px;">{{ section.settings.competitor_1_name }}</th>
+        <th class="col-26" style="font-size: {{ section.settings.column_header_font_size }}px;">{{ section.settings.competitor_2_name }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'feature_row' %}
+            <tr {{ block.shopify_attributes }}>
+              <td style="font-size: {{ section.settings.feature_font_size }}px; color: {{ section.settings.feature_text_color }};">{{ block.settings.feature_text }}</td>
+              
+              <td class="neuromd-cell" style="background-color: {{ section.settings.product_cell_bg_color }};">
+                {% if block.settings.product_has_feature %}
+                  <span class="icon check">
+                    {% if section.settings.use_custom_check_icon and section.settings.check_icon_image %}
+                      <img src="{{ section.settings.check_icon_image | img_url: 'master' }}" alt="Check" width="{{ section.settings.icon_size }}" height="{{ section.settings.icon_size }}">
+                    {% else %}
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="{{ section.settings.icon_size }}" height="{{ section.settings.icon_size }}" fill="{{ section.settings.check_icon_color }}" role="presentation">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"></path>
+                      </svg>
+                    {% endif %}
+                  </span>
+                {% else %}
+                  <span class="icon cross">
+                    {% if section.settings.use_custom_cross_icon and section.settings.cross_icon_image %}
+                      <img src="{{ section.settings.cross_icon_image | img_url: 'master' }}" alt="Cross" width="{{ section.settings.icon_size }}" height="{{ section.settings.icon_size }}">
+                    {% else %}
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="{{ section.settings.icon_size }}" height="{{ section.settings.icon_size }}" fill="{{ section.settings.cross_icon_color }}" role="presentation" style="background-color: {{ section.settings.cross_icon_bg_color }}; border-radius: 50%">
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
+                      </svg>
+                    {% endif %}
+                  </span>
+                {% endif %}
+              </td>
+              
+              <td>
+                {% if block.settings.competitor_1_has_feature %}
+                  <span class="icon check">
+                    {% if section.settings.use_custom_check_icon and section.settings.check_icon_image %}
+                      <img src="{{ section.settings.check_icon_image | img_url: 'master' }}" alt="Check" width="{{ section.settings.icon_size }}" height="{{ section.settings.icon_size }}">
+                    {% else %}
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="{{ section.settings.icon_size }}" height="{{ section.settings.icon_size }}" fill="{{ section.settings.check_icon_color }}" role="presentation">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"></path>
+                      </svg>
+                    {% endif %}
+                  </span>
+                {% elsif block.settings.competitor_1_custom_text != blank %}
+                  <span class="special-text center-text" style="font-size: {{ section.settings.custom_text_font_size }}px; color: {{ section.settings.custom_text_color }};">{{ block.settings.competitor_1_custom_text }}</span>
+                {% else %}
+                  <span class="icon cross">
+                    {% if section.settings.use_custom_cross_icon and section.settings.cross_icon_image %}
+                      <img src="{{ section.settings.cross_icon_image | img_url: 'master' }}" alt="Cross" width="{{ section.settings.icon_size }}" height="{{ section.settings.icon_size }}">
+                    {% else %}
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="{{ section.settings.icon_size }}" height="{{ section.settings.icon_size }}" fill="{{ section.settings.cross_icon_color }}" role="presentation" style="background-color: {{ section.settings.cross_icon_bg_color }}; border-radius: 50%">
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
+                      </svg>
+                    {% endif %}
+                  </span>
+                {% endif %}
+              </td>
+              
+              <td>
+                {% if block.settings.competitor_2_has_feature %}
+                  <span class="icon check">
+                    {% if section.settings.use_custom_check_icon and section.settings.check_icon_image %}
+                      <img src="{{ section.settings.check_icon_image | img_url: 'master' }}" alt="Check" width="{{ section.settings.icon_size }}" height="{{ section.settings.icon_size }}">
+                    {% else %}
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="{{ section.settings.icon_size }}" height="{{ section.settings.icon_size }}" fill="{{ section.settings.check_icon_color }}" role="presentation">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"></path>
+                      </svg>
+                    {% endif %}
+                  </span>
+                {% elsif block.settings.competitor_2_custom_text != blank %}
+                  <span class="special-text center-text" style="font-size: {{ section.settings.custom_text_font_size }}px; color: {{ section.settings.custom_text_color }};">{{ block.settings.competitor_2_custom_text }}</span>
+                {% else %}
+                  <span class="icon cross">
+                    {% if section.settings.use_custom_cross_icon and section.settings.cross_icon_image %}
+                      <img src="{{ section.settings.cross_icon_image | img_url: 'master' }}" alt="Cross" width="{{ section.settings.icon_size }}" height="{{ section.settings.icon_size }}">
+                    {% else %}
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="{{ section.settings.icon_size }}" height="{{ section.settings.icon_size }}" fill="{{ section.settings.cross_icon_color }}" role="presentation" style="background-color: {{ section.settings.cross_icon_bg_color }}; border-radius: 50%">
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
+                      </svg>
+                    {% endif %}
+                  </span>
+                {% endif %}
+              </td>
+            </tr>
+        {% endcase %}
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+</div>
+<style>
+  #{{ section.id }} p {
+    margin-bottom: 0;
+  }
+  #{{ section.id }} img {
+    max-width: 100%;
+  }
+
+  #{{ section.id }} .custom-container {
+    max-width: 1370px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+  
+ 
+  #{{ section.id }} .fnt-20 {
+    font-size: 20px;
+  }
+  #{{ section.id }} .fnt-base {
+    font-size: 16px;
+  }
+  
+  #{{ section.id }} .font-bold {
+    font-weight: 700;
+  }
+  #{{ section.id }} .font-semibold {
+    font-weight: 600;
+  }
+  #{{ section.id }} .font-normal {
+    font-weight: 400;
+  }
+ 
+
+
+ 
+  #{{ section.id }} .white-text {
+    color: #fff;
+  }
+  #{{ section.id }} .primary-text {
+    color: {{ section.settings.heading_color }};
+  }
+  #{{ section.id }} .bg-dark-blue {
+    background-color: {{ section.settings.heading_color }};
+  }
+  #{{ section.id }} .bg-white {
+    background-color: #ffffffff;
+  }
+
+
+
+  #{{ section.id }} .flex {
+    display: flex;
+  }
+  #{{ section.id }} .slef-end {
+    align-self: center;
+  }
+
+
+
+  #{{ section.id }} .mb-2 {
+    margin-bottom: 8px;
+  }
+ 
+
+ 
+  #{{ section.id }} .rounded-3xl {
+    border-radius: 24px;
+  }
+
+
+  #{{ section.id }} .center-text {
+    text-align: center;
+  }
+
+  #{{ section.id }} table {
+    border-collapse: collapse;
+  }
+  #{{ section.id }} .table-container {
+    max-width: calc(100% - 30px);
+    width: 100%;
+    margin: 0 auto;
+    max-width: 1140px;
+  }
+  #{{ section.id }} .table-head {
+    font-weight: 400;
+    margin-bottom: 48px;
+  }
+  #{{ section.id }} th,
+ #{{ section.id }} td {
+    padding: 10px 10px 10px 16px; /* Adjusted padding */
+    border-bottom: none;
+    vertical-align: middle;
+    white-space: normal;
+   text-align:center;
+    height: {{ section.settings.table_cell_height }}px;
+  }
+  #{{ section.id }} .col-feature {
+    max-width: 30%;
+    width: 100%;
+  }
+  #{{ section.id }} .col-18 {
+    max-width: 18%;
+    width: 100%;
+  }
+  #{{ section.id }} .col-26 {
+    max-width: 26%;
+    width: 100%;
+    font-weight: normal;
+  }
+  #{{ section.id }} .product-extra {
+    font-weight: normal;
+  }
+  #{{ section.id }} .icon.cross {
+    text-align: center;
+  }
+  #{{ section.id }} .icon.check {
+    text-align: center;
+    display: block;
+  }
+  #{{ section.id }} .neuromd-cell {
+    text-align: center;
+    background-color: {{ section.settings.product_cell_bg_color }};
+  }
+  #{{ section.id }} .neuromd-header.col-18 {
+    background-color: {{ section.settings.product_cell_bg_color }};
+  }
+  #{{ section.id }} tbody tr:nth-child(2n+1) {
+    background-color: {{ section.settings.alternate_row_bg_color }};
+    border-radius: 12px;
+  }
+  #{{ section.id }} tbody tr td:first-child {
+    font-size: {{ section.settings.feature_font_size }}px;
+  }
+  #{{ section.id }} .special-text.center-text {
+    font-size: {{ section.settings.custom_text_font_size }}px;
+    color: {{ section.settings.custom_text_color }};
+  }
+
+  #{{ section.id }} .mobile {
+    display: none;
+  }
+   #{{ section.id }} .icon.check{
+     width:auto !important;
+  }
+
+  @media (min-width: 1440px) {
+    #{{ section.id }} .custom-container {
+      max-width: calc(100% - 150px);
+      margin: 0 auto;
+    }
+  }
+
+
+
+  @media (max-width: 768px) {
+    #{{ section.id }} tbody tr td:first-child {
+      font-size: {{ section.settings.mobile_feature_font_size }}px;
+    }
+    #{{ section.id }} .special-text.center-text {
+      font-size: {{ section.settings.mobile_custom_text_font_size }}px;
+    }
+    #{{ section.id }} .col-26 {
+      font-size: {{ section.settings.mobile_feature_font_size }}px;
+    }
+    #{{ section.id }} th,
+    #{{ section.id }} td {
+      padding: 0px 10px 0px 10px;
+    }
+    #{{ section.id }} .product-extra {
+      font-weight: normal;
+      font-size: {{ section.settings.mobile_feature_font_size }}px;
+    }
+
+    #{{ section.id }} .icon.check svg,
+    #{{ section.id }} .icon.cross svg,
+    #{{ section.id }} .icon.check img,
+    #{{ section.id }} .icon.cross img {
+      width: {{ section.settings.mobile_icon_size }}px;
+      height: {{ section.settings.mobile_icon_size }}px;
+    }
+   
+  }
+  
+  @media (max-width: 600px) {
+    #{{ section.id }} .table-head {
+      font-size: {{ section.settings.mobile_heading_font_size }}px;
+      margin-bottom: 20px;
+    }
+    #{{ section.id }} .table-container {
+      padding: 64px 10px !important;
+    }
+    #{{ section.id }} td {
+    font-size:14px !important;
+}
+    #{{ section.id }} .neuromd-header.col-18 .product-header img {
+      max-width: unset;
+      width: 70px;
+      height: auto;
+    }
+    
+    #{{ section.id }} tbody tr td:first-child {
+      padding: 10px;
+    }
+    #{{ section.id }} th,
+    #{{ section.id }} td {
+      height: {{ section.settings.mobile_cell_height }}px;
+    }
+  }
+  @media (max-width: 3px) {
+      #{{ section.id }} th.col-26 {
+    font-size: 12px !important;
+     }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Comparison Table",
+  "tag": "section",
+  "class": "comparison-table-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Table Header Settings"
+    },
+    {
+      "type": "text",
+      "id": "table_heading",
+      "label": "Table Heading",
+      "default": "Prevent pain <strong>for good</strong>"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "min": 20,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading Font Size",
+      "default": 34
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Text Color",
+      "default": "#002f49"
+    },
+    {
+      "type": "header",
+      "content": "Product Column Settings"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_logo",
+      "label": "Product Logo"
+    },
+    {
+      "type": "text",
+      "id": "product_extra_text",
+      "label": "Product Extra Text",
+      "default": "(NMES)"
+    },
+    {
+      "type": "text",
+      "id": "competitor_1_name",
+      "label": "Competitor 1 Name",
+      "default": "Heating Pad"
+    },
+    {
+      "type": "text",
+      "id": "competitor_2_name",
+      "label": "Competitor 2 Name",
+      "default": "TENS Unit"
+    },
+    {
+      "type": "range",
+      "id": "column_header_font_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Column Header Font Size",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Feature Text Settings"
+    },
+    {
+      "type": "range",
+      "id": "feature_font_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Feature Text Font Size",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "feature_text_color",
+      "label": "Feature Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Custom Text Settings"
+    },
+    {
+      "type": "range",
+      "id": "custom_text_font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Custom Text Font Size",
+      "default": 16,
+      "info": "Font size for custom text in competitor cells"
+    },
+    {
+      "type": "color",
+      "id": "custom_text_color",
+      "label": "Custom Text Color",
+      "default": "#000000",
+      "info": "Text color for custom text in competitor cells"
+    },
+    {
+      "type": "range",
+      "id": "mobile_custom_text_font_size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Custom Text Font Size",
+      "default": 13
+    },
+    {
+      "type": "header",
+      "content": "Icon Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_custom_check_icon",
+      "label": "Use Custom Check Icon Image",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "check_icon_image",
+      "label": "Custom Check Icon Image",
+      "info": "Upload a custom image for the check icon"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_custom_cross_icon",
+      "label": "Use Custom Cross Icon Image",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "cross_icon_image",
+      "label": "Custom Cross Icon Image",
+      "info": "Upload a custom image for the cross icon"
+    },
+    {
+      "type": "color",
+      "id": "check_icon_color",
+      "label": "Check Icon Color (SVG only)",
+      "default": "#005585"
+    },
+    {
+      "type": "color",
+      "id": "cross_icon_color",
+      "label": "Cross Icon Color (SVG only)",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "cross_icon_bg_color",
+      "label": "Cross Icon Background Color (SVG only)",
+      "default": "#e25454"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "min": 16,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Icon Size",
+      "default": 28
+    },
+    {
+      "type": "header",
+      "content": "Table Color Settings"
+    },
+    {
+      "type": "color",
+      "id": "product_cell_bg_color",
+      "label": "Product Column Background Color",
+      "default": "#eaf6f8"
+    },
+    {
+      "type": "color",
+      "id": "alternate_row_bg_color",
+      "label": "Alternate Row Background Color",
+      "default": "#eaf6f8",
+      "info": "Background color for odd-numbered rows (2n+1)"
+    },
+    {
+      "type": "header",
+      "content": "Table Layout Settings"
+    },
+    {
+      "type": "range",
+      "id": "table_padding_top_bottom",
+      "min": 20,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Table Padding (Top/Bottom)",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "table_cell_height",
+      "min": 50,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Table Cell Height",
+      "default": 76
+    },
+    {
+      "type": "header",
+      "content": "Mobile Settings"
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_font_size",
+      "min": 18,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Heading Font Size",
+      "default": 23
+    },
+    {
+      "type": "range",
+      "id": "mobile_feature_font_size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Feature Font Size",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "mobile_cell_height",
+      "min": 50,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Mobile Cell Height",
+      "default": 68
+    },
+    {
+      "type": "range",
+      "id": "mobile_icon_size",
+      "min": 16,
+      "max": 28,
+      "step": 2,
+      "unit": "px",
+      "label": "Mobile Icon Size",
+      "default": 20
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature_row",
+      "name": "Feature Row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "feature_text",
+          "label": "Feature Text",
+          "default": "Feature"
+        },
+        {
+          "type": "header",
+          "content": "Product Column"
+        },
+        {
+          "type": "checkbox",
+          "id": "product_has_feature",
+          "label": "Product Has Feature",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "Competitor 1 Column"
+        },
+        {
+          "type": "checkbox",
+          "id": "competitor_1_has_feature",
+          "label": "Competitor 1 Has Feature",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "competitor_1_custom_text",
+          "label": "Competitor 1 Custom Text (Optional)",
+          "info": "If provided, displays text instead of icon"
+        },
+        {
+          "type": "header",
+          "content": "Competitor 2 Column"
+        },
+        {
+          "type": "checkbox",
+          "id": "competitor_2_has_feature",
+          "label": "Competitor 2 Has Feature",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "competitor_2_custom_text",
+          "label": "Competitor 2 Custom Text (Optional)",
+          "info": "If provided, displays text instead of icon"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Comparison Table",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "feature_row",
+          "settings": {
+            "feature_text": "Lasting pain relief",
+            "product_has_feature": true,
+            "competitor_1_has_feature": false,
+            "competitor_2_has_feature": false
+          }
+        },
+        {
+          "type": "feature_row",
+          "settings": {
+            "feature_text": "Muscle strengthening & improved range of motion",
+            "product_has_feature": true,
+            "competitor_1_has_feature": false,
+            "competitor_2_has_feature": false
+          }
+        },
+        {
+          "type": "feature_row",
+          "settings": {
+            "feature_text": "Wireless, rechargeable",
+            "product_has_feature": true,
+            "competitor_1_has_feature": false,
+            "competitor_2_has_feature": false
+          }
+        },
+        {
+          "type": "feature_row",
+          "settings": {
+            "feature_text": "Deep penetration",
+            "product_has_feature": true,
+            "competitor_1_has_feature": false,
+            "competitor_2_has_feature": false
+          }
+        },
+        {
+          "type": "feature_row",
+          "settings": {
+            "feature_text": "Clinically validated",
+            "product_has_feature": true,
+            "competitor_1_has_feature": false,
+            "competitor_2_has_feature": false
+          }
+        },
+        {
+          "type": "feature_row",
+          "settings": {
+            "feature_text": "Targets motor nerves",
+            "product_has_feature": true,
+            "competitor_1_has_feature": false,
+            "competitor_2_has_feature": false,
+            "competitor_2_custom_text": "sensory nerves only"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

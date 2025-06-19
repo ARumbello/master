@@ -1,0 +1,66 @@
+{% schema %}
+{
+ "name": "Hero Section",
+ "settings": [
+    {
+      "id": "title",
+      "type": "text",
+      "label": "Title",
+      "default": "Stop Back Pain in Its Tracks"
+    },
+	{
+      "id": "question",
+      "type": "text",
+      "label": "Question",
+      "default": "How often do you experience back pain?"
+    },
+	{
+      "id": "answers",
+      "type": "text",
+      "label": "Answers (Separated by commas)",
+      "default": "Every day, Every few days, Every month, Every few months"
+    },
+	{
+      "id": "response_title",
+      "type": "text",
+      "label": "Response Title",
+      "default": "You’ve Tried Everything."
+    },
+	{
+      "id": "response_text",
+      "type": "richtext",
+      "label": "Response Text",
+      "default": "<p>Response goes here</p>"
+    },
+	{
+      "id": "cta",
+      "type": "html",
+      "label": "CTA HTML",
+      "default": "<button></button>"
+    }
+ ]
+}
+{% endschema %}
+
+<div id="fc-hero">
+    <h1>{{section.settings.title}}</h1>
+    <h2>{{section.settings.question}}</h2>
+    <div class="fc-btn-col">
+      {% assign answers = section.settings.answers | split: "," %}
+      {% for answer in answers %}
+        <button class="fc-btn fc-hero-btn" data-show="#fc-hero .fc-hero-content" data-hide="#fc-hero .fc-btn-col" data-track-event="{{answer | strip}}">{{answer | strip}}</button>
+      {% endfor %}
+    </div>
+    <div class="fc-hero-content fc-hide">
+        <h3>{{section.settings.response_title}}</h3>
+        {{section.settings.response_text}}
+        {{section.settings.cta}}
+    </div>
+</div>
+
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

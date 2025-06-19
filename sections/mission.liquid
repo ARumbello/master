@@ -1,0 +1,81 @@
+{% schema %}
+{
+ "name": "Our Mission",
+ "settings": [
+   {
+     "id": "bannerBackground",
+     "type": "image_picker",
+     "label": "Banner Background"
+   },
+   {
+     "id": "pageTitle",
+     "type": "text",
+     "label": "Page Title"
+   },
+   {
+     "id": "pageSubTitle",
+     "type": "text",
+     "label": "Page SubTitle"
+   },
+   {
+     "id": "pageDescriptio",
+     "type": "text",
+     "label": "Page Description"
+   },
+   {
+     "id": "ebookText",
+     "type": "textarea",
+     "label": "Ebook Text"
+   },
+   {
+     "id": "ebookImage",
+     "type": "image_picker",
+     "label": "Ebook Image"
+   }
+ ],
+  "presets": [
+    {
+      "name": "Our Mission"
+    }
+  ]
+}
+{% endschema %}
+
+<!-- Our Mission Section -->
+  <div class="our-mission-banner-wrapper lazyload" style='background-image:url({{ section.settings.bannerBackground | img_url: '1400x' }});'>
+      <div class="our-mission-banner-inner">
+          <h1 class="tinyheader">{{ section.settings.pageTitle }}</h1>
+          <div class="header">{{ section.settings.pageSubTitle }}</div>
+      </div>
+  </div>
+  <div class="our-mission-sm-banner-wrapper">
+      <div class="our-mission-sm-banner-inner">
+          <div class="header">{{ section.settings.pageDescriptio }}</div>
+      </div>
+  </div>
+  <div class="our-mission-wrapper">
+      <div class="our-mission-inner">
+          <div class="our-mission-text">
+          {{ page.content }}
+          </div>
+      </div>
+  </div>
+  <div class="our-mission-row">
+      <div class="our-mission-text-container">
+          <div class="our-mission-text-wrapper">
+              <div class="header">
+                  Download Our Free E-Book
+              </div>
+              <div class="subtitle">{{ section.settings.ebookText }}</div>
+                {% form 'contact' %}
+                  <input type="text" name="contact[purpose]" style="opacity:0;height:0;width;0;overflow:hidden;" value="E-Book Request">
+                  <input type="email" name="contact[email]" class="mission-input" placeholder="Enter Email Address">
+                  <button class="btn--blue" type="submit">Get The Free E-Book</button>
+                {% endform %}
+          </div>
+      </div>
+      <div class="our-mission-img-wrapper">
+          <img class="lazyload" data-src="{{ section.settings.ebookImage | img_url: '1000x' }}" alt="{{ section.settings.ebookImage.alt }}">
+      </div>
+  </div>
+<!-- end Our Mission Section -->

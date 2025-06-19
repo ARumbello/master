@@ -1,0 +1,264 @@
+{% assign css_class = section.settings.css_class %}
+
+{%- style -%}
+  .testimonials-{{ section.id }} {
+    background-color: {{ section.settings.color_background }};
+    color: {{ section.settings.color_text }};
+  }
+}
+{%- endstyle -%}
+
+<div src="{{ 'company_back.svg' | asset_url }}"
+  class="{{ css_class }} text-center testimonials-section testimonials-{{ section.id }}{% if section.settings.color_background == settings.color_body_bg %} testimonials-section--with-divider{% endif %}"
+  data-section-id="{{ section.id }}"
+  data-section-type="testimonials"
+  data-aos>
+  {%- if section.settings.title != blank -%}
+    <div class="page-width">
+      <div class="section-header">
+        <div class="testimonial-title">{{ section.settings.title }}</div>
+        {% if section.settings.show_review %}
+          <div class="topheading">
+            <span class="custom-stars">
+              {% render 'icons', icon: 'custom_star' %}
+              {% render 'icons', icon: 'custom_star' %}
+              {% render 'icons', icon: 'custom_star' %}
+              {% render 'icons', icon: 'custom_star' %}
+              {% render 'icons', icon: 'custom_star' %}
+            </span>
+            <span class="stars-text">4.8</span>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- if section.blocks.size > 0 -%}
+    <div class="slideshow-wrapper">
+      <div class="testimonials-slider" id="Testimonials-{{ section.id }}" data-count="{{ section.blocks.size }}">
+        {%- for block in section.blocks -%}
+          <div
+            class="testimonials-slide testimonials-slide--{{ block.id }}"
+            data-index="{{ forloop.index0 }}"
+            {{ block.shopify_attributes }}>
+            <blockquote class="testimonials-slider__text">
+
+              {%- if block.settings.icon == 'quote' -%}
+                <span class="quote-icon">
+                  {% comment %}
+                  <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-quote" viewBox="0 0 41 35"><path d="M10.208 17.711h6.124v16.332H0V21.684C0 8.184 5.444.956 16.332 0v6.125c-4.083 1.14-6.124 4.414-6.124 9.82v1.766Zm24.498 0h6.124v16.332H24.498V21.684C24.498 8.184 29.942.956 40.83 0v6.125c-4.083 1.14-6.124 4.414-6.124 9.82v1.766Z" fill-rule="evenodd"/></svg>
+                  {% endcomment %}
+                
+                  <svg width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="0.857422" width="32" height="32" rx="16" fill="#353535"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M14.7886 10.1597C11.9445 12.0483 10.3646 14.2462 10.0485 16.7545C9.55634 20.6587 12.933 22.5695 14.644 20.8528C16.355 19.1356 15.3295 16.9564 14.0906 16.3605C12.8518 15.7649 12.0941 15.9723 12.2263 15.176C12.3585 14.3801 14.1209 12.1728 15.6694 11.145C15.7243 11.0967 15.7593 11.0286 15.7673 10.9546C15.7753 10.8806 15.7557 10.8062 15.7125 10.7466L15.3295 10.2315C15.1633 10.0081 15.0039 10.0167 14.7886 10.1593V10.1597ZM22.2769 10.1597C19.4328 12.0483 17.8525 14.2466 17.5368 16.7545C17.0446 20.6587 20.4213 22.5695 22.1323 20.8528C23.8433 19.1356 22.8178 16.9564 21.5786 16.3605C20.3397 15.7649 19.582 15.9723 19.7142 15.176C19.8464 14.3801 21.6092 12.1728 23.1577 11.145C23.2126 11.0967 23.2475 11.0286 23.2554 10.9545C23.2634 10.8805 23.2437 10.8062 23.2004 10.7466L22.8174 10.2315C22.6512 10.0081 22.4918 10.0167 22.2769 10.1593V10.1597Z" fill="white"/>
+                  </svg>                
+                </span>
+              {%- elsif block.settings.icon == '5-stars' -%}
+                <span class="testimonial-stars">★★★★★</span>
+              {%- elsif block.settings.icon == '4-stars' -%}
+                <span class="testimonial-stars">★★★★</span>
+              {%- elsif block.settings.icon == '3-stars' -%}
+                <span class="testimonial-stars">★★★</span>
+              {%- elsif block.settings.icon == '2-stars' -%}
+                <span class="testimonial-stars">★★</span>
+              {%- elsif block.settings.icon == '1-star' -%}
+                <span class="testimonial-stars">★</span>
+              {%- endif -%}
+
+              {%- if block.settings.testimonial != blank -%}
+                <div class="rte-setting text-spacing">{{ block.settings.testimonial }}</div>
+              {%- endif -%}
+
+              {%- if block.settings.image != blank or block.settings.author != blank or block.settings.author_info != blank -%}
+                <div class="testimonial-meta">
+                  {%- if block.settings.image != blank -%}
+                    <div
+                      class="testimonial-image{% if section.settings.round_images %} testimonial-image--round{% endif %}">
+                      <div class="image-wrap"
+                        {% if section.settings.round_images == false %}
+                          style="height: 0; padding-bottom: {{ 100 | divided_by: block.settings.image.aspect_ratio }}%;"
+                        {% endif %}
+                      >
+                        {%- liquid
+                          if section.settings.round_images
+                            assign sizeVariable = '65px'
+                          else
+                            assign sizeVariable = '142px'
+                          endif
+
+                          assign fallback = sizeVariable
+                        -%}
+                        {%- render 'image-element',
+                          img: block.settings.image,
+                          sizeVariable: sizeVariable,
+                          fallback: fallback,
+                          widths: '180, 360, 540, 720',
+                        -%}
+                      </div>
+                    </div>
+                  {%- endif -%}
+                  {% if block.settings.company_svg != blank %}
+                    <div class="company-svg">
+                      {% assign company_svg = block.settings.company_svg | strip %}
+                      {% render 'icons', icon: company_svg %}
+                    </div>
+                  {% else %}
+                    {%- if block.settings.author != blank -%}
+                      <cite>{{ block.settings.author | escape }}</cite>
+                    {%- endif -%}
+                    {%- if block.settings.author_info != blank -%}
+                      <p class="customer-info">{% render 'icons', icon: 'verified_buyer' %} {{ block.settings.author_info | escape }}</p>
+                    {%- endif -%}
+                  {% endif %}
+
+                </div>
+              {%- endif -%}
+
+            </blockquote>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Testimonials Custom",
+  "max_blocks": 10,
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "t:sections.testimonials.settings.title.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_review",
+      "label": "Avarage Review",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "round_images",
+      "label": "t:sections.testimonials.settings.round_images.label",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "color_background",
+      "label": "t:sections.testimonials.settings.color_background.label",
+      "default": "#f9f9f9"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "label": "t:sections.testimonials.settings.color_text.label",
+      "default": "#1c1d1d"
+    },
+    {
+      "type": "text",
+      "id": "css_class",
+      "label": "CSS Class"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "t:sections.testimonials.blocks.testimonial.name",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "t:sections.testimonials.blocks.testimonial.settings.icon.label",
+          "default": "5-stars",
+          "options": [
+            {
+              "value": "none",
+              "label": "t:sections.testimonials.blocks.testimonial.settings.icon.options.none.label"
+            },
+            {
+              "value": "quote",
+              "label": "t:sections.testimonials.blocks.testimonial.settings.icon.options.quote.label"
+            },
+            {
+              "value": "5-stars",
+              "label": "t:sections.testimonials.blocks.testimonial.settings.icon.options.5-stars.label"
+            },
+            {
+              "value": "4-stars",
+              "label": "t:sections.testimonials.blocks.testimonial.settings.icon.options.4-stars.label"
+            },
+            {
+              "value": "3-stars",
+              "label": "t:sections.testimonials.blocks.testimonial.settings.icon.options.3-stars.label"
+            },
+            {
+              "value": "2-stars",
+              "label": "t:sections.testimonials.blocks.testimonial.settings.icon.options.2-stars.label"
+            },
+            {
+              "value": "1-star",
+              "label": "t:sections.testimonials.blocks.testimonial.settings.icon.options.1-star.label"
+            }
+          ]
+        },
+        {
+          "type": "richtext",
+          "id": "testimonial",
+          "label": "t:sections.testimonials.blocks.testimonial.settings.testimonial.label",
+          "default": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.</p>"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.testimonials.blocks.testimonial.settings.image.label"
+        },
+        {
+          "type": "text",
+          "id": "company_svg",
+          "label": "Company SVG"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "t:sections.testimonials.blocks.testimonial.settings.author.label",
+          "default": "Author name"
+        },
+        {
+          "type": "text",
+          "id": "author_info",
+          "label": "t:sections.testimonials.blocks.testimonial.settings.author_info.label",
+          "default": "Los Angeles, CA"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials Custom",
+      "blocks": [
+        {
+          "type": "testimonial"
+        },
+        {
+          "type": "testimonial"
+        },
+        {
+          "type": "testimonial"
+        },
+        {
+          "type": "testimonial"
+        },
+        {
+          "type": "testimonial"
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["footer", "header", "custom.popups"]
+  }
+}
+{% endschema %}

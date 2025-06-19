@@ -1,0 +1,281 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "video_blocks_tAph3p": {
+      "type": "video-blocks",
+      "blocks": {
+        "video_M9KLfM": {
+          "type": "video",
+          "settings": {
+            "image": "shopify://shop_images/Nancy_Independent_NeuroMD_Review_Image.png",
+            "video_url": "https://youtu.be/HwJjGx4HxsA",
+            "text": "Nancy's 10 Yrs Of Spinal Stenosis Pain Is Under Control And She Doesn't Need Any More Epidurals."
+          }
+        },
+        "video_VxxXhd": {
+          "type": "video",
+          "settings": {
+            "image": "shopify://shop_images/Jennifer_NeuroMD_Review_Thumbnail.png",
+            "video_url": "https://youtu.be/ANEO_GdsPlM",
+            "text": "Jennifer Finds Relief After 27 Years of Back Pain"
+          }
+        },
+        "video_4bWLp3": {
+          "type": "video",
+          "settings": {
+            "image": "shopify://shop_images/Claude_Achieves_A_60-75_Reduction_In_His_Back_Pain_and_Hip_Pain..png",
+            "video_url": "https://youtu.be/WQQ_LtQ6JYI",
+            "text": "Claude Achieves A 60-75% Reduction In His Back Pain and Hip Pain."
+          }
+        },
+        "video_ecgaPb": {
+          "type": "video",
+          "settings": {
+            "image": "shopify://shop_images/Renee_Finds_Relief_From_Scoliosis_Spinal_Stenosis_and_Bulging_Discs.png",
+            "video_url": "https://youtu.be/aA7GCvzMcmk",
+            "text": "Renee Overcomes Scoliosis, Spinal Stenosis, and Bulging Disc Pain."
+          }
+        },
+        "video_7eH8BT": {
+          "type": "video",
+          "settings": {
+            "image": "shopify://shop_images/Ryan_Resumes_Daily_Workouts_After_Using_NeuroMD_To_Eliminate_His_Lower_Back_Pain_And_Sciatica.png",
+            "video_url": "https://youtu.be/gdYnFstvrxs",
+            "text": "Ryan Resumes Daily Workouts After Using NeuroMD To Eliminate His Lower Back Pain And Sciatica."
+          }
+        },
+        "video_UBaMQ4": {
+          "type": "video",
+          "settings": {
+            "image": "shopify://shop_images/Susan_NeuroMD_Review_Thumbnail.png",
+            "video_url": "https://youtu.be/9zb9YP0_S-E",
+            "text": "Im 95% pain free & noticing improvements weekly"
+          }
+        },
+        "video_8dKGbi": {
+          "type": "video",
+          "settings": {
+            "image": "shopify://shop_images/Johns_NeuroMD_Review.png",
+            "video_url": "https://youtu.be/D5qzL0o6Y2Q",
+            "text": "John Achieves Relief With NeuroMD After Failed Back Surgery & Nerve Ablation"
+          }
+        },
+        "video_ret6QN": {
+          "type": "video",
+          "settings": {
+            "image": "shopify://shop_images/Debbie_Finds_Relief_From_The_Shooting_Pain_Down_Her_Leg_With_NeuroMD.png",
+            "video_url": "https://youtu.be/RmBjSst9cas",
+            "text": "Debbie Finds Relief From The Shooting Pain Down Her Leg With NeuroMD"
+          }
+        },
+        "video_3xrDp9": {
+          "type": "video",
+          "settings": {
+            "image": "shopify://shop_images/Jason_Reviews_NeuroMD_Thumbnail.png",
+            "video_url": "https://youtu.be/oLwYmnhXDXo",
+            "text": "Helped relieve my back pain tremendously"
+          }
+        },
+        "video_Uaq7XM": {
+          "type": "video",
+          "settings": {
+            "image": "shopify://shop_images/Stephanie_Thumbnail.png",
+            "video_url": "https://youtu.be/3FF1A1j_BPc",
+            "text": "Stephanie Recovers From A Debilitating Back Injury."
+          }
+        }
+      },
+      "block_order": [
+        "video_M9KLfM",
+        "video_VxxXhd",
+        "video_4bWLp3",
+        "video_ecgaPb",
+        "video_7eH8BT",
+        "video_UBaMQ4",
+        "video_8dKGbi",
+        "video_ret6QN",
+        "video_3xrDp9",
+        "video_Uaq7XM"
+      ],
+      "settings": {
+        "subheading": "REAL PEOPLE. REAL RESULTS",
+        "subheading_color": "#000000",
+        "heading": "Join the 10’s of thousands of customers that are now living healthier, pain-free lives.",
+        "heading_color": "#000000",
+        "bg_color": "#f7f8fa"
+      }
+    },
+    "new_hero_video_3PP9xQ": {
+      "type": "new-hero-video",
+      "settings": {
+        "title": "Physician Review",
+        "title_size": 40,
+        "subheading": "In this video, Dr. Torres describes how the NeuroMD Corrective Therapy Device works and the results he has seen with his patients.",
+        "link_text": "Play Video",
+        "link": "https://youtu.be/M83biwYjI-U",
+        "text_align": "vertical-center horizontal-center",
+        "video_url": "https://youtu.be/M83biwYjI-U",
+        "image": "shopify://shop_images/physician.jpg",
+        "overlay_opacity": 0,
+        "section_height": "450px",
+        "mobile_height": "500px"
+      }
+    },
+    "reviews_page_app_kepYfk": {
+      "type": "reviews-page-app",
+      "disabled": true,
+      "settings": {
+        "title": "Reviews",
+        "review_product": "neuromd-back-pain-relief-device-50-off",
+        "background_color": "#ffffff",
+        "padding": 0,
+        "padding_tablet": 0,
+        "padding_phone": 0
+      }
+    },
+    "reviews_custom_rrrTp3": {
+      "type": "reviews-custom",
+      "blocks": {
+        "review_QWJBDq": {
+          "type": "review",
+          "settings": {
+            "title": "Definitely works",
+            "quote": "I recently had an MRI showing herniated disc, degenerative arthritis and spinal stenosis causing severe lower back pain L4and 5 and sciatica. Have used NeuroMD for 12 weeks as directed and my lower back pain has diminished, and the sciatica has vanished. I would recommend this device to anyone who is suffering from pain that is compromising their quality of life. Slightly expensive but definitely worth it.",
+            "name": "Darilyn H.",
+            "location": "Austin Tx",
+            "picture": "shopify://shop_images/NeuroMD_Golf_review_1.png"
+          }
+        },
+        "review_P39WHc": {
+          "type": "review",
+          "settings": {
+            "title": "Back Pain Therapy",
+            "quote": "I found NeuroMD on Facebook about a month ago and I am so glad that I did! I have had chronic back and neck pain since 2009. I have been to doctor after doctor and then on top of it in 2014 I ended up falling down our basement stairs and got 4 herniated discs! I then had to have neck spinal fusion surgery and it seemed that every time I would go to the doctor something else would be wrong with me! Arthritis, Fibromyalgia, Spinal Stenosis, Osteoporosis.....then I started going to a pain specialist in hopes of getting a neuro stimulator implanted in my back for my chronic pain, but my insurance company denied it 3 times! So, when I found NeuroMD I was so happy and now that I have been using it for a month, I have been able to do so much more! Thank you so much!",
+            "name": "Erica L.",
+            "location": "Messa AZ",
+            "picture": "shopify://shop_images/Hiking_Review_1.png"
+          }
+        },
+        "review_gUqAMw": {
+          "type": "review",
+          "settings": {
+            "title": "So Far So Good!",
+            "quote": "I had 2 back surgeries a couple years ago and am still in pain on a daily basis. The MRI's say everything looks good, but I know something is not right due to the nerve pain. I saw this device and decided I had nothing to lose! Within the first 2 weeks of use, I see a huge difference in my pain level and my mobility. I am usually a 5-8 on the pain scale and am now averaging 2-3! I'm so excited to not be in so much daily pain!! I'm definitely going to continue my use and hope that more time equals less pain! Thank you so much for developing this wonderful device! I am recommending one for my Mom to use for her chronic back pain due to Arthritis.",
+            "name": "Julie H.",
+            "location": "Newark NJ",
+            "picture": "shopify://shop_images/Ceo_review.png"
+          }
+        },
+        "review_GDnwzK": {
+          "type": "review",
+          "settings": {
+            "title": "It Works!!!",
+            "quote": "I ordered this because I had been almost totally bed ridden with back pain for over three weeks. This happens occasionally. However, my back always hurts and has 24-7 for the last 20 years. I have spinal stenosis, herniated discs and osteoarthritis. Two days after using this my back pain started easing up! I am just finishing up my third week of using this and my back feels much better.",
+            "name": "Linda S.",
+            "location": "Palm Beach FL",
+            "picture": "shopify://shop_images/NeuroMD_Golf_review_1.png"
+          }
+        },
+        "review_33G3Bg": {
+          "type": "review",
+          "settings": {
+            "title": "Such a great product",
+            "quote": "I've had a herniated disc and sciatica for 3 years so I tried this out and it really works I haven't had as much back pain as before. It was such a big relief I use it daily and recommend it for those with similar problems.",
+            "name": "Sophia N.",
+            "location": "San Diego CA",
+            "picture": "shopify://shop_images/Ceo_review.png"
+          }
+        },
+        "review_mi4fkY": {
+          "type": "review",
+          "settings": {
+            "title": "Fantastic",
+            "quote": "After years of back pain and going to Drs, physical therapy etc I was ready to give up…I have bulging discs and arthritis in my lower spine and have slipped discs several times among other issues with my back. This was my last hope and I was not expecting the results I have had. Thank god I did not do the back surgery...I have my life back again. I do not crawl out of bed in the morning walking around like a banana any more. Thank you from the bottom of my heart. And this is nothing like a tens unit…I can even dance again now and use my elliptical…Thank you so very much.",
+            "name": "Sue H.",
+            "location": "Albany NY",
+            "picture": "shopify://shop_images/Hiking_Review_1.png"
+          }
+        }
+      },
+      "block_order": [
+        "review_QWJBDq",
+        "review_P39WHc",
+        "review_gUqAMw",
+        "review_GDnwzK",
+        "review_33G3Bg",
+        "review_mi4fkY"
+      ],
+      "settings": {
+        "background_color": "#FFFFFF",
+        "padding": 0,
+        "padding_tablet": 0,
+        "padding_phone": 0
+      }
+    },
+    "1717810301068a6e0d": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_homepage_39QYhP": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget_homepage/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "product": "neuromd-back-pain-relief-device-50-off"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_homepage_39QYhP"
+      ],
+      "settings": {
+        "full_width": false,
+        "space_around": true
+      }
+    },
+    "new_text_and_image_jFLMbC": {
+      "type": "new-text-and-image",
+      "settings": {
+        "image": "shopify://shop_images/Device_Remote-_-Zip_Copy_b19af5b6-1028-4d2d-ac30-c1963dde32ab.png",
+        "image_mask": "none",
+        "image2_mask": "none",
+        "subtitle": "",
+        "title": "Start Your Journey To Lasting Pain Relief With Our 60 Day At-Home Trial.",
+        "text": "",
+        "button_label": "Shop Now",
+        "button_link": "/products/neuromd-back-pain-relief-device-50-off",
+        "button_style": "primary",
+        "align_text": "left",
+        "image_width": "50",
+        "layout": "right",
+        "divider": false,
+        "lazyload_images": true,
+        "css_class": "",
+        "bg_color": "#f0f4f4",
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "mobile_padding_top": 60,
+        "mobile_padding_bottom": 60
+      }
+    }
+  },
+  "order": [
+    "main",
+    "video_blocks_tAph3p",
+    "new_hero_video_3PP9xQ",
+    "reviews_page_app_kepYfk",
+    "reviews_custom_rrrTp3",
+    "1717810301068a6e0d",
+    "new_text_and_image_jFLMbC"
+  ]
+}

@@ -1,0 +1,159 @@
+<div class="page-article-sidebar">
+   <div class="page-sidebar-offer">
+     <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          {% if section.settings.heading != blank %}
+          <h3 class="heading">{{ section.settings.heading }}</h3>
+          {% endif %}
+          {% if section.settings.image != blank %}
+          <div class="image-wrapper">
+            <img class="img-fluid lazyload" data-src="{{ section.settings.image | img_url: '400x' }}">
+          </div>
+          {% endif %}
+          {% if section.settings.button_url != blank and section.settings.button != blank %}
+          <a href="{{ section.settings.button_url }}" class="button">{{ section.settings.button }}</a>
+          {% endif %}
+        </div>
+      </div>
+     </div>
+   </div>
+</div>
+<style>
+  .page-sidebar-offer {
+    border: {{ section.settings.sidebar_border_size }} solid {{ section.settings.sidebar_border_color }};
+    border-radius: {{ section.settings.sidebar_border_radius }};
+    {% if section.settings.sidebar_use_shadow == true %}
+    box-shadow: {{ section.settings.sidebar_shadow_style }};
+    {% endif %}
+    background: {{ section.settings.sidebar_bg }};
+    padding: 20px 10px;
+    margin-top: 40px;
+  }
+  
+  .page-sidebar-offer .heading {
+    margin-bottom: 30px;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+  
+  .page-sidebar-offer .image-wrapper {
+    margin-bottom: 30px;
+  }
+  
+  .page-sidebar-offer .button {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 15px;
+    height: auto;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 500;
+  }
+</style>
+{% schema %}
+  {
+    "name": "Page Article Sidebar",
+    "settings": [
+        {
+           "id": "image",
+           "type": "image_picker",
+           "label": "Image"
+        },
+        {
+           "id": "heading",
+           "type": "text",
+           "label": "Heading",
+           "default" : "Try the NeuroMD Corrective Therapy Device with a 60-day money back guarantee."
+        },
+        {
+           "id": "button",
+           "type": "text",
+           "label": "Button",
+           "default" : "Get 50% Off My NeuroMD Device"
+        },
+        {
+           "id": "button_url",
+           "type": "url",
+           "label": "Button URL"
+        },
+        {
+            "type": "header",
+            "content": "Sidebar Style:"
+        },
+        {
+            "id" : "sidebar_bg",
+            "type" : "color",
+            "label" : "Sidebar Background",
+            "default" : "#E9F7FE"
+        },
+        {
+            "id" : "sidebar_heading_color",
+            "type" : "color",
+            "label" : "Sidebar Heading Color",
+            "default" : "#1D293F"
+        },
+        {
+            "id" : "sidebar_button_color",
+            "type" : "color",
+            "label" : "Sidebar Button Color",
+            "default" : "#FFFFFF"
+        },
+        {
+            "id" : "sidebar_button_bg",
+            "type" : "color",
+            "label" : "Sidebar Button Background",
+            "default" : "#0FA3FA"
+        },
+        {
+           "id": "sidebar_button_border_radius",
+           "type": "text",
+           "label": "Sidebar Button Border Radius",
+           "default" : "5px"
+        },
+        {
+           "id": "sidebar_button_below_description",
+           "type": "text",
+           "label": "Below Description",
+           "default": "Risk-free: Pain relief or your money back"
+        },
+        {
+           "id": "sidebar_use_shadow",
+           "type": "checkbox",
+           "label": "Use Shadow",
+           "default": true
+        },
+        {
+            "id": "sidebar_shadow_style",
+            "type": "text",
+            "label" : "Sidebar Shadow Style",
+            "default" : "0px 12px 20px rgba(29, 41, 63, 0.2)"
+        },
+        {
+            "id" : "sidebar_border_color",
+            "type" : "color",
+            "label" : "Sidebar Border Color",
+            "default" : "#0FA3FA"
+        },
+        {
+            "id" : "sidebar_border_size",
+            "type" : "text",
+            "label" : "Sidebar Border Width",
+            "default" : "1px"
+        },
+        {
+            "id" : "sidebar_border_radius",
+            "type" : "text",
+            "label" : "Sidebar Border Radius",
+            "default" : "10px"
+        }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,108 @@
+<div class="richtext-section">
+    <div class="richtext-inner page-width">
+	    <div class="heading-box">{{ section.settings.heading }}</div>
+		<div class="txt-box">{{ section.settings.text }}</div>
+		<a href="{{ section.settings.link }}">{{ section.settings.label }}</a>
+	</div>
+</div>
+
+<style>
+.richtext-section{
+     padding-top:{{ section.settings.p_t }}px; 
+     padding-bottom:{{ section.settings.p_b }}px;
+}
+.heading-box {
+    font-size: 32px;
+    color: #000000;
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: 600;
+    line-height: 42px;
+}
+
+.richtext-inner {
+    width: 50%;
+    text-align: center;
+    padding: 30px 50px;
+    background: #C9E4EC;
+    border-radius: 24px;
+}
+.txt-box {
+    width: 85%;
+    margin: 0 auto;
+}
+.richtext-inner a {
+    font-size: 16px;
+    text-decoration: none;
+    background: #002F49;
+    padding: 14px 20px;
+    width: 100%;
+    display: block;
+    margin-top: 30px;
+    text-align: center;
+    color: #fff;
+    border-radius: 4px;
+}
+@media only screen and (max-width: 767px) {
+.richtext-inner {
+    width: 90%;
+    padding: 30px 10px;
+}
+.heading-box {
+    font-size: 24px;
+    line-height: 34px;
+}
+}
+</style>
+
+{% schema %}
+{
+    "name": "richtext-section",
+    "settings": [
+	  {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+      },
+	  {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+      },
+	  {
+          "type": "text",
+          "id": "label",
+          "label": "Button Label"
+      },
+	  {
+          "type": "url",
+          "id": "link",
+          "label": "button link"
+      },
+	  {
+        "type": "range",
+        "id": "p_t",
+        "default": 50,
+        "label": "Padding Top",
+        "max": 300,
+        "min": 0,
+        "step": 5,
+        "unit": "Px"
+      }, {
+        "type": "range",
+        "id": "p_b",
+        "default": 50,
+        "label": "Padding Bottom",
+        "max": 300,
+        "min": 0,
+        "step": 5,
+        "unit": "Px"
+      }
+    ],
+    "presets": [
+        {
+            "name": "richtext-section"
+        }
+    ]
+}
+{% endschema %}

@@ -1,0 +1,273 @@
+<div class="use-section">
+   <div class="image-box-inner">
+      <div class="heading-div">
+         <h2>{{ section.settings.heading }}</h2>
+         <p>{{ section.settings.text }}</p>
+      </div>
+      <div class="img-box-row use desktop">
+         {%- for block in section.blocks -%}
+         <div class="img-box">
+            <div class="m_video">
+              {% if block.settings.vid != blank %}
+               <video style="max-width: 100%";  autoplay="autoplay" loop="loop" muted="" webkit-playsinline="" playsinline="">
+                  <source src="{{ block.settings.vid }}" type="video/mp4">
+                  <source src="{{ block.settings.vid }}" type="video/ogg">
+               </video>
+            {% endif %}
+              
+             {% if block.settings.i_vid != blank %}
+               <iframe width="100%" height="315" src="{{ block.settings.i_vid }}{% if block.settings.vid_auto %}?autoplay=1{% endif %}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+         {% endif %}
+            </div>
+            <div class="info-t">
+               <h3>{{ block.settings.subheading }}</h3>
+               <p>{{ block.settings.text_01 }}</p>
+            </div>
+         </div>
+         {%- endfor -%}
+      </div>
+      <div class="img-box-row use mobile">
+         {%- for block in section.blocks -%}
+         <div class="img-box">
+             <div class="m_video">
+              {% if block.settings.vid != blank %}
+               <video style="max-width: 100%; height: 100%;" autoplay="autoplay" loop="loop" muted="" webkit-playsinline="" playsinline="">
+                  <source src="{{ block.settings.vid }}" type="video/mp4">
+                  <source src="{{ block.settings.vid }}" type="video/ogg">
+               </video>
+            {% endif %}
+              
+             {% if block.settings.i_vid != blank %}
+               <iframe width="100%" height="315" src="{{ block.settings.i_vid }}{% if block.settings.vid_auto %}?autoplay=1{% endif %}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+         {% endif %}
+            </div>
+            <div class="info-t">
+               <h3>{{ block.settings.subheading }}</h3>
+               <p>{{ block.settings.text_01 }}</p>
+            </div>
+         </div>
+         {%- endfor -%}
+      </div>
+   </div>
+</div>
+<style>
+   .use-section{
+   background-color: {{ section.settings.color_bg }};
+   padding-top:{{ section.settings.p_t }}px; 
+   padding-bottom:{{ section.settings.p_b }}px;
+   }
+   .image-box-inner {
+   max-width: 1280px;
+   margin: 0 auto;
+   width: calc(100% - 40px);
+   }
+   .use-section .image-box-inner .img-box-row.mobile{
+   display: none;
+   }
+   .use-section .image-box-inner .img-box-row.desktop {
+   display: flex;
+   align-items: flex-start;
+   justify-content: center;
+   gap: 20px;
+   margin: 50px auto;
+   }
+   .heading-div {
+   text-align: center;
+   width: 100%;
+   margin: 0 auto;
+   }
+   .heading-div h2 {
+   font-size: 38px;
+   line-height: 45px;
+   width: 36%;
+   margin: 0 auto 10px;
+   }
+   .col-bottom {
+   text-align: center;
+   }
+   .col-bottom a {
+   color: #000;
+   }
+   .img-box {
+   background: #fff;
+   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+   border-radius: 18px;
+   border-top-left-radius: 40px;
+   border-top-right-radius: 40px;
+   }
+ 
+  .m_video video {
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+}
+   .img-box-row .info-t {
+   width: 100%;
+   padding: 20px;
+   min-height: 100px;
+   text-align: center;
+   }
+   .use{
+   width:100%!important;
+   }
+   .img-box-row.use .img-box {
+   width: 33.3%;
+   }
+   .img-box-row.use .info-t {
+   text-align: left;
+   min-height: 210px;
+   }
+   .use-section ul.slick-dots {
+   display: flex!important;
+   justify-content: center;
+   gap: 9px;
+   margin-left: 0;
+   }
+  .m_video video {
+      height: auto !important;
+}
+   .use-section ul.slick-dots li {
+   width: 10px;
+   height: 10px;
+   border-radius: 50px;
+   color: transparent;
+   }
+   ::marker {
+   display: none!important;
+   background: transparent;
+   color: transparent;
+   }
+   @media(max-width:992px){
+   .use-section {
+   padding-top:30px;
+   padding-bottom: 30px;
+   }
+   .use-section .image-box-inner .img-box-row.mobile{
+   display:block;
+   }
+   .use-section .image-box-inner .img-box-row.desktop {
+   display:none;
+   }
+   .use-section .image-box-inner .heading-div h2 {
+   width:100%;
+   }
+   .use-section .image-box-inner .img-box-row.mobile .img-box h3 {
+   color: #005585;
+   }
+   .use-section .image-box-inner .img-box-row.mobile ul.slick-dots li {
+   opacity: 1;
+   border: 1px solid #012940;
+   background-color: #ffffff;
+   }
+   .use-section .image-box-inner .img-box-row.mobile ul.slick-dots li.slick-active {
+   background-color: #012940 !important;
+   }
+   }
+   @media (max-width:767px)
+   {
+   .use-section ul.slick-dots {
+   margin-top: 20px;
+   }
+   }
+</style>
+<script>
+   $('.use-section .image-box-inner .img-box-row.mobile').slick({
+      dots: true,
+      infinite: true,
+      speed: 300,
+      slidesToShow: 1,
+      centerMode:false,
+      arrows:false
+   
+   });
+</script>
+{% schema %}
+{
+"name": "How-to-use",
+"settings": [
+{
+"type": "color",
+"id": "color_bg",
+"label": "background color",
+"default": "#F5F5F5"
+},
+{
+"type": "richtext",
+"id": "heading",
+"label": "Heading"
+},
+{
+"type": "range",
+"id": "p_t",
+"default": 50,
+"label": "Padding Top",
+"max": 300,
+"min": 0,
+"step": 5,
+"unit": "Px"
+}, {
+"type": "range",
+"id": "p_b",
+"default": 50,
+"label": "Padding Bottom",
+"max": 300,
+"min": 0,
+"step": 5,
+"unit": "Px"
+}
+],
+"blocks": [
+{
+"type": "image-box",
+"name": "image-box",
+"settings": [
+{
+"type": "radio",
+"id": "select",
+"label": "Video type",
+"options": [
+{
+"value": "MP4",
+"label": "MP4"
+},
+{
+"value": "iframe",
+"label": "Youtube/Vimeo"
+}
+],
+"default": "MP4"
+},
+{
+"type": "url",
+"id": "vid",
+"label": "MP4 video URL"
+},
+{
+"type": "checkbox",
+"id": "check",
+"label": "Video autoplay"
+},
+{
+"type": "url",
+"id": "i_vid",
+"label": "Youtube/Vimeo video URL"
+},
+{
+"type": "text",
+"id": "subheading",
+"label": "Heading"
+},  
+{
+"type": "richtext",
+"id": "text_01",
+"label": "Content"
+}
+]
+}
+],
+"presets": [
+{
+"name": "How-to-use"
+}
+]
+}
+{% endschema %}

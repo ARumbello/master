@@ -1,0 +1,549 @@
+{% comment %} {{ 'slick.css' | asset_url | stylesheet_tag: preload: true }} {% endcomment %}
+{{ 'slick.min.css' | asset_url | stylesheet_tag: preload: true }}
+{%- if section.settings.layout == 'default' -%}
+    {%- assign layout_class = "container" -%}
+{%- elsif section.settings.layout == "full" %}
+    {%- assign layout_class = "container-fluid" -%}
+{%- else -%}
+    {%- assign layout_class = "container inner" -%}
+{%- endif -%}
+
+<div class="product-video-reviews reviews-dup" id="page-section-{{ section.id }}">
+    <div class="{{ layout_class }}">
+        <div class="row">
+            <div class="col-12">
+                {% if section.settings.heading != blank %}
+                    <h2 class="heading text-left">
+                        {% render 'multilang' with section.settings.heading %}
+                    </h2>
+                {% endif %}
+            </div>
+            <div class="col-12">
+
+                <div class="testimonials new-dots with-arrow">
+                    {% for block in section.blocks %}
+                        <div class="testimonial">
+                            <div class="img-wrapper">
+                                {% if block.settings.image != blank %}
+                                    {%- assign img_url = block.settings.image | img_url: '400x467', crop: 'center' -%}
+                                    <img data-srcset="https:{{ img_url }}"
+                                         alt="{{ block.settings.image.alt | default: shop.name }}" {% render 'lazy_load' %}>
+                                {% endif %}
+                                <div class="user-name">
+                                    {% if block.settings.video_code != blank %}
+                                        <button class="video__vidButton"
+                                                vidref="{{ block.settings.video_code | escape }}">
+                                            {% if section.settings.video_image != blank %}
+                                                {%- assign img_url = section.settings.video_image | img_url: 'master' -%}
+                                                <img data-srcset="https:{{ img_url }}"
+                                                     alt="{{ section.settings.video_image.alt | default: "Play Video" }}" {% render 'lazy_load' %}>
+                                            {% else %}
+                                                Play Video
+                                            {% endif %}
+                                        </button>
+                                    {% endif %}
+                                    <p>{{ block.settings.user_name }}</p>
+                                </div>
+                            </div>
+                            <div class="content">
+                                {% if section.settings.quote_image != blank %}
+                                    <div class="quote-icon">
+                                        {%- assign quote_img_url = section.settings.quote_image | img_url: 'master' -%}
+                                        <img data-srcset="https:{{ quote_img_url }}"
+                                             alt="{{ section.settings.quote_image.alt | default: shop.name }}" {% render 'lazy_load' %}>
+                                    </div>
+                                {% endif %}
+                                <p>{{ block.settings.content }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    #page-section-{{ section.id }} {
+    {%- if section.settings.bg_image != blank -%}{%- assign bg_img_url = section.settings.bg_image | img_url: 'master' -%} background-image: url({{bg_img_url}});
+        background-size: cover;
+    {%- endif-%}{%- if section.settings.bg_color != blank -%} background-color: {{section.settings.bg_color}};
+    {%- endif-%} background-position: {{ section.settings.bg_position }};
+    }
+
+    #page-section-{{section.id}} .heading {
+        text-transform: unset;
+        letter-spacing: -1px;
+    {% if section.settings.color_heading != blank %} color: {{ section.settings.color_heading }};
+    {% endif %} font-size: {{ section.settings.font_size_heading}};
+        font-weight: {{ section.settings.font_weight_heading}};
+        line-height: {{ section.settings.line_height_heading }};
+        margin-bottom: 50px;
+        text-align: center;
+    }
+
+    #page-section-{{section.id}} .testimonials {
+    }
+
+    #page-section-{{section.id}} .testimonials .slick-slide > div {
+        margin-right: 5%;
+        margin-left: 5%;
+    }
+
+    #page-section-{{section.id}} .testimonial {
+        border: 1px solid #E2E4E8;
+        border-radius: 10px;
+    }
+
+
+    #page-section-{{section.id}} .testimonial .img-wrapper {
+        border-radius: 10px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    #page-section-{{section.id}} .testimonial .img-wrapper:before {
+        content: "";
+        background: linear-gradient(0deg, rgb(0, 0, 0, 0.5), transparent);
+        position: absolute;
+        top: 0;
+        height: 100%;
+        width: 100%;
+    }
+
+    #page-section-{{section.id}} .testimonial .img-wrapper img {
+        border-radius: 10px;
+    }
+
+    #page-section-{{section.id}} .testimonial .img-wrapper .user-name {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        color: {{ section.settings.color_testimonial_name }};
+        font-size: {{ section.settings.font_size_testimonial_name }};
+        line-height: {{ section.settings.line_height_testimonial_name }};
+        font-weight: {{ section.settings.font_weight_testimonial_name }};
+    }
+
+    #page-section-{{section.id}} .testimonial .video__vidButton {
+        margin-top: 0;
+        padding-bottom: 0;
+    }
+
+    #page-section-{{section.id}} .testimonial .video__vidButton img {
+        width: 50px;
+        height: auto;
+    }
+
+    #page-section-{{section.id}} .testimonial .content {
+        padding: 30px 20px;
+        min-height: {{ section.settings.content_min_height }}px;
+    }
+
+    #page-section-{{section.id}} .testimonial .content .quote-icon {
+        max-width: 33px;
+        margin-bottom: 20px;
+    }
+
+    #page-section-{{section.id}} .testimonial .content p {
+        color: {{ section.settings.color_testimonial_content }};
+        font-size: {{ section.settings.font_size_testimonial_content }};
+        line-height: {{ section.settings.line_height_testimonial_content }};
+        font-weight: {{ section.settings.font_weight_testimonial_content }};
+        text-align: left;
+    }
+
+    @media (max-width: 460px) {
+        #page-section-{{section.id}} .testimonials .slick-slide > div {
+            margin-left: 8%;
+            margin-right: 8%;
+        }
+    }
+
+    @media (max-width: 767px) {
+        #page-section-{{ section.id }} {
+            padding-top: {{ section.settings.padding_top_mb }}px;
+            padding-bottom: {{ section.settings.padding_bottom_mb }}px;
+        {%- if section.settings.bg_image_mobile != blank -%}{%- assign bg_img_mobile_url = section.settings.bg_image_mobile | img_url: 'master' -%} background-image: url({{bg_img_mobile_url}});
+            background-size: cover;
+        {%- endif-%}
+        }
+
+        #page-section-{{section.id}} .heading {
+            font-size: {{ section.settings.font_size_heading_mobile }};
+            line-height: {{ section.settings.line_height_heading_mobile }};
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        #page-section-{{section.id}} .testimonials .slick-slide > div {
+            margin-left: 12%;
+            margin-right: 12%;
+        }
+    }
+
+    @media (min-width: 768px) and (max-width: 1199px) {
+        #page-section-{{ section.id }} {
+            padding-top: {{ section.settings.padding_top_tab }}px;
+            padding-bottom: {{ section.settings.padding_bottom_tab }}px;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        #page-section-{{ section.id }} {
+            padding-top: {{ section.settings.padding_top }}px;
+            padding-bottom: {{ section.settings.padding_bottom }}px;
+        }
+    }
+</style>
+<script type="text/javascript">
+	jQuery(document).ready(function ($) {
+		console.log('slick')
+		$('.testimonials').slick({
+			infinite: true,
+			slidesToShow: 3,
+			slidesToScroll: 3,
+			dots: true,
+			arrows: false,
+			responsive: [
+				{
+					breakpoint: 1024,
+					settings: {
+						slidesToShow: 2,
+						slidesToScroll: 2
+					}
+				},
+				{
+					breakpoint: 768,
+					settings: {
+						slidesToShow: 1,
+						slidesToScroll: 1
+					}
+				}
+			]
+		});
+
+		$('[vidref]').on('click', function (e) {
+			e.preventDefault();
+			var frameCode = $(this).attr('vidref');
+			$('.videoModal__wrapperInner').html(frameCode);
+			$('.videoModal').fadeIn();
+		});
+	});
+</script>
+{% schema %}
+{
+  "name": "Product-Video RevDup",
+  "class": "prod-video-reviews",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Banner Layout:"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Section Layout:",
+      "options": [
+        {
+          "value": "default",
+          "label": "Default"
+        },
+        {
+          "value": "full",
+          "label": "Full Width"
+        },
+        {
+          "value": "inner",
+          "label": "Inner Width"
+        }
+      ],
+      "default": "default"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Banner Background Color"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Banner Background Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image_mobile",
+      "label": "Banner Background Image For Mobile"
+    },
+    {
+      "type": "select",
+      "id": "bg_position",
+      "label": "Background Position:",
+      "default": "center center",
+      "options": [
+        {
+          "value": "left top",
+          "label": "Left Top"
+        },
+        {
+          "value": "left center",
+          "label": "Left Center"
+        },
+        {
+          "value": "left bottom",
+          "label": "Left Bottom"
+        },
+        {
+          "value": "center top",
+          "label": "Center Top"
+        },
+        {
+          "value": "center center",
+          "label": "Center Center"
+        },
+        {
+          "value": "center bottom",
+          "label": "Center Bottom"
+        },
+        {
+          "value": "right top",
+          "label": "Right Top"
+        },
+        {
+          "value": "right center",
+          "label": "Right center"
+        },
+        {
+          "value": "right bottom",
+          "label": "Right Bottom"
+        }
+      ]
+    },
+    {
+      "type": "image_picker",
+      "id": "quote_image",
+      "label": "Quote Icon"
+    },
+    {
+      "type": "image_picker",
+      "id": "video_image",
+      "label": "Video Icon"
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Title"
+    },
+    {
+      "type": "text",
+      "id": "font_size_heading",
+      "label": "Heading Font Size",
+      "default": "36px"
+    },
+    {
+      "type": "text",
+      "id": "line_height_heading",
+      "label": "Heading Line Height",
+      "default": "54px"
+    },
+    {
+      "type": "text",
+      "id": "font_size_heading_mobile",
+      "label": "Heading Font Size Mobile",
+      "default": "28px"
+    },
+    {
+      "type": "text",
+      "id": "line_height_heading_mobile",
+      "label": "Heading Line Height Mobile",
+      "default": "42px"
+    },
+    {
+      "type": "text",
+      "id": "font_weight_heading",
+      "label": "Heading Font Weight",
+      "default": "700"
+    },
+    {
+      "type": "color",
+      "id": "color_heading",
+      "label": "Heading Color",
+      "default": "#1D293F"
+    },
+    {
+      "type": "header",
+      "content": "Testimonial Content"
+    },
+    {
+      "type": "text",
+      "id": "font_size_testimonial_content",
+      "label": "Testimonial Content Font Size",
+      "default": "16px"
+    },
+    {
+      "type": "text",
+      "id": "line_height_testimonial_content",
+      "label": "Testimonial Content Line Height",
+      "default": "28px"
+    },
+    {
+      "type": "text",
+      "id": "font_size_testimonial_content_mobile",
+      "label": "Testimonial Content  Font Size Mobile",
+      "default": "16px"
+    },
+    {
+      "type": "text",
+      "id": "line_height_testimonial_content_mobile",
+      "label": "Testimonial Content Height Mobile",
+      "default": "28px"
+    },
+    {
+      "type": "text",
+      "id": "font_weight_testimonial_content",
+      "label": "Testimonial Content Font Weight",
+      "default": "400"
+    },
+    {
+      "type": "color",
+      "id": "color_testimonial_content",
+      "label": "Testimonial Content Color",
+      "default": "#1D293F"
+    },
+    {
+      "type": "range",
+      "id": "content_min_height",
+      "label": "Content Min Height",
+      "min": 0,
+      "max": 400,
+      "step": 10,
+      "default": 330
+    },
+    {
+      "type": "text",
+      "id": "font_size_testimonial_name",
+      "label": "Testimonial Name Font Size",
+      "default": "18px"
+    },
+    {
+      "type": "text",
+      "id": "line_height_testimonial_name",
+      "label": "Testimonial Name Line Height",
+      "default": "32px"
+    },
+    {
+      "type": "text",
+      "id": "font_weight_testimonial_name",
+      "label": "Testimonial Name Weight",
+      "default": "500"
+    },
+    {
+      "type": "color",
+      "id": "color_testimonial_name",
+      "label": "Testimonial Name Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding:"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Section Padding For Tablet:"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_tab",
+      "label": "Padding Top Tablet",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_tab",
+      "label": "Padding Bottom Tablet",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Section Padding For Mobile:"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mb",
+      "label": "Padding Top Mobile",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mb",
+      "label": "Padding Bottom Mobile",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "default": 30
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "user_name",
+          "label": "Testiomonial User Name"
+        },
+        {
+          "type": "textarea",
+          "id": "content",
+          "label": "Testiomonial Content"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Testimonial Image"
+        },
+        {
+          "type": "textarea",
+          "id": "video_code",
+          "label": "Video Code"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,371 @@
+
+
+<style>
+
+
+  .custom-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr!important; /* Desktop: two equal columns */
+    gap: 32px 88px;
+    padding: 0 15px;
+  }
+
+
+  .fnt-20 {
+    font-size: 20px;
+  }
+  .fnt-base {
+    font-size: 16px;
+  }
+
+
+  .font-bold {
+    font-weight: 700;
+  }
+  .font-semibold {
+    font-weight: 600;
+  }
+  .font-normal {
+    font-weight: 400;
+  }
+
+  .white-text {
+    color: #fff;
+  }
+  .primary-text {
+    color: #002f49;
+  }
+  .bg-dark-blue {
+    background-color: #002f49;
+  }
+  .bg-white {
+    background-color: #ffffff;
+  }
+
+  .flex {
+    display: flex;
+  }
+  .slef-end {
+    align-self: center;
+  }
+
+ 
+  .mb-2 {
+    margin-bottom: 8px;
+  }
+
+ 
+  .rounded-3xl {
+    border-radius: 24px;
+  }
+
+  .heading1 {
+    font-size: 40px;
+    line-height: 48px;
+  }
+
+  a.action-btn {
+    width: max-content;
+    min-width: 162px !important;
+    transition: all 0.3s;
+    padding: 18px 10px;
+    border-radius: 4px;
+    margin-top: 16px;
+    justify-content: center;
+  }
+  .relief-bttn {
+    font-size: {{ section.settings.relief-bttn-font }}px;
+    color: {{ section.settings.relief-bttn-color }};
+    background-color: {{ section.settings.bg-relief-color }};
+  }
+  a.action-btn:hover {
+    opacity: 0.8;
+    cursor: pointer;
+  }
+  .center-text {
+    text-align: center;
+  }
+
+  
+  .relief-section {
+    overflow: hidden;
+    background-color: {{ section.settings.relief-main-bg }};
+    padding: 64px 0;position: relative;
+  }
+  .relief-section video {
+    width: 100%;
+    max-width: 614px;
+    border-radius: 24px;
+  }
+
+  .content-container {
+    width:100%
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .content-container h2 {
+    font-size: {{ section.settings.relief-head-font }}px;
+    color: {{ section.settings.relief-color }};
+    font-weight: 400;
+    margin-top: 0;
+    margin-bottom: 24px;
+    line-height: 48px;
+  }
+  .proven-by {
+    font-size: {{ section.settings.proven-text-font }}px;
+    color: {{ section.settings.proven-text-color }};
+    margin-bottom: 24px;
+  }
+  .content-container ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+    margin-left: 0;
+  }
+  .content-container ul li {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 20px;
+  }
+  .content-container ul li svg {
+    margin-right: 10px;
+    max-width: 34px;
+    height: 34px;
+    width: 100%;
+  }
+
+    .cusstomclassfaqrelief {
+    width: 400px;
+    top: 0;
+    left: 0;
+    position: absolute;
+}
+  @media (min-width: 1440px) {
+    .custom-container {
+      max-width: calc(100% - 150px);
+      margin: 0 auto;
+    }
+  }
+
+  
+  @media (max-width: 991px) {
+    .relief-section video{order: 2;}
+    .content-container{order: 1;}
+    .custom-container {
+      grid-template-columns: 1fr !important;
+      gap: 32px; 
+    }
+    .relief-section {
+      padding: 32px 0;
+    }
+    .action-btn {
+      margin-top: 30px !important;
+      width: 100%;
+    }
+    .content-container h2 {
+      font-size: {{ section.settings.relief-heading-mbl-font }}px;
+      line-height: 35px;
+    }
+  }
+</style>
+
+
+<!-- Relief Section -->
+<section class="relief-section">
+  <div class="custom-container page-width">
+        <img src="https://cdn.shopify.com/s/files/1/0201/2450/0032/files/video-shape.webp?v=1748763169"class="cusstomclassfaqrelief">  
+
+    
+{{ section.settings.video | video_tag: autoplay: true, loop: true, muted: true, playsinline: true }}
+
+
+    <div class="content-container">
+      <h2>
+        <span class="font-bold">
+          {{ section.settings.lasting-reloef-text }}
+        </span>
+        {{ section.settings.medication-text }}
+      </h2>
+
+      <p class="proven-by">
+        {{ section.settings.proven-text }}
+      </p>
+
+      <ul>
+        {% for block in section.blocks %}
+          <li>
+            {% if block.settings.correct-img != blank %}
+              <img src="{{ block.settings.correct-img | img_url: 'large' }}" alt="{{ block.settings.alt_text }}">
+            {% endif %}
+
+            <div class="reile-list-data"style="font-size: {{ block.settings.list-data-font }}px; color: {{ block.settings.relief-list-color }};">
+              {{ block.settings.relief-list-data-text }}
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+
+      <a  href="{{section.settings.relief-bttn-url}}" style=" z-index: 1000;  position: relative;" class="bg-dark-blue white-text fnt-base action-btn font-semibold center-text flex relief-bttn" type="button">
+        {{ section.settings.relief-bttn-text }}
+      </a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Relief Section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "relief-main-bg",
+      "label": "Relief Section Background Color",
+      "default": "#e0f2fe"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Relief Video"
+    },
+    {
+      "type": "text",
+      "id": "lasting-reloef-text",
+      "label": "Lasting Relief Text",
+      "default": "Lasting Relief"
+    },
+    {
+      "type": "text",
+      "id": "medication-text",
+      "label": "Medication Text",
+      "default": "that puts an end to surgical procedures, shots, braces, and medications."
+    },
+    {
+      "type": "color",
+      "id": "relief-color",
+      "label": "Heading Color",
+      "default": "#000"
+    },
+    {
+      "type": "range",
+      "id": "relief-head-font",
+      "min": 24,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading Font Size",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "relief-heading-mbl-font",
+      "min": 20,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Heading Font Size",
+      "default": 26
+    },
+    {
+      "type": "text",
+      "id": "proven-text",
+      "label": "Proven Text",
+      "default": "Proven by NeuroMD users."
+    },
+    {
+      "type": "color",
+      "id": "proven-text-color",
+      "label": "Proven Text Color",
+      "default": "#555"
+    },
+    {
+      "type": "range",
+      "id": "proven-text-font",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Proven Text Font Size",
+      "default": 18
+    },
+      
+    {
+      "type": "text",
+      "id": "relief-bttn-text",
+      "label": "Button Text",
+      "default": "Get Relief Now"
+    },
+      {
+      "type": "text",
+      "id": "relief-bttn-url",
+      "label": "Button URL",
+      "default": "#"
+    },
+    {
+      "type": "color",
+      "id": "relief-bttn-color",
+      "label": "Button Text Color",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "bg-relief-color",
+      "label": "Button Background Color",
+      "default": "#002f49"
+    },
+    {
+      "type": "range",
+      "id": "relief-bttn-font",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Button Font Size",
+      "default": 16
+    }
+  ],
+  "blocks": [
+    {
+      "type": "box",
+      "name": "Relief Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "correct-img",
+          "label": "Checkmark Image"
+        },
+        {
+          "type": "range",
+          "id": "list-data-font",
+          "min": 12,
+          "max": 24,
+          "step": 1,
+          "unit": "px",
+          "label": "List Item Font Size",
+          "default": 17
+        },
+        {
+          "type": "text",
+          "id": "relief-list-data-text",
+          "label": "List Item Text",
+          "default": "Wireless design with remote control is easy to apply and use without assistance"
+        },
+        {
+          "type": "color",
+          "id": "relief-list-color",
+          "label": "List Item Color",
+          "default": "#fff"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Relief Section"
+    }
+  ]
+}
+{% endschema %}

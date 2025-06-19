@@ -1,0 +1,703 @@
+{% render 'product-zoom-js' %}
+
+{% if product.handle == 'neuromd-whole-body-corrective-therapy-device-new-layout' %}
+<script>
+  if (localStorage.getItem('visitedQuiz') === 'true') {
+    window.location.href = 'https://getneuromd.com/products/neuromd-whole-body-corrective-therapy-device-new-layout';
+  }
+</script> 
+{% endif %}
+
+<div class="prodMain" style="background-color:{{ section.settings.backgroundColor }};">
+  <div class="prodMain__inner">
+    <div class="prodMain__left testp1">
+      <div class="prodMain__upperSlider">
+        {% for image in product.images %}
+          <div class="prodMain__upperSlideWrapper zoom_image-container">
+            {% render 'optimized-images', 
+               image: image, 
+               alt: image.alt,
+               loading: 'eager',
+               sizes: '(min-width: 1200px) 580px, (min-width: 750px) 50vw, 100vw',
+               class: 'prodMain__upperSlide' %}
+        {% endfor %}
+        {% if section.settings.videoThumb != '' and section.settings.videoIframe != '' %}
+          <div class="prodMain__upperSlideWrapper" vidRef='{{ section.settings.videoIframe }}'>
+            {% render 'optimized-images', 
+               image: section.settings.videoThumb, 
+               alt: section.settings.videoThumb.alt,
+               loading: 'lazy',
+               sizes: '(min-width: 1200px) 580px, (min-width: 750px) 50vw, 100vw',
+               class: 'prodMain__upperSlide' %}
+            <div class="prodBlade__vid">
+                <button class="prodBlade__videoButton__big" vidRef='{{ section.settings.videoIframe }}'>
+                  <img class="prodBlade__playImg lazyload"
+                  data-src="https://cdn.shopify.com/s/files/1/0441/3567/8105/files/Fill_1_Copy_7.png?v=1595619340"
+                  alt="play button">
+                  <span class="prodBlade__vidText text--15 text--white">
+                    Watch Video
+                  </span>
+                </button>
+              </div>
+          </div>
+          {% endif %}
+      </div>
+      <div class="prodMain__lowerSlider">
+        {% for image in product.images %}
+          <div class="prodMain__lowerSlideWrapper">
+            {% render 'optimized-images', 
+               image: image, 
+               alt: image.alt,
+               loading: 'lazy',
+               sizes: '100px',
+               class: 'prodMain__lowerSlide' %}
+          </div>
+        {% endfor %}
+         {% if section.settings.videoThumb and section.settings.videoIframe != '' %}
+          <div class="prodMain__lowerSlideWrapper" vidRef='{{ section.settings.videoIframe }}'>
+            {% render 'optimized-images', 
+               image: section.settings.videoThumb, 
+               alt: section.settings.videoThumb.alt,
+               loading: 'lazy',
+               sizes: '100px',
+               class: 'prodMain__upperSlide' %}
+            <div class="prodBlade__vid">
+                <button class="prodBlade__videoButton__sm" vidRef='{{ section.settings.videoIframe }}'>
+                  <img class="prodBlade__playImg lazyload"
+                  data-src="https://cdn.shopify.com/s/files/1/0441/3567/8105/files/Fill_1_Copy_7.png?v=1595619340"
+                  alt="play button">
+                  <!-- <span class="prodBlade__vidText text--15 text--white">
+                    Watch Video
+                  </span> -->
+                </button>
+              </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="prodMain__right">
+      <div class="prodMain__text">
+        <h1 class="prodMain__title text--28 text--com text--blue">
+          {{ product.title }}
+        </h1>
+        {% comment %}
+        <a class="prodMainRev__stars mobileStars" href="#shopify-section-prod-reviews">
+                <img class="prodMainRev__star lazyload"
+                data-src="https://cdn.shopify.com/s/files/1/0441/3567/8105/files/star.png?v=1595616774"
+                alt="Star">
+                <img class="prodMainRev__star lazyload"
+                data-src="https://cdn.shopify.com/s/files/1/0441/3567/8105/files/star.png?v=1595616774"
+                alt="Star">
+                <img class="prodMainRev__star lazyload"
+                data-src="https://cdn.shopify.com/s/files/1/0441/3567/8105/files/star.png?v=1595616774"
+                alt="Star">
+                <img class="prodMainRev__star lazyload"
+                data-src="https://cdn.shopify.com/s/files/1/0441/3567/8105/files/star.png?v=1595616774"
+                alt="Star">
+                <img class="prodMainRev__star lazyload"
+                data-src="https://cdn.shopify.com/s/files/1/0441/3567/8105/files/star.png?v=1595616774"
+                alt="Star">
+                <span class="prodMainRev__count text--16 text--gray">
+                   (Loading...)
+                </span>
+        </a>
+        {% endcomment %}
+        <div class="mobileStars">
+          {% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: false, product: product %}
+        </div>
+        <div class="prodMain__checkGrid">
+          {% for block in section.blocks %}
+          {% if block.type == 'Check' %}
+            <div class="prodMain__check">
+              <img class="prodMain__checkImg lazyload"
+              data-src="https://cdn.shopify.com/s/files/1/0441/3567/8105/files/check.png?v=1595616774"
+              alt="check mark">
+              <span class="prodMain__checkText text--14">
+                {{ block.settings.text }}
+              </span> 
+            </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+        <div class="prodMain__description text--15">
+          {{ section.settings.productDescription }}
+        </div>
+        {% if section.settings.reviewTitle != '' %}
+          <div class="prodMainRev">
+            <div class="prodMainRev__headRow">
+              <div class="prodMainRev__title text--15">
+                {{ section.settings.reviewTitle }} 
+              </div>
+              {% comment %}
+              <a class="prodMainRev__stars"  href="#shopify-section-prod-reviews">
+                <img class="prodMainRev__star lazyload"
+                data-src="https://cdn.shopify.com/s/files/1/0441/3567/8105/files/star.png?v=1595616774"
+                alt="Star">
+                <img class="prodMainRev__star lazyload"
+                data-src="https://cdn.shopify.com/s/files/1/0441/3567/8105/files/star.png?v=1595616774"
+                alt="Star">
+                <img class="prodMainRev__star lazyload"
+                data-src="https://cdn.shopify.com/s/files/1/0441/3567/8105/files/star.png?v=1595616774"
+                alt="Star">
+                <img class="prodMainRev__star lazyload"
+                data-src="https://cdn.shopify.com/s/files/1/0441/3567/8105/files/star.png?v=1595616774"
+                alt="Star">
+                <img class="prodMainRev__star lazyload"
+                data-src="https://cdn.shopify.com/s/files/1/0441/3567/8105/files/star.png?v=1595616774"
+                alt="Star">
+                <span class="prodMainRev__count text--16 text--gray">
+                  (Loading...)
+                </span>
+              </a>
+              {% endcomment %}
+              {% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: false, product: product %}
+            </div>
+            <div class="prodMainRev__text text--15">
+              {{ section.settings.reviewText }}
+            </div>
+            <div class="prodMainRev__name text--15">
+              – {{ section.settings.reviewName }}
+            </div>
+          </div>
+        {% endif %}
+        <div class="prodMain__priceRow">
+          <div class="prodMain__price text--18" id="price">
+            {{ product.price | money }}
+          </div>
+          <div class="prodMain__comparePrice text--15 text--gray" id="compare">
+           <s> {{ product.compare_at_price | money }}</s>&nbsp;{% if section.settings.priceSavings != '' %}({{ section.settings.priceSavings }}){% endif %}
+          </div>
+        </div>
+         {% form 'product', product %}
+        <!-- HC - Shop Pay Installments Banner - 16 May '22 -->
+        <div class="hc-shop-pay-installments">
+          {{ form | payment_terms }}
+        </div>
+        {% endform %}
+        
+        <div class="prodMain__dropRow" {% if product.variants.size == 1 %}style="display:none;"{% endif %}>
+          <label class="prodMain__label text--15" for="variantDrop">
+            Select Variant:
+          </label>
+          <select class="prodMain__select" id="variantDrop">
+            {% for variant in product.variants %}
+              <option value="{{ forloop.index0 }}" {% if forloop.first %}selected{% endif %}>{{ variant.title }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="prodMain__buyRow">
+          <div class="prodMain__qtyWrapper">
+            <label class="prodMain__label text--15" for="quantity">
+              Qty
+            </label>
+            <div class="qtybox">
+              <span class="btnqty qtyplus icon icon-plus">+</span>
+              <input class="prodMain__qty text--15" min="1" id="quantity" value="1">
+              <span class="btnqty qtyminus icon icon-minus">-</span>
+            </div>
+          </div>
+          <button class="prodMain__button button buyButton">
+            Add To Cart
+          </button>
+        </div>
+        <div class="prodMain__dropRow" {% if product.variants.size == 1 %}style="display:none;"{% endif %}>
+          <label class="prodMain__label text--15" for="variantDrop">
+            Select Variant:
+          </label>
+          <select class="prodMain__select" id="variantDrop">
+            {% for variant in product.variants %}
+              <option value="{{ forloop.index0 }}" {% if forloop.first %}selected{% endif %}>{{ variant.title }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        
+        <div class="prodMain__buyRow__shipping">
+          <div class="prodMain__buyRow__shipping__spacer"></div>
+          <div class="prodMain__shippingText text--15">
+            {{ section.settings.shippingText }}
+          </div>
+        </div>
+
+<div class="main-acc-wrapper">
+  <div class="inner-acc-wrapper">
+            <div class="headline-acc">
+      <p class="acc-q">Product Description</p>
+      <div class="arrow-wrapper">
+{% comment %}        
+        <img class="acc-arrow-close hide" src="https://hellonoemie.s3.ca-central-1.amazonaws.com/accordion-arrow-closed.png"/>
+        <img class="acc-arrow-open" src="https://hellonoemie.s3.ca-central-1.amazonaws.com/accordion-arrow-opened.png"/>
+{% endcomment %}        
+        <img class="acc-arrow-close hide" src="{{ 'plus.png' | asset_img_url : '25x' }}" width="100" height="100" />
+        <img class="acc-arrow-open" src="{{ 'minus.png' | asset_img_url : '25x' }}" width="100" height="100"/>
+      </div>
+    </div>
+            <div class="hidden-acc">
+      <ul class="acc-a">
+        <li>The most advanced, FDA-cleared system to restore your lower back health and provide lasting pain relief. </li>
+        <li>Equipped with pre-set, clinically studied NMES parameters, the Corrective Therapy Device® delivers proven electrical stimulation to correct the source of the pain. </li>
+        <li>Get started on the path to relief during our biggest sale ever with savings of $200 and enjoy a 60-day at-home trial. </li>
+        <li><span> Not advised for use with electronic implants. See FAQ below for more info.</span></li>
+      </ul>
+    </div>
+          </div>
+  <div class="inner-acc-wrapper">
+            <div class="headline-acc">
+      <p class="acc-q">How To Use</p>
+      <div class="arrow-wrapper">
+        <img class="acc-arrow-close" src="{{ 'plus.png' | asset_img_url : '25x' }}" width="100" height="100" />
+        <img class="acc-arrow-open hide" src="{{ 'minus.png' | asset_img_url : '25x' }}" width="100" height="100" /></div>
+    </div>
+            <div class="hidden-acc hide">
+      <p class="acc-a">A NeuroMD device works to correct your back pain through a 12 week consistency program and continues to provide relief through maintained use.</p>
+      <p class="list-headline">Week 1 - Start on Mode 1</p>
+      <ul class="list-a">
+                <li>Use NeuroMD for 4-7 days this week.</li>
+                <li>Each session lasts 25 minutes.</li>
+              </ul>
+      <p class="list-headline">Week 2-12 - Begin Mode 2</p>
+      <ul class="list-a">
+                <li>Use NeuroMD for 6-7 days per week.</li>
+                <li>Each session lasts 25 minutes.</li>
+              </ul>
+      <p id="list-last-a" class="list-headline">Week 13+ - Maintain on Mode 1</p>
+      <ul class="list-a">
+                <li>Use NeuroMD for 4-7 days this week.</li>
+                <li>Each session lasts 25 minutes.</li>
+              </ul>
+    </div>
+          </div>
+  <div class="inner-acc-wrapper">
+            <div class="headline-acc border">
+      <p class="acc-q">Reviews</p>
+      <div class="arrow-wrapper">
+        <img class="acc-arrow-close" src="{{ 'plus.png' | asset_img_url : '25x' }}" width="100" height="100" />
+        <img class="acc-arrow-open hide" src="{{ 'minus.png' | asset_img_url : '25x' }}" width="100" height="100" /></div>
+    </div>
+          <div class="hidden-acc hide">
+      <div class="review-wrapper r2"> <div class="jdgm-rev__header">  <div class="jdgm-rev__icon"> W </div>  <span class="jdgm-rev__rating" data-score="4" tabindex="0" aria-label="4 star review" role="img"> <span class="jdgm-star jdgm--on"></span><span class="jdgm-star jdgm--on"></span><span class="jdgm-star jdgm--on"></span><span class="jdgm-star jdgm--on"></span><span class="jdgm-star jdgm--off"></span> </span> <span class="jdgm-rev__timestamp" data-content="2018-12-18 00:00:00 UTC">12/18/2018</span>  <div class="jdgm-rev__br"></div> <span class="jdgm-rev__buyer-badge-wrapper"> <span class="jdgm-rev__buyer-badge"></span> </span>  </div> <div class="jdgm-rev__content"> <div class="jdgm-rev__custom-form">  </div> <b class="jdgm-rev__title">Doctors should prescribe NeuroMD!</b> <div class="jdgm-rev__body"><p>This device is a life saver! I have Fibro, and have an extremely hard time on a daily basis just getting around anymore. I put this device on, and its like flipping a switch! I am able to go and do things I haven't done in such a long time! I am forever grateful for this product. I am singing this devices praises to the four winds! Thank you so very much!!</p></div><span class="jdgm-rev__author-wrapper"> <span class="jdgm-rev__author">- Wendy West</span><span class="verified"><img src="{{ 'verify.png' | asset_img_url : '20x' }}" width="30" height="30" />Verified Buyer</span> <span class="jdgm-rev__location">  </span>  </span> <div class="jdgm-rev__pics">  </div> <div class="jdgm-rev__vids">   </div> </div> <div class="jdgm-rev__actions"> <div class="jdgm-rev__social"></div> <div class="jdgm-rev__votes"><div class="jdgm-rev__votes-inner"><span class="jdgm-rev__thumb-btn jdgm-rev_thumb-up" title="up" data-thumb-vote="up" tabindex="0"></span><span class="jdgm-rev__thumb-count jdgm-rev_thump-up-count" data-thumb-count="227">227</span><span class="jdgm-rev__thumb-btn jdgm-rev_thumb-down" title="down" data-thumb-vote="down" tabindex="0"></span><span class="jdgm-rev__thumb-count jdgm-rev_thump-down-count" data-thumb-count="351">351</span></div></div> </div> <div class="jdgm-rev__reply">  </div> </div>
+      <div class="review-wrapper r1"> <div class="jdgm-rev__header">  <div class="jdgm-rev__icon"> S </div>  <span class="jdgm-rev__rating" data-score="4" tabindex="0" aria-label="4 star review" role="img"> <span class="jdgm-star jdgm--on"></span><span class="jdgm-star jdgm--on"></span><span class="jdgm-star jdgm--on"></span><span class="jdgm-star jdgm--on"></span><span class="jdgm-star jdgm--off"></span> </span> <span class="jdgm-rev__timestamp" data-content="2019-07-16 02:02:31 UTC">07/16/2019</span>  <div class="jdgm-rev__br"></div> <span class="jdgm-rev__buyer-badge-wrapper"> <span class="jdgm-rev__buyer-badge"></span> </span>  </div> <div class="jdgm-rev__content"> <div class="jdgm-rev__custom-form">  </div> <b class="jdgm-rev__title">Pleasant Surprise</b> <div class="jdgm-rev__body"><p>I have endured chronic lower back pain for at least 20 years. Chiropractic  has been my only relief and that of course is short lived. I must say, I was skeptical when I ordered the NeuroMD device. I can now say, no doubt about it, this thing works ! Remains to be seen what the long term effects will be, however I am optimistic and looking forward being able to sleep without pain pills.</p></div><span class="jdgm-rev__author-wrapper"> <span class="jdgm-rev__author">- Steve Kesler</span><span class="verified"><img src="{{ 'verify.png' | asset_img_url : '20x' }}" width="30" height="30" >Verified Buyer</span> <span class="jdgm-rev__location">  </span>  </span> <div class="jdgm-rev__pics">  </div> <div class="jdgm-rev__vids">   </div> </div> <div class="jdgm-rev__actions"> <div class="jdgm-rev__social"></div> <div class="jdgm-rev__votes"><div class="jdgm-rev__votes-inner"><span class="jdgm-rev__thumb-btn jdgm-rev_thumb-up" title="up" data-thumb-vote="up" tabindex="0"></span><span class="jdgm-rev__thumb-count jdgm-rev_thump-up-count" data-thumb-count="261">261</span><span class="jdgm-rev__thumb-btn jdgm-rev_thumb-down" title="down" data-thumb-vote="down" tabindex="0"></span><span class="jdgm-rev__thumb-count jdgm-rev_thump-down-count" data-thumb-count="165">165</span></div></div> </div> <div class="jdgm-rev__reply">  </div> </div>
+      <div class="review-wrapper r0"> <div class="jdgm-rev__header">  <div class="jdgm-rev__icon"> C </div>  <span class="jdgm-rev__rating" data-score="5" tabindex="0" aria-label="5 star review" role="img"> <span class="jdgm-star jdgm--on"></span><span class="jdgm-star jdgm--on"></span><span class="jdgm-star jdgm--on"></span><span class="jdgm-star jdgm--on"></span><span class="jdgm-star jdgm--on"></span> </span> <span class="jdgm-rev__timestamp" data-content="2019-06-09 19:20:04 UTC">06/09/2019</span>  <div class="jdgm-rev__br"></div> <span class="jdgm-rev__buyer-badge-wrapper"> <span class="jdgm-rev__buyer-badge"></span> </span>  </div> <div class="jdgm-rev__content"> <div class="jdgm-rev__custom-form">  </div> <b class="jdgm-rev__title">Unexpectedly great results!</b> <div class="jdgm-rev__body"><p>My husband and I both used the neuromd and followed the prescribed procedures and exercises.For many years my leg and foot ached every morning, when I awoke and it worsened through out the day, my sciatica was severe and painful. While I do have some discomfort at the end of a busy day occasionally, I no longer live in constant pain and most mornings and days are completely pain free. The result is amazing.&nbsp;My husband has several disintegrated discs and also, untreated broken vertebrae from an old injury in the thoracic region. He as suffered for years and has become almost immobile forcing him to rely on rolators (walkers) and an electric scooter. While he has had a notable reduction in pain he has also had a amazing increase in abilities. We put his scooter in storage yesterday! It may only be until fishing season in the Spring, who knows. I do know that for several years not having it immediately handy was not an option.The NeuroMD is not magic, but we followed the program and have received some real relief!</p></div><span class="jdgm-rev__author-wrapper"> <span class="jdgm-rev__author">- Laurel Cartwright</span><span class="verified"><img src="{{ 'verify.png' | asset_img_url : '20x' }}" width="30" height="30" >Verified Buyer</span> <span class="jdgm-rev__location">  </span>  </span> <div class="jdgm-rev__pics">  </div> <div class="jdgm-rev__vids">   </div> </div> <div class="jdgm-rev__actions"> <div class="jdgm-rev__social"></div> <div class="jdgm-rev__votes"><div class="jdgm-rev__votes-inner"><span class="jdgm-rev__thumb-btn jdgm-rev_thumb-up" title="up" data-thumb-vote="up" tabindex="0"></span><span class="jdgm-rev__thumb-count jdgm-rev_thump-up-count" data-thumb-count="346">346</span><span class="jdgm-rev__thumb-btn jdgm-rev_thumb-down" title="down" data-thumb-vote="down" tabindex="0"></span><span class="jdgm-rev__thumb-count jdgm-rev_thump-down-count" data-thumb-count="182">182</span></div></div> </div> <div class="jdgm-rev__reply">  </div> </div>
+      <a class="more-reviews-cta" href="#shopify-section-prod-reviews">View More Reviews <img src="https://hellonoemie.s3.ca-central-1.amazonaws.com/view-more-arrow.webp"></a>
+      <div class="bottom-border"></div>
+      </div>
+          </div>
+</div>
+
+
+
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.addEventListener('load', () => {    
+    const options2 = {
+        fillContainer: true,
+        offset: {vertical: 0, horizontal: 10}
+    };
+    const imghover = document.querySelectorAll('.zoom_image-container');
+    const bodyclass = document.querySelector('body');
+    imghover.forEach((img) => {
+      img.addEventListener('mouseover', (event) => {
+        bodyclass.classList.add("active_overflow");
+      });
+    })
+
+    imghover.forEach((img) => {
+      img.addEventListener('mouseleave', (event) => {
+        bodyclass.classList.remove("active_overflow");
+      });
+    })
+  
+    
+    new ImageZoom(document.querySelectorAll('.zoom_image-container')[0], options2);    
+
+    document.querySelectorAll('.prodMain__lowerSlider .slick-slide').forEach((slide) => {
+      slide.addEventListener('click', () => {
+        setTimeout(() => {
+          const selectedMain = document.querySelector('.prodMain__upperSlider .slick-slide.slick-active .zoom_image-container');
+          new ImageZoom(selectedMain, options2);  
+        },100);
+      });
+    })
+  });
+</script>
+
+{% schema %}
+{
+ "name": "Product Accordions",
+ "settings": [
+  {
+     "id": "productDescription",
+     "type": "textarea",
+     "label": "Product Description"
+   },
+   {
+     "id": "backgroundColor",
+     "type": "select",
+     "label": "Background Color",
+     "options": [
+        { "value": "white", "label": "White" },
+        { "value": "D1EEFF", "label": "Blue" }
+     ]
+   },
+   {
+     "id": "videoThumb",
+     "type": "image_picker",
+     "label": "Video Thumbnail"
+   },
+   {
+     "id": "videoIframe",
+     "type": "text",
+     "label": "Video Iframe"
+   },
+   {
+     "id": "reviewTitle",
+     "type": "text",
+     "label": "Featured Review Title"
+   },
+   {
+     "id": "reviewText",
+     "type": "textarea",
+     "label": "Featured Review Text"
+   },
+   {
+     "id": "reviewName",
+     "type": "text",
+     "label": "Featured Review Name"
+   },
+   {
+     "id": "priceSavings",
+     "type": "text",
+     "label": "Price Savings"
+   },
+   {
+     "id": "shippingText",
+     "type": "text",
+     "label": "Shipping Text"
+   }
+ ],
+ "blocks":[
+   {
+     "type": "Check",
+     "name": "Check",
+     "settings":[
+       {
+         "id": "text",
+         "type": "text",
+         "label": "Text"
+       }
+     ]
+   }
+ ]
+}
+{% endschema %}
+
+
+
+<style>
+
+   .prodMain {
+    padding-top: 25px;
+  }
+  .stickyBuy {  
+    display: inline-table;
+} 
+ 
+.prodMain__qty.text--15 {
+        border-style: none;
+      }
+      .qtybox {
+        border: solid 1px black;
+            margin-right: 5px;
+            border-radius: 2px;
+      }
+      .hide {
+          display: none;
+      }
+      .border {
+        border-bottom: solid 2px #0FA3FA;
+      }
+      .bottom-border {
+        height: 2px;
+        background-color: #0FA3FA;
+        width: 90%;
+        margin: 0 auto;
+      }
+      .main-acc-wrapper {
+        margin-bottom: 50px;
+      }
+      .prodMain__checkGrid {
+          margin-top: 15px !important;
+      }
+      .prodMain__priceRow {
+          justify-content: flex-start !important;
+      }
+      .prodMain {
+          padding-bottom: 30px !important;
+      }
+      .acc-arrow-close, .acc-arrow-open {
+          height: 25px;
+          width: 25px;
+          position: absolute;
+          border: 1px solid #fff;
+          border-radius: 50px;
+      }
+      .headline-acc {
+          display: flex;
+          justify-content: space-between;
+          border-top: solid 2px #0FA3FA;
+          width: 100%;
+          cursor: pointer;
+          align-items: center;
+      }
+      .inner-acc-wrapper {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+      }
+      .acc-q {
+          color: #0FA3FA;
+          font-weight: 500;
+          font-size: 17.5px;
+          letter-spacing: 0.24px;
+          padding: 15px 0px;
+      }
+      .arrow-wrapper {
+          position: relative;
+          height: 30px;
+          width: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: 10px;
+      }
+      .acc-a span {
+          color: #CC0000;
+          font-weight: 600;
+      }
+      .acc-a, .list-headline {
+          padding: 0px 40px 20px 20px;
+          font-weight: 400;
+      }
+      .list-a {
+          background-color: #f5fbff;
+          margin-left: 20px;
+          padding: 10px 10px 10px 38px;
+          width: 80%;
+          border-radius: 0px 0px 3px 3px;
+          margin-bottom: 20px;
+      }
+      .list-a li {
+          list-style: initial !important;
+          font-size: 15px;
+      }
+      .list-a li::marker {
+          font-size: 12px;
+      }
+      .list-headline {
+          text-transform: uppercase;
+          color: #fff;
+          background-color: #0fa3fa;
+          width: 60%;
+          padding: 5px 20px;
+          margin-left: 20px;
+          font-weight: 600;
+          border-radius: 3px 3px 0px 0px;
+          font-size: 15px;
+      }
+      .bullet {
+          height: 16px;
+          width: 16px;
+          margin: 7px 20px 0px 0px;
+      }
+      .how-it-works-a-wrapper {
+          display: flex;
+          margin-bottom: 15px;
+      }
+      #how-it-works-a {
+          padding-bottom: 0px !important;
+      }
+      #list-last-a {
+          width: 70%;
+      }
+      .review-wrapper {
+          background-color: #fafafa;
+          width: 90%;
+          margin: 0 auto;
+          padding: 15px;
+          margin-bottom: 10px;
+      }
+      .review-wrapper .jdgm-rev__icon, .review-wrapper .jdgm-rev__timestamp, .review-wrapper .jdgm-rev__buyer-badge-wrapper, .review-wrapper .jdgm-rev__actions {
+          display: none;
+      }
+      .review-wrapper .jdgm-rev__title {
+          font-size: 16px;
+          font-weight: 600;
+          font-weight: 600;
+          line-height: 1.5;
+          color: #303036;
+      }
+      .review-wrapper .jdgm-rev__body p, .review-wrapper .jdgm-rev__author {
+          font-size: 15px;
+      }
+      .review-wrapper .jdgm-rev__author {
+          font-weight: normal;
+          line-height: 1.33;
+          color: #646e78;
+      }
+      .verified img {
+          height: 20px;
+          width: 20px;
+      }
+      .verified {
+          font-size: 15px;
+          font-weight: normal;
+          line-height: 1.33;
+          color: #0fa3fa;
+      }
+      .review-wrapper .jdgm-rev__author-wrapper {
+          display: flex;
+          margin-bottom: 5px;
+      }
+      .review-wrapper .verified {
+          display: flex;
+          margin-left: 10px;
+      }
+      .review-wrapper .jdgm-rev__header, .review-wrapper .jdgm-rev__body {
+          margin-bottom: 16px;
+      }
+      .review-wrapper .jdgm-rev__title {
+          margin-bottom: 6px;
+      }
+      .more-reviews-cta {
+          font-family: Arial;
+          font-size: 15px;
+          font-weight: bold;
+          line-height: 1;
+          color: #fff;
+          padding: 12px 75px;
+          border-radius: 3px;
+          background-color: #0fa3fa;
+          text-decoration: none;
+          display: block;
+          width: 90%;
+          margin: 0 auto;
+          text-align: center;
+          margin-top: 15px;
+          margin-bottom: 15px;
+      }
+      .more-reviews-cta img {
+          height: 14px; 
+          width: 12.3px;
+          margin-left: 5px;
+      }
+      #reviews-headline-acc {
+        border-bottom: solid 2px #0fa3fa;
+      }
+      ul.acc-a{
+        margin-left: 20px;
+        list-style: disc;
+      }
+      .prodMain__checkGrid .prodMain__check:last-child {
+        width: 100%;
+      }
+      .prodMain__description p{
+        display: none;
+      }
+      .main-acc-wrapper{
+        margin-top: 5px;
+      }
+      .prodMainRev {
+        margin-top: 15px;
+      }
+      @media (max-width: 520px) {
+        .headline-acc{
+            cursor: none;
+        }
+          .list-headline {
+              font-size: 14px;
+              width: 62%;
+          }
+          #list-last-a {
+              width: 74%;
+          }
+
+          .main-acc-wrapper {
+            margin-top: 15px;
+          }
+          .more-reviews-cta{
+            padding: 12px 30px;
+          }
+      }
+      @media (max-width: 400px) {
+          .list-headline {
+              padding: 5px 11px;
+              font-size: 13px;
+          }
+        .header .stickyBuy__inner {
+    width: calc(100% - 50px);
+}
+      }
+      @media (max-width: 365px) {
+        #list-last-a {
+            width: 75%;
+        }
+    }    
+ 
+  
+</style>
+
+            <script>
+document.querySelectorAll(".headline-acc").forEach((el) => {
+            el.addEventListener("click", (ev) => {
+                if (el.querySelector("p").innerText === "Reviews") {
+                    el.classList.toggle("border");
+                }
+                if (ev.target.classList.contains("headline-acc")) {
+                    ev.target.parentNode
+                        .querySelector(".hidden-acc")
+                        .classList.toggle("hide");
+                    ev.target.parentNode
+                        .querySelector(".acc-arrow-open")
+                        .classList.toggle("hide");
+                    ev.target.parentNode
+                        .querySelector(".acc-arrow-close")
+                        .classList.toggle("hide");
+                }
+                if (
+                    ev.target.classList.contains("acc-q") ||
+                    ev.target.classList.contains("arrow-wrapper")
+                ) {
+                    ev.target.parentNode.parentNode
+                        .querySelector(".hidden-acc")
+                        .classList.toggle("hide");
+                    ev.target.parentNode.parentNode
+                        .querySelector(".acc-arrow-open")
+                        .classList.toggle("hide");
+                    ev.target.parentNode.parentNode
+                        .querySelector(".acc-arrow-close")
+                        .classList.toggle("hide");
+                }
+                if (
+                    ev.target.classList.contains("acc-arrow-close") ||
+                    ev.target.classList.contains("acc-arrow-open")
+                ) {
+                    ev.target.parentNode.parentNode.parentNode
+                        .querySelector(".hidden-acc")
+                        .classList.toggle("hide");
+                    ev.target.parentNode.parentNode.parentNode
+                        .querySelector(".acc-arrow-open")
+                        .classList.toggle("hide");
+                    ev.target.parentNode.parentNode.parentNode
+                        .querySelector(".acc-arrow-close")
+                        .classList.toggle("hide");
+                }
+            });
+        }); 
+              
+            </script>
+ 

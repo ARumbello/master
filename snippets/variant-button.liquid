@@ -1,0 +1,220 @@
+{%- liquid
+  assign swatch_file_extension = 'png'
+  assign option_index = forloop.index
+-%}
+
+{%- capture size_chart_title -%}
+  {{ 'products.general.size_chart' | t }} <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-size-chart" viewBox="0 0 64 64"><path d="M22.39 33.53c-7.46 0-13.5-3.9-13.5-8.72s6-8.72 13.5-8.72 13.5 3.9 13.5 8.72a12 12 0 0 1-.22 1.73"/><ellipse cx="22.39" cy="24.81" rx="3.28" ry="2.12"/><path d="M8.89 24.81V38.5c0 7.9 6.4 9.41 14.3 9.41h31.92V33.53H22.39m24.39 0v7.44m-8.13-7.44v7.44m-8.13-7.44v7.44m-8.13-7.44v7.44"/></svg>
+{%- endcapture -%}
+
+{%- liquid
+  assign is_size = false
+  assign size_trigger = 'products.general.size_trigger' | t | downcase
+  assign downcased_option = option.name | downcase
+
+  if downcased_option contains size_trigger
+    assign is_size = true
+  endif
+-%}
+
+<div class="variant-wrapper js" data-type="button">
+  <label class="variant__label{% if option.name == 'Default' or option.name == 'Title' %} hidden-label{% endif %}{% unless variant_labels %} hidden-label{% endunless %}"
+    for="ProductSelect-{{ section_id }}-{{ product.id }}-option-{{ forloop.index0 }}">
+    {{ option.name }}
+    {%- if connect_to_sizechart and is_size -%}
+      <span class="variant__label-info">
+        &mdash;
+        {%- render
+          'tool-tip-trigger',
+          title: size_chart_title,
+          content: section.blocks[sizechart_index].settings.size_chart.content,
+          context: 'size-chart'
+        -%}
+      </span>
+    {%- endif -%}
+    {%- if is_color -%}
+      <span class="variant__label-info">
+        &mdash;
+        <span
+          data-variant-color-label
+          data-index="{{ forloop.index0 }}"
+          data-option-index="{{ color_option_index }}">
+          {{ option.selected_value }}
+        </span>
+      </span>
+    {%- endif -%}
+  </label>
+
+  <fieldset class="variant-input-wrap"
+    name="{{ option.name }}"
+    data-index="option{{ option_index }}"
+    data-handle="{{ option.name | handleize }}"
+    id="ProductSelect-{{ section_id }}-{{ product.id }}-option-{{ forloop.index0 }}">
+    <legend class="hide">{{ option.name }}</legend>
+    {%- for value in option.values -%}
+      {%- liquid
+        assign product_available = true
+        if product.options.size == 1
+          assign product_available = product.variants[forloop.index0].available
+        endif
+      -%}
+      <div
+        class="variant-input"
+        data-index="option{{ option_index }}"
+        data-value="{{ value | escape }}">
+        <input type="radio"
+          {% if option.selected_value == value %} checked="checked"{% endif %}
+          form="{{ form_id }}"
+          value="{{ value | escape }}"
+          data-index="option{{ option_index }}"
+          name="{{ option.name }}"
+          data-variant-input
+          class="{% unless product_available %} disabled{% endunless %}{% if is_color %} variant__input--color-swatch{% endif %}"
+          {% if is_color %} data-color-name="{{ value | escape }}"{% endif %}
+          {% if is_color %} data-color-index="{{ color_option_index }}"{% endif %}
+          id="ProductSelect-{{ section_id }}-{{ product.id }}-option-{{ option.name | handleize }}-{{ value | url_encode }}">
+        {%- if is_color -%}
+          {%- liquid
+            assign color_file_name = value | handle | append: '.' | append: swatch_file_extension
+            assign color_image = color_file_name | file_img_url: '50x50' | prepend: 'https:' | split: '?' | first
+            assign color_swatch_fallback = value | split: ' ' | last | handle
+          -%}
+          <label
+            for="ProductSelect-{{ section_id }}-{{ product.id }}-option-{{ option.name | handleize }}-{{ value | url_encode }}"
+            class="color-swatch color-swatch--{{ value | handle }}{% unless product_available %} disabled{% endunless %}"
+            style="background-color: {{ color_swatch_fallback }};{% if images[color_file_name] != blank %}  background-image: url({{ color_image }});{% endif %}"
+          >
+            {{ value | escape }}
+          </label>
+        {%- else -%}
+          {% assign parts = value | split: '+' %}
+          {% assign parts = parts[0] | split: ' ' %}
+          {% assign total = 0 %}
+          {% for part in parts %}
+            {% if part contains '1' or part contains '2' or part contains '3' or part contains '4' or part contains '5' or part contains '6' or part contains '7' or part contains '8' or part contains '9' or part contains '0' %}
+              {% assign number = part | plus: 0 %}
+              {% assign total = total | plus: number %}
+            {% endif %}
+          {% endfor %}
+          {% assign variant = product.variants | where: 'option' | first %}
+          {% assign variant = product.variants | where: 'title', value | first %}
+          <label for="ProductSelect-{{ section_id }}-{{ product.id }}-option-{{ option.name | handleize }}-{{ value | url_encode }}"{% unless product_available %} class="disabled"{% endunless %}>
+              <div>
+                {% if variant and variant.metafields.custom.best_seller %}
+                  <p class="badge">Best Seller</p>
+
+                  <script>
+                    const currentURL = new URL(window.location.href);
+                    if(!currentURL.searchParams.get('variant')) {
+                      currentURL.searchParams.set('variant', {{ variant.id }});
+                      location.href = currentURL.href;
+                      //dcthistory.pushState({}, null, currentURL.href)
+                    }
+                  </script>
+                {% endif %}
+                <span>{{ value | escape }}</span>
+              </div>
+              <div class="variant-price-wrapper">
+                {% if variant %}
+                  {% render 'price',
+                    current_variant: variant,
+                    product: product,
+                    item_count: total
+                  %}
+                {% else %}
+                  N/A
+                {% endif %}
+              </div>
+          </label>
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </fieldset>
+</div>
+
+
+    <style>
+      .variant-input-wrap {
+        display: flex;
+        flex-direction: column;
+      }
+      .variant-input-wrap .variant-input {
+        position:relative;
+      }
+      .variant-input-wrap label {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        box-shadow: none;
+        border: 1px dashed #1A507A;
+        border-radius: 6px;
+        background-color: #F2FAFB;
+        padding-left: 40px;
+        height: 55px;
+      }
+      .variant-input-wrap label .badge {
+        background-color: {{ block.settings.badge_background_color }};
+        border-radius: 12px;
+        font-weight: bold;
+        font-size: 12px;
+        line-height: 22px;
+        color: {{ block.settings.badge_text_color }};
+        display: block;
+        width: fit-content;
+        padding: 0 12px;
+      }
+      .variant-input-wrap input[type=radio]:checked+label {
+        border-style: solid;
+        background-color: #E0EDFD;
+        box-shadow: none;
+      }
+      .product-block .variant-input-wrap input[type=radio] {
+        top: 18px;
+        clip: auto;
+        left: 10px;
+        z-index: 9;
+      }
+      .variant-price-wrapper {
+        text-align: right;
+      }
+      .variant-price-wrapper div {
+        display: flex;
+        gap: 5px;
+      }
+      .variant-price-wrapper span {
+        font-size: 16px;
+        line-height: 27px;
+      }
+      .variant-price-wrapper .product__price--compare {
+        color: #A0A2A3;
+      }
+      .variant-price-wrapper .sale-price {
+        color: #002F49;
+        font-weight: bold;
+      }
+      .variant-price-wrapper .unit-price {
+        color: #002F49;
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      @media screen and (max-width: 767px) {
+        .variant-input-wrap label {
+          height: 65px;
+          font-size: 14px;
+          line-height: 23px;
+        }
+        .product-block .variant-input-wrap input[type=radio] {
+          top: 23px;
+        }
+      }
+      @media screen and (max-width: 382px) {
+        .variant-input-wrap label {
+          height: 74px;
+        }
+        .product-block .variant-input-wrap input[type=radio] {
+          top: 28px;
+        }
+      }
+    </style>

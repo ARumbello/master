@@ -1,0 +1,588 @@
+a.btn:hover {
+  text-decoration: none;
+}
+.rte a:not(.rte__image):not(.btn):not(.spr-summary-actions-newreview) {
+  border-color: inherit;
+}
+
+
+/* header-footer start  */
+.header-item--navigation .site-nav .site-nav__dropdown a:hover,
+.header-item--navigation .site-nav .site-nav--has-dropdown>details[open]>summary,
+.header-item--navigation .site-nav .site-nav__link:hover,
+.header-item--navigation .site-nav .site-nav__details:hover .site-nav__link {
+  color: #005585 !important;
+}
+
+.footer-form-social li a,
+.site-footer__linklist li a {
+  transition: all 0.3s ease-in-out 0s;
+}
+
+.footer-form-social li a:hover,
+.site-footer__linklist li a:hover {
+  color: #0FA3FA;
+}
+
+.form-vertical button[type="button"],
+.form-vertical a {
+  text-decoration: underline;
+  color: #002f49;
+}
+
+.form-vertical button[type="button"]:hover,
+.form-vertical a:hover {
+  color: #005585;
+}
+
+.grid-newsletter .footer__collapsible p {
+  margin-bottom: 20px;
+}
+
+.grid-newsletter .klaviyo-form {
+  padding-top: 0;
+}
+
+/* header-footer end  */
+
+/*  account pages  start */
+
+.template-customers-register .subtitle {
+  margin-top: 16px;
+}
+
+/*  account pages end */
+
+
+/* product page start */
+.prodMain {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.active_overflow .purchaseOptionArea .purchaseContent {
+  position: static;
+}
+
+.hs-content-buttons .hs-checkout-purchase {
+  padding-right: 10px !important;
+}
+
+.pad-replacement-new .prodMain__inner {
+  padding: 20px;
+}
+
+.template-product .prodMain__lowerSlider {
+  width: 100%;
+  position: relative;
+  left: 0;
+}
+
+.our-mission-row .our-mission-text-wrapper .btn--blue:hover {
+  background: var(--colorNavText);
+  color: #fff !important;
+  border-color: var(--colorNavText);
+}
+
+.faqAccordion .collapsible-content__inner--faq ul {
+  padding: 0;
+  margin: 0 0 0 15px;
+}
+
+.faqAccordion .collapsible-content__inner--faq ul li {
+  padding: 0 0 0 15px;
+  margin: 0 0 5px;
+  position: relative;
+}
+
+.faqAccordion .collapsible-content__inner--faq ul li:before {
+  position: absolute;
+  left: 0;
+  content: "";
+  top: 10px;
+  width: 6px;
+  height: 6px;
+  background: #1c1d1d;
+  border-radius: 50%;
+}
+
+.template-page .zpa-word-wrap * {
+  font-family: var(--typeBasePrimary),var(--typeBaseFallback)
+}
+
+.template-page #zp-entity-content-wrapper {
+  padding-bottom: 50px;
+}
+
+.empty-order-msg {
+  margin-bottom: 20px;
+}
+
+body .product-custom-ro-widget__2 {
+  padding: 16px 16px 95px 16px;
+}
+
+.footer__collapsible form.needsclick.klaviyo-form button.needsclick {
+  border-radius: 0px !important;
+}
+
+.footer__collapsible form.needsclick.klaviyo-form input.needsclick {
+  border-color: #fff !important;
+  color: #fff !important;
+  border-radius: 0px !important;
+}
+
+.footer__collapsible form.needsclick.klaviyo-form input.needsclick:hover {
+  border-color: #fff !important;
+  color: #fff !important;
+}
+
+.footer__collapsible form.needsclick.klaviyo-form input.needsclick::-ms-input-placeholder {
+  color: #fff !important;
+}
+
+.footer__collapsible form.needsclick.klaviyo-form input.needsclick::placeholder {
+  color: #fff !important;
+}
+
+.site-footer .grid-newsletter .collapsible-content p {
+    color: #fff;
+}
+
+.purchaseContent .top_area h2 {
+  margin: 0px;
+}
+
+.puOption .purchaseContent > svg {
+  top: 17px;
+}
+
+.tabs-block .shopify-tab-content *,
+body ul.product-disc li {
+  font-family: 'Poppins';
+}
+
+.product_template_new .product-single__meta div[id^="shopify-block-judge_me_reviews_preview_badge"],
+.pad-replacement-new .product-single__meta div[id^="shopify-block-judge_me_reviews_preview_badge"] {
+  cursor: pointer;
+}
+.product_template_new .product-single__meta .jdgm-widget,
+.pad-replacement-new .product-single__meta .jdgm-widget {pointer-events: none;}
+
+input[name="purchaseType"]+.purchaseContent .toggleArea .txt .onetime_save {
+  margin-left: auto;
+  margin-bottom: 20px;
+}
+
+.purchaseContent .toggleArea .txt p {
+  max-width: 100%;
+}
+
+input[name="purchaseType"]+.purchaseContent .toggleArea .txt {
+  flex-direction: column-reverse;
+}
+
+.toggleArea .selection_area .frequency:empty {
+  display: none;
+}
+
+.product-box .purchaseContent .toggleArea .txt > span {
+  margin-left: auto;
+  margin-bottom: 10px;
+}
+
+.product-custom-ro-widget__2 .custom-variants .each-variant.active {
+  border-left: 2px solid #0BA3FA;
+}
+
+.product-custom-ro-widget__2 .custom-variants .each-variant {
+  border-left: 1px solid #9D9D9D;
+}
+
+body .prodMain__comparePrice {
+  line-height: 33px;
+}
+
+.template-product .prodMain__lowerSlideWrapper {
+  max-width: calc(100% - 15px);
+  display: block !important;
+}
+
+.template-product .prodMain__lowerSlider {
+  width: calc(100% + 12px);
+  left: -8px;
+}
+
+.template-product .with-arrow .slick-prev {
+  transform: rotate(180deg) translate(0, -50%);
+  transform-origin: top;
+}
+
+.single_review iframe {
+  width: 100%;
+}
+
+.prodMain__right .access__stars {
+  margin-left: 0;
+}
+
+#subscription .qty-wrapper .qtybox .btnqty {
+  height: 45px;
+  line-height: 45px;
+}
+
+.product-box .prodMain__buyRow__shipping {
+  display: none;
+}
+
+.tab-widget .qty-wrapper .btnqty {
+  height: 45px;
+  line-height: 45px;
+}
+
+.jdgm-widget .jdgm-rev__reply-content {
+  word-break: break-word;
+}
+
+.jdgm-widget .jdgm-rev .jdgm-rev__actions {
+  margin-bottom: 16px;
+}
+
+.jdgm-widget .jdgm-rev__replier-wrapper {
+  margin: 4px 0 0 0;
+}
+
+.jdgm-rev__reply.no-border {
+  display: none;
+}
+  
+body .frequency_wp:not(.ios) select {
+  background-image: var(--urlIcoSelect) !important;
+  background-position: 100% !important;
+  background-position: right 10px center !important;
+  background-repeat: no-repeat !important;
+  background-size: 11px !important;
+}
+/* .jdgm-all-reviews-widget,.jdgm-rev-widg{padding:0!important} */
+
+body .js-qty__wrapper button {
+  z-index: 1;
+}
+
+.template-product .image-text-section .button a,
+.template-product .colprod_section .call-to-action-section .button a {
+  pointer-events: none;
+}
+
+button.kl-teaser-SzDe5w {
+  display: none !important
+}
+
+.testimonial-image,
+.testimonial-image .image-wrap{
+  background: transparent;
+}
+
+@media only screen and (max-width: 1399px) {
+  
+  .puOption .toggleArea .selection_area {
+    flex-wrap: wrap;
+    gap: 10px 32px;
+  }
+  
+  .puOption .selection_area .amount {
+    width: 100%;
+    flex: auto;
+  }
+  
+  .puOption .amount_wp label > div p {
+    white-space: nowrap;
+  }
+  
+  .puOption .selection_area .frequency {
+    margin-left: 0;
+  }
+  
+}
+
+@media only screen and (max-width: 1199px) {
+  
+  .site-footer {
+    padding-bottom: 40px;
+    padding-top: 40px;
+  }
+
+  .site-footer .footer-grid .grid__item {
+    width: 25%;
+  }
+  
+  .site-footer .footer-grid .grid__item.grid-newsletter {
+    width: 100%;
+    margin-top: 30px;
+  }
+
+  .grid-newsletter .collapsible-content {
+    max-width: 440px;
+    margin-left: 0;
+  }
+
+  .site-nav__link, .site-nav__dropdown-link {
+    font-size: 14px !important;
+  }
+
+  .pad-replacement-new .prodMain__inner {
+    column-gap: 30px;
+  }
+
+  .iconBox-row {
+    flex-wrap: wrap;
+  }
+
+  .iconBox-row .iconBox {
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 10px;
+    min-height: 1px;
+  }
+
+  .iconBox img {
+    margin: 0px 0;
+  }
+
+  .product_template_new .index-section .jdgm-rev-widg {
+    padding: 0;
+  }
+  
+  .product_template_new .index-section .page-width {
+    padding: 0 10px;
+  }
+
+}
+
+@media only screen and (max-width: 1084px) {
+  .header, .our-mission-banner-inner .header {
+    text-align: left;
+    max-width: 80%;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+
+  .pad-replacement-new .prodMain__inner {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .header-layout--center-left.header-layout .header-item {
+      margin-left: auto;
+      margin-right: 0;
+      
+  }
+
+  .header-layout--center-left.header-layout .header-item--left {
+    flex: 0;
+  }
+
+  .header-layout--center-left.header-layout .header-item--left .site-nav {
+    display: none;
+  }
+
+  .header-layout--center-left.header-layout .header-item {
+    margin-left: 0;
+  }
+
+  .header-layout--center-left.header-layout .header-item--left div.site-nav {
+    display: block !important;
+    margin-left: 0;
+  }
+
+   .header-layout--center-left.header-layout .header-item.header-item--logo {
+     margin-right: auto;
+   }
+
+   .header-layout--center-left.header-layout .header-item.header-item.header-item--icons {
+     flex: 0;
+   }
+
+   .header-layout--center-left.header-layout .header-item--left div.site-nav button svg {
+    transform: translateY(4px);
+   }
+
+   .grid__item.medium-up--one-half.product-single__sticky.prodMain__left,
+   .pad-replacement-new .prodMain__inner .prodMain__right {
+     width: 100%;
+   } 
+
+
+   .product_template_new .index-section .jdgm-rev-widg {
+      width: 100%;
+      flex-direction: column
+   } 
+  
+    .product_template_new .index-section .jdgm-rev-widg__body,
+    .product_template_new .index-section .jdgm-rev-widg__header {
+      width: 100%!important
+    } 
+  
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1199px) {
+  
+  .product_template_new .product-box > .grid__item:last-child {
+    padding-left: 26px;
+  }
+  
+  .product_template_new .product-box > .grid__item:first-child {
+    padding-left: 0;
+  }
+  
+}
+
+@media screen and (max-width: 1023px) {
+  
+  .product_template_new .product-box > .grid__item {
+    width: 100%;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .kitSection .prodInc__title {
+    min-width: 100%;
+  }
+}
+
+@media screen and (min-width: 590px) and (max-width: 767px) {
+  
+  .site-footer .footer-grid .grid__item {
+    width: 100%;
+    margin-bottom: 30px;
+  }
+
+  .site-footer .footer-grid .grid__item.grid-newsletter {
+    width: 100%;
+    margin: 0px;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  
+  .clinical-disclaimer-content-wrapper {
+    height: auto;
+    margin-top: 0 !important;
+    padding: 20px 0;
+  }
+
+  .clinical-studies-inner .header {
+    max-width: 100%;
+  }
+
+  .clinical-studies-inner .header {
+    font-size: 30px;
+    line-height: 38px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+
+  .clinical-studies-inner .container {
+    width: 100%;
+  }
+
+  .clinical-disclaimer-inner .disclaimer {
+    width: 100%;
+    padding: 0 15px;
+  }
+
+  .clinical-disclaimer-inner .disclaimer, .clinical-reviews-inner {
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  
+  .prodMain__right .prodMain__buyRow {
+    align-items: flex-start;
+    gap: 10px;
+    flex-direction: row;
+  }
+
+  .prodMain__button {
+    padding: 0 10px;
+  }
+
+  .prodMain__inner .prodMain__buyRow .qtybox .qtyplus {
+    right: 1px;
+  }
+
+  .prodMain__buyRow .qtybox .prodMain__qty {
+    height: 44px;
+  }
+
+  .kitSection .prodInc__title {
+    z-index: 11;  
+  }
+
+  body .qty-wrapper .prodMain__qty {
+    float: none;
+    margin: 0;
+  }
+
+  body .prodMain__priceRow {
+    justify-content: flex-start;
+  }
+}
+
+@media screen and (max-width: 640px) {
+ 
+  body .product-custom-ro-widget__2 {
+    padding-bottom: 160px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  
+  .site-footer .footer-grid .grid__item {
+    width: 100%;  
+  }
+
+  .pad-replacement-new .prodMain__inner {
+    background: #fff;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .pad-replacement-new .prodMain {
+    padding: 0;
+    width: 100%;
+  }
+
+  body .jdgm-rev__rating {
+    left: 15px !important;
+  }
+
+  .header-layout--center-left.header-layout .header-item.header-item.header-item--icons {
+    min-width: 32px;
+  }
+
+  .header-layout--center-left.header-layout .header-item.header-item--logo {
+      margin-left: auto;
+  }
+}
+
+@media screen and (max-width: 589px) {
+  
+   .grid-newsletter .footer__collapsible {
+    padding: 15px 0 15px;
+   }
+  
+  .site-footer .footer-grid .grid__item.grid-newsletter .footer__title.small--hide + button {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 415px) {
+ 
+  .jdgm-rev .jdgm-rev__timestamp ~ .jdgm-rev__br {
+    padding-left: 95px !important;
+  }
+  
+}

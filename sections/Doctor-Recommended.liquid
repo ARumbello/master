@@ -1,0 +1,143 @@
+<style>
+  #{{ section.id }} .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+      display: inherit;
+  }
+  #{{ section.id }} .product-image {
+      width: 100%;
+      margin-bottom: 20px;
+  }
+  #{{ section.id }} .doctor-recommended {
+      text-align: center;
+      font-weight: 700;
+      font-size: 28px;
+      margin: 30px 0;
+      color: #2a5c9a;
+      text-transform: uppercase;
+  }
+  #{{ section.id }} .testimonials-wrapper {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+  }
+  #{{ section.id }} .testimonial-card {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      padding: 25px;
+      background: #f8f8f8;
+      border-radius: 15px;
+      max-width: 480px;
+  }
+  #{{ section.id }} .doctor-image {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 25px;
+      flex-shrink: 0;
+  }
+  #{{ section.id }} .quote {
+      font-style: italic;
+      color: #444;
+      line-height: 1.4;
+      font-size: 16px;
+  }
+  #{{ section.id }} .doctor-name {
+      font-weight: 700;
+      margin-top: 15px;
+      color: #2a5c9a;
+      font-size: 15px;
+  }
+  @media (max-width: 768px) {
+      #{{ section.id }} .testimonials-wrapper {
+          flex-direction: column;
+      }
+      #{{ section.id }} .testimonial-card {
+          max-width: 100%;flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 20px;
+      }
+    #{{ section.id }} .doctor-recommended {
+      text-align: left;
+      font-size: 22px;
+  }
+  }
+</style>
+
+<div id="{{ section.id }}">
+  <div class="container">
+    <div class="doctor-recommended">{{ section.settings.main-title-007 }}</div>
+
+    <div class="testimonials-wrapper">
+      {% for block in section.blocks %}
+        <div class="testimonial-card">
+          {% if block.settings.image-9908 != blank %}
+            <img src="{{ block.settings.image-9908 | img_url: 'master' }}" 
+                 alt="{{ block.settings.title }}" 
+                 class="doctor-image">
+          {% endif %}
+          <div>
+            <div class="quote">{{ block.settings.para-009765 }}</div>
+            <div class="doctor-name">{{ block.settings.title }}</div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Doctor Recommended",
+  "settings": [
+    {
+      "type": "text",
+      "id": "main-title-007",
+      "label": "Main Title",
+      "default": "Doctor Recommended"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Slide",
+      "type": "slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image-9908",
+          "label": "Image Upload"
+        },
+        {
+          "type": "richtext",
+          "id": "para-009765",
+          "label": "Description",
+          "default": "<p>Has demonstrated a clinically significant reduction in pain ratings and functional improvements in adults with chronic low back pain</p>"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Dr. Mark Rosenberg, M.D."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Doctor Recommended",
+      "blocks": [
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

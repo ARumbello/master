@@ -1,0 +1,242 @@
+<div class="step_section">
+  <div class="container">
+    <div class="row display-flex">
+      <div class="mobile-title">
+        <h2>{{ section.settings.main_title }}</h2>
+        <h4>{{ section.settings.description }}</h4>
+      </div>
+      <div class="steps___left">
+      <div class="desktop-title">
+        <h2>{{ section.settings.main_title }}</h2>
+        <h4>{{ section.settings.description }}</h4>
+      </div>
+        <div class="feature-icon-box-wrapper"> {% for block in section.blocks %}
+          {% if block.type == 'icon' %}
+          <div class="icon-wrap display-flex">
+            <div class="icons-circle"><img class="prodIcon__icon lazyload"
+                data-src="{{ block.settings.stepicon | img_url: '32x' }}"
+                alt="{{ block.settings.stepicon.alt }}"></div>
+            <div class="feature-icon-content">
+              <h3>{{ block.settings.steptitle }}</h3>
+              <p>{{ block.settings.stepdescription }}</p>
+            </div>
+          </div>
+          {% endif %}
+          {% endfor %} </div>
+      </div>
+      <div class="steps___right">
+        <img class="myclass1" alt="{{ section.settings.image.alt}}" src="{{ section.settings.image | img_url: '' }}" /> 
+        <video style="max-width: 100%; height: auto; display:{{ section.settings.video_display }}" autoplay="autoplay" loop="loop" muted="" webkit-playsinline="" playsinline="">
+          <source src="{{ section.settings.video_url }}" type="video/mp4" />
+        </video>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Steps Section",
+    "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Product Image"
+    }, 
+	{
+        "type": "text",
+        "id": "video_url", 
+       "label": "Video URL/MP4"
+	}, 
+	{
+        "type": "text",
+        "id": "video_display", 
+       "label": "Video show - block/none"
+	},   
+	{
+        "type": "text",
+        "id": "main_title", 
+       "label": "Main Heading"
+	},
+	{
+        "type": "richtext",
+        "id": "description", 
+       "label": "Heading description"
+	}
+],
+ "blocks":[
+   {
+     "type": "icon",
+     "name": "Icon",
+     "settings":[
+       {
+         "id": "stepicon",
+         "type": "image_picker",
+         "label": "Step Icon"
+       }, 
+        {
+            "type": "text",
+            "id": "steptitle", 
+           "label": "Step Title"
+        },
+        {
+            "type": "richtext",
+            "id": "stepdescription", 
+           "label": "Step description"
+        }
+     ]
+   }
+ ]
+ }
+{% endschema %}
+
+<style>
+.prodMain {
+    padding-top: 25px;
+    padding-bottom: 0px;
+}
+.step_section{
+	margin:0px;
+	padding:50px 0px;
+	width:100%;
+	background:#f5f5f5;
+}
+.step_section .row{
+	align-items: center;
+}
+ 
+.step_section h2 {
+    color: #0BA3FA;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    margin-bottom: 20px;
+}
+.step_section h3 {
+    margin-top: 0px;
+	color:#242426;
+	font-family: Poppins;
+	font-size: 18px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: 140%;
+}
+.step_section h4 {
+    color: #242426;
+    font-family: Poppins;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 140%;
+    margin-bottom: 20px;
+}
+.steps___left{
+	margin:0px;
+	padding:0px 10% 0 0;
+	width:50%;
+}
+
+.steps___right{
+	margin:0px;
+	padding:0px;
+	width:50%;
+}
+ .right img{
+	width:100%;
+	border-radius:10px;
+}
+.icon-wrap {
+    display: flex;
+    padding: 20px 0px;
+    position:relative;
+}
+.icon-wrap:after {
+    background: #0BA3FA;
+    width: 2px;
+    height: 100%;
+    position: absolute;
+    content: "";
+    left: 15px;
+    z-index: 0;
+}
+.icon-wrap:nth-last-child(1):after {
+    display: none;
+}
+.icons-circle {
+    margin: 0px 5% 0 0;
+    position: relative;
+    z-index: 11;
+}
+.icons-circle img {
+    width: 32px;
+    height: 32px;
+    max-width: 32px;
+}
+.mobile-title{display:none;} 
+.desktop-title{display:block;}   
+@media screen and (min-width: 100px) and (max-width: 640px){   
+.step_section { 
+    padding: 50px 20px; 
+}
+.steps___left, .steps___right { 
+    width: 100%;
+} 
+.step_section h2 { 
+    font-size: 24px; 
+}
+.mt-50 {
+    margin-top: 20px;
+}  
+}
+@media screen and (min-width: 641px) and (max-width: 1100px){ 
+.news-section {
+    padding: 10px 20px 50px 20px!important;
+}
+.step_section, .relief-slider-section, .colprod_section, .review-slider-section { 
+    padding: 30px 0px!important; 
+}
+.steps___left {
+    margin: 0px;
+    padding: 0px 5% 0 0;
+    width: 70%;
+}  
+.steps___right {
+    margin: 0px;
+    padding: 50px 0 0 0;
+    width: 30%;
+}
+.step_section .row {
+    align-items: normal;
+}
+.prod-title { 
+    padding: 20px 0;
+}  
+.mobile-title{display:block;} 
+.desktop-title{display:none;}  
+.relief-subheading { 
+    padding: 20px!important;
+}
+.colprod-title { 
+    font-size: 28px!important; 
+}
+.call-to-action-section {
+    margin: 50px 0 0 0!important;
+    padding: 0px!important;
+}
+.includes-wrap { 
+    width: 45%!important;
+}
+.include_section {
+    background: #aac7f4!important;
+    min-height: auto!important;
+    background-position: 0px!important;
+    background-size: contain!important;
+    background-repeat: no-repeat!important;
+    background-image: url(//getneuromd.com/cdn/shop/files/Package_cover-bg_1600x.png?v=1691751850)!important;
+}
+#shopify-section-prod-faq {
+    padding: 50px!important;
+}
+}
+  
+ </style>

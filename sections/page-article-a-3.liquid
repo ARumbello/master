@@ -1,0 +1,451 @@
+{%- if section.settings.layout == 'default' -%}
+	{%- assign layout_class="container" -%}
+{%- elsif section.settings.layout == "full" %}
+	{%- assign layout_class="container-fluid" -%}
+{%- else -%}
+	{%- assign layout_class="container inner" -%}
+{%- endif -%}
+<div class="page-article-benefits-inner" id="page-section-{{section.id}}">
+    <div class="{{layout_class}}">
+      {% for block in section.blocks %}
+        {% if block.type == 'image' %}
+        <div class="page-article-image page-block">
+              {% if block.settings.image != blank %}
+              <img class="article-image img-fluid lazyload" data-src="{{ block.settings.image | img_url : 'master' }}" alt="{{ block.settings.image.alt }}">
+              {% endif %}
+        </div>
+      	{% elsif block.type == 'summary' %}
+        <div class="page-article-summary page-block">
+            <div class="{{ block.settings.summary_text_align }}">
+              {% if block.settings.heading != blank %}
+              <h2 class="heading text-center">{{ block.settings.heading }}</h2>
+              {% endif %}
+              {% if block.settings.content != blank %}
+              <div class="content">{{ block.settings.content }}</div>
+              {% endif %}
+            </div>
+        </div>
+        {% elsif block.type == 'quote' %}
+        <div class="page-article-quote page-block">
+              <div class="quote-open-image">
+                {% if section.settings.quote_image != blank %}
+                {%- assign img_url = section.settings.quote_image | img_url: 'master'  -%}
+                <img data-srcset="https:{{ img_url }}" alt="{{ section.settings.quote_image.alt | default: shop.name }}" {% include 'lazy_load' %}>
+                {% endif %}
+              </div>
+              <div class="quote-content">{{ block.settings.content }}</div>
+              <div class="quote-close-image">
+                {% if section.settings.quote_image != blank %}
+                {%- assign img_url = section.settings.quote_image | img_url: 'master'  -%}
+                <img data-srcset="https:{{ img_url }}" alt="{{ section.settings.quote_image.alt | default: shop.name }}" {% include 'lazy_load' %}>
+                {% endif %}
+              </div>
+        </div>
+        {% elsif block.type == 'text' %}
+        <div class="page-article-text page-block">
+              {% if block.settings.content != blank %}
+              <div class="article-text">{{ block.settings.content }}</div>
+              {% endif %}
+         </div>
+        {% elsif block.type == 'offer' %}
+        <div class="page-article-offer page-block">
+          <div class="row">
+            <div class="col-md-5">
+              {% if block.settings.image != blank %}
+              <div class="image-wrapper">
+                <img class="img-fluid lazyload" data-src="{{ block.settings.image | img_url: '400x' }}">
+              </div>
+              {% endif %}
+            </div>
+            <div class="col-md-7">
+              {% if block.settings.heading != blank %}
+              <h3 class="heading">{{ block.settings.heading }}</h3>
+              {% endif %}
+              {% if block.settings.button_url != blank %}
+              <a href="{{ block.settings.button_url }}" class="btn">{{ block.settings.button }}</a>
+              {% endif %}
+              {% if block.settings.description != blank %}
+              <p class="description">{{ block.settings.description }}</p>
+              {% endif %}
+            </div>
+          </div>
+         </div>
+      	{% else %}
+        {% endif %}
+      {% endfor %}
+  </div>
+</div>
+<style>
+  .page-article-benefits-inner .page-block {
+    margin-bottom: {{ section.settings.gap_amount}}px;
+  }
+  #page-section-{{section.id}} .page-article-image .article-image {
+    border-radius: {{ section.settings.image_border_radius }};
+    {% if section.settings.image_use_shadow  == true %}
+    box-shadow: {{ section.settings.image_shadow_style }};
+    {% endif %}
+  }
+  
+  #page-section-{{section.id}} .page-article-summary {
+    padding: {{ section.settings.summary_padding_y}}px {{ section.settings.summary_padding_x}}px;
+    color: {{ section.settings.summary_text_color }};
+    background-color: {{ section.settings.summary_bg}};
+  }
+  
+  #page-section-{{section.id}} .page-article-summary .heading {
+    color: {{ section.settings.summary_text_color }};
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  
+  #page-section-{{section.id}} .page-article-quote {
+    background-color: {{ section.settings.quote_bg }};
+    padding: {{ section.settings.quote_padding }}px;
+    border-radius: {{ section.settings.quote_border_radius }};
+    {% if section.settings.quote_use_shadow  == true %}
+    box-shadow: {{ section.settings.quote_shadow_style }};
+    {% endif %}
+  }
+  
+  #page-section-{{section.id}} .page-article-quote .quote-content {
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    font-weight: 500;
+    line-height: 1.5;
+  }
+  
+  #page-section-{{section.id}} .page-article-offer {
+    background: {{ section.settings.offer_bg }};
+    {% if section.settings.offer_use_shadow  == true %}
+    box-shadow: {{ section.settings.offer_shadow_style }};
+    {% endif %}
+    padding: {{ section.settings.offer_padding }}px;
+  }
+  #page-section-{{section.id}} .page-article-offer img {
+    margin: auto;
+  }
+  #page-section-{{section.id}} .page-article-offer .heading{
+    font-size: 30px;
+    line-height: 45px;
+    color: {{ section.settings.offer_heading_color }};
+    margin-bottom: 20px;
+    font-weight: 600;
+    text-align:center;
+  }
+  
+  #page-section-{{section.id}} .page-article-offer .btn{
+    {% if section.settings.offer_button_bg != blank %}
+    background-color:{{ section.settings.offer_button_bg }};
+    {% endif %}
+    {% if section.settings.offer_button_border_radius != blank %}
+    border-radius:{{ section.settings.offer_button_border_radius }};
+    {% endif %}
+    {% if section.settings.offer_button_color != blank %}
+    color:{{ section.settings.offer_button_color }};
+    {% endif %}
+    margin: 20px auto;
+    max-width: 100%;
+    text-align:center;
+  }
+  
+  #page-section-{{section.id}} .page-article-offer .description{
+    text-align:center;
+    color: {{ section.settings.offer_heading_color }};
+  }
+
+</style>
+{% schema %}
+  {
+    "name": "Page Content",
+    "settings": [
+        {
+            "type": "header",
+            "content": "Gap:"
+        },
+        {
+            "id": "gap_amount",
+            "type": "range",
+            "label": "Gap Amouont",
+            "min": 0,
+            "max": 100,
+            "step": 10,
+            "default": 40
+        },
+        {
+            "type": "header",
+            "content": "Image Style:"
+        },
+        {
+           "id": "image_border_radius",
+           "type": "text",
+           "label": "Image Border Radius",
+           "default" : "10px"
+        },
+        {
+           "id": "image_use_shadow",
+           "type": "checkbox",
+           "label": "Use Shadow",
+           "default": true
+        },
+        {
+            "id": "image_shadow_style",
+            "type": "text",
+            "label" : "Image Shadow Style",
+            "default" : "0px 12px 20px rgba(29, 41, 63, 0.2)"
+        },
+        {
+            "type": "header",
+            "content": "Summary Style:"
+        },
+        {
+            "id" : "summary_bg",
+            "type" : "color",
+            "label" : "Summary Background",
+            "default" : "#F5FAFD"
+        },
+        {
+            "id" : "summary_text_color",
+            "type" : "color",
+            "label" : "Summary Color",
+            "default" : "#010203"
+        },
+        {
+            "id": "summary_padding_x",
+            "type": "range",
+            "label": "Summary Padding-X",
+            "min": 0,
+            "max": 50,
+            "step": 10,
+            "default": 10
+        },
+        {
+            "id": "summary_padding_y",
+            "type": "range",
+            "label": "Summary Padding-Y",
+            "min": 0,
+            "max": 50,
+            "step": 10,
+            "default": 20
+        },
+        {
+            "type": "header",
+            "content": "Quote Style:"
+        },
+        {
+           "id": "quote_image",
+           "type": "image_picker",
+           "label": "Quote Image"
+        },
+        {
+            "id" : "quote_bg",
+            "type" : "color",
+            "label" : "Quote Background",
+            "default" : "#E9F7FE"
+        },
+        {
+            "id" : "quote_text_color",
+            "type" : "color",
+            "label" : "Quote Color",
+            "default" : "#010203"
+        },
+        {
+            "id": "quote_padding",
+            "type": "range",
+            "label": "Quote Padding",
+            "min": 0,
+            "max": 50,
+            "step": 10,
+            "default": 20
+        },
+        {
+           "id": "quote_border_radius",
+           "type": "text",
+           "label": "Quote Border Radius",
+           "default" : "0px"
+        },
+        {
+           "id": "quote_use_shadow",
+           "type": "checkbox",
+           "label": "Use Shadow",
+           "default": true
+        },
+        {
+            "id": "quote_shadow_style",
+            "type": "text",
+            "label" : "Quote Shadow Style",
+            "default" : "0px 12px 20px rgba(29, 41, 63, 0.2)"
+        },
+        {
+            "type": "header",
+            "content": "Offer Style:"
+        },
+        {
+            "id": "offer_padding",
+            "type": "range",
+            "label": "Offer Padding",
+            "min": 0,
+            "max": 50,
+            "step": 10,
+            "default": 20
+        },
+        {
+            "id" : "offer_bg",
+            "type" : "color",
+            "label" : "Offer Background",
+            "default" : "#E9F7FE"
+        },
+        {
+            "id" : "offer_heading_color",
+            "type" : "color",
+            "label" : "Offer Heading Color",
+            "default" : "#1D293F"
+        },
+        {
+            "id" : "offer_button_color",
+            "type" : "color",
+            "label" : "Offer Button Color",
+            "default" : "#FFFFFF"
+        },
+        {
+            "id" : "offer_button_bg",
+            "type" : "color",
+            "label" : "Offer Button Background",
+            "default" : "#0FA3FA"
+        },
+        {
+            "id": "offer_button_border_radius",
+            "type": "text",
+            "label": "Offer Button Border Radius",
+            "default" : "5px"
+        },
+        {
+            "id": "offer_button_below_description",
+            "type": "text",
+            "label": "Below Description",
+            "default": "Risk-free: Pain relief or your money back"
+        },
+        {
+            "id": "offer_use_shadow",
+            "type": "checkbox",
+            "label": "Use Shadow",
+            "default": true
+        },
+        {
+            "type": "text",
+            "id": "offer_shadow_style",
+            "label" : "Offer Shadow Style",
+            "default" : "0px 12px 20px rgba(29, 41, 63, 0.2)"
+        }
+    ],
+    "blocks" : [
+       {
+         "type": "image",
+         "name": "Image",
+         "settings":[
+            {
+               "id": "image",
+               "type": "image_picker",
+               "label": "Image"
+            }
+         ]
+       },
+       {
+         "type": "summary",
+         "name": "Summary",
+         "settings":[
+            {
+               "id": "heading",
+               "type": "text",
+               "label": "Heading"
+            },
+            {
+               "id": "content",
+               "type": "textarea",
+               "label": "Content"
+            },
+            {
+                "id" : "summary_text_align",
+                "type" : "select",
+                "label" : "Text Align",
+				"options": [
+                  {
+                      "value": "text-left",
+                      "label": "Text Left"
+                  },
+                  {
+                      "value": "text-center",
+                      "label": "Text Center"
+                  },
+                  {
+                      "value": "text-right",
+                      "label": "Text Right"
+                  }
+                ],
+                "default" : "text-left"
+            }
+         ]
+       },
+       {
+         "type": "quote",
+         "name": "Quote",
+         "settings":[
+            {
+               "id": "content",
+               "type": "textarea",
+               "label": "Quote Content"
+            }
+         ]
+       },
+       {
+         "type": "text",
+         "name": "Text",
+         "settings":[
+            {
+               "id": "content",
+               "type": "richtext",
+               "label": "Text Content"
+            }
+         ]
+       },
+       {
+         "type": "offer",
+         "name": "Offer",
+         "settings":[
+            {
+               "id": "image",
+               "type": "image_picker",
+               "label": "Image"
+            },
+            {
+               "id": "heading",
+               "type": "text",
+               "label": "Heading",
+               "default" : "Try the NeuroMD Corrective Therapy Device with a 60-day money back guarantee."
+            },
+            {
+               "id": "button",
+               "type": "text",
+               "label": "Button",
+               "default" : "Get 50% Off My NeuroMD Device"
+            },
+            {
+               "id": "button_url",
+               "type": "url",
+               "label": "Button RUL"
+            },
+            {
+               "id": "description",
+               "type": "textarea",
+               "label": "Description",
+               "default" : "Risk-free: Pain relief or your money back"
+            }
+         ]
+       }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

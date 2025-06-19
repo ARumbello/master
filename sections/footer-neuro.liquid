@@ -1,0 +1,373 @@
+<style>
+         #{{ section.id }} .main-footer{
+         width:100%;
+         background-color:{{section.settings.footer-background}};
+         }
+         #{{ section.id }} .inner-footer{
+         width:100%;
+         }
+         #{{ section.id }} .logo-footer{
+         padding:15px 17px 5px 17px;
+         display: flex;
+         justify-content: center;
+         }
+         #{{ section.id }} .logo-img{
+         width:10%;
+         } 
+         #{{ section.id }} .logo-img img{
+         width:100%;
+         }
+         #{{ section.id }} .policy-data{
+         padding:5px 337px 10px 337px;  
+         }
+         #{{ section.id }} .main-ancher{
+         text-align: center;
+         display: flex;
+         justify-content: center; 
+         margin:0;
+         }
+         #{{ section.id }} .main-ancher a{
+         font-size:{{section.settings.ancher-bttn-font}}px;
+         color:{{section.settings.bttn-color}};
+         text-decoration: none;
+         font-weight:400;
+         
+         } 
+         #{{ section.id }} .main-ancher a:hover{
+         text-decoration: underline;
+         text-underline-offset:6px;
+         } 
+         #{{ section.id }} .footer-discription{
+         font-size:{{section.settings.footr-desript-font}}px;
+         color:{{section.settings.footer-discript-colors}};
+         font-weight:400;
+         text-align: center;
+         margin:0;
+         }
+         #{{ section.id }} .Contact-data{
+         padding:10px 17px;
+         }
+         #{{ section.id }} .contact-text{
+         margin:0;  
+         line-height:21px;
+         font-weight:700; 
+         text-align:center;
+         }
+         #{{ section.id }} .number-ancher{
+         text-align: center;
+         margin:0;
+         }
+         #{{ section.id }} .number-ancher a{
+         text-decoration:none;
+         line-height:20px;
+         font-weight:700;
+         
+         }
+         #{{ section.id }} .number-ancher a:hover{
+         text-decoration:underline;
+         }
+         #{{ section.id }} .neuro-md-email{
+          
+         line-height:20px;
+         font-weight:700;
+         
+         margin:0;
+         text-align: center;
+         }
+         .timing{
+         margin:0;
+         
+         line-height:20px;
+         text-align: center;
+         font-weight:400;
+         
+         }
+         #{{ section.id }} .footer-img{
+         padding:5px 17px 3px 17px;
+         display: flex;
+         justify-content:center;
+         }
+         #{{ section.id }} .footer-image{
+         width:7%;
+         }
+         #{{ section.id }} .footer-img img{
+         width:100%;
+         }
+         #{{ section.id }} .media-rate-para{
+         padding:10px 26px;
+         text-align: center;
+         
+         }
+         @media only screen and (max-width:767px) {
+         #{{ section.id }} .logo-img {
+         width: 60%;
+         }
+         #{{ section.id }} .footer-image {
+         width: 30%;
+         }
+         #{{ section.id }} .footer-image{
+         width:13%;
+         }
+         }
+         @media only screen and (max-width:991px) {
+         #{{ section.id }} .policy-data{
+         padding:5px 20px 10px 20px;  
+         } 
+         #{{ section.id }} .logo-img {
+         width:30%;
+         }
+         }
+      </style>
+      <div id="{{ section.id }}">
+      <div class="main-footer">
+         <div class="inner-footer">
+            <div class="logo-footer">
+               <div class="logo-img">
+                  {% if section.settings.footer-img  != blank %}
+             <a href="/"> <img src="{{ section.settings.footer-img | img_url: 'large' }}" alt="{{ section.settings.footer-img}}"></a>
+            {% endif %}
+               </div>
+            </div>
+            <div class="policy-data">
+               <p class="main-ancher">
+                  <a href="" class="Terms-ancher" style="padding-right:8px;border-right:1px solid white;">{{ section.settings.term-text }}</a>
+                  <a href="" class="privacy-ancher" style="padding-left:8px;">{{ section.settings.privacy-text}}</a>
+               </p>
+               <br>
+               <p class="footer-discription">{{ section.settings.footer-para-text }}
+               </p>
+            </div>
+            <div class="Contact-data">
+               <p class="contact-text" style="color:{{section.settings.contact-text-color}};font-size:{{ section.settings.contact-font}}px;">{{ section.settings.contact-text }}</p>
+               <p class="number-ancher" style="font-size:{{section.settings.number-ancher-font}}px;"><a href="" style="color:{{section.settings.number-ancher-color}};">{{ section.settings.number-eml-text}}</a></p>
+               <p class="neuro-md-email" style="color:{{section.settings.eml-color}};font-size:{{section.settings.eml-font}}px;">{{ section.settings.email-text }}</p>
+               <p class="timing" style="color:{{section.settings.timing-colors}};font-size:{{ section.settings.timing-font}}px;">{{ section.settings.timing-text}}</p>
+               <p class="timing" style="color:{{section.settings.location-colors}};font-size:{{ section.settings.location-font}}px;">{{ section.settings.location-text }}</p>
+            </div>
+            <div class="footer-img">
+               <div class="footer-image">
+                  {% if section.settings.footer-img-two  != blank %}
+              <img src="{{ section.settings.footer-img-two | img_url: 'large' }}" alt="{{ section.settings.footer-img-two}}">
+            {% endif %}
+               </div>
+            </div>
+            <div class="media-rate-para" style="font-size:{{ section.settings.rate-para-font}}px;color:{{section.settings.rate-colors}};">
+               {{ section.settings.media-rate-text }}
+            </div>
+         </div>
+      </div>
+   </div>
+
+
+
+{% schema %}
+{
+  "name": "Footer Neuro",
+  "settings": [
+    {
+      "type": "color",
+      "id": "footer-background",
+      "label": "Footer Bg Color",
+      "default": "#1b537f"
+    },
+    {
+      "type": "image_picker",
+      "id": "footer-img",
+      "label": "Upload Footer Image"
+    },
+    {
+      "type": "text",
+      "id": "term-text",
+      "label": "Term Button Text",
+      "default": "Terms & Conditions"
+    },
+    {
+      "type": "text",
+      "id": "privacy-text",
+      "label": "Privacy Button Text",
+      "default": "Privacy Policy"
+    },
+    {
+      "type": "color",
+      "id": "bttn-color",
+      "label": "Button Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "ancher-bttn-font",
+      "min": 10,
+      "max": 26,
+      "step": 1,
+      "unit": "px",
+      "label": "Button Font",
+      "default": 16
+    },
+    {
+      "type": "text",
+      "id": "footer-para-text",
+      "label": "Footer Para Text",
+      "default": "This FDA-cleared OTC medical device is only available through this official website. This product is not intended to diagnose, treat, cure or prevent any disease. Discount availability is limited."
+    },
+    {
+      "type": "color",
+      "id": "footer-discript-colors",
+      "label": "Footer Description Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "footr-desript-font",
+      "min": 10,
+      "max": 26,
+      "step": 1,
+      "unit": "px",
+      "label": "Footer Para Font",
+      "default": 16
+    },
+    {
+      "type": "text",
+      "id": "contact-text",
+      "label": "Contact Head Text",
+      "default": "CONTACT Us"
+    },
+    {
+      "type": "color",
+      "id": "contact-text-color",
+      "label": "Contact Text Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "contact-font",
+      "min": 10,
+      "max": 26,
+      "step": 1,
+      "unit": "px",
+      "label": "Contact Text Font",
+      "default": 16
+    },
+    {
+      "type": "text",
+      "id": "number-eml-text",
+      "label": "Number Button  Text",
+      "default": "(877)-300-9062"
+    },
+    {
+      "type": "color",
+      "id": "number-ancher-color",
+      "label": "Number Button Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "number-ancher-font",
+      "min": 10,
+      "max": 26,
+      "step": 1,
+      "unit": "px",
+      "label": "Number Anchor Font",
+      "default": 16
+    },
+    {
+      "type": "text",
+      "id": "email-text",
+      "label": "E-mail  Text",
+      "default": "Help@GetNeuroMD.com"
+    },
+    {
+      "type": "color",
+      "id": "eml-color",
+      "label": "E-mail Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "eml-font",
+      "min": 10,
+      "max": 26,
+      "step": 1,
+      "unit": "px",
+      "label": "E-mail Font",
+      "default": 16
+    },
+    {
+      "type": "text",
+      "id": "timing-text",
+      "label": "Timing  Text",
+      "default": "Mon-Fri 9am-6pm Eastern"
+    },
+    {
+      "type": "color",
+      "id": "timing-colors",
+      "label": "Timing Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "timing-font",
+      "min": 10,
+      "max": 26,
+      "step": 1,
+      "unit": "px",
+      "label": "Timing Font",
+      "default": 16
+    },
+    {
+      "type": "text",
+      "id": "location-text",
+      "label": "Location Text",
+      "default": "Sunny Isles Beach, Florida 33160"
+    },
+    {
+      "type": "color",
+      "id": "location-colors",
+      "label": "Location Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "location-font",
+      "min": 10,
+      "max": 26,
+      "step": 1,
+      "unit": "px",
+      "label": "Location Font",
+      "default": 16
+    },
+    {
+      "type": "image_picker",
+      "id": "footer-img-two",
+      "label": "Upload Footer Image Two"
+    },
+  {
+      "type": "text",
+      "id": "media-rate-text",
+      "label": "Media Right Text",
+      "default": "© 2023 NeuroMD Medical Technologies. All rights reserved."
+    },
+    {
+      "type": "color",
+      "id": "rate-colors",
+      "label": "Media Right Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "rate-para-font",
+      "min": 10,
+      "max": 26,
+      "step": 1,
+      "unit": "px",
+      "label": "Media Right Font",
+      "default": 13
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer Neuro",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

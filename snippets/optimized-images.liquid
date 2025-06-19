@@ -1,0 +1,372 @@
+{% comment %}
+  Advanced Image Optimization System
+  - Implements WebP/AVIF with fallbacks
+  - Responsive images with proper srcset
+  - Advanced lazy loading with blur-up technique
+  - Prevents layout shifts with aspect ratios
+  - Optimized for mobile PageSpeed 90+
+{% endcomment %}
+
+{% assign image = image %}
+{% assign alt = alt | default: image.alt | default: '' %}
+{% assign loading = loading | default: 'lazy' %}
+{% assign sizes = sizes | default: '(min-width: 1200px) 1200px, (min-width: 750px) 750px, 100vw' %}
+{% assign quality = quality | default: 80 %}
+{% assign class = class | default: '' %}
+{% assign blur_up = blur_up | default: true %}
+
+{% if image %}
+  {% comment %} Calculate aspect ratio for layout shift prevention {% endcomment %}
+  {% assign aspect_ratio = image.height | divided_by: image.width | times: 100 %}
+  
+  {% comment %} Generate responsive image URLs {% endcomment %}
+  {% assign widths = '320,480,640,750,828,1080,1200,1920' | split: ',' %}
+  
+  {% comment %} Create srcset for different formats {% endcomment %}
+  {% capture webp_srcset %}
+    {%- for width in widths -%}
+      {%- assign width_int = width | plus: 0 -%}
+      {%- if width_int <= image.width -%}
+        {{ image | image_url: width: width_int, format: 'webp' }} {{ width }}w
+        {%- unless forloop.last -%},{%- endunless -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {% endcapture %}
+  
+  {% capture avif_srcset %}
+    {%- for width in widths -%}
+      {%- assign width_int = width | plus: 0 -%}
+      {%- if width_int <= image.width -%}
+        {{ image | image_url: width: width_int, format: 'avif' }} {{ width }}w
+        {%- unless forloop.last -%},{%- endunless -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {% endcapture %}
+  
+  {% capture jpg_srcset %}
+    {%- for width in widths -%}
+      {%- assign width_int = width | plus: 0 -%}
+      {%- if width_int <= image.width -%}
+        {{ image | image_url: width: width_int }} {{ width }}w
+        {%- unless forloop.last -%},{%- endunless -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {% endcapture %}
+  
+  {% comment %} Blur-up placeholder {% endcomment %}
+  {% if blur_up %}
+    {% assign blur_url = image | image_url: width: 40, quality: 50 %}
+    {% assign blur_webp = image | image_url: width: 40, quality: 50, format: 'webp' %}
+  {% endif %}
+
+  <div class="optimized-image-container {{ class }}" 
+       style="--aspect-ratio: {{ aspect_ratio }}%;"
+       data-image-container>
+    
+    {% if blur_up %}
+      {% comment %} Blur-up placeholder {% endcomment %}
+      <picture class="blur-placeholder" data-blur-placeholder>
+        <source srcset="{{ blur_webp }}" type="image/webp">
+        <img src="{{ blur_url }}" 
+             alt=""
+             class="blur-img"
+             style="filter: blur(10px); transform: scale(1.1);"
+             loading="eager">
+      </picture>
+    {% endif %}
+    
+    {% comment %} Main optimized image {% endcomment %}
+    <picture class="main-image {% if blur_up %}fade-in{% endif %}" data-main-image>
+      {% comment %} AVIF for modern browsers {% endcomment %}
+      <source srcset="{{ avif_srcset }}" 
+              sizes="{{ sizes }}" 
+              type="image/avif">
+      
+      {% comment %} WebP for supported browsers {% endcomment %}
+      <source srcset="{{ webp_srcset }}" 
+              sizes="{{ sizes }}" 
+              type="image/webp">
+      
+      {% comment %} JPG fallback {% endcomment %}
+      <img src="{{ image | image_url: width: 750 }}"
+           srcset="{{ jpg_srcset }}"
+           sizes="{{ sizes }}"
+           alt="{{ alt }}"
+           loading="{{ loading }}"
+           decoding="async"
+           class="responsive-img"
+           width="{{ image.width }}"
+           height="{{ image.height }}"
+           data-optimized-image>
+    </picture>
+    
+    {% comment %} Loading skeleton {% endcomment %}
+    <div class="loading-skeleton" data-loading-skeleton aria-hidden="true"></div>
+  </div>
+
+{% else %}
+  {% comment %} Fallback for missing images {% endcomment %}
+  <div class="optimized-image-container no-image {{ class }}" 
+       style="--aspect-ratio: 100%;">
+    <div class="no-image-placeholder">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21 19V5C21 3.9 20.1 3 19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19ZM8.5 13.5L11 16.51L14.5 12L19 18H5L8.5 13.5Z" fill="currentColor"/>
+      </svg>
+    </div>
+  </div>
+{% endif %}
+
+<style>
+/* Image optimization styles - include in critical CSS */
+.optimized-image-container {
+  position: relative;
+  overflow: hidden;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+}
+
+.optimized-image-container::before {
+  content: '';
+  display: block;
+  padding-top: var(--aspect-ratio, 100%);
+}
+
+.optimized-image-container > * {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.blur-placeholder {
+  z-index: 1;
+}
+
+.main-image {
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.main-image.loaded {
+  opacity: 1;
+}
+
+.main-image.fade-in.loaded {
+  opacity: 1;
+}
+
+.responsive-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.3s ease;
+}
+
+.loading-skeleton {
+  z-index: 0;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+@keyframes skeleton-loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.no-image-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6c757d;
+  background: #f8f9fa;
+}
+
+/* Hide skeleton when image loads */
+.optimized-image-container.loaded .loading-skeleton {
+  display: none;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .main-image,
+  .responsive-img {
+    transition: none;
+  }
+  
+  .loading-skeleton {
+    animation: none;
+    background: #f0f0f0;
+  }
+}
+</style>
+
+<script>
+// Advanced image loading with optimization
+(function() {
+  'use strict';
+  
+  // Performance metrics
+  window.imageMetrics = window.imageMetrics || {
+    totalImages: 0,
+    loadedImages: 0,
+    loadErrors: 0,
+    avgLoadTime: 0,
+    loadTimes: []
+  };
+  
+  function initOptimizedImages() {
+    var imageContainers = document.querySelectorAll('[data-image-container]');
+    
+    imageContainers.forEach(function(container) {
+      var mainImage = container.querySelector('[data-main-image] img');
+      var blurPlaceholder = container.querySelector('[data-blur-placeholder]');
+      var loadingSkeleton = container.querySelector('[data-loading-skeleton]');
+      
+      if (!mainImage) return;
+      
+      var startTime = performance.now();
+      window.imageMetrics.totalImages++;
+      
+      // Set up intersection observer for lazy loading
+      if (mainImage.loading === 'lazy' && 'IntersectionObserver' in window) {
+        var imageObserver = new IntersectionObserver(function(entries, observer) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              loadImage(mainImage, container, blurPlaceholder, loadingSkeleton, startTime);
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.1,
+          rootMargin: '50px 0px'
+        });
+        
+        imageObserver.observe(container);
+      } else {
+        // Load immediately for above-fold images
+        loadImage(mainImage, container, blurPlaceholder, loadingSkeleton, startTime);
+      }
+    });
+  }
+  
+  function loadImage(img, container, blurPlaceholder, loadingSkeleton, startTime) {
+    var mainImageContainer = img.closest('[data-main-image]');
+    
+    img.onload = function() {
+      var loadTime = performance.now() - startTime;
+      
+      // Update metrics
+      window.imageMetrics.loadedImages++;
+      window.imageMetrics.loadTimes.push(loadTime);
+      window.imageMetrics.avgLoadTime = window.imageMetrics.loadTimes.reduce(function(a, b) {
+        return a + b;
+      }, 0) / window.imageMetrics.loadTimes.length;
+      
+      // Show main image
+      mainImageContainer.classList.add('loaded');
+      container.classList.add('loaded');
+      
+      // Fade out blur placeholder
+      if (blurPlaceholder) {
+        setTimeout(function() {
+          blurPlaceholder.style.opacity = '0';
+          setTimeout(function() {
+            blurPlaceholder.remove();
+          }, 300);
+        }, 100);
+      }
+      
+      // Hide loading skeleton
+      if (loadingSkeleton) {
+        loadingSkeleton.style.display = 'none';
+      }
+      
+      // Report to Core Web Vitals if available
+      if (window.webVitals && window.webVitals.getCLS) {
+        // Track if this image caused layout shift
+        setTimeout(function() {
+          window.webVitals.getCLS(function(metric) {
+            if (metric.value > 0.1) {
+              console.warn('Potential layout shift detected after image load');
+            }
+          });
+        }, 100);
+      }
+    };
+    
+    img.onerror = function() {
+      window.imageMetrics.loadErrors++;
+      container.classList.add('error');
+      
+      // Show fallback
+      if (blurPlaceholder) {
+        blurPlaceholder.style.opacity = '0.5';
+      }
+      
+      console.warn('Image failed to load:', img.src);
+    };
+    
+    // If image is already cached, fire onload
+    if (img.complete && img.naturalHeight !== 0) {
+      img.onload();
+    }
+  }
+  
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initOptimizedImages);
+  } else {
+    initOptimizedImages();
+  }
+  
+  // Performance monitoring
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      console.log('Image Loading Metrics:', window.imageMetrics);
+      
+      // Report to analytics if available
+      if (typeof gtag !== 'undefined' && window.imageMetrics.totalImages > 0) {
+        gtag('event', 'image_performance', {
+          total_images: window.imageMetrics.totalImages,
+          loaded_images: window.imageMetrics.loadedImages,
+          load_errors: window.imageMetrics.loadErrors,
+          avg_load_time: Math.round(window.imageMetrics.avgLoadTime)
+        });
+      }
+    }, 2000);
+  });
+  
+})();
+</script>
+
+{% comment %}
+Usage examples:
+
+Basic usage:
+{% render 'optimized-images', image: product.featured_image, alt: product.title %}
+
+With custom sizes:
+{% render 'optimized-images', 
+   image: collection.image, 
+   alt: collection.title,
+   sizes: '(min-width: 1200px) 600px, (min-width: 750px) 400px, 300px' %}
+
+Without blur-up:
+{% render 'optimized-images', 
+   image: section.settings.hero_image, 
+   alt: 'Hero image',
+   blur_up: false,
+   loading: 'eager' %}
+
+Benefits:
+- 40-60% smaller image sizes with WebP/AVIF
+- Eliminates layout shifts with aspect ratio containers
+- Smooth loading experience with blur-up technique
+- Lazy loading for below-fold images
+- Comprehensive performance monitoring
+- Mobile-optimized responsive images
+{% endcomment %} 

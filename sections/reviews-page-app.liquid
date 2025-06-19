@@ -1,0 +1,102 @@
+{% if section.settings.review_product != blank %}
+  {% assign product = all_products[section.settings.review_product] %}
+  <div class="page-reviews-wrapper">
+    {% render 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: false, product: product %}
+  </div>
+  <style>
+    #shopify-section-{{ section.id }} {
+      border-top: 1px solid #ddd;
+      {%- if section.settings.background_color != blank -%}
+      background-color: {{ section.settings.background_color }};
+      {%- endif -%}
+    }
+    @media (min-width: 1200px) {
+      #shopify-section-{{ section.id }} {
+          padding-top: {{ section.settings.padding }}px;
+          padding-bottom: {{ section.settings.padding }}px;
+      }
+    }
+    @media (min-width: 768px) and (max-width: 1199px) {
+      #shopify-section-{{ section.id }} {
+          padding-top: {{ section.settings.padding_tablet }}px;
+          padding-bottom: {{ section.settings.padding_tablet }}px;
+      }
+    }
+    @media (max-width: 767px) {
+      #shopify-section-{{ section.id }} {
+          padding-top: {{ section.settings.padding_phone }}px;
+          padding-bottom: {{ section.settings.padding_phone }}px;
+      }
+    }
+  </style>
+{% endif %}
+{% schema %}
+  {
+    "name": "Reviews - App",
+    "class": "reviews-app",
+    "settings": [
+      {
+        "id": "title",
+        "type": "text",
+        "label": "Title",
+        "default": "Reviews"
+      },
+      {
+        "id": "review_product",
+        "type": "product",
+        "label": "Choose Product"
+      },
+      {
+        "type" : "header",
+        "content" : "Section Style"
+      },
+      {
+        "id" : "background_color",
+        "type" : "color",
+        "label" : "Background - Color",
+        "default" : "#F0F4F4"
+      },
+      {
+        "id": "padding",
+        "type": "range",
+        "label": "Section Padding",
+        "min": 0,
+        "max": 200,
+        "step": 10,
+        "default": 0
+      },
+      {
+        "id": "padding_tablet",
+        "type": "range",
+        "label": "Section Padding Tablet",
+        "min": 0,
+        "max": 200,
+        "step": 10,
+        "default": 0
+      },
+      {
+        "id": "padding_phone",
+        "type": "range",
+        "label": "Section Padding phone",
+        "min": 0,
+        "max": 200,
+        "step": 10,
+        "default": 0
+      }
+    ],
+    "presets": [
+      {
+        "name": "Reviews - App"
+      }
+    ],
+    "disabled_on": {
+      "groups": ["footer", "header", "custom.popups"]
+    }    
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,116 @@
+<div class="easy_section">
+  <div class="container">
+    <div class="row display-flex">
+      <div class="easy___left">
+        <h2>{{ section.settings.easy_title }}</h2>
+        <h4>{{ section.settings.easy_description }}</h4> 
+      </div>
+      <div class="easy___right"> <video style="max-width: 100%; height: auto;" autoplay="autoplay" loop="loop" muted="" webkit-playsinline="" playsinline="">
+          <source src="{{ section.settings.video_url }}" type="video/mp4" />
+        </video> <img class="myclass1" alt="{{ section.settings.productimage.alt}}" src="{{ section.settings.productimage | img_url: '' }}" /> </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Product Use Section",
+    "settings": [
+    {
+      "type": "image_picker",
+      "id": "productimage",
+      "label": "Product Image"
+    }, 
+	{
+        "type": "text",
+        "id": "video_url", 
+       "label": "Video URL/MP4"
+	}, 
+	{
+        "type": "text",
+        "id": "easy_title", 
+       "label": "Main Heading"
+	},
+	{
+        "type": "richtext",
+        "id": "easy_description", 
+       "label": "Heading description"
+	}
+] 
+ }
+{% endschema %}
+        <style>
+
+.easy_section{
+	margin:0px;
+	padding:50px 0px 30px 0px;
+	width:100%;
+	background:#f5f5f5;
+}
+.easy_section .row{
+	align-items: center;
+}
+
+ 
+.easy_section h2 {
+    color: #0BA3FA;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    margin-bottom: 20px;
+}
+.easy_section h3 {
+    margin-top: 0px;
+	color:#242426;
+	font-family: Poppins;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 140%; 
+}
+.easy_section h4 {
+    color: #242426;
+    font-family: Poppins;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 140%;
+    margin-bottom: 20px;
+}
+.easy___left{
+	margin:0px;
+	padding:0px 10% 0 0;
+	width:50%;
+}
+
+.easy___right{
+	margin:0px;
+	padding:0px;
+	width:50%;
+}
+ .right img{
+	width:100%;
+	border-radius:10px;
+} 
+@media screen and (min-width: 100px) and (max-width: 640px){ 
+ 
+.template__product .prodMain__priceRow {
+    align-items: left!important;
+    text-align: left!important;
+    justify-content: left!important;
+} 
+.easy_section h2 { 
+    font-size: 28px; 
+} 
+.easy_section { 
+    padding: 30px 20px 10px 20px; 
+}
+.easy___left { 
+    padding: 0px;
+    width: 100%;
+}
+.easy___right { 
+    width: 100%;
+}
+}
+ </style>

@@ -1,0 +1,400 @@
+<style>
+  .custom-container {
+    width:100%;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:32px 60px;
+    padding: 0 15px;
+  }
+
+  .fnt-20 {
+    font-size: 20px;
+  }
+  .fnt-base {
+    font-size: 16px;
+  }
+
+
+
+  .font-bold {
+    font-weight: 700;
+  }
+  .font-semibold {
+    font-weight: 600;
+  }
+  .font-normal {
+    font-weight: 400;
+  }
+
+
+
+  .white-text {
+    color: #fff;
+  }
+  .primary-text {
+    color: #002f49;
+  }
+  .bg-dark-blue {
+    background-color: #002f49;position: relative;
+  }
+  .benifit-main{
+    background-color:{{section.settings.main-bg}};
+  }
+  .bg-white {
+    background-color: #ffffffff;
+  }
+
+  .flex {
+    display: flex;
+  }
+  .slef-end {
+    align-self: center;
+  }
+  
+
+
+  .mb-2 {
+    margin-bottom: 8px;
+  }
+ 
+
+ 
+  .rounded-3xl {
+    border-radius: 24px;
+  }
+
+
+  .heading1 {
+    font-size: 40px;
+    line-height: 48px;
+  }
+  .target-heading{
+    font-size:{{section.settings.target-font}}px;
+    color:{{section.settings.target-color}};
+  }
+  
+  .benefits {
+    padding: 64px 0 64px 0;
+  }
+  .benefits-container {
+    gap: 32px 60px;
+  }
+  .benefits .left-content {
+    width:100%;
+    flex-direction:row;
+    gap: 16px;
+  }
+  .right-content {
+    width:100%;
+  }
+  .right-content img{
+    width:100%;
+    border-radius:12px;
+  }
+
+  .benefits .heading1 {
+    margin-bottom: 16px;
+  }
+
+  .benefit-card {
+    gap: 16px;
+    padding: 22px;
+  }
+  .card-heading{
+    
+  }
+  .benefits .right-content > img {
+    max-width: 645px;
+    aspect-ratio: 1 / 1;
+  }
+  .action-btn {
+    width: max-content;
+    min-width: 162px !important;
+    transition: all 0.3s;
+    padding: 18px 10px;
+    border-radius: 4px;
+    margin-top: 16px;
+    justify-content: center;
+  }
+  .relief-bttn{
+    
+  }
+
+  .cusstomclassfaqreliefback {
+    width: 400px;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+}
+  
+  a.action-btn:hover {
+    opacity: 0.8;
+    cursor: pointer;
+  }
+  .center-text {
+    text-align: center;
+  }
+
+  .benefit-card-alignment {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: auto;
+    margin-bottom:50px;
+  }
+  .benefit-card.rounded-3xl.flex img {
+    max-width: 30px !important;
+}
+
+  .mobile {
+    display: none;
+  }
+
+  @media (min-width: 1440px) {
+    .custom-container {
+      max-width: calc(100% - 150px);
+      margin: 0 auto;
+    }
+  }
+
+  
+  @media (max-width: 991px) {
+    .features-section {
+      margin: 20px;
+    }
+    .custom-container {
+      display: grid !important;
+      grid-template-columns: 1fr !important;
+    }
+    .left-content {
+      order: 1;
+    }
+    .right-content {
+      order: 2;
+    }
+    a.action-btn {
+      margin: auto;
+      width:100%;
+      margin-top: 30px !important;
+    }
+    .desktop {
+      display: none;
+    }
+    .mobile {
+      display: block;
+    }
+    .benefits-container {
+      flex-direction: column;
+    }
+    .benefits .right-content img {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .benefits .heading1{font-size:26px;line-height: inherit;}
+    a.action-btn {
+      width: 100%!important;display:flex;
+    }
+    .benefits-container,
+    .relief-section .custom-container {
+      flex-direction: column;
+    }
+  }
+  @media (max-width: 600px) {
+    .benefit-card-alignment {
+      grid-template-columns: auto;
+    }
+  }
+</style>
+<!-- benfits -->
+<section class="benefits bg-dark-blue benifit-main">
+        <img src="https://cdn.shopify.com/s/files/1/0201/2450/0032/files/Group_2463.webp?v=1748763395"class="cusstomclassfaqreliefback"> 
+  <div class="custom-container benefits-container page-width">
+    <div class="left-content">
+      <p class="heading1 white-text target-heading">
+        {{ section.settings.target-text }} <span class="font-bold">{{section.settings.back-span}}</span> and
+        <span class="font-bold">{{ section.settings.Sciatica }}</span>
+      </p>
+      <div class="benefit-card-alignment">
+        {% for block in section.blocks %}
+        <div class="benefit-card rounded-3xl flex" style="background-color:{{block.settings.card-bg}};color:{{block.settings.card-box-color}};">
+          <span>
+          {% if block.settings.benifit-img != blank %}
+                <img src="{{ block.settings.benifit-img | img_url: 'large' }}" alt="">
+                {% endif %}
+          </span>
+          <div class="benefit-description">
+            <p class="benefit-title font-semibold fnt-20 mb-2 card-heading" style="font-size:{{block.settings.card-head-font}}px;">
+              {{ block.settings.card-heading-text }}
+            </p>
+            <span class="fnt-base" style="font-size:{{ block.settings.box-para }}px;">{{ block.settings.card-para}}</span>
+          </div>
+        </div>
+          {% endfor %}
+      </div>
+      <a href="{{ section.settings.button-url}}" 
+      class="fnt-base primary-text action-btn font-semibold center-text relief-bttn"
+        type="button" style="font-size:{{section.settings.relief-bttn-font}}px;
+    color:{{section.settings.relief-bttn-color}};
+         z-index: 1000;  position: relative;
+    background-color:{{section.settings.bttn-bg-color}};">{{ section.settings.button-text}}</a>
+    </div>
+    <div class="right-content slef-end">
+      {% if section.settings.left-img != blank %}
+                <img src="{{section.settings.left-img | img_url: 'large' }}" alt="">
+                {% endif %}
+    </div>
+  </div>
+</section>
+<!-- end of benfits -->
+
+{% schema %}
+  {
+    "name": "benifit section",
+    "settings": [
+      {
+            "type": "color",
+            "id": "main-bg",
+            "label": "Main Benifit Color",
+            "default": "#002f49"
+        },
+    {
+        "type": "text",
+        "id": "target-text",
+        "label": " Target Span",
+        "default":"Target"
+      },
+      
+      {
+        "type": "text",
+        "id": "back-span",
+        "label": " Back Span",
+        "default":"Back Pain"
+      },
+      
+      {
+        "type": "text",
+        "id": "Sciatica",
+        "label": " Sciatica",
+        "default":"Sciatica"
+      },
+      {
+            "type": "range",
+            "id": "target-font",
+            "min":32,
+            "max": 48,
+            "step": 1,
+            "unit": "px",
+            "label": "Target Heading Font",
+            "default":40
+        },
+        {
+            "type": "color",
+            "id": "target-color",
+            "label": "Target Heading Color",
+            "default": "#fff"
+        },
+      {
+        "type": "text",
+        "id": "button-text",
+        "label": "Relief Button",
+        "default":"Get Relief Now"
+      },
+      {
+        "type": "text",
+        "id": "button-url",
+        "label": "Relief Button Url",
+        "default":"#"
+      },
+      {
+            "type": "range",
+            "id": "relief-bttn-font",
+            "min":12,
+            "max":24,
+            "step": 1,
+            "unit": "px",
+            "label": "Relief Button Font",
+            "default":16
+        },
+        {
+            "type": "color",
+            "id": "relief-bttn-color",
+            "label": "Relief Button Color",
+            "default": "#fff"
+        },
+      {
+            "type": "color",
+            "id": "bttn-bg-color",
+            "label": "Relief Button bg Color",
+            "default": "#002f49"
+        },
+        {
+                    "type": "image_picker",
+                    "id": "left-img",
+                    "label": "Upload left Benifit Image"
+                }
+    ],
+    "blocks": [
+     {
+       "type": "text",
+        "name":" Benifit Box",
+       "settings": [
+         {
+                    "type": "image_picker",
+                    "id": "benifit-img",
+                    "label": "Check Benifit Image"
+                },
+         {
+            "type": "color",
+            "id": "card-box-color",
+            "label": "Box Color",
+            "default": "#333333"
+        },
+        {
+            "type": "color",
+            "id": "card-bg",
+            "label": "Card Bg Color",
+            "default": "#fff"
+        },
+      {
+        "type": "text",
+        "id": "card-heading-text",
+        "label": " Card Heading",
+        "default":"Lower Back"
+      },
+      {
+            "type": "range",
+            "id": "card-head-font",
+            "min":16,
+            "max":32,
+            "step": 1,
+            "unit": "px",
+            "label": "Card Font",
+            "default":20
+        },
+         {
+        "type": "text",
+        "id": "card-para",
+        "label": " Card Para",
+        "default":"Directly target the root of sciatica and lower back pain by promoting deep tissue healing and pain relief through precise stimulation"
+      },
+         {
+            "type": "range",
+            "id": "box-para",
+            "min":16,
+            "max":32,
+            "step": 1,
+            "unit": "px",
+            "label": "Card Para Font",
+            "default":20
+        }
+       ]
+     }
+    ],
+    "presets": [
+      {
+        "name": "benifit section"
+      }
+    ]
+  }
+{% endschema %}

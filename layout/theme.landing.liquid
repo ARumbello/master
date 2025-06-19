@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="{{ shop.locale }}">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="">
+  <meta name="description" content="{{ shop.description }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+
+  {% render 'sm-og-data' %}
+
+  {% if template.name == 'index' %}
+     <title>{{ shop.name }} | {{ shop.description }}</title>
+  {% else %}
+    <title>{{page_title}} | {{ shop.name }}</title>
+  {% endif %}
+
+  {% render 'style-tags', layout: 'theme' %}
+  {% render 'script-tags', layout: 'theme' %}
+  
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+  {% render 'judgeme_core' %}
+  {% render 'shogun-head' %}
+  
+</head>
+
+<body class="template__{{ template.name }}" data-file="{{template.suffix}}">
+  {% render 'header-scripts.zipifypages', renderctx: 'thm' %}
+  {{ content_for_header }}
+  <main>
+    {{ content_for_layout }}
+  </main>
+  <div class="videoModal" style="display:none;">
+    <div class="videoModal__overlay"></div>
+    <div class="videoModal__wrapper">
+      <div class="video-exit">✕</div>
+      <div class="videoModal__wrapperInner">
+      </div>
+    </div>
+  </div>
+  {% section 'footer' %}
+  {% render 'page-footer.zipifypages', renderctx: 'thm', ocuapp: ocuapp %}
+  
+  <!-- ReCharge code remains -->
+  {% render 'subscription-theme-footer' %}
+</body>
+</html>

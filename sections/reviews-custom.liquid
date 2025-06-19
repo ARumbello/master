@@ -1,0 +1,174 @@
+{{ 'section-custom-reviews.min.css' | asset_url | stylesheet_tag: preload: true }}
+
+<!--Custom reviews section -->
+<div class="review-main-wrapper">
+  <div class="review-main-inner">
+      <div class="review-main-row desktop-review">
+        {% assign count = 0 %}
+        {% for block in section.blocks %}
+        {% if block.type == 'review' %}
+          {% if count == 3 %}
+            </div>
+            <div class="review-sep"></div>
+            <div class="review-main-row">
+            {% assign count = 0 %}
+          {% endif %}
+          <div class="review-main-item desktop-review">
+              <img class="lazyload" data-src="https://cdn.shopify.com/s/files/1/0441/3567/8105/files/Group_Copy_6.png?v=1598475996" alt="5 stars">
+              <div class="header">{{ block.settings.title }}</div>
+              <div class="dec">
+                  “{{ block.settings.quote }}”
+              </div>
+              <div class="port-wrapper">
+                  <div class="circle"><img class="lazyload" data-src="{{ block.settings.picture | img_url: '400x' }}" alt="{{ block.settings.picture.alt }}"></div>
+                  <p>
+                      <b>{{ block.settings.name }}</b><br>
+                      {{ block.settings.location }}
+                  </p>
+              </div>
+          </div>
+          {% assign count = count | plus: 1 %}
+        {% endif %}
+        {% endfor %}
+      </div>
+
+      <div class="review-main-row mobile-review">
+        {% for block in section.blocks %}
+          {% if block.type == 'review' %}
+            <div class="review-main-item">
+                  <img class="lazyload" data-src="https://cdn.shopify.com/s/files/1/0441/3567/8105/files/Group_Copy_6.png?v=1598475996" alt="5 stars">
+                  <div class="header">{{ block.settings.title }}</div>
+                  <div class="dec">
+                      “{{ block.settings.quote }}”
+                  </div>
+                  <div class="port-wrapper">
+                      <div class="circle"><img class="lazyload" data-src="{{ block.settings.picture | img_url: '400x' }}" alt="{{ block.settings.picture.alt }}"></div>
+                      <p>
+                          <b>{{ block.settings.name }}</b><br>
+                          {{ block.settings.location }}
+                      </p>
+                  </div>
+              </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+  </div>
+</div>
+<!-- end custom reviews seciton -->
+<style>
+  #shopify-section-{{ section.id }} {
+    {%- if section.settings.background_color != blank -%}
+    background-color: {{ section.settings.background_color }};
+    {%- endif -%}
+  }
+  @media (min-width: 1200px) {
+    #shopify-section-{{ section.id }} {
+        padding-top: {{ section.settings.padding }}px;
+        padding-bottom: {{ section.settings.padding }}px;
+    }
+  }
+  @media (min-width: 768px) and (max-width: 1199px) {
+    #shopify-section-{{ section.id }} {
+        padding-top: {{ section.settings.padding_tablet }}px;
+        padding-bottom: {{ section.settings.padding_tablet }}px;
+    }
+  }
+  @media (max-width: 767px) {
+    #shopify-section-{{ section.id }} {
+        padding-top: {{ section.settings.padding_phone }}px;
+        padding-bottom: {{ section.settings.padding_phone }}px;
+    }
+  }
+</style>
+{% schema %}
+{
+  "name": "Reviews - Custom",
+  "class": "reviews-custom",
+  "settings": [
+      {
+        "type" : "header",
+        "content" : "Section Style"
+      },
+      {
+        "id" : "background_color",
+        "type" : "color",
+        "label" : "Background - Color",
+        "default" : "#FFFFFF"
+      },
+      {
+        "id": "padding",
+        "type": "range",
+        "label": "Section Padding",
+        "min": 0,
+        "max": 200,
+        "step": 10,
+        "default": 0
+      },
+      {
+        "id": "padding_tablet",
+        "type": "range",
+        "label": "Section Padding Tablet",
+        "min": 0,
+        "max": 200,
+        "step": 10,
+        "default": 0
+      },
+      {
+        "id": "padding_phone",
+        "type": "range",
+        "label": "Section Padding phone",
+        "min": 0,
+        "max": 200,
+        "step": 10,
+        "default": 0
+      }
+  ],
+  "blocks":[
+    {
+     "type": "review",
+     "name": "Review",
+     "settings":[
+        {
+         "id": "title",
+         "type": "text",
+         "label": "Title"
+        },
+        {
+         "id": "quote",
+         "type": "textarea",
+         "label": "Quote"
+        },
+        {
+         "id": "name",
+         "type": "text",
+         "label": "Name"
+        },
+        {
+         "id": "location",
+         "type": "text",
+         "label": "Location"
+        },
+        {
+         "id": "picture",
+         "type": "image_picker",
+         "label": "Picture"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews - Custom"
+    }
+  ],
+  "disabled_on": {
+    "groups": ["footer", "header", "custom.popups"]
+  }  
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

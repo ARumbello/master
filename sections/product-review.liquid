@@ -1,0 +1,28 @@
+
+<div class="prod-review-title" id="shopify-section-prod-reviews">
+    <h3>{{ section.settings.title }}</h3>
+    <div>{{ section.settings.description }}</div>
+  </div>
+  
+  {% render 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: true, auto_install: true, product: product %}
+
+
+{% schema %}
+{
+ "name": "Product Reviews Section",
+ "settings": [
+    {
+      "id": "title",
+      "type": "text",
+      "label": "Title",
+      "default": "Over 4000+ Positive Reviews"
+    },
+    {
+      "id": "description",
+      "type": "richtext",
+      "label": "Description",
+      "default": "<p>100% Customer Satisfaction with 60 Day Money Back Guarantee</p>"
+    }
+ ]
+}
+{% endschema %}

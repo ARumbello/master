@@ -1,0 +1,525 @@
+<div class="container">
+  {% if section.settings.title != blank %}
+  <h2 class="heading text-center">{{ section.settings.title }}</h2>
+  {% endif %}
+  {% if section.blocks.size > 0 %}
+  <table class="comparison-table">
+    <thead>
+      <tr>
+        <th></th>
+        {% for block in section.blocks %}
+        <th>{{ block.settings.list_header}}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% if section.settings.list_title_1 != blank %}
+      <tr>
+        <td class="list-title">{{ section.settings.list_title_1 }}</td>
+        {% for block in section.blocks %}
+          {% assign values = block.settings.list_value | split: ',' %}
+          {% assign value = values[0] %}
+          {% if value == '1' %}
+          <td class="icon yes">
+          {% render 'icon-check-yes' %}
+          </td>  
+          {% else %}
+          <td class="icon no">
+          {% render 'icon-check-no' %}
+          </td>
+          {% endif %}
+        {% endfor %}
+      </tr>
+      {% endif %}
+      
+      {% if section.settings.list_title_2 != blank %}
+      <tr>
+        <td class="list-title">{{ section.settings.list_title_2 }}</td>
+        {% for block in section.blocks %}
+          {% assign values = block.settings.list_value | split: ',' %}
+          {% assign value = values[1] %}
+          {% if value == '1' %}
+          <td class="icon yes">
+          {% render 'icon-check-yes' %}
+          </td>  
+          {% else %}
+          <td class="icon no">
+          {% render 'icon-check-no' %}
+          </td>
+          {% endif %}
+        {% endfor %}
+      </tr>
+      {% endif %}
+      {% if section.settings.list_title_3 != blank %}
+      <tr>
+        <td class="list-title">{{ section.settings.list_title_3 }}</td>
+        {% for block in section.blocks %}
+          {% assign values = block.settings.list_value | split: ',' %}
+          {% assign value = values[2] %}
+          {% if value == '1' %}
+          <td class="icon yes">
+          {% render 'icon-check-yes' %}
+          </td>  
+          {% else %}
+          <td class="icon no">
+          {% render 'icon-check-no' %}
+          </td>
+          {% endif %}
+        {% endfor %}
+      </tr>
+      {% endif %}
+      {% if section.settings.list_title_4 != blank %}
+      <tr>
+        <td class="list-title">{{ section.settings.list_title_4 }}</td>
+        {% for block in section.blocks %}
+          {% assign values = block.settings.list_value | split: ',' %}
+          {% assign value = values[3] %}
+          {% if value == '1' %}
+          <td class="icon yes">
+          {% render 'icon-check-yes' %}
+          </td>  
+          {% else %}
+          <td class="icon no">
+          {% render 'icon-check-no' %}
+          </td>
+          {% endif %}
+        {% endfor %}
+      </tr>
+      {% endif %}
+      {% if section.settings.list_title_5 != blank %}
+      <tr>
+        <td class="list-title">{{ section.settings.list_title_5 }}</td>
+        {% for block in section.blocks %}
+          {% assign values = block.settings.list_value | split: ',' %}
+          {% assign value = values[4] %}
+          {% if value == '1' %}
+          <td class="icon yes">
+          {% render 'icon-check-yes' %}
+          </td>  
+          {% else %}
+          <td class="icon no">
+          {% render 'icon-check-no' %}
+          </td>
+          {% endif %}
+        {% endfor %}
+      </tr>
+      {% endif %}
+      {% if section.settings.list_title_6 != blank %}
+      <tr>
+        <td class="list-title">{{ section.settings.list_title_6 }}</td>
+        {% for block in section.blocks %}
+          {% assign values = block.settings.list_value | split: ',' %}
+          {% assign value = values[5] %}
+          {% if value == '1' %}
+          <td class="icon yes">
+          {% render 'icon-check-yes' %}
+          </td>  
+          {% else %}
+          <td class="icon no">
+          {% render 'icon-check-no' %}
+          </td>
+          {% endif %}
+        {% endfor %}
+      </tr>
+      {% endif %}
+      {% if section.settings.list_title_7 != blank %}
+      <tr>
+        <td class="list-title">{{ section.settings.list_title_7 }}</td>
+        {% for block in section.blocks %}
+          {% assign values = block.settings.list_value | split: ',' %}
+          {% assign value = values[6] %}
+          {% if value == '1' %}
+          <td class="icon yes">
+          {% render 'icon-check-yes' %}
+          </td>  
+          {% else %}
+          <td class="icon no">
+          {% render 'icon-check-no' %}
+          </td>
+          {% endif %}
+        {% endfor %}
+      </tr>
+      {% endif %}
+      {% if section.settings.list_title_8 != blank %}
+      <tr>
+        <td class="list-title">{{ section.settings.list_title_8 }}</td>
+        {% for block in section.blocks %}
+          {% assign values = block.settings.list_value | split: ',' %}
+          {% assign value = values[7] %}
+          {% if value == '1' %}
+          <td class="icon yes">
+          {% render 'icon-check-yes' %}
+          </td>  
+          {% else %}
+          <td class="icon no">
+          {% render 'icon-check-no' %}
+          </td>
+          {% endif %}
+        {% endfor %}
+      </tr>
+      {% endif %}
+      {% if section.settings.list_title_9 != blank %}
+      <tr>
+        <td class="list-title">{{ section.settings.list_title_9 }}</td>
+        {% for block in section.blocks %}
+          {% assign values = block.settings.list_value | split: ',' %}
+          {% assign value = values[8] %}
+          {% if value == '1' %}
+          <td class="icon yes">
+          {% render 'icon-check-yes' %}
+          </td>  
+          {% else %}
+          <td class="icon no">
+          {% render 'icon-check-no' %}
+          </td>
+          {% endif %}
+        {% endfor %}
+      </tr>
+      {% endif %}
+      {% if section.settings.list_title_10 != blank %}
+      <tr>
+        <td class="list-title">{{ section.settings.list_title_10 }}</td>
+        {% for block in section.blocks %}
+          {% assign values = block.settings.list_value | split: ',' %}
+          {% assign value = values[9] %}
+          {% if value == '1' %}
+          <td class="icon yes">
+          {% render 'icon-check-yes' %}
+          </td>  
+          {% else %}
+          <td class="icon no">
+          {% render 'icon-check-no' %}
+          </td>
+          {% endif %}
+        {% endfor %}
+      </tr>
+      {% endif %}
+      {% if section.settings.list_title_11 != blank %}
+      <tr>
+        <td class="list-title">{{ section.settings.list_title_11 }}</td>
+        {% for block in section.blocks %}
+          {% assign values = block.settings.list_value | split: ',' %}
+          {% assign value = values[10] %}
+          {% if value == '1' %}
+          <td class="icon yes">
+          {% render 'icon-check-yes' %}
+          </td>  
+          {% else %}
+          <td class="icon no">
+          {% render 'icon-check-no' %}
+          </td>
+          {% endif %}
+        {% endfor %}
+      </tr>
+      {% endif %}
+      {% if section.settings.list_title_12 != blank %}
+      <tr>
+        <td class="list-title">{{ section.settings.list_title_12 }}</td>
+        {% for block in section.blocks %}
+          {% assign values = block.settings.list_value | split: ',' %}
+          {% assign value = values[11] %}
+          {% if value == '1' %}
+          <td class="icon yes">
+          {% render 'icon-check-yes' %}
+          </td>  
+          {% else %}
+          <td class="icon no">
+          {% render 'icon-check-no' %}
+          </td>
+          {% endif %}
+        {% endfor %}
+      </tr>
+      {% endif %}
+    </tbody>
+  </table>
+  {% endif %}
+</div>
+<style>
+  #shopify-section-{{section.id}} .heading { 
+    text-transform:unset;
+    letter-spacing:-1px;
+    {% if section.settings.color_heading != blank %}
+    color:{{ section.settings.color_heading }};
+    {% endif %}
+    font-size: {{ section.settings.font_size_heading }};
+    font-weight: {{ section.settings.font_weight_heading }};
+    line-height: {{ section.settings.line_height_heading }};
+    margin-bottom: 30px;
+  }
+  
+  @media (max-width: 767px) {
+
+    #shopify-section-{{section.id}} {
+        padding-top: {{ section.settings.padding_top_mb }}px;
+        padding-bottom: {{ section.settings.padding_bottom_mb }}px;
+    }
+    
+    #shopify-section-{{section.id}} .heading { 
+        font-size: {{ section.settings.font_size_heading_mobile }};
+        line-height: {{ section.settings.line_height_heading_mobile }};
+   }
+  }
+  
+  @media (min-width: 768px) and (max-width: 1199px) {
+      #shopify-section-{{section.id}} {
+          padding-top: {{ section.settings.padding_top_tab }}px;
+          padding-bottom: {{ section.settings.padding_bottom_tab }}px;
+      }
+  }
+
+  @media (min-width: 1200px) {
+      #shopify-section-{{section.id}} {
+          padding-top: {{ section.settings.padding_top }}px;
+          padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+  }
+
+  #shopify-section-{{section.id}} table.comparison-table .icon.yes svg {
+    fill: {{section.settings.color_yes}};
+  }
+  
+  #shopify-section-{{section.id}} table.comparison-table .icon.no svg {
+    fill: {{section.settings.color_no}};
+  }
+  
+  
+</style>
+{% schema %}
+  {
+    "name": "Comparison Chart Table",
+    "settings": [
+      {
+          "type": "header",
+          "content": "Title"
+      },
+      {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default" : "NeuroMD vs TENS"
+      },
+      {
+          "type" : "text",
+          "id" : "font_size_heading",
+          "label" : "Heading Font Size",
+          "default" : "36px"
+      },
+      {
+          "type" : "text",
+          "id" : "line_height_heading",
+          "label" : "Heading Line Height",
+          "default" : "54px"
+      },
+      {
+          "type" : "text",
+          "id" : "font_size_heading_mobile",
+          "label" : "Heading Font Size Mobile",
+          "default" : "28px"
+      },
+      {
+          "type" : "text",
+          "id" : "line_height_heading_mobile",
+          "label" : "Heading Line Height Mobile",
+          "default" : "42px"
+      },
+      {
+          "type" : "text",
+          "id" : "font_weight_heading",
+          "label" : "Heading Font Weight",
+          "default" : "700"
+      },
+      {
+          "type" : "color",
+          "id" : "color_heading",
+          "label" : "Heading Color",
+          "default" : "#1D293F"
+      },
+      {
+          "type": "header",
+          "content": "Table Data"
+      },
+      {
+          "id": "img_yes",
+          "type": "image_picker",
+          "label": "Image for yes"
+      },
+      {
+          "id": "img_code_yes",
+          "type": "textarea",
+          "label": "Image Code for yes"
+      },
+      {
+          "id": "color_yes",
+          "type": "color",
+          "label": "Color for yes (svg)",
+          "default" : "#008000"
+      },
+      {
+          "id": "img_no",
+          "type": "image_picker",
+          "label": "Image for no"
+      },
+      {
+          "id": "img_code_no",
+          "type": "textarea",
+          "label": "Image Code for no"
+      },
+      {
+          "id": "color_no",
+          "type": "color",
+          "label": "Color for yes (svg)",
+          "default" : "#ff0000"
+      },
+      {
+          "type": "textarea",
+          "id": "list_title_1",
+          "label": "List Title 1"
+      },
+      {
+          "type": "textarea",
+          "id": "list_title_2",
+          "label": "List Title 2"
+      },
+      {
+          "type": "textarea",
+          "id": "list_title_3",
+          "label": "List Title 3"
+      },
+      {
+          "type": "textarea",
+          "id": "list_title_4",
+          "label": "List Title 4"
+      },
+      {
+          "type": "textarea",
+          "id": "list_title_5",
+          "label": "List Title 5"
+      },
+      {
+          "type": "textarea",
+          "id": "list_title_6",
+          "label": "List Title 6"
+      },
+      {
+          "type": "textarea",
+          "id": "list_title_7",
+          "label": "List Title 7"
+      },
+      {
+          "type": "textarea",
+          "id": "list_title_8",
+          "label": "List Title 8"
+      },
+      {
+          "type": "textarea",
+          "id": "list_title_9",
+          "label": "List Title 9"
+      },
+      {
+          "type": "textarea",
+          "id": "list_title_10",
+          "label": "List Title 10"
+      },
+      {
+          "type": "textarea",
+          "id": "list_title_11",
+          "label": "List Title 11"
+      },
+      {
+          "type": "textarea",
+          "id": "list_title_12",
+          "label": "List Title 12"
+      },
+      {
+          "type": "header",
+          "content": "Section Padding:"
+      },
+      {
+          "type": "range",
+          "id": "padding_top",
+          "label": "Padding Top",
+          "min": 0,
+          "max": 200,
+          "step": 10,
+          "default": 50
+      },
+      {
+          "type": "range",
+          "id": "padding_bottom",
+          "label": "Padding Bottom",
+          "min": 0,
+          "max": 200,
+          "step": 10,
+          "default": 50
+      },
+      {
+          "type": "header",
+          "content": "Section Padding For Tablet:"
+      },
+      {
+          "type": "range",
+          "id": "padding_top_tab",
+          "label": "Padding Top Tablet",
+          "min": 0,
+          "max": 200,
+          "step": 10,
+          "default": 40
+      },
+      {
+          "type": "range",
+          "id": "padding_bottom_tab",
+          "label": "Padding Bottom Tablet",
+          "min": 0,
+          "max": 200,
+          "step": 10,
+          "default": 40
+      },
+      {
+          "type": "header",
+          "content": "Section Padding For Mobile:"
+      },
+      {
+          "type": "range",
+          "id": "padding_top_mb",
+          "label": "Padding Top Mobile",
+          "min": 0,
+          "max": 200,
+          "step": 10,
+          "default": 30
+      },
+      {
+          "type": "range",
+          "id": "padding_bottom_mb",
+          "label": "Padding Bottom Mobile",
+          "min": 0,
+          "max": 200,
+          "step": 10,
+          "default": 30
+      }
+    ],
+   "blocks": [
+      {
+        "type": "list",
+        "name": "List Value",
+        "settings": [
+          {
+            "id": "list_header",
+            "type": "text",
+            "label": "List Header"
+          },
+          {
+            "id": "list_value",
+            "type": "text",
+            "label": "List Value"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

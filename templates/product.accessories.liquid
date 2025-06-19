@@ -1,0 +1,203 @@
+{% include 'product-content.zipifypages', contentprt: 'header' %}{{ 'page_style.min.css' | asset_url | stylesheet_tag }}
+{% render 'shogun-products', content: product %}
+{{product.metafields.shogun.above}}
+{% render 'product-content.zipifypages', contentprt: 'header' %}<script>
+  var variants = [
+    {% for variant in product.variants %}
+      {
+        title: '{{ variant.title }}',
+        price: '{{ variant.price | money }}',
+        compare_price: '{{ variant.compare_at_price | money }}',
+        available: '{{ variant.available }}',
+        id: '{{ variant.id }}'
+      }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ];
+</script>
+
+{% section 'sm-product-alt' %}
+
+<div class="prodSBS">
+  <div class="prodSBS__inner">
+    
+    {% if product.metafields["global"]["Block_1_Title"] %}
+      <div class="prodBlade prodBlade--1">
+        <div class="prodBlade__inner">
+          <div class="prodBlade__textWrapper">
+            <div class="prodBlade__title text--28 text--blue text--com">
+              {{ product.metafields["global"]["Block_1_Title"] }}
+            </div>
+            <div class="prodBlade__text text--15">
+              {{ product.metafields["global"]["Block_1_Text"] }}
+            </div>
+          </div>
+          <div class="prodBlade__imageWrapper">
+            <div class="prodBlade__imageInner">
+              <img class="prodBlade__image"
+              src="{{ product.metafields["global"]["Block_1_Image"] }}"
+              alt="{{ product.metafields["global"]["Block_1_Title"] }}">
+              {% if block.settings.videoIframe != '' %}
+              <div class="prodBlade__vid">
+                <button class="prodBlade__vidButton" vidRef='{{ product.metafields["global"]["Block_1_iframe"] }}'>
+                  <img class="prodBlade__playImg"
+                  src="https://cdn.shopify.com/s/files/1/0441/3567/8105/files/Fill_1_Copy_7.png?v=1595619340"
+                  alt="play button">
+                  <span class="prodBlade__vidText text--15 text--white">
+                    Watch Video
+                  </span>
+                </button>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+    
+    {% if product.metafields["global"]["Block_2_Title"] %}
+      <div class="prodBlade prodBlade--0">
+        <div class="prodBlade__inner">
+          <div class="prodBlade__textWrapper">
+            <div class="prodBlade__title text--28 text--blue text--com">
+              {{ product.metafields["global"]["Block_2_Title"] }}
+            </div>
+            <div class="prodBlade__text text--15">
+              {{ product.metafields["global"]["Block_2_Text"] }}
+            </div>
+          </div>
+          <div class="prodBlade__imageWrapper">
+            <div class="prodBlade__imageInner">
+              <img class="prodBlade__image"
+              src="{{ product.metafields["global"]["Block_2_Image"] }}"
+              alt="{{ product.metafields["global"]["Block_2_Title"] }}">
+              {% if block.settings.videoIframe != '' %}
+              <div class="prodBlade__vid">
+                <button class="prodBlade__vidButton" vidRef='{{ product.metafields["global"]["Block_2_iframe"] }}'>
+                  <img class="prodBlade__playImg"
+                  src="https://cdn.shopify.com/s/files/1/0441/3567/8105/files/Fill_1_Copy_7.png?v=1595619340"
+                  alt="play button">
+                  <span class="prodBlade__vidText text--15 text--white">
+                    Watch Video
+                  </span>
+                </button>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+    
+    {% if product.metafields["global"]["Block_3_Title"] %}
+      <div class="prodBlade prodBlade--1">
+        <div class="prodBlade__inner">
+          <div class="prodBlade__textWrapper">
+            <div class="prodBlade__title text--28 text--blue text--com">
+              {{ product.metafields["global"]["Block_3_Title"] }}
+            </div>
+            <div class="prodBlade__text text--15">
+              {{ product.metafields["global"]["Block_3_Text"] }}
+            </div>
+          </div>
+          <div class="prodBlade__imageWrapper">
+            <div class="prodBlade__imageInner">
+              <img class="prodBlade__image"
+              src="{{ product.metafields["global"]["Block_3_Image"] }}"
+              alt="{{ product.metafields["global"]["Block_3_Title"] }}">
+              {% if block.settings.videoIframe != '' %}
+              <div class="prodBlade__vid">
+                <button class="prodBlade__vidButton" vidRef='{{ product.metafields["global"]["Block_3_iframe"] }}'>
+                  <img class="prodBlade__playImg"
+                  src="https://cdn.shopify.com/s/files/1/0441/3567/8105/files/Fill_1_Copy_7.png?v=1595619340"
+                  alt="play button">
+                  <span class="prodBlade__vidText text--15 text--white">
+                    Watch Video
+                  </span>
+                </button>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+    
+    {% if product.metafields["global"]["Block_4_Title"] %}
+      <div class="prodBlade prodBlade--0">
+        <div class="prodBlade__inner">
+          <div class="prodBlade__textWrapper">
+            <div class="prodBlade__title text--28 text--blue text--com">
+              {{ product.metafields["global"]["Block_4_Title"] }}
+            </div>
+            <div class="prodBlade__text text--15">
+              {{ product.metafields["global"]["Block_4_Text"] }}
+            </div>
+          </div>
+          <div class="prodBlade__imageWrapper">
+            <div class="prodBlade__imageInner">
+              <img class="prodBlade__image"
+              src="{{ product.metafields["global"]["Block_4_Image"] }}"
+              alt="{{ product.metafields["global"]["Block_4_Title"] }}">
+              {% if block.settings.videoIframe != '' %}
+              <div class="prodBlade__vid">
+                <button class="prodBlade__vidButton" vidRef='{{ product.metafields["global"]["Block_4_iframe"] }}'>
+                  <img class="prodBlade__playImg"
+                  src="https://cdn.shopify.com/s/files/1/0441/3567/8105/files/Fill_1_Copy_7.png?v=1595619340"
+                  alt="play button">
+                  <span class="prodBlade__vidText text--15 text--white">
+                    Watch Video
+                  </span>
+                </button>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+    
+    {% if product.metafields["global"]["Block_5_Title"] %}
+      <div class="prodBlade prodBlade--1">
+        <div class="prodBlade__inner">
+          <div class="prodBlade__textWrapper">
+            <div class="prodBlade__title text--28 text--blue text--com">
+              {{ product.metafields["global"]["Block_5_Title"] }}
+            </div>
+            <div class="prodBlade__text text--15">
+              {{ product.metafields["global"]["Block_5_Text"] }}
+            </div>
+          </div>
+          <div class="prodBlade__imageWrapper">
+            <div class="prodBlade__imageInner">
+              <img class="prodBlade__image"
+              src="{{ product.metafields["global"]["Block_5_Image"] }}"
+              alt="{{ product.metafields["global"]["Block_5_Title"] }}">
+              {% if block.settings.videoIframe != '' %}
+              <div class="prodBlade__vid">
+                <button class="prodBlade__vidButton" vidRef='{{ product.metafields["global"]["Block_5_iframe"] }}'>
+                  <img class="prodBlade__playImg"
+                  src="https://cdn.shopify.com/s/files/1/0441/3567/8105/files/Fill_1_Copy_7.png?v=1595619340"
+                  alt="play button">
+                  <span class="prodBlade__vidText text--15 text--white">
+                    Watch Video
+                  </span>
+                </button>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+    
+    
+  </div>
+</div>
+{% section 'prod-reviews' %}
+<script>
+  jQuery('#shopNav').hide();
+</script>{% render 'product-content.zipifypages', contentprt: 'footer' %}
+
+{{product.metafields.shogun.below}}
+
+{% render 'product-recharge-price-check' %}{% include 'product-content.zipifypages', contentprt: 'footer' %}

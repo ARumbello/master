@@ -1,0 +1,92 @@
+{% schema %}
+{
+ "name": "Included",
+ "settings": [
+   {
+     "id": "title",
+     "type": "text",
+     "label": "Title"
+   },
+   {
+     "id": "image",
+     "type": "image_picker",
+     "label": "Image"
+   },
+   {
+     "id": "imageMob",
+     "type": "image_picker",
+     "label": "Image Mobile"
+   }
+ ],
+ "blocks":[
+   {
+     "type": "item",
+     "name": "Item",
+     "settings":[
+       {
+         "id": "number",
+         "type": "text",
+         "label": "Number"
+       },
+       {
+         "id": "text",
+         "type": "text",
+         "label": "Text"
+       }
+     ]
+   }
+ ]
+}
+{% endschema %}
+
+<div class="prodInc">
+  <div class="prodInc__inner">
+   <!-- <div class="prodInc__title text--blue text--28 text--com">
+      {{ section.settings.title }}
+    </div>
+     <div class="prodInc__imgWrapper">
+      <img class="prodInc__img"
+      src="{{ section.settings.image | img_url: '1600x' }}"
+      alt="{{ section.settings.image.alt }}"> 
+      </div>
+      -->
+    <div class="prodInc__imgWrapper lazyload" style="background-image: url('{{ section.settings.image | img_url: '1600x' }}'" alt="{{ section.settings.image.alt }}">
+      <div class="prodInc__title text--blue text--28 text--com">
+        {{ section.settings.title }}
+      </div>
+      <div class="prodInc__imgWrapper__mob">
+        <img class="prodInc__img"
+          src="{{ section.settings.imageMob | img_url: '1600x' }}"
+          alt="{{ section.settings.image.alt }}"> 
+        </div>
+      </div>
+    <div class="prodInc__flex">
+      {% assign count = 0 %}
+      {% for block in section.blocks %}
+        {% assign count = count | plus: 1 %}
+      {% endfor %}
+      {% assign half = count | divided_by: 2 %}
+      
+      {% assign count2 = 0 %}
+      <div class="prodInc__flexcol">
+      {% for block in section.blocks %}
+        {% if block.type == 'item' %}
+         {% if count2 == half %}
+      			</div>
+            	<div class="prodInc__flexcol">
+         {% endif %}
+          <div class="prodInc__item">
+            <div class="prodInc__num text--15 text--white">
+              {{ block.settings.number }}
+            </div>
+            <div class="prodInc__text text--15">
+              {{ block.settings.text }}
+            </div>
+          </div>
+      	{% assign count2 = count2 | plus: 1 %}
+        {% endif %}
+      {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>

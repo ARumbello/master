@@ -1,0 +1,178 @@
+<style>
+#{{ section.id }} .headerSection {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    gap: 90px;
+    padding-block: 10px;
+    padding-inline: 20px;
+    align-items: center;
+}
+#{{ section.id }} .headerSection .logoBox img {
+    width: 130px;
+}
+#{{ section.id }} .headerSection .linkBox {
+    display: flex;
+    gap: 30px;
+}
+#{{ section.id }} .headerSection .linkBox a {
+    display: block;
+    color: #262626;
+    font-size: 16px;
+    font-weight: 400;
+    text-decoration: none;
+    transition: all .3s;
+}
+#{{ section.id }} .headerSection .linkBox a:hover {
+    color: #5f5f5f;
+}
+#{{ section.id }} .headerSectionMobile {
+    display: none;
+}
+  #{{ section.id }} .mobileLink {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 10px 0;
+  background-color: #fff;
+}
+
+#{{ section.id }} .mobileLink a {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 15px 0;
+  font-weight: 500;
+  color: #000;
+  text-decoration: none;
+  border-top: 1px solid #e0e0e0;
+}
+
+#{{ section.id }} .mobileLink a:first-child {
+  border-top: none;
+}
+
+#{{ section.id }} .mobileLink a:hover {
+  background-color: #f8f8f8;
+}
+
+@media (max-width: 768px) {
+    #{{ section.id }} .headerSection {
+        display: none;
+    }
+    #{{ section.id }} .headerSectionMobile {
+        display: block;
+        padding-inline: 20px;
+        padding-block: 10px;
+    }
+    #{{ section.id }} .headerSectionMobile .icons {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    #{{ section.id }} .headerSectionMobile .logoBox img {
+        width: 100px;
+    }
+    #{{ section.id }} .headerSectionMobile .toggleIcon {
+        cursor: pointer;
+        font-size: 24px;
+    }
+    #{{ section.id }} .showHide {
+        display: none;
+        flex-direction: column;
+        gap: 25px;
+        justify-content: center;
+        text-align: center;
+        margin-top: 10px;
+        border-top: 1px solid #edeaea;
+        padding-top:0px;
+    }
+    #{{ section.id }} .showHide.active {
+        display: flex;
+    }
+    #{{ section.id }} .headerSectionMobile .mobileLink a {
+        display: block;
+        color: #262626;
+        font-size: 16px;
+        font-weight: 700;
+        text-decoration: none;
+    }
+    #{{ section.id }} .headerSectionMobile .mobileLink a:hover {
+        color: #5f5f5f;
+    }
+}
+</style>
+<div id="{{ section.id }}">
+    <header class="headerSection">
+        <div class="logoBox">
+            {% if section.settings.log-image-006 != blank %}
+               <a href="/"> <img src="{{ section.settings.log-image-006 | img_url: 'master' }}" alt="Logo"></a>
+            {% endif %}
+        </div>
+        <div class="linkBox">
+            {% if section.settings.link-id != blank %}
+                {% for link in linklists[section.settings.link-id].links %}
+                    <a href="{{ link.url }}">{{ link.title }}</a>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </header>
+
+    <!-- Mobile Header -->
+    <header class="headerSectionMobile">
+        <div class="icons">
+            <div class="logoBox">
+                {% if section.settings.log-image-006 != blank %}
+                  <a href="/">  <img src="{{ section.settings.log-image-006 | img_url: 'master' }}" alt="Logo"></a>
+                {% endif %}
+            </div>
+            <div class="toggleIcon">☰</div>
+        </div>
+
+        <div class="mobileLink showHide">
+            {% if section.settings.link-id != blank %}
+                {% for link in linklists[section.settings.link-id].links %}
+                    <a href="{{ link.url }}">{{ link.title }}</a>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </header>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    var toggleIcon = document.querySelector('#{{ section.id }} .toggleIcon');
+    var mobileLink = document.querySelector('#{{ section.id }} .showHide');
+
+    if (toggleIcon) {
+        toggleIcon.addEventListener('click', function () {
+            mobileLink.classList.toggle('active');
+        });
+    }
+});
+</script>
+{% schema %}
+{
+  "name": "Custom Header Section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "log-image-006",
+      "label": "Logo Image Upload"
+    },
+    {
+      "type": "link_list",
+      "id": "link-id",
+      "label": "Select Navigation Menu"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Header Section"
+    }
+  ]
+}
+{% endschema %}

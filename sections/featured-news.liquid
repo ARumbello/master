@@ -1,0 +1,484 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      {%- if section.settings.title != blank -%}
+      <div class="title-wrapper text-center text-uppercase">
+        <h2 class="heading with-divider"><span>{{ section.settings.title }}</span></h2>
+      </div>
+      {%- endif -%}
+      <div class="news-icon-wrapper">
+        {%- for block in section.blocks -%}
+        	{%- if block.settings.news_icon != blank -%}
+              <div class="news-icon {% if forloop.index == 1 %}active{% endif %}" data-toggle="news-quote-{{block.id}}">
+                {% if block.settings.news_icon_mobile != blank %}
+                  {%- assign news_img_url = block.settings.news_icon | img_url: 'master' -%}
+                  <img class="hide-mb img-fluid lazyload" data-srcset="https:{{ news_img_url }}" alt="{{ block.settings.news_icon.alt | default: block.settings.news_label }}">
+                
+                  {%- assign news_mob_img_url = block.settings.news_icon_mobile | img_url: 'master' -%}
+                  <img class="show-mb img-fluid lazyload" data-srcset="https:{{ news_mob_img_url }}" alt="{{ block.settings.news_icon_mobile.alt | default: block.settings.news_label }}">
+                {% else %}
+                  {%- assign news_img_url = block.settings.news_icon | img_url: 'master' -%}
+                  <img data-srcset="https:{{ news_img_url }}" alt="{{ block.settings.news_icon.alt | default: block.settings.news_label }}" {% include 'lazy_load' %}>
+                {% endif %}
+              </div>
+            {%- endif -%}
+        {%- endfor -%}
+      </div>
+      <div class="news-quotes-wrapper">
+        {%- for block in section.blocks -%}
+        	{%- if block.settings.news_quotes != blank -%}
+              <div id="news-quote-{{block.id}}" class="news-quote {% if forloop.index == 1 %}active{% endif %}">
+                {% if block.settings.news_label != blank %}
+                  <div class="news-quote-title">{{block.settings.news_quotes}}</div>
+                  <div class="news-quote-label"><a href="{{block.settings.new_link}}" target="_blank">{{ block.settings.news_label }}</a></div>
+                {% else %}
+                  <div class="news-quote-title"><a href="{{block.settings.new_link}}" target="_blank">{{block.settings.news_quotes}}</a></div>
+                {% endif %}
+              </div>
+            {%- endif -%}
+        {%- endfor -%}
+      </div>
+      {%- if section.settings.first_icon != blank or section.settings.second_icon != blank -%}
+      <div class="featured-icon-wrapper">
+        {%- if section.settings.first_icon != blank -%}
+        <div class="featured-icon icon-1">
+          {%- assign featured_img_url = section.settings.first_icon | img_url: 'master' -%}
+          <img data-srcset="https:{{ featured_img_url }}" alt="{{ section.settings.first_icon.alt }}" {% include 'lazy_load' %}>
+        </div>
+        {%- endif -%}
+        {%- if section.settings.second_icon != blank -%}
+        <div class="featured-icon icon-2">
+          {%- assign featured_img_url = section.settings.second_icon | img_url: 'master' -%}
+          <img data-srcset="https:{{ featured_img_url }}" alt="{{ section.settings.second_icon.alt }}" {% include 'lazy_load' %}>
+        </div>
+        {%- endif -%}
+      </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<style>
+  #shopify-section-{{section.id}} .heading { 
+    text-transform: none;
+    {% if section.settings.color_heading != blank %}
+    color:{{ section.settings.color_heading }};
+    {% endif %}
+    font-size: {{ section.settings.font_size_heading }};
+    font-weight: {{ section.settings.font_weight_heading }};
+    margin-bottom: 56px;
+/*     opacity: .45; */
+  }
+  
+  .heading.with-divider span {
+    position: relative;
+  }
+  .heading.with-divider span:after, .heading.with-divider span:before {
+      content: "";
+      position: absolute;
+      display: block;
+      width: 40px;
+      height: 1px;
+      top: 11px;
+      background: #8d8e94;
+  }
+  
+  .heading.with-divider span:before {
+      left: -60px;
+  }
+  
+  .heading.with-divider span:after {
+      right: -60px;
+  }
+  
+  #shopify-section-{{section.id}}{
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    {%- if section.settings.background != blank -%}
+    background-color: {{ section.settings.background }};
+    {%- endif -%}
+  }
+  
+  .news-icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row;
+    margin-bottom: -2px;
+  }
+  
+  .news-icon {
+    padding: 10px 30px;
+/*     opacity: .45; */
+    cursor: pointer;
+    min-height: 64px;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 3px solid transparent;
+    position: relative;
+    margin-right: 5%;
+  }
+  
+  .news-icon:last-of-type {
+    margin-right: 0;
+  }
+  
+  .news-icon.active {
+/*     opacity: 1; */
+    display: flex !important;
+    border-bottom-color: #59606B;
+  }
+  
+  .news-icon.active:after {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #555;
+    position: absolute;
+    content: "";
+    top: auto;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .news-icon img {
+    width: auto;
+/*     filter: brightness(0);
+    -webkit-filter: brightness(0); */
+  }
+  
+  .news-quotes-wrapper {
+    padding-top: 60px;
+    padding-bottom: 60px;
+    margin-bottom: 66px;
+    border: 1px solid #707070;
+    border-width: 1px 0;
+  }
+  
+  @keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
+  
+  @-webkit-keyframes fadeIn{
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
+  
+  .news-quote {
+    text-align: center;
+    display: none;
+  }
+  
+  .news-quote.active {
+    display: block;
+    animation: fadeIn linear 1s;
+  }
+  
+  .news-quote-title, .news-quote-title a {
+    font-size: 2.0rem;
+    font-weight: 700;
+    line-height: 1.16;
+    letter-spacing: -0.031em;
+    color: #59606B;
+    text-decoration: none;
+  }
+  
+  .news-quote-label {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.2;
+    margin: 20px auto;
+    letter-spacing: 1px;
+  }
+  
+  .news-quote-label a {
+    color: #303036;
+  }
+  
+  .featured-icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row;
+  }
+  
+  .featured-icon {
+    margin: 0 20px;
+  }
+  
+/*   .featured-icon:hover {
+    opacity: 0.45;
+  } */
+  
+  .featured-icon img {
+  }
+  
+  .featured-icon.icon-1 img {
+    max-width: 150px;
+  }
+  
+  .featured-icon.icon-2 img {
+    max-width: 175px;
+  }
+  
+  @media(max-width: 767px){
+    #shopify-section-{{section.id}}{
+      padding-top: {{ section.settings.padding_top_mob }}px;
+      padding-bottom: {{ section.settings.padding_bottom_mob }}px;
+    }
+    #shopify-section-{{section.id}} .heading { 
+      font-size: 22px;
+      margin-bottom: 30px;
+    }
+    
+    .heading.with-divider span:after, .heading.with-divider span:before {
+        width: 30px;
+        top: 14px;
+    }
+
+    .heading.with-divider span:before {
+        left: -40px;
+    }
+
+    .heading.with-divider span:after {
+        right: -40px;
+    }
+    
+    #shopify-section-{{section.id}} .news-quote-title {
+      font-size: 22px;
+    }
+    
+    .news-quote-label {
+      font-size: 15px;
+    }
+    
+    
+    .news-quotes-wrapper {
+      padding-top: 50px;
+      padding-bottom: 50px;
+      margin-bottom: 55px;
+    }
+    
+    .news-icon-wrapper {
+      flex-flow: wrap;
+    }
+    .news-icon {
+      margin: 0 10px;
+      flex-basis: calc(50% - 20px);
+      width: calc(50% - 20px);
+      min-height: 68px;
+    }
+    
+    .news-quote-title, .news-quote-title a {
+        font-size: 1.5rem;
+    }
+  }
+  
+  @media(max-width: 459px){
+    
+    .news-quotes-wrapper {
+      padding-top: 40px;
+      padding-bottom: 40px;
+      margin-bottom: 44px;
+      border-top: 3px solid #00a5df;
+      position: relative;
+    }
+    
+    .news-quotes-wrapper:before {
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 10px solid #00a5df;
+        position: absolute;
+        content: "";
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .news-icon {
+      padding: 4px 8px;
+      min-height: 48px;
+      margin-bottom: 20px;
+    }
+    
+    .news-icon img {
+      max-height: 42px;
+    }
+    
+    .news-quote-title, .news-quote-title a {
+      font-size: 1.4rem;
+    }
+    
+    .news-icon.active {
+      border: 1px solid #707070;
+      border-radius: 5px;
+    }
+    
+    .news-icon.active:after {
+      display:none;
+    }
+    
+    .featured-icon {
+      margin: 0 10px;
+    }
+   
+  }
+  </style>
+<script>
+  $(document).ready(function(){
+    function remove_active_quote_icon (){
+      $('.news-icon').each(function(){
+        $(this).removeClass('active');
+      });
+      $('.news-quote').each(function(){
+        $(this).removeClass('active');
+      });
+    }
+    
+    $('.news-icon').click(function(){
+      remove_active_quote_icon();
+      $(this).addClass('active');
+      var toggle_id = $(this).attr('data-toggle');
+      if($('#'+toggle_id).length > 0 ) {
+        $('#'+toggle_id).addClass('active');
+      }
+    });
+  });
+</script>
+{% schema %}
+  {
+    "name": "Featured News",
+    "class" : "featured-news-wrapper",
+    "settings": [
+		{
+           "type": "text",
+           "id": "title",
+           "label": "Title",
+           "default" : "Featured In"
+        },
+        {
+            "type" : "text",
+            "id" : "font_size_heading",
+            "label" : "Heading Font Size",
+            "default" : "18px"
+        },
+        {
+            "type" : "text",
+            "id" : "font_weight_heading",
+            "label" : "Heading Font Weight",
+            "default" : "700"
+        },
+        {
+            "type" : "color",
+            "id" : "color_heading",
+            "label" : "Heading Color",
+            "default" : "#1D293F"
+        },
+        {
+          "type": "image_picker",
+          "id": "first_icon",
+          "label": "First Icon"
+        },
+        {
+          "type": "image_picker",
+          "id": "second_icon",
+          "label": "Second icon"
+        },
+        {
+          "type": "header",
+          "content" : "Section Style"
+        },
+        {
+          "type": "color",
+          "id": "background",
+          "label": "Background",
+          "default" : "#FFFFFF"
+        },
+        {
+          "type" : "range",
+          "id" : "padding_top",
+          "label" : "Padding Top",
+          "min": 0,
+          "max" : 150,
+          "step": 10,
+          "unit" : "px",
+          "default": 60
+        },
+        {
+          "type" : "range",
+          "id" : "padding_bottom",
+          "label" : "Padding Bottom",
+          "min": 0,
+          "max" : 150,
+          "step": 10,
+          "unit" : "px",
+          "default": 60
+        },
+        {
+          "type" : "range",
+          "id" : "padding_top_mob",
+          "label" : "Padding Top - Mobile",
+          "min": 0,
+          "max" : 150,
+          "step": 10,
+          "unit" : "px",
+          "default": 60
+        },
+        {
+          "type" : "range",
+          "id" : "padding_bottom_mob",
+          "label" : "Padding Bottom - Mobile",
+          "min": 0,
+          "max" : 150,
+          "step": 10,
+          "unit" : "px",
+          "default": 40
+        }
+     ],
+     "blocks":[
+        {
+         "type": "News",
+         "name": "News",
+         "settings":[
+            {
+               "type": "image_picker",
+               "id": "news_icon",
+               "label": "News Icon"
+            },
+            {
+               "type": "image_picker",
+               "id": "news_icon_mobile",
+               "label": "News Icon (Mobile)"
+            },
+            {
+               "type": "text",
+               "id": "news_label",
+               "label": "News Label"
+            },
+            {
+               "type": "text",
+               "id": "news_quotes",
+               "label": "Quotes"
+            },
+            {
+              "type": "url",
+              "id": "new_link",
+              "label": "News Link"
+            }
+         ]
+        }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

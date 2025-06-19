@@ -1,0 +1,185 @@
+<style>
+  .video-iconlist-section{
+     background: {{ section.settings.background }};
+  }
+</style>
+
+{%- if section.settings.divider -%}<div class="section--divider">{%- endif -%}
+<div class=" video-iconlist-section">
+<div class="page-width page-width--narrowa">
+  <div class="video-iconList">
+    <div class="video-right">
+    
+        {%- if section.settings.video_url contains 'youtube.com/watch' -%}
+          {%- assign video_id = section.settings.video_url | split: 'v=' -%}
+          {%- assign video_id = video_id[1] | split: '&' | first -%}
+          <div
+            id="YouTubeVideo-{{ section.id }}"
+            class="video-div"
+            data-type="youtube"
+            data-video-id="{{ video_id }}"></div>
+        {%- endif -%}
+    
+        {%- if section.settings.video_url contains 'youtu.be/' -%}
+          {%- assign video_id = section.settings.video_url | split: '.be/' -%}
+          {%- assign video_id = video_id[1] | split: '&' | first -%}
+          <div
+            id="YouTubeVideo-{{ section.id }}"
+            class="video-div"
+            data-type="youtube"
+            data-video-id="{{ video_id }}"></div>
+        {%- endif -%}
+    
+        {%- if section.settings.video_url contains 'vimeo.com' -%}
+          {%- assign video_id = section.settings.video_url | split: '.com/' -%}
+          {%- assign video_id = video_id[1] | split: '/' | first -%}
+          <div
+            id="Vimeo-{{ section.id }}"
+            class="video-div"
+            data-type="vimeo"
+            data-video-id="{{ video_id }}"></div>
+        {%- endif -%}
+    
+        {%- if section.settings.video_url contains '.mp4' or section.settings.video_url contains '.MP4' -%}
+          <video
+            id="Mp4Video-{{ section.id }}"
+            class="video-div"
+            src="{{ section.settings.video_url }}"
+            data-type="mp4"
+            loop muted playsinline autoplay></video>
+        {%- endif -%}
+      
+    </div>
+    <div class="iconList-left">  
+      {%- if section.settings.title != blank -%}
+        <header class="section-header">
+          <h2 class="section-header__title">
+            {{ section.settings.title }}
+          </h2>
+        </header>
+      {%- endif -%}
+      {% if section.settings.content != blank %}
+        <div class="section-content">
+          {{ section.settings.content }}
+        </div>
+      {% endif %}
+      {%- if section.blocks.size > 0 -%}  
+        <div class="icon-text-pack">
+        {%- for block in section.blocks -%}
+          <div class="icon-text-block">
+              {% if block.settings.icon_svg != blank %}
+                <div class="iconList-icon">
+                  {% render 'icons', icon: block.settings.icon_svg %}
+                </div>
+              {% endif %}
+            <div class="icon-title-content">
+              <div class="icon-title">{{ block.settings.title }}</div>
+              <div class="icon-content">
+                {{ block.settings.text }}
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+        </div>
+      {%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <div class="bottom-button">
+          <a href="{{ section.settings.button_link }}" class="btn btn--no-animate">
+            {{ section.settings.button_label }}
+          </a>
+        </div>
+      {%- endif -%}
+    
+      {%- if section.blocks.size == 0 -%}
+        <div class="placeholder-noblocks">
+          {{ 'home_page.onboarding.no_content' | t }}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>  
+</div>
+</div>
+{%- if section.settings.divider -%}</div>{%- endif -%}
+
+{% schema %}
+{
+  "name": "Video and IconList",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Sub content"
+    },
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "t:sections.hero-video.settings.video_url.label",
+      "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+      "info": "t:sections.hero-video.settings.video_url.info"
+    } ,  
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+     {
+      "type": "icon_text",
+      "name": "Icon and text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "icon_svg",
+          "label": "SVG icon"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Content",
+          "default": "<p>Content Here</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video and IconList",
+      "blocks": [
+        {
+          "type": "icon_text"
+        },
+        {
+          "type": "icon_text"
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["footer", "header", "custom.popups"]
+  }
+}
+{% endschema %}
+

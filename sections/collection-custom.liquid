@@ -1,0 +1,182 @@
+{% assign css_class = section.settings.css_class %}
+{%- liquid
+  assign per_row = section.settings.per_row
+  assign product_limit = per_row | times: section.settings.rows
+
+  capture gridView
+    render 'products_per_row', products_per_row: per_row, style: 'fractions'
+  endcapture
+-%}
+
+{%- if section.settings.divider -%}<div class="section--divider">{%- endif -%}
+
+<div id="CollectionSection-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="featured-collection" class="{{ css_class }}">
+  {%- if section.settings.title != blank -%}
+    <div class="page-width">
+      <div class="section-header-custom">
+        <div class="section-custom__title">
+          {% if section.settings.collection_svg != blank %}
+            <div class="collection-svg">
+              {% render 'icons', icon: section.settings.collection_svg %}
+            </div>
+          {% endif %}
+          {% if section.settings.title != blank %}
+            <div class="section-custom__title">
+              {{ section.settings.title }}
+            </div>
+          {% endif %}
+        </div>
+        {% if section.settings.content != blank %}
+          <div class="custom-collection-content">
+            <div class="content-main">{{ section.settings.content }}</div>
+            {% if section.settings.sub_content != blank %}
+              <div class="content-sub">{{ section.settings.sub_content }}</div>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="page-width page-width--flush-small">
+    <div class="grid-custom-wrapper">
+      <div class="grid grid--uniform">
+
+        {% if section.blocks.size == 0 %}
+
+          <div class="grid__item">
+            <div class="grid grid--uniform">
+              {%- for i in (1..product_limit) -%}
+                <div class="grid__item grid-product {{ gridView }}" data-aos="row-of-{{ per_row }}">
+                  <div class="grid-product__content">
+                    <a href="{{ product.url | within: collection }}" class="grid-product__link">
+                      <div class="grid-product__image-mask">
+                        {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+                        <div class="image-wrap">{{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}</div>
+                      </div>
+                      <div class="grid-product__meta">
+                        <div class="grid-product__title">{{ 'home_page.onboarding.product_title' | t }}</div>
+                        <div class="grid-product__price">$29</div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              {%- endfor -%}
+            </div>
+          </div>
+
+        {% else %}
+
+          {%- for block in section.blocks-%}
+            {% assign product = all_products[block.settings.featured_product] %}
+            {%- render 'product-grid-item',
+              product: product,
+              per_row: per_row,
+              product_title: block.settings.product_title,
+              score: block.settings.review_score,
+              fallback: '66vw',
+            -%}
+          {%- endfor -%}
+
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{%- if section.settings.divider -%}</div>{%- endif -%}
+
+{% schema %}
+{
+  "name": "Custom Collection",
+  "class": "index-section custom-collection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "collection_svg",
+      "label": "Collection SVG"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:sections.featured-collection.settings.title.label",
+      "default": "Featured collection"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Content"
+    },
+    {
+      "type": "text",
+      "id": "sub_content",
+      "label": "sub_content"
+    },
+    {
+      "type": "range",
+      "id": "per_row",
+      "label": "t:sections.featured-collection.settings.per_row.label",
+      "default": 4,
+      "min": 1,
+      "max": 5,
+      "step": 1
+    },
+    {
+      "type": "range",
+      "id": "rows",
+      "label": "t:sections.featured-collection.settings.rows.label",
+      "default": 1,
+      "min": 1,
+      "max": 5,
+      "step": 1
+    },
+    {
+      "type": "checkbox",
+      "id": "divider",
+      "label": "t:sections.featured-collection.settings.divider.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "css_class",
+      "label": "CSS Class"
+    }    
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "featured_product",
+          "label": "Product"
+        },       
+        {
+          "type": "text",
+          "id": "product_title",
+          "label": "Custom product title"
+        },   
+        {
+          "type": "text",
+          "id": "review_score",
+          "label": "Review score"
+        }   
+      ]      
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Collection",
+      "blocks": [
+        {
+          "type": "product"
+        }     
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["footer", "header", "custom.popups"]
+  }
+}
+{% endschema %}

@@ -1,0 +1,701 @@
+
+<div class="back-condition-quiz" style="background-color: {{ section.settings.background_color }};">
+  <div class="container">
+    <div class="left">
+      {% if section.settings.show_reviews %}
+      <div style="text-align: center; margin-bottom: 10px;">
+        <span style="color: {{ section.settings.stars_color }};">{{ section.settings.stars_symbol }}</span> {{ section.settings.reviews_text }}
+      </div>
+      {% endif %}
+      
+      <h1>{{ section.settings.heading }}</h1>
+      <h2 style="font-size: {{ section.settings.subheading_font_size }}px;">{{ section.settings.subheading }}</h2>
+
+      <div class="button-grid">
+        {% for block in section.blocks %}
+          {% if block.type == 'condition_option' %}
+            <input type="checkbox" id="{{ block.settings.option_id }}" name="condition" value="{{ block.settings.option_text }}">
+            <label for="{{ block.settings.option_id }}"><span>{{ block.settings.option_text }}</span></label>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <a href="{{ section.settings.urlcustom }}" class="check-btn disabled" style="background-color: {{ section.settings.button_bg_color }}; color: {{ section.settings.button_text_color }}; font-size: {{ section.settings.button_font_size }}px;">{{ section.settings.button_text }}</a>
+
+      {% if section.settings.show_guarantee %}
+      <div class="guarantee">
+        <img src="{{ section.settings.guarantee_icon | img_url: 'master' }}" alt="guarantee icon" />
+        <span style="font-size: {{ section.settings.guarantee_font_size }}px;">{{ section.settings.guarantee_text }}</span>
+      </div>
+      {% endif %}
+
+      <p class="note" style="font-size: {{ section.settings.note_font_size }}px;">{{ section.settings.note_text }}</p>
+    </div>
+
+    <div class="right">
+      <img src="{{ section.settings.main_image | img_url: 'master' }}" alt="{{ section.settings.image_alt_text }}" />
+    </div>
+  </div>
+</div>
+
+<style>
+  .check-btn.disabled {
+  background-color: #d3d3d3;
+  pointer-events: none;
+}
+.check-btn.enabled {
+  background-color: #264653 !important;
+  pointer-events: auto;
+}
+
+.back-condition-quiz .button-grid {
+  display: flex!important;
+  flex-wrap: wrap!important;
+  gap: 10px;
+}
+
+.back-condition-quiz .button-grid label {
+  flex: 1 1 calc(50% - 10px)!important; 
+  display: flex;
+  align-items: center;
+}
+
+.back-condition-quiz .button-grid label:last-of-type {
+  margin-left: auto;    width: 50%;
+    justify-content: left;
+  flex: 0 0 auto!important; 
+}
+
+
+
+
+  
+  .back-condition-quiz {
+    font-family: 'Helvetica Neue', sans-serif;
+    color: {{ section.settings.text_color }};
+  }
+
+  .back-condition-quiz .container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 40px;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .back-condition-quiz .left {
+    flex: 1;
+    min-width: 300px;
+  }
+
+  .back-condition-quiz .left h1 {
+    font-weight: 900;
+    font-size: {{ section.settings.heading_font_size-000 }} !important;
+    text-align: center;
+    color: white !important;
+    margin-bottom: 10px;
+  }
+
+  .back-condition-quiz .left h2 {
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 30px;
+  }
+
+  .back-condition-quiz .button-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap:5px;
+    margin-bottom: 30px;
+  }
+
+ 
+  .back-condition-quiz .button-grid input[type="checkbox"] {
+    display: none;
+  }
+
+  
+  .back-condition-quiz .button-grid label {
+    display: flex;
+    align-items: center;
+    background-color: {{ section.settings.option_bg_color }};
+    color: {{ section.settings.option_text_color }};
+    padding: 12px;
+    border-radius: 25px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    font-size: {{ section.settings.option_font_size }}px;
+    margin:0px;
+  }
+  .back-condition-quiz .button-grid label:hover {
+    background-color: {{ section.settings.option_hover_bg_color }};
+  }
+
+  .back-condition-quiz .button-grid label span {
+    padding-left:10px;
+  }
+
+
+  .back-condition-quiz .button-grid label::before {
+    content: "✓";
+    position: absolute;
+    left: 15px;
+    color: #a2d4ce;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size:18px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    font-weight: bolder;
+  }
+
+  .back-condition-quiz .button-grid input[type="checkbox"]:checked + label::before {
+    opacity: 1;
+  }
+  
+  .back-condition-quiz .button-grid input[type="checkbox"]:checked + label {
+    color: {{ section.settings.option_checked_text_color }};
+    background-color: white;
+    border: 1px solid #a2d4ce;
+    padding-left: 30px;
+  }
+
+  .back-condition-quiz .check-btn {
+    padding: 15px 25px;
+    font-weight: 700;
+    border-radius: 30px;width: fit-content;
+    border: none;
+    cursor: pointer;
+    margin: 0 auto 20px;
+    display: block;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+
+  .back-condition-quiz .guarantee {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .back-condition-quiz .guarantee img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .back-condition-quiz .note {
+    border:0px !important;
+    text-align: center;
+  }
+
+  .back-condition-quiz .right {
+    flex: 1;
+    min-width: 300px;
+  }
+
+  .back-condition-quiz .right img {
+    width: 100%;
+    border-radius: 10px;
+  }
+  @media (max-width: 768px) {
+      .back-condition-quiz .button-grid label span {
+    padding-left: 25px;  padding-right: 25px;
+  }
+    .back-condition-quiz .container {
+      flex-direction: column-reverse; /* Image on top, content below */
+      padding: 20px;
+    }
+
+    .back-condition-quiz .left h1 {
+      font-size: {{ section.settings.heading_mobile_font_size }}px;
+    }
+
+    .back-condition-quiz .left h2 {
+      font-size: {{ section.settings.subheading_mobile_font_size }}px;
+    }
+
+    .back-condition-quiz .button-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    .back-condition-quiz .button-grid label {
+      flex: 0 1 auto; 
+      min-width: 0; 
+      font-size: {{ section.settings.option_mobile_font_size }}px;
+    }
+
+    .back-condition-quiz .check-btn {
+      width: fit-content;
+      font-size: {{ section.settings.button_mobile_font_size }}px;
+    }
+    
+    .back-condition-quiz .guarantee span {
+      font-size: {{ section.settings.guarantee_mobile_font_size }}px;
+    }
+    
+    .back-condition-quiz .note {
+      font-size: {{ section.settings.note_mobile_font_size }}px;
+    }
+  }
+  @media (max-width: 380px) {
+    .back-condition-quiz .button-grid label{
+      font-size: 10px;
+      font-weight: bold;
+    }
+     .back-condition-quiz .container {
+    padding: 10px;
+  }
+    .back-condition-quiz .button-grid input[type="checkbox"]:checked + label {
+    padding-left:15px;
+  }
+    .back-condition-quiz .button-grid{
+      gap:5px;
+    }
+  }
+</style>
+<script>
+  const checkboxes = document.querySelectorAll('input[type="checkbox"][name="condition"]');
+  const checkBtn = document.querySelector('.check-btn');
+
+  function updateButtonState() {
+    const anyChecked = Array.from(checkboxes).some(cb => cb.checked);
+
+    if (anyChecked) {
+      checkBtn.classList.remove('disabled');
+      checkBtn.classList.add('enabled');
+    } else {
+      checkBtn.classList.add('disabled');
+      checkBtn.classList.remove('enabled');
+    }
+  }
+
+  checkboxes.forEach(cb => cb.addEventListener('change', updateButtonState));
+</script>
+
+
+{% schema %}
+{
+  "name": "Back Condition Quiz",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#5c95e8"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Reviews Section"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_reviews",
+      "label": "Show Reviews",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "stars_symbol",
+      "label": "Stars Symbol",
+      "default": "★★★★★"
+    },
+    {
+      "type": "color",
+      "id": "stars_color",
+      "label": "Stars Color",
+      "default": "#FFD700"
+    },
+    {
+      "type": "text",
+      "id": "reviews_text",
+      "label": "Reviews Text",
+      "default": "4000+ Verified 5-star reviews"
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "WHAT BACK CONDITION(S) DO YOU HAVE?"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size-000",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading Desktop Font Size",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "heading_mobile_font_size",
+      "min": 16,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading Mobile Font Size",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Subheading"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "SELECT ALL THAT APPLY:"
+    },
+    {
+      "type": "range",
+      "id": "subheading_font_size",
+      "min": 14,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Subheading Font Size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "subheading_mobile_font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Subheading Mobile Font Size",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Option Buttons"
+    },
+    {
+      "type": "color",
+      "id": "option_bg_color",
+      "label": "Option Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "option_text_color",
+      "label": "Option Text Color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "option_hover_bg_color",
+      "label": "Option Hover Background Color",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "color",
+      "id": "option_checked_text_color",
+      "label": "Option Checked Text Color",
+      "default": "#4CAF50"
+    },
+    {
+      "type": "range",
+      "id": "option_font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Option Font Size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "option_mobile_font_size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Option Mobile Font Size",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Check Eligibility"
+    },
+        {
+      "type": "url",
+      "id": "urlcustom",
+      "label": "Button URL"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button Background Color",
+      "default": "#2c4c6e"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Button Font Size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_mobile_font_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Button Mobile Font Size",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Guarantee"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_guarantee",
+      "label": "Show Guarantee",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "guarantee_icon",
+      "label": "Guarantee Icon"
+    },
+    {
+      "type": "text",
+      "id": "guarantee_text",
+      "label": "Guarantee Text",
+      "default": "60-Day Trial Money Back Guarantee"
+    },
+    {
+      "type": "range",
+      "id": "guarantee_font_size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Guarantee Font Size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "guarantee_mobile_font_size",
+      "min": 8,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Guarantee Mobile Font Size",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Note"
+    },
+    {
+      "type": "text",
+      "id": "note_text",
+      "label": "Note Text",
+      "default": "Take our 1 min quiz & see if you qualify"
+    },
+    {
+      "type": "range",
+      "id": "note_font_size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Note Font Size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "note_mobile_font_size",
+      "min": 8,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Note Mobile Font Size",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Main Image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt_text",
+      "label": "Image Alt Text",
+      "default": "Back Pain Relief"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "condition_option",
+      "name": "Condition Option",
+      "settings": [
+        {
+          "type": "text",
+          "id": "option_id",
+          "label": "Option ID",
+          "info": "Unique identifier for this option (e.g., chronic-back-pain)"
+        },
+        {
+          "type": "text",
+          "id": "option_text",
+          "label": "Option Text",
+          "default": "Condition Option"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Back Condition Quiz",
+      "blocks": [
+        {
+          "type": "condition_option",
+          "settings": {
+            "option_id": "chronic-back-pain",
+            "option_text": "Chronic Back Pain"
+          } 
+        },
+        {
+          "type": "condition_option",
+          "settings": {
+            "option_id": "pinched-nerve",
+            "option_text": "Pinched Nerve"
+          }
+        },
+        {
+          "type": "condition_option",
+          "settings": {
+            "option_id": "sciatica",
+            "option_text": "Sciatica"
+          }
+        },
+        {
+          "type": "condition_option",
+          "settings": {
+            "option_id": "arthritis",
+            "option_text": "Arthritis"
+          }
+        },
+        {
+          "type": "condition_option",
+          "settings": {
+            "option_id": "degenerative-disc",
+            "option_text": "Degenerative Disc"
+          }
+        },
+        {
+          "type": "condition_option",
+          "settings": {
+            "option_id": "herniated-discs",
+            "option_text": "Herniated Discs"
+          }
+        },
+        {
+          "type": "condition_option",
+          "settings": {
+            "option_id": "spondylolisthesis",
+            "option_text": "Spondylolisthesis"
+          }
+        },
+        {
+          "type": "condition_option",
+          "settings": {
+            "option_id": "pain-from-discs",
+            "option_text": "Pain From L4, L5, S1 Discs"
+          }
+        },
+        {
+          "type": "condition_option",
+          "settings": {
+            "option_id": "stenosis",
+            "option_text": "Stenosis"
+          }
+        },
+        {
+          "type": "condition_option",
+          "settings": {
+            "option_id": "lack-of-mobility",
+            "option_text": "Lack of Mobility"
+          }
+        },
+        {
+          "type": "condition_option",
+          "settings": {
+            "option_id": "sacroiliac-joint-dysfunction",
+            "option_text": "Sacroiliac Joint Dysfunction"
+          }
+        },
+        {
+          "type": "condition_option",
+          "settings": {
+            "option_id": "bulging-disc",
+            "option_text": "Bulging Disc"
+          }
+        },
+        {
+          "type": "condition_option",
+          "settings": {
+            "option_id": "not-sure",
+            "option_text": "I'm not sure"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

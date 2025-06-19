@@ -1,0 +1,169 @@
+<div class="page-article-title">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1 class="heading">{{ page.title }}</h1>
+        <p class="sub-heading">{{ section.settings.sub_heading }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page-title-share-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 flex-center author-wrapper">
+        {% if section.settings.author_image != blank %}
+        <div class="author-image">
+          <img data-src="{{ section.settings.author_image | img_url:'grande', crop:'center' }}" class="image-fluid lazyload">
+        </div>
+        {% endif %}
+        <div class="author-info">
+          <span class="author-date">{{ section.settings.author_date }}</span>
+          <span class="author-name">{{ section.settings.author_name }}</span>
+        </div>
+      </div>
+      <div class="col-md-6 flex-center share-wrapper">
+        <div class="author-share-wrapper">
+          <div class="sharethis-inline-share-buttons"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  #shopify-section-{{section.id}} .page-article-title {
+    {% if section.settings.use_title_border == true %}
+    border-bottom: 1px solid #e2e4e8;
+    {% endif %}
+    padding-bottom: {{ section.settings.title_padding_bottom }}px;
+    padding-top: {{ section.settings.title_padding_bottom }}px;
+    margin-bottom: {{ section.settings.title_margin_bottom }}px;
+  }
+  
+  #shopify-section-{{section.id}} .page-article-title .heading {
+    font-weight: 700;
+  }
+  
+  #shopify-section-{{section.id}} .page-article-title .sub-heading {
+    font-weight: 500;
+    margin-top: 20px;
+  }
+  
+  #shopify-section-{{section.id}} .author-wrapper .author-image img {
+    border-radius: 50%;
+  }
+  
+  #shopify-section-{{section.id}} .author-wrapper .author-info {
+    margin-left: 20px;
+  }
+  
+  #shopify-section-{{section.id}} .author-wrapper .author-info span {
+    display: block;
+    color: #000000;
+    font-weight: 600;
+    margin-bottom: 3px;
+ }
+  #shopify-section-{{section.id}} .page-title-share-wrapper {
+    padding-top: {{ section.settings.share_padding_y | times: 0.5 }}px;
+    padding-bottom: {{ section.settings.share_padding_y }}px;
+  }
+  #shopify-section-{{section.id}} .page-title-share-wrapper .share-wrapper {
+    justify-content: flex-end;
+  }
+  @media(max-width: 768px){
+    #shopify-section-{{section.id}} .page-title-share-wrapper .share-wrapper {
+      justify-content: flex-start;
+    }
+  }
+  
+  #st-1 .st-btn {
+    display: inline-block !important;
+  }
+</style>
+{% schema %}
+  {
+    "name": "Page title",
+    "settings": [
+        {
+            "type": "header",
+            "content": "Custom Page Title:"
+        },
+        {
+            "id" : "use_custom_title",
+            "type" : "checkbox",
+            "label" : "Use Custom Title",
+            "default" : false
+        },
+        {
+            "id" : "custom_title",
+            "type" : "text",
+            "label" : "Custom Title",
+            "default" : "Custom Title"
+        },
+        {
+            "id" : "sub_heading",
+            "type" : "text",
+            "label" : "Sub heading",
+            "default" : "It's note a TENS unit, pharmaceutical drug, supplement, or like anything I've ever tried before."
+        },
+        {
+            "id" : "use_title_border",
+            "type" : "checkbox",
+            "label" : "Use Title Border",
+            "default" : true
+        },
+        {
+            "id": "title_padding_bottom",
+            "type": "range",
+            "label": "Title Padding Bottom",
+            "min": 0,
+            "max": 50,
+            "step": 10,
+            "default": 20
+        },
+        {
+            "id": "title_margin_bottom",
+            "type": "range",
+            "label": "Title Margin Bottom",
+            "min": 0,
+            "max": 50,
+            "step": 10,
+            "default": 0
+        },
+        {
+            "type": "header",
+            "content": "Share Info:"
+        },
+        {
+            "id" : "author_image",
+            "type" : "image_picker",
+            "label" : "Author Image"
+        },
+        {
+            "id" : "author_date",
+            "type" : "text",
+            "label" : "Author Date"
+        },
+        {
+            "id" : "author_name",
+            "type" : "text",
+            "label" : "Author Name"
+        },
+        {
+            "id": "share_padding_y",
+            "type": "range",
+            "label": "Share Padding - Y",
+            "min": 0,
+            "max": 50,
+            "step": 10,
+            "default": 20
+        }
+     ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

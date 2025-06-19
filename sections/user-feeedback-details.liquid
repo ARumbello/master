@@ -1,0 +1,422 @@
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Slick CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+
+<!-- Slick JS -->
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+<style>
+
+  #{{ section.id }} .fnt-20 {
+    font-size: 20px;
+  }
+  #{{ section.id }} .fnt-base {
+    font-size: 16px;
+  }
+ #{{ section.id }} .main-ritual h1{
+   color: white;
+    font-size: 40px;
+    text-align: center;
+    line-height: 57px;
+    font-weight: 400;
+ }
+  #{{ section.id }} .font-bold {
+    font-weight: 700;
+  }
+  #{{ section.id }} .font-semibold {
+    font-weight: 600;
+  }
+  #{{ section.id }} .font-normal {
+    font-weight: 400;
+  }
+
+  #{{ section.id }} .white-text {
+    color: #fff;
+  }
+  #{{ section.id }} .primary-text {
+    color: #002f49;
+  }
+  #{{ section.id }} .bg-dark-blue {
+    background-color: #002f49;
+  }
+  #{{ section.id }} .bg-white {
+    background-color: #ffffffff;
+  }
+ 
+  #{{ section.id }} .flex {
+    display: flex;
+  }
+  #{{ section.id }} .slef-end {
+    align-self: center;
+  }
+ 
+  #{{ section.id }} .mb-2 {
+    margin-bottom: 8px;
+  }
+ 
+  #{{ section.id }} .rounded-3xl {
+    border-radius: 24px;
+  }
+ 
+
+  #{{ section.id }} .center-text {
+    text-align: center;
+  }
+
+  #{{ section.id }} .mobile {
+    display: none;
+  }
+  #{{ section.id }} .user-feedback {
+    background-color: #002f49;
+    padding: 72px 0;
+  }
+  #{{ section.id }} .main-ritual {
+    width: 100%;
+    padding: 20px 0;
+    margin-block: 40px;
+    background-color:{{ section.settings.background-color-main-00 }};
+    padding: 70px 0px;
+  }
+  #{{ section.id }} .inner-ritual {
+    width: 100%;
+   
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+  }
+  #{{ section.id }} .feedback {
+    border-radius: 24px;
+    
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+   
+    #{{ section.id }} iframe{
+          border-radius: 10px 10px 0px 0px;
+    }
+  }
+  #{{ section.id }} .feedback img{
+    width:100%;
+  }
+  #{{ section.id }} .feedback-content {
+    padding: 32px;
+  }
+
+  #{{ section.id }} .feedback .quote {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+  }
+  #{{ section.id }} .feedback .name-area {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  #{{ section.id }} .feedback .name-area p {
+    
+    font-weight: 700;
+  }
+  #{{ section.id }} .feedback .name-area span {
+    
+    align-self: center;
+  }
+  #{{ section.id }} .feedback .rate {
+    margin-bottom: 10px;
+  }
+  #{{ section.id }} .quote img{
+    width:15px;
+  }
+  #{{ section.id }} .feedback .rate{
+    display:flex;
+    gap:10px;
+  }
+  #{{ section.id }} .rate img{
+    width:15px;
+  }
+ #{{ section.id }} .main-ritual .slick-dots {
+    bottom: -30px;
+   top:100%;
+   left:0px;
+  }
+  #{{ section.id }} .slick-dots {
+    bottom: -30px;
+   top:100%;
+   left:0px;
+  }
+   @media (max-width: 768px) {
+     #{{ section.id }} .inner-ritual {
+      grid-template-columns:1fr;
+      justify-content: center;
+    }
+     #{{ section.id }} .inner-ritual {
+      display: block;
+    }
+  #{{ section.id }} .main-ritual h1{
+    color: white;
+    font-size:28px;
+    line-height:40px;
+    font-weight: 400;
+ }
+  #{{ section.id }} .main-ritual {
+    padding: 20px 0px;
+  }
+  }
+ 
+</style>
+
+<div id="{{ section.id }}">
+<div class="main-ritual">
+  <h1>{{ section.settings.main-title-00 }}</h1>
+  <div class="inner-ritual page-width">
+    {% for block in section.blocks %}
+    <div class="feedback" style=" background-color:{{block.settings.feed-box-bg}};">
+          {% if block.settings.feed-main-image != blank %}
+          <iframe 
+        width="100%" 
+        height="315" 
+        src="https://www.youtube.com/embed/{{ block.settings.feed-main-image }}" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen>
+      </iframe>
+          {% endif %}
+          <div class="feedback-content">
+            <div class="quote" style="background:{{block.settings.quote-bg}};">
+             {% if block.settings.quote-img != blank %}
+          <img src="{{ block.settings.quote-img | img_url: 'large' }}" alt="{{ block.settings.quote-img.alt}}">
+          {% endif %} 
+            </div>
+            <div>
+              <div class="name-area">
+                <p style="font-size:{{block.settings.rayan-font}}px;color:{{block.settings.rayan-color}};">{{ block.settings.rayan-text }}</p>
+                <span style="font-size:{{block.settings.area-span-font}}px; color:{{block.settings.area-span-color}};">{{ block.settings.verify-text}}</span>
+              </div>
+              <div class="rate">
+               {% if block.settings.Star-one != blank %}
+          <img src="{{ block.settings.Star-one | img_url: 'large' }}" alt="{{ block.settings.Star-one}}">
+          {% endif %}
+      {% if block.settings.Star-two != blank %}
+          <img src="{{ block.settings.Star-two | img_url: 'large' }}" alt="{{ block.settings.Star-two}}">
+          {% endif %}
+      {% if block.settings.Star-three != blank %}
+          <img src="{{ block.settings.Star-three | img_url: 'large' }}" alt="{{ block.settings.three}}">
+          {% endif %}
+      {% if block.settings.Star-four != blank %}
+          <img src="{{ block.settings.Star-four | img_url: 'large' }}" alt="{{ block.settings.Star-four}}">
+          {% endif %}
+               {% if block.settings.Star-five != blank %}
+          <img src="{{ block.settings.Star-five | img_url: 'large' }}" alt="{{ block.settings.Star-four}}">
+          {% endif %}
+                
+                
+                
+              </div>
+              <p class="review-title" style="font-size:{{block.settings.review-title-font}}px;">{{ block.settings.review-title-text }}</p>
+              <p class="review" style="font-size:{{block.settings.review-para-font}}px;">
+                {{ block.settings.para-text }}
+              </p>
+            </div>
+          </div>
+        </div>
+     {% endfor %}   
+  </div>
+</div>
+</div>
+<script>
+  $(document).ready(function () {
+    function initSlick() {
+      if ($(window).width() < 768) {
+        if (!$('.inner-ritual').hasClass('slick-initialized')) {
+          $('.inner-ritual').slick({
+            dots: true,
+            arrows: false,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1.5,
+            autoplay: true,
+            autoplaySpeed: 1500
+          });
+        }
+      } else {
+        if ($('.inner-ritual').hasClass('slick-initialized')) {
+          $('.inner-ritual').slick('unslick');
+        }
+      }
+    }
+
+    initSlick();
+
+    $(window).on('resize', function () {
+      initSlick();
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "User Feeedback Details",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background-color-main-00",
+      "label": "Background Color",
+      "default": "#528faa"
+    },
+    {
+      "type": "text",
+      "id": "main-title-00",
+      "label": "Main Title",
+      "default": "Here’s What NeuroMD Users are Saying"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name":"Feed Card",
+      "settings": [
+        {
+          "type": "color",
+          "id": "feed-box-bg",
+          "label": "Feed-Box Bg Color",
+          "default": "#f5f5f5ff"
+        },
+        
+        {
+          "type": "html",
+          "id": "feed-main-image",
+          "label": "Upload Feed video"
+        },
+        {
+          "type": "image_picker",
+          "id": "quote-img",
+          "label": "Upload Quote Image"
+        },
+        {
+          "type": "color",
+          "id": "quote-bg",
+          "label": "Quote Bg Color",
+          "default": "#002f49"
+        },
+        {
+          "type": "text",
+          "id": "rayan-text",
+          "label": "Feed Heading",
+          "default":"Rayan"
+        },
+        {
+          "type": "color",
+          "id": "rayan-color",
+          "label": "Rayan Head Color",
+          "default": "#353535"
+        },
+        {
+          "type": "range",
+          "id": "rayan-font",
+          "min": 24,
+          "max": 48,
+          "step": 1,
+          "unit": "px",
+          "label": "Rayan Head Font",
+          "default":28
+        },
+        {
+          "type": "text",
+          "id": "verify-text",
+          "label": "Verify Heading",
+          "default":"Verify Buyer"
+        },
+        {
+          "type": "color",
+          "id": "area-span-color",
+          "label": "Verify Text Color",
+          "default": "#333333"
+        },
+
+
+
+        {
+          "type": "image_picker",
+          "id": "Star-one",
+          "label": "Upload Star one Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "Star-two",
+          "label": "Upload Star two Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "Star-three",
+          "label": "Upload Star three Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "Star-four",
+          "label": "Upload Star four Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "Star-five",
+          "label": "Upload Star Five Image"
+        },
+        {
+          "type": "range",
+          "id": "area-span-font",
+          "min":12,
+          "max": 28,
+          "step": 1,
+          "unit": "px",
+          "label": "Verify Head Font",
+          "default":16
+        },
+        {
+          "type": "text",
+          "id": "review-title-text",
+          "label": "Recommended Heading",
+          "default":"Highly Recommended"
+        },
+        {
+          "type": "range",
+          "id": "review-title-font",
+          "min":12,
+          "max": 28,
+          "step": 1,
+          "unit": "px",
+          "label": "Review Head Font",
+          "default":16
+        },
+        {
+          "type": "text",
+          "id": "para-text",
+          "label": "Review Description",
+          "default":"Early in January, I developed lower back pain, sciatica pain that made it really hard to move. I used to be a big runner and I wasn't even able to run anymore. I tried chiropractors, tens units, and ibuprofen, but nothing seemed to work for me. I saw NeuroMD and thought I may as well give it a try. And it actually worked really, really well for me. Now I'm very active, I go to the gym every day, and most importantly, waking up and I'm actually able to move. So, so far so good! I've had it for about 6 weeks and it seems to be getting better and better every time I try it. So, I highly recommend NeuroMD."
+        },
+        {
+          "type": "range",
+          "id": "review-para-font",
+          "min":12,
+          "max": 28,
+          "step": 1,
+          "unit": "px",
+          "label": "Review Para Font",
+          "default":16
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "User Feeedback Details",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,224 @@
+<div class="image-text-section">
+   <div class="image-text-inner">
+     <div class="col col-left">
+	    <h2>{{ section.settings.heading }}</h2>
+		<p>{{ section.settings.text }}</p>
+		{%- for block in section.blocks -%}
+	    <div class="info-box">
+		   <img src="{{ block.settings.img_01 | img_url: 'master'  }}">
+		   <div class="info-t">
+		       <h3>{{ block.settings.subheading }}</h3>
+			   <p>{{ block.settings.text_01 }}</p>
+		   </div>
+		</div>
+		{%- endfor -%}
+       <a class="button btn-p" href="{{ section.settings.btn-link }}">{{ section.settings.btn-label }}</a>
+	 </div>
+	 
+	 <div class="col col-right">
+        {% if section.settings.video_url != blank %}
+          <video 
+            autoplay 
+            loop 
+            muted 
+            playsinline
+            style="width: 100%; border-radius: 20px;"
+            preload="metadata"
+          >
+            <source src="{{ section.settings.video_url }}" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        {% elsif section.settings.img_02 != blank %}
+	      <img src="{{ section.settings.img_02 | img_url: 'master'  }}">
+        {% endif %}
+	 </div>
+   </div>
+</div>
+
+<style>
+  .image-text-section{
+     background-color: {{ section.settings.color_bg }};
+     padding-top:{{ section.settings.p_t }}px; 
+     padding-bottom:{{ section.settings.p_b }}px;
+  }
+.image-text-inner {
+    width: calc(100% - 40px);
+    margin: 0 auto;
+    max-width: 1240px;
+    display: flex;
+    justify-content: space-between;
+    gap: 50px!important;
+    align-items: center;
+}
+.image-text-inner .col{
+  width: 50%;
+    flex-basis: auto;
+}
+.image-text-section .info-box img {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+    margin-right: 0px;
+    margin-top: 3px;
+}
+.info-box {
+    display: flex;
+    justify-content: space-between;
+    background: #fff;
+    border: 1px solid #002F4933;
+    margin: 30px 0;
+    padding: 20px;
+    border-radius: 20px;
+    gap:20px;
+}
+.col.col-left h2 p {
+    font-size: 34px;
+    color: #000;
+    margin-bottom: 10px;
+}
+.info-t h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+.button.btn-p {
+    background: #002F49!important;
+    color: #fff!important;
+    display: inline-block;
+    border: 1px solid #002F49!important;
+    border-radius: 4px;
+    margin-top: 10px;
+    padding: 12px 32px!important;
+}
+.button.btn-p a {
+    color: #fff;
+    text-decoration: none;
+    margin-right: 8px;
+}
+.col.col-right img {
+    width: 100%;
+    margin-left: 0px;
+    border-radius: 20px;
+}
+.col.col-right video {
+    width: 100%;
+    margin-left: 0px;
+    border-radius: 20px;
+}
+
+@media only screen and (max-width: 1200px) {
+ .col.col-right img,
+ .col.col-right video {
+    margin-left: 0px;
+}     
+}
+@media only screen and (max-width: 767px) {
+.image-text-inner {
+    flex-direction: column;
+}
+.image-text-inner .col {
+    width: 100%;
+}
+.col.col-left h2 p {
+    font-size: 24px!Important;
+    line-height: 36px!Important;
+}
+.button.btn-p {
+    width: 100%;
+    text-align: center;
+}
+}
+</style>
+
+
+{% schema %}
+{
+    "name": "image-text-section",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_bg",
+        "label": "background color",
+        "default": "#f2f2f2"
+      },
+	  {
+          "type": "richtext",
+          "id": "heading",
+          "label": "Heading"
+      },
+	  {
+          "type": "richtext",
+          "id": "text",
+          "label": "subheading"
+      },
+	  {
+            "type": "image_picker",
+            "id": "img_02",
+            "label": "Image"
+      },
+      {
+          "type": "text",
+          "id": "video_url",
+          "label": "Video URL (MP4) - Optional",
+          "info": "If you add a video URL, it will show instead of the image"
+      },
+      {
+          "type": "text",
+          "id": "btn-label",
+          "label": "label"
+      },
+      {
+          "type": "url",
+          "id": "btn-link",
+          "label": "link"
+      },
+	  {
+        "type": "range",
+        "id": "p_t",
+        "default": 50,
+        "label": "Padding Top",
+        "max": 300,
+        "min": 0,
+        "step": 5,
+        "unit": "Px"
+      }, {
+        "type": "range",
+        "id": "p_b",
+        "default": 50,
+        "label": "Padding Bottom",
+        "max": 300,
+        "min": 0,
+        "step": 5,
+        "unit": "Px"
+      }
+    ],
+	 "blocks": [
+      {
+        "type": "image-box",
+        "name": "image-box",
+        "settings": [
+		  {
+            "type": "image_picker",
+            "id": "img_01",
+            "label": "icon Image"
+          },
+          {
+            "type": "text",
+            "id": "subheading",
+            "label": "Heading"
+          },  
+          {
+            "type": "richtext",
+            "id": "text_01",
+            "label": "Content"
+          }
+        ]
+      }
+    ],
+    "presets": [
+        {
+            "name": "image-text-section"
+        }
+    ]
+}
+{% endschema %}
